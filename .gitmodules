@@ -4,3 +4,9 @@
 [submodule "MaterialSkin/ModernFolderBrowserDialog"]
 	path = MaterialSkin/ModernFolderBrowserDialog
 	url = https://github.com/SetsunaF/ModernFolderBrowserDialog.git
+[submodule "ModernFolderBrowserDialog"]
+	path = ModernFolderBrowserDialog
+	url = https://github.com/SetsunaF/ModernFolderBrowserDialog.git
+[submodule "MaterialSkin"]
+	path = MaterialSkin
+	url = https://github.com/T5ive/MaterialSkin.git
