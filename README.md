@@ -2,4 +2,10 @@
  
 Not available yet.
 
-Attend the midterm exam Will come back to fix main.cpp after the exam
+Everything is quite complete.
+
+Only Main.cpp still has problems.
+
+# Todo
+
+- Add Button, ButtonLink and InputValue
