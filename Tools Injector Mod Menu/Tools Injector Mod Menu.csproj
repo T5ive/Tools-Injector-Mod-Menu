@@ -132,15 +132,14 @@
     <Content Include="T5 - 32.ico" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\#Theme\MaterialSkin\MaterialSkin\MaterialSkin.csproj">
+    <ProjectReference Include="..\MaterialSkin\MaterialSkin\MaterialSkin.csproj">
       <Project>{8eb7611b-68cd-4b8b-987a-11717e2b250c}</Project>
       <Name>MaterialSkin</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\..\#Theme\ModernFolderBrowserDialog\ModernFolderBrowserDialog\ModernFolderBrowserDialog.csproj">
+    <ProjectReference Include="..\ModernFolderBrowserDialog\ModernFolderBrowserDialog\ModernFolderBrowserDialog.csproj">
       <Project>{e1f5aeb2-7cfd-40c6-9a97-ada7e13f1d0c}</Project>
       <Name>ModernFolderBrowserDialog</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
