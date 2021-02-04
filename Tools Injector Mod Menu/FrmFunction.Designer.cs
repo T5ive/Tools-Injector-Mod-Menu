@@ -33,18 +33,19 @@ namespace Tools_Injector_Mod_Menu
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.dataList = new System.Windows.Forms.DataGridView();
+            this.colOffset = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colHex = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.removeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.materialCard1 = new MaterialSkin.Controls.MaterialCard();
-            this.txtNameCheat = new MaterialSkin.Controls.MaterialTextBox();
-            this.label16 = new System.Windows.Forms.Label();
+            this.btnClose = new MaterialSkin.Controls.MaterialButton();
+            this.btnSave = new MaterialSkin.Controls.MaterialButton();
             this.txtValues = new MaterialSkin.Controls.MaterialTextBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.btnSave = new MaterialSkin.Controls.MaterialButton();
-            this.btnClose = new MaterialSkin.Controls.MaterialButton();
-            this.colOffset = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colHex = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.txtNameCheat = new MaterialSkin.Controls.MaterialTextBox();
+            this.label16 = new System.Windows.Forms.Label();
+            this.materialCard1 = new MaterialSkin.Controls.MaterialCard();
+            this.addToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.dataList)).BeginInit();
             this.contextMenuStrip1.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -90,12 +91,25 @@ namespace Tools_Injector_Mod_Menu
             this.dataList.KeyDown += new System.Windows.Forms.KeyEventHandler(this.dataGridView1_KeyDown);
             this.dataList.MouseDown += new System.Windows.Forms.MouseEventHandler(this.dataList_MouseDown);
             // 
+            // colOffset
+            // 
+            this.colOffset.HeaderText = "Offset";
+            this.colOffset.Name = "colOffset";
+            this.colOffset.Width = 150;
+            // 
+            // colHex
+            // 
+            this.colHex.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.colHex.HeaderText = "Hex";
+            this.colHex.Name = "colHex";
+            // 
             // contextMenuStrip1
             // 
             this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.addToolStripMenuItem,
             this.removeToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(118, 26);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(118, 48);
             // 
             // removeToolStripMenuItem
             // 
@@ -122,44 +136,45 @@ namespace Tools_Injector_Mod_Menu
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Main Settings";
             // 
-            // materialCard1
+            // btnClose
             // 
-            this.materialCard1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            this.materialCard1.Controls.Add(this.groupBox1);
-            this.materialCard1.Depth = 0;
-            this.materialCard1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.materialCard1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.materialCard1.Location = new System.Drawing.Point(0, 296);
-            this.materialCard1.Margin = new System.Windows.Forms.Padding(14);
-            this.materialCard1.MouseState = MaterialSkin.MouseState.HOVER;
-            this.materialCard1.Name = "materialCard1";
-            this.materialCard1.Padding = new System.Windows.Forms.Padding(14);
-            this.materialCard1.Size = new System.Drawing.Size(800, 154);
-            this.materialCard1.TabIndex = 2;
+            this.btnClose.AutoSize = false;
+            this.btnClose.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.btnClose.Depth = 0;
+            this.btnClose.DrawShadows = true;
+            this.btnClose.HighEmphasis = true;
+            this.btnClose.Icon = null;
+            this.btnClose.Location = new System.Drawing.Point(601, 75);
+            this.btnClose.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
+            this.btnClose.MouseState = MaterialSkin.MouseState.HOVER;
+            this.btnClose.Name = "btnClose";
+            this.btnClose.Size = new System.Drawing.Size(164, 36);
+            this.btnClose.TabIndex = 19;
+            this.btnClose.Text = "Close";
+            this.btnClose.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
+            this.btnClose.UseAccentColor = false;
+            this.btnClose.UseVisualStyleBackColor = true;
+            this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
             // 
-            // txtNameCheat
+            // btnSave
             // 
-            this.txtNameCheat.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.txtNameCheat.Depth = 0;
-            this.txtNameCheat.Font = new System.Drawing.Font("Roboto", 12F);
-            this.txtNameCheat.Location = new System.Drawing.Point(149, 30);
-            this.txtNameCheat.MaxLength = 50;
-            this.txtNameCheat.MouseState = MaterialSkin.MouseState.OUT;
-            this.txtNameCheat.Multiline = false;
-            this.txtNameCheat.Name = "txtNameCheat";
-            this.txtNameCheat.Size = new System.Drawing.Size(151, 36);
-            this.txtNameCheat.TabIndex = 13;
-            this.txtNameCheat.Text = "";
-            this.txtNameCheat.UseTallSize = false;
-            // 
-            // label16
-            // 
-            this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(6, 37);
-            this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(127, 24);
-            this.label16.TabIndex = 12;
-            this.label16.Text = "Name Cheat:";
+            this.btnSave.AutoSize = false;
+            this.btnSave.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.btnSave.Depth = 0;
+            this.btnSave.DrawShadows = true;
+            this.btnSave.HighEmphasis = true;
+            this.btnSave.Icon = null;
+            this.btnSave.Location = new System.Drawing.Point(429, 75);
+            this.btnSave.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
+            this.btnSave.MouseState = MaterialSkin.MouseState.HOVER;
+            this.btnSave.Name = "btnSave";
+            this.btnSave.Size = new System.Drawing.Size(164, 36);
+            this.btnSave.TabIndex = 18;
+            this.btnSave.Text = "Save";
+            this.btnSave.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
+            this.btnSave.UseAccentColor = false;
+            this.btnSave.UseVisualStyleBackColor = true;
+            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
             // txtValues
             // 
@@ -185,56 +200,51 @@ namespace Tools_Injector_Mod_Menu
             this.label1.TabIndex = 16;
             this.label1.Text = "Values:";
             // 
-            // btnSave
+            // txtNameCheat
             // 
-            this.btnSave.AutoSize = false;
-            this.btnSave.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.btnSave.Depth = 0;
-            this.btnSave.DrawShadows = true;
-            this.btnSave.HighEmphasis = true;
-            this.btnSave.Icon = null;
-            this.btnSave.Location = new System.Drawing.Point(429, 75);
-            this.btnSave.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
-            this.btnSave.MouseState = MaterialSkin.MouseState.HOVER;
-            this.btnSave.Name = "btnSave";
-            this.btnSave.Size = new System.Drawing.Size(164, 36);
-            this.btnSave.TabIndex = 18;
-            this.btnSave.Text = "Save";
-            this.btnSave.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
-            this.btnSave.UseAccentColor = false;
-            this.btnSave.UseVisualStyleBackColor = true;
+            this.txtNameCheat.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.txtNameCheat.Depth = 0;
+            this.txtNameCheat.Font = new System.Drawing.Font("Roboto", 12F);
+            this.txtNameCheat.Location = new System.Drawing.Point(149, 30);
+            this.txtNameCheat.MaxLength = 50;
+            this.txtNameCheat.MouseState = MaterialSkin.MouseState.OUT;
+            this.txtNameCheat.Multiline = false;
+            this.txtNameCheat.Name = "txtNameCheat";
+            this.txtNameCheat.Size = new System.Drawing.Size(151, 36);
+            this.txtNameCheat.TabIndex = 13;
+            this.txtNameCheat.Text = "";
+            this.txtNameCheat.UseTallSize = false;
             // 
-            // btnClose
+            // label16
             // 
-            this.btnClose.AutoSize = false;
-            this.btnClose.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.btnClose.Depth = 0;
-            this.btnClose.DrawShadows = true;
-            this.btnClose.HighEmphasis = true;
-            this.btnClose.Icon = null;
-            this.btnClose.Location = new System.Drawing.Point(601, 75);
-            this.btnClose.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
-            this.btnClose.MouseState = MaterialSkin.MouseState.HOVER;
-            this.btnClose.Name = "btnClose";
-            this.btnClose.Size = new System.Drawing.Size(164, 36);
-            this.btnClose.TabIndex = 19;
-            this.btnClose.Text = "Close";
-            this.btnClose.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
-            this.btnClose.UseAccentColor = false;
-            this.btnClose.UseVisualStyleBackColor = true;
-            this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
+            this.label16.AutoSize = true;
+            this.label16.Location = new System.Drawing.Point(6, 37);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(127, 24);
+            this.label16.TabIndex = 12;
+            this.label16.Text = "Name Cheat:";
             // 
-            // colOffset
+            // materialCard1
             // 
-            this.colOffset.HeaderText = "Offset";
-            this.colOffset.Name = "colOffset";
-            this.colOffset.Width = 150;
+            this.materialCard1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.materialCard1.Controls.Add(this.groupBox1);
+            this.materialCard1.Depth = 0;
+            this.materialCard1.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.materialCard1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.materialCard1.Location = new System.Drawing.Point(0, 296);
+            this.materialCard1.Margin = new System.Windows.Forms.Padding(14);
+            this.materialCard1.MouseState = MaterialSkin.MouseState.HOVER;
+            this.materialCard1.Name = "materialCard1";
+            this.materialCard1.Padding = new System.Windows.Forms.Padding(14);
+            this.materialCard1.Size = new System.Drawing.Size(800, 154);
+            this.materialCard1.TabIndex = 2;
             // 
-            // colHex
+            // addToolStripMenuItem
             // 
-            this.colHex.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.colHex.HeaderText = "Hex";
-            this.colHex.Name = "colHex";
+            this.addToolStripMenuItem.Name = "addToolStripMenuItem";
+            this.addToolStripMenuItem.Size = new System.Drawing.Size(117, 22);
+            this.addToolStripMenuItem.Text = "Add";
+            this.addToolStripMenuItem.Click += new System.EventHandler(this.addToolStripMenuItem_Click);
             // 
             // FrmFunction
             // 
@@ -272,5 +282,6 @@ namespace Tools_Injector_Mod_Menu
         private MaterialSkin.Controls.MaterialButton btnClose;
         private System.Windows.Forms.DataGridViewTextBoxColumn colOffset;
         private System.Windows.Forms.DataGridViewTextBoxColumn colHex;
+        private System.Windows.Forms.ToolStripMenuItem addToolStripMenuItem;
     }
 }

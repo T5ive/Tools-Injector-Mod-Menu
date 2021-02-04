@@ -17,7 +17,6 @@ namespace Tools_Injector_Mod_Menu
 {
     public partial class FrmMain : MaterialForm
     {
-        //TODO Edit offset list -> Frm Function
         public FrmMain()
         {
             InitializeComponent();
@@ -37,6 +36,8 @@ namespace Tools_Injector_Mod_Menu
         private readonly string _tempPathMenu = Path.GetTempPath() + "TFiveMenu";
 
         public static string Category, SeekBar;
+
+        private bool _compile = true;
 
         public enum State
         {
@@ -435,6 +436,20 @@ namespace Tools_Injector_Mod_Menu
 
         #region ListView Group
 
+        private void listView1_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            if (listView1.SelectedItems.Count > 0)
+            {
+                var index = listView1.SelectedItems[0].Index;
+                var frmFunction = new FrmFunction(index);
+                Hide();
+                frmFunction.ShowDialog();
+                Show();
+                frmFunction.Dispose();
+                AddAllListView();
+            }
+        }
+
         private void AddListView()
         {
             var offsetList = OffsetPatch.ConvertFunctionList(OffsetPatch.FunctionList.Count - 1);
@@ -454,6 +469,7 @@ namespace Tools_Injector_Mod_Menu
 
         private void AddAllListView()
         {
+            listView1.Items.Clear();
             for (var i = 0; i < OffsetPatch.FunctionList.Count; i++)
             {
                 var offsetList = OffsetPatch.ConvertFunctionList(i);
@@ -911,7 +927,7 @@ namespace Tools_Injector_Mod_Menu
                 {
                     if (list.FunctionType != Enums.FunctionType.Category)
                     {
-                        result += $"{list.CheatName.RemoveSuperSpecialCharacters()}_{info.OffsetId}, ";
+                        result += $"{list.CheatName.RemoveSuperSpecialCharacters().ReplaceNumCharacters()}_{info.OffsetId}, ";
                     }
                 }
             }
@@ -1004,6 +1020,7 @@ namespace Tools_Injector_Mod_Menu
         {
             try
             {
+                _compile = true;
                 var process = new Process
                 {
                     StartInfo =
@@ -1020,9 +1037,11 @@ namespace Tools_Injector_Mod_Menu
                 };
 
                 process.OutputDataReceived += OutputDataReceived;
+                process.ErrorDataReceived += ErrorDataReceived;
                 process.EnableRaisingEvents = true;
                 process.Start();
                 process.BeginOutputReadLine();
+                process.BeginErrorReadLine();
                 process.WaitForExit(50000);
             }
             catch (Exception exception)
@@ -1038,13 +1057,20 @@ namespace Tools_Injector_Mod_Menu
             WriteOutput("[Compile] " + e.Data, Color.Black);
         }
 
+        private void ErrorDataReceived(object sender, DataReceivedEventArgs e)
+        {
+            WriteOutput("[Compile Error] " + e.Data, Color.Red);
+            _compile = false;
+        }
+
         private void compilerWorker_RunWorkerCompleted(object sender, System.ComponentModel.RunWorkerCompletedEventArgs e)
         {
-            if (e.Error != null)
+            if (!_compile)
             {
                 MyMessage.MsgShow("Failed to Compile", MessageBoxIcon.Error);
                 WriteOutput("[Error:020] ", Color.Red);
                 FormState(State.Idle);
+                return;
             }
 
             var outputDir = $"{_tempPathMenu}\\libs";
@@ -1292,10 +1318,7 @@ namespace Tools_Injector_Mod_Menu
         {
             var date = DateTime.Now.ToString("yyyy-M-d HH-mm-ss");
             var path = $"{AppPath}\\Log\\{date}.txt";
-            using (File.Create(path))
-            {
-                rbLog.SaveFile(path, RichTextBoxStreamType.RichText);
-            }
+            File.WriteAllText(path, rbLog.Text);
         }
 
         private static void AppendText(RichTextBox box, string text, Color color)
