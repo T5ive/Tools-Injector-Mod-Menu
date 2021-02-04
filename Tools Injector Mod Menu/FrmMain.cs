@@ -37,7 +37,7 @@ namespace Tools_Injector_Mod_Menu
 
         public static string Category, SeekBar;
 
-        private bool _compile = true;
+        private int _compile = 0;
 
         public enum State
         {
@@ -943,11 +943,11 @@ namespace Tools_Injector_Mod_Menu
             {
                 if (t.FunctionType == Enums.FunctionType.Toggle || t.FunctionType == Enums.FunctionType.ButtonOnOff)
                 {
-                    result += $"bool _{t.CheatName.RemoveSuperSpecialCharacters()} = false;{Environment.NewLine}";
+                    result += $"bool _{t.CheatName.RemoveSuperSpecialCharacters().ReplaceNumCharacters()} = false;{Environment.NewLine}";
                 }
                 if (t.FunctionType == Enums.FunctionType.SeekBar)
                 {
-                    result += $"int _{t.CheatName.RemoveSuperSpecialCharacters()} = 1;{Environment.NewLine}";
+                    result += $"int _{t.CheatName.RemoveSuperSpecialCharacters().ReplaceNumCharacters()} = 1;{Environment.NewLine}";
                 }
             }
 
@@ -964,15 +964,15 @@ namespace Tools_Injector_Mod_Menu
 
                 if (functionList[i].FunctionType == Enums.FunctionType.ButtonOnOff || functionList[i].FunctionType == Enums.FunctionType.Toggle)
                 {
-                    var offsetListModify = functionList[i].OffsetList.Aggregate("", (current, t) => current + $@"hexPatches.{functionList[i].CheatName.RemoveSuperSpecialCharacters()}_{t.OffsetId}.Modify();
+                    var offsetListModify = functionList[i].OffsetList.Aggregate("", (current, t) => current + $@"hexPatches.{functionList[i].CheatName.RemoveSuperSpecialCharacters().ReplaceNumCharacters()}_{t.OffsetId}.Modify();
                                 ");
-                    var offsetListRestore = functionList[i].OffsetList.Aggregate("", (current, t) => current + $@"hexPatches.{functionList[i].CheatName.RemoveSuperSpecialCharacters()}_{t.OffsetId}.Restore();
+                    var offsetListRestore = functionList[i].OffsetList.Aggregate("", (current, t) => current + $@"hexPatches.{functionList[i].CheatName.RemoveSuperSpecialCharacters().ReplaceNumCharacters()}_{t.OffsetId}.Restore();
                                 ");
 
                     result += $@"
                         case {category}:
-                            _{functionList[i].CheatName.RemoveSuperSpecialCharacters()} = boolean;
-                            if (_{functionList[i].CheatName.RemoveSuperSpecialCharacters()}) {{
+                            _{functionList[i].CheatName.RemoveSuperSpecialCharacters().ReplaceNumCharacters()} = boolean;
+                            if (_{functionList[i].CheatName.RemoveSuperSpecialCharacters().ReplaceNumCharacters()}) {{
                                 {offsetListModify}LOGI(OBFUSCATE(""On""));
                             }} else {{
                                 {offsetListRestore}LOGI(OBFUSCATE(""Off""));
@@ -994,7 +994,7 @@ namespace Tools_Injector_Mod_Menu
         private string HackThread()
         {
             return OffsetPatch.FunctionList.Where(t => comboType.SelectedIndex == (int)Enums.TypeAbi.Arm | comboType.SelectedIndex == (int)Enums.TypeAbi.X86 && t.FunctionType != Enums.FunctionType.Category && t.FunctionType != Enums.FunctionType.SeekBar)
-                .Aggregate("", (current1, t) => t.OffsetList.Aggregate(current1, (current, t1) => current + $@"    hexPatches.{t.CheatName.RemoveSuperSpecialCharacters()}_{t1.OffsetId} = MemoryPatch::createWithHex(""{txtTargetLib.Text}"",
+                .Aggregate("", (current1, t) => t.OffsetList.Aggregate(current1, (current, t1) => current + $@"    hexPatches.{t.CheatName.RemoveSuperSpecialCharacters().ReplaceNumCharacters()}_{t1.OffsetId} = MemoryPatch::createWithHex(""{txtTargetLib.Text}"",
                         string2Offset(OBFUSCATE_KEY(""{t1.Offset}"", 't')),
                         OBFUSCATE(""{t1.Hex}""));{Environment.NewLine}"));
         }
@@ -1002,7 +1002,7 @@ namespace Tools_Injector_Mod_Menu
         private string HackThread64()
         {
             return OffsetPatch.FunctionList.Where(t => comboType.SelectedIndex == (int)Enums.TypeAbi.Arm64 && t.FunctionType != Enums.FunctionType.Category && t.FunctionType != Enums.FunctionType.SeekBar)
-                .Aggregate("", (current1, t) => t.OffsetList.Aggregate(current1, (current, t1) => current + $@"    hexPatches.{t.CheatName.RemoveSuperSpecialCharacters()}_{t1.OffsetId} = MemoryPatch::createWithHex(""{txtTargetLib.Text}"",
+                .Aggregate("", (current1, t) => t.OffsetList.Aggregate(current1, (current, t1) => current + $@"    hexPatches.{t.CheatName.RemoveSuperSpecialCharacters().ReplaceNumCharacters()}_{t1.OffsetId} = MemoryPatch::createWithHex(""{txtTargetLib.Text}"",
                         string2Offset(OBFUSCATE_KEY(""{t1.Offset}"", 't')),
                         OBFUSCATE(""{t1.Hex}"")); "));
         }
@@ -1020,7 +1020,7 @@ namespace Tools_Injector_Mod_Menu
         {
             try
             {
-                _compile = true;
+                _compile = 0;
                 var process = new Process
                 {
                     StartInfo =
@@ -1054,21 +1054,22 @@ namespace Tools_Injector_Mod_Menu
 
         private void OutputDataReceived(object sender, DataReceivedEventArgs e)
         {
-            WriteOutput("[Compile] " + e.Data, Color.Black);
+            WriteOutput("[Compile] " + e.Data);
         }
 
         private void ErrorDataReceived(object sender, DataReceivedEventArgs e)
         {
-            WriteOutput("[Compile Error] " + e.Data, Color.Red);
-            _compile = false;
+            _compile++;
+            if(_compile <= 2) return;
+            WriteOutput("[Compile] " + e.Data, Color.Red);
         }
 
         private void compilerWorker_RunWorkerCompleted(object sender, System.ComponentModel.RunWorkerCompletedEventArgs e)
         {
-            if (!_compile)
+            if (_compile > 2)
             {
                 MyMessage.MsgShow("Failed to Compile", MessageBoxIcon.Error);
-                WriteOutput("[Error:020] ", Color.Red);
+                WriteOutput("[Error:020] Failed to Compile", Color.Red);
                 FormState(State.Idle);
                 return;
             }

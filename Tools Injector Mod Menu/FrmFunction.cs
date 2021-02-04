@@ -11,6 +11,7 @@ namespace Tools_Injector_Mod_Menu
     {
         private readonly int _index;
         private Enums.FunctionType _type;
+
         public FrmFunction(int index)
         {
             InitializeComponent();
@@ -68,6 +69,7 @@ namespace Tools_Injector_Mod_Menu
                 RemoveRows();
             }
         }
+
         private void RemoveRows()
         {
             try
@@ -94,7 +96,6 @@ namespace Tools_Injector_Mod_Menu
                 }
                 catch
                 {
-                    
                 }
             }
 
@@ -120,7 +121,6 @@ namespace Tools_Injector_Mod_Menu
             }
             catch
             {
-                
             }
         }
 
@@ -128,6 +128,5 @@ namespace Tools_Injector_Mod_Menu
         {
             dataList.Rows.Add(null, null);
         }
-        
     }
 }
