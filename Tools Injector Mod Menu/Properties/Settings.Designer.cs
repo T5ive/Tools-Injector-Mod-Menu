@@ -190,5 +190,47 @@ namespace Tools_Injector_Mod_Menu.Properties {
                 this["chkLogsError"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("<service android:name=\"com.tfive.modmenu.FloatingModMenuService\" android:enabled=" +
+            "\"true\" android:exported=\"false\" android:stopWithTask=\"true\"/>")]
+        public string txtService {
+            get {
+                return ((string)(this["txtService"]));
+            }
+            set {
+                this["txtService"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("invoke-static {p0}, Lcom/tfive/MainActivity;->Start(Landroid/content/Context;)V")]
+        public string txtOnCreate {
+            get {
+                return ((string)(this["txtOnCreate"]));
+            }
+            set {
+                this["txtOnCreate"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute(@"<activity android:configChanges=""keyboardHidden|orientation|screenSize"" android:name=""com.tfivel.MainActivity"">
+     <intent-filter>
+         <action android:name=""android.intent.action.MAIN""/>
+         <category android:name=""android.intent.category.LAUNCHER""/>
+     </intent-filter>
+</activity>")]
+        public string txtActionMain {
+            get {
+                return ((string)(this["txtActionMain"]));
+            }
+            set {
+                this["txtActionMain"] = value;
+            }
+        }
     }
 }

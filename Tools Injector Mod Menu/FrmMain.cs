@@ -151,6 +151,10 @@ namespace Tools_Injector_Mod_Menu
             chkLogsSuccess.Checked = settings.chkLogsSuccess;
             chkLogsError.Checked = settings.chkLogsError;
 
+            txtService.Text = settings.txtService;
+            txtOnCreate.Text = settings.txtOnCreate;
+            txtActionMain.Text = settings.txtActionMain;
+
             try
             {
                 comboMenu.SelectedIndex = settings.menuStyle;
@@ -404,7 +408,7 @@ namespace Tools_Injector_Mod_Menu
                 return;
             }
 
-            category:
+        category:
 
             var functionType = (Enums.FunctionType)comboFunction.SelectedIndex;
             var functionValue = "";
@@ -1221,6 +1225,10 @@ namespace Tools_Injector_Mod_Menu
         private void FormState(State state)
         {
             EnableController(this, state != State.Running);
+            if (state == State.Idle)
+            {
+                System.Media.SystemSounds.Beep.Play();
+            }
         }
 
         private void EnableController(Form form, bool value)
@@ -1369,5 +1377,59 @@ namespace Tools_Injector_Mod_Menu
         }
 
         #endregion Log&About Page
+
+        #region Dev Page
+
+        #region Method 1
+
+        private void btnCopyPermission_Click(object sender, EventArgs e)
+        {
+            CopyText(txtPermission.Text);
+        }
+
+        private void btnCopyService_Click(object sender, EventArgs e)
+        {
+            CopyText(txtService.Text);
+        }
+
+        private void btnOnCreate_Click(object sender, EventArgs e)
+        {
+            CopyText(txtOnCreate.Text);
+        }
+
+        private void btnSaveMethod1_Click(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.txtService = txtService.Text;
+            Properties.Settings.Default.txtOnCreate = txtOnCreate.Text;
+        }
+
+        #endregion Method 1
+
+        #region Method 2
+
+        private void btnCopyFind_Click(object sender, EventArgs e)
+        {
+            CopyText(txtFind.Text);
+        }
+
+        private void btnCopyActionMain2_Click(object sender, EventArgs e)
+        {
+            CopyText(txtActionMain.Text);
+        }
+
+        private void btnSaveMethod2_Click(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.txtActionMain = txtActionMain.Text;
+        }
+
+        #endregion Method 2
+
+        private void CopyText(string str)
+        {
+            Clipboard.SetText(str);
+            System.Media.SystemSounds.Beep.Play();
+        }
+
+        #endregion Dev Page
     }
 }

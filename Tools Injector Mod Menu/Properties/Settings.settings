@@ -44,5 +44,19 @@
     <Setting Name="chkLogsError" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
     </Setting>
+    <Setting Name="txtService" Type="System.String" Scope="User">
+      <Value Profile="(Default)">&lt;service android:name="com.tfive.modmenu.FloatingModMenuService" android:enabled="true" android:exported="false" android:stopWithTask="true"/&gt;</Value>
+    </Setting>
+    <Setting Name="txtOnCreate" Type="System.String" Scope="User">
+      <Value Profile="(Default)">invoke-static {p0}, Lcom/tfive/MainActivity;-&gt;Start(Landroid/content/Context;)V</Value>
+    </Setting>
+    <Setting Name="txtActionMain" Type="System.String" Scope="User">
+      <Value Profile="(Default)">&lt;activity android:configChanges="keyboardHidden|orientation|screenSize" android:name="com.tfivel.MainActivity"&gt;
+     &lt;intent-filter&gt;
+         &lt;action android:name="android.intent.action.MAIN"/&gt;
+         &lt;category android:name="android.intent.category.LAUNCHER"/&gt;
+     &lt;/intent-filter&gt;
+&lt;/activity&gt;</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

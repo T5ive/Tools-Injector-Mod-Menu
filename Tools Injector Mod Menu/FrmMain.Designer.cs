@@ -127,20 +127,20 @@ namespace Tools_Injector_Mod_Menu
             this.tabDev = new System.Windows.Forms.TabPage();
             this.materialCard14 = new MaterialSkin.Controls.MaterialCard();
             this.groupBox15 = new System.Windows.Forms.GroupBox();
-            this.materialButton5 = new MaterialSkin.Controls.MaterialButton();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.materialButton6 = new MaterialSkin.Controls.MaterialButton();
-            this.materialTextBox3 = new MaterialSkin.Controls.MaterialTextBox();
-            this.materialButton7 = new MaterialSkin.Controls.MaterialButton();
+            this.btnSaveMethod2 = new MaterialSkin.Controls.MaterialButton();
+            this.txtActionMain = new System.Windows.Forms.TextBox();
+            this.btnCopyActionMain = new MaterialSkin.Controls.MaterialButton();
+            this.txtFind = new MaterialSkin.Controls.MaterialTextBox();
+            this.btnCopyFind = new MaterialSkin.Controls.MaterialButton();
             this.materialCard8 = new MaterialSkin.Controls.MaterialCard();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
-            this.materialButton8 = new MaterialSkin.Controls.MaterialButton();
+            this.btnSaveMethod1 = new MaterialSkin.Controls.MaterialButton();
             this.txtOnCreate = new MaterialSkin.Controls.MaterialTextBox();
-            this.materialButton4 = new MaterialSkin.Controls.MaterialButton();
+            this.btnOnCreate = new MaterialSkin.Controls.MaterialButton();
             this.txtService = new MaterialSkin.Controls.MaterialTextBox();
-            this.materialButton3 = new MaterialSkin.Controls.MaterialButton();
+            this.btnCopyService = new MaterialSkin.Controls.MaterialButton();
             this.txtPermission = new MaterialSkin.Controls.MaterialTextBox();
-            this.materialButton2 = new MaterialSkin.Controls.MaterialButton();
+            this.btnCopyPermission = new MaterialSkin.Controls.MaterialButton();
             this.menuIconList = new System.Windows.Forms.ImageList(this.components);
             this.compilerWorker = new System.ComponentModel.BackgroundWorker();
             this.materialTabControl1.SuspendLayout();
@@ -1571,11 +1571,11 @@ namespace Tools_Injector_Mod_Menu
             // 
             // groupBox15
             // 
-            this.groupBox15.Controls.Add(this.materialButton5);
-            this.groupBox15.Controls.Add(this.textBox1);
-            this.groupBox15.Controls.Add(this.materialButton6);
-            this.groupBox15.Controls.Add(this.materialTextBox3);
-            this.groupBox15.Controls.Add(this.materialButton7);
+            this.groupBox15.Controls.Add(this.btnSaveMethod2);
+            this.groupBox15.Controls.Add(this.txtActionMain);
+            this.groupBox15.Controls.Add(this.btnCopyActionMain);
+            this.groupBox15.Controls.Add(this.txtFind);
+            this.groupBox15.Controls.Add(this.btnCopyFind);
             this.groupBox15.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox15.Font = new System.Drawing.Font("Roboto", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
             this.groupBox15.Location = new System.Drawing.Point(14, 14);
@@ -1585,89 +1585,92 @@ namespace Tools_Injector_Mod_Menu
             this.groupBox15.TabStop = false;
             this.groupBox15.Text = "METHOD 2";
             // 
-            // materialButton5
+            // btnSaveMethod2
             // 
-            this.materialButton5.AutoSize = false;
-            this.materialButton5.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.materialButton5.Depth = 0;
-            this.materialButton5.DrawShadows = true;
-            this.materialButton5.HighEmphasis = true;
-            this.materialButton5.Icon = null;
-            this.materialButton5.Location = new System.Drawing.Point(609, 137);
-            this.materialButton5.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
-            this.materialButton5.MouseState = MaterialSkin.MouseState.HOVER;
-            this.materialButton5.Name = "materialButton5";
-            this.materialButton5.Size = new System.Drawing.Size(125, 36);
-            this.materialButton5.TabIndex = 4;
-            this.materialButton5.Text = "Save";
-            this.materialButton5.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
-            this.materialButton5.UseAccentColor = false;
-            this.materialButton5.UseVisualStyleBackColor = true;
+            this.btnSaveMethod2.AutoSize = false;
+            this.btnSaveMethod2.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.btnSaveMethod2.Depth = 0;
+            this.btnSaveMethod2.DrawShadows = true;
+            this.btnSaveMethod2.HighEmphasis = true;
+            this.btnSaveMethod2.Icon = null;
+            this.btnSaveMethod2.Location = new System.Drawing.Point(609, 137);
+            this.btnSaveMethod2.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
+            this.btnSaveMethod2.MouseState = MaterialSkin.MouseState.HOVER;
+            this.btnSaveMethod2.Name = "btnSaveMethod2";
+            this.btnSaveMethod2.Size = new System.Drawing.Size(125, 36);
+            this.btnSaveMethod2.TabIndex = 4;
+            this.btnSaveMethod2.Text = "Save";
+            this.btnSaveMethod2.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
+            this.btnSaveMethod2.UseAccentColor = false;
+            this.btnSaveMethod2.UseVisualStyleBackColor = true;
+            this.btnSaveMethod2.Click += new System.EventHandler(this.btnSaveMethod2_Click);
             // 
-            // textBox1
+            // txtActionMain
             // 
-            this.textBox1.Font = new System.Drawing.Font("Roboto", 9F);
-            this.textBox1.Location = new System.Drawing.Point(6, 70);
-            this.textBox1.Multiline = true;
-            this.textBox1.Name = "textBox1";
-            this.textBox1.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.textBox1.Size = new System.Drawing.Size(596, 106);
-            this.textBox1.TabIndex = 3;
-            this.textBox1.Text = resources.GetString("textBox1.Text");
+            this.txtActionMain.Font = new System.Drawing.Font("Roboto", 9F);
+            this.txtActionMain.Location = new System.Drawing.Point(6, 70);
+            this.txtActionMain.Multiline = true;
+            this.txtActionMain.Name = "txtActionMain";
+            this.txtActionMain.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.txtActionMain.Size = new System.Drawing.Size(596, 106);
+            this.txtActionMain.TabIndex = 3;
+            this.txtActionMain.Text = resources.GetString("txtActionMain.Text");
             // 
-            // materialButton6
+            // btnCopyActionMain
             // 
-            this.materialButton6.AutoSize = false;
-            this.materialButton6.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.materialButton6.Depth = 0;
-            this.materialButton6.DrawShadows = true;
-            this.materialButton6.HighEmphasis = true;
-            this.materialButton6.Icon = null;
-            this.materialButton6.Location = new System.Drawing.Point(609, 70);
-            this.materialButton6.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
-            this.materialButton6.MouseState = MaterialSkin.MouseState.HOVER;
-            this.materialButton6.Name = "materialButton6";
-            this.materialButton6.Size = new System.Drawing.Size(125, 36);
-            this.materialButton6.TabIndex = 2;
-            this.materialButton6.Text = "Copy";
-            this.materialButton6.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
-            this.materialButton6.UseAccentColor = false;
-            this.materialButton6.UseVisualStyleBackColor = true;
+            this.btnCopyActionMain.AutoSize = false;
+            this.btnCopyActionMain.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.btnCopyActionMain.Depth = 0;
+            this.btnCopyActionMain.DrawShadows = true;
+            this.btnCopyActionMain.HighEmphasis = true;
+            this.btnCopyActionMain.Icon = null;
+            this.btnCopyActionMain.Location = new System.Drawing.Point(609, 70);
+            this.btnCopyActionMain.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
+            this.btnCopyActionMain.MouseState = MaterialSkin.MouseState.HOVER;
+            this.btnCopyActionMain.Name = "btnCopyActionMain";
+            this.btnCopyActionMain.Size = new System.Drawing.Size(125, 36);
+            this.btnCopyActionMain.TabIndex = 2;
+            this.btnCopyActionMain.Text = "Copy";
+            this.btnCopyActionMain.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
+            this.btnCopyActionMain.UseAccentColor = false;
+            this.btnCopyActionMain.UseVisualStyleBackColor = true;
+            this.btnCopyActionMain.Click += new System.EventHandler(this.btnCopyActionMain2_Click);
             // 
-            // materialTextBox3
+            // txtFind
             // 
-            this.materialTextBox3.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.materialTextBox3.Depth = 0;
-            this.materialTextBox3.Font = new System.Drawing.Font("Roboto", 12F);
-            this.materialTextBox3.Location = new System.Drawing.Point(6, 22);
-            this.materialTextBox3.MaxLength = 50;
-            this.materialTextBox3.MouseState = MaterialSkin.MouseState.OUT;
-            this.materialTextBox3.Multiline = false;
-            this.materialTextBox3.Name = "materialTextBox3";
-            this.materialTextBox3.ReadOnly = true;
-            this.materialTextBox3.Size = new System.Drawing.Size(596, 36);
-            this.materialTextBox3.TabIndex = 1;
-            this.materialTextBox3.Text = "<action android:name=\"android.intent.action.MAIN\"/>";
-            this.materialTextBox3.UseTallSize = false;
+            this.txtFind.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.txtFind.Depth = 0;
+            this.txtFind.Font = new System.Drawing.Font("Roboto", 12F);
+            this.txtFind.Location = new System.Drawing.Point(6, 22);
+            this.txtFind.MaxLength = 50;
+            this.txtFind.MouseState = MaterialSkin.MouseState.OUT;
+            this.txtFind.Multiline = false;
+            this.txtFind.Name = "txtFind";
+            this.txtFind.ReadOnly = true;
+            this.txtFind.Size = new System.Drawing.Size(596, 36);
+            this.txtFind.TabIndex = 1;
+            this.txtFind.Text = "<action android:name=\"android.intent.action.MAIN\"/>";
+            this.txtFind.UseTallSize = false;
             // 
-            // materialButton7
+            // btnCopyFind
             // 
-            this.materialButton7.AutoSize = false;
-            this.materialButton7.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.materialButton7.Depth = 0;
-            this.materialButton7.DrawShadows = true;
-            this.materialButton7.HighEmphasis = true;
-            this.materialButton7.Icon = null;
-            this.materialButton7.Location = new System.Drawing.Point(609, 22);
-            this.materialButton7.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
-            this.materialButton7.MouseState = MaterialSkin.MouseState.HOVER;
-            this.materialButton7.Name = "materialButton7";
-            this.materialButton7.Size = new System.Drawing.Size(125, 36);
-            this.materialButton7.TabIndex = 0;
-            this.materialButton7.Text = "Copy";
-            this.materialButton7.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
-            this.materialButton7.UseAccentColor = false;
-            this.materialButton7.UseVisualStyleBackColor = true;
+            this.btnCopyFind.AutoSize = false;
+            this.btnCopyFind.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.btnCopyFind.Depth = 0;
+            this.btnCopyFind.DrawShadows = true;
+            this.btnCopyFind.HighEmphasis = true;
+            this.btnCopyFind.Icon = null;
+            this.btnCopyFind.Location = new System.Drawing.Point(609, 22);
+            this.btnCopyFind.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
+            this.btnCopyFind.MouseState = MaterialSkin.MouseState.HOVER;
+            this.btnCopyFind.Name = "btnCopyFind";
+            this.btnCopyFind.Size = new System.Drawing.Size(125, 36);
+            this.btnCopyFind.TabIndex = 0;
+            this.btnCopyFind.Text = "Copy";
+            this.btnCopyFind.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
+            this.btnCopyFind.UseAccentColor = false;
+            this.btnCopyFind.UseVisualStyleBackColor = true;
+            this.btnCopyFind.Click += new System.EventHandler(this.btnCopyFind_Click);
             // 
             // materialCard8
             // 
@@ -1685,13 +1688,13 @@ namespace Tools_Injector_Mod_Menu
             // 
             // groupBox5
             // 
-            this.groupBox5.Controls.Add(this.materialButton8);
+            this.groupBox5.Controls.Add(this.btnSaveMethod1);
             this.groupBox5.Controls.Add(this.txtOnCreate);
-            this.groupBox5.Controls.Add(this.materialButton4);
+            this.groupBox5.Controls.Add(this.btnOnCreate);
             this.groupBox5.Controls.Add(this.txtService);
-            this.groupBox5.Controls.Add(this.materialButton3);
+            this.groupBox5.Controls.Add(this.btnCopyService);
             this.groupBox5.Controls.Add(this.txtPermission);
-            this.groupBox5.Controls.Add(this.materialButton2);
+            this.groupBox5.Controls.Add(this.btnCopyPermission);
             this.groupBox5.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox5.Font = new System.Drawing.Font("Roboto", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
             this.groupBox5.Location = new System.Drawing.Point(14, 14);
@@ -1701,24 +1704,25 @@ namespace Tools_Injector_Mod_Menu
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "METHOD 1";
             // 
-            // materialButton8
+            // btnSaveMethod1
             // 
-            this.materialButton8.AutoSize = false;
-            this.materialButton8.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.materialButton8.Depth = 0;
-            this.materialButton8.DrawShadows = true;
-            this.materialButton8.HighEmphasis = true;
-            this.materialButton8.Icon = null;
-            this.materialButton8.Location = new System.Drawing.Point(609, 166);
-            this.materialButton8.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
-            this.materialButton8.MouseState = MaterialSkin.MouseState.HOVER;
-            this.materialButton8.Name = "materialButton8";
-            this.materialButton8.Size = new System.Drawing.Size(125, 36);
-            this.materialButton8.TabIndex = 6;
-            this.materialButton8.Text = "Save";
-            this.materialButton8.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
-            this.materialButton8.UseAccentColor = false;
-            this.materialButton8.UseVisualStyleBackColor = true;
+            this.btnSaveMethod1.AutoSize = false;
+            this.btnSaveMethod1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.btnSaveMethod1.Depth = 0;
+            this.btnSaveMethod1.DrawShadows = true;
+            this.btnSaveMethod1.HighEmphasis = true;
+            this.btnSaveMethod1.Icon = null;
+            this.btnSaveMethod1.Location = new System.Drawing.Point(609, 166);
+            this.btnSaveMethod1.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
+            this.btnSaveMethod1.MouseState = MaterialSkin.MouseState.HOVER;
+            this.btnSaveMethod1.Name = "btnSaveMethod1";
+            this.btnSaveMethod1.Size = new System.Drawing.Size(125, 36);
+            this.btnSaveMethod1.TabIndex = 6;
+            this.btnSaveMethod1.Text = "Save";
+            this.btnSaveMethod1.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
+            this.btnSaveMethod1.UseAccentColor = false;
+            this.btnSaveMethod1.UseVisualStyleBackColor = true;
+            this.btnSaveMethod1.Click += new System.EventHandler(this.btnSaveMethod1_Click);
             // 
             // txtOnCreate
             // 
@@ -1732,27 +1736,28 @@ namespace Tools_Injector_Mod_Menu
             this.txtOnCreate.Name = "txtOnCreate";
             this.txtOnCreate.Size = new System.Drawing.Size(596, 36);
             this.txtOnCreate.TabIndex = 5;
-            this.txtOnCreate.Text = "invoke-static {p0}, Luk/lgl/MainActivity;->Start(Landroid/content/Context;)V";
+            this.txtOnCreate.Text = "invoke-static {p0}, Lcom/tfive/MainActivity;->Start(Landroid/content/Context;)V";
             this.txtOnCreate.UseTallSize = false;
             // 
-            // materialButton4
+            // btnOnCreate
             // 
-            this.materialButton4.AutoSize = false;
-            this.materialButton4.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.materialButton4.Depth = 0;
-            this.materialButton4.DrawShadows = true;
-            this.materialButton4.HighEmphasis = true;
-            this.materialButton4.Icon = null;
-            this.materialButton4.Location = new System.Drawing.Point(609, 118);
-            this.materialButton4.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
-            this.materialButton4.MouseState = MaterialSkin.MouseState.HOVER;
-            this.materialButton4.Name = "materialButton4";
-            this.materialButton4.Size = new System.Drawing.Size(125, 36);
-            this.materialButton4.TabIndex = 4;
-            this.materialButton4.Text = "Copy";
-            this.materialButton4.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
-            this.materialButton4.UseAccentColor = false;
-            this.materialButton4.UseVisualStyleBackColor = true;
+            this.btnOnCreate.AutoSize = false;
+            this.btnOnCreate.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.btnOnCreate.Depth = 0;
+            this.btnOnCreate.DrawShadows = true;
+            this.btnOnCreate.HighEmphasis = true;
+            this.btnOnCreate.Icon = null;
+            this.btnOnCreate.Location = new System.Drawing.Point(609, 118);
+            this.btnOnCreate.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
+            this.btnOnCreate.MouseState = MaterialSkin.MouseState.HOVER;
+            this.btnOnCreate.Name = "btnOnCreate";
+            this.btnOnCreate.Size = new System.Drawing.Size(125, 36);
+            this.btnOnCreate.TabIndex = 4;
+            this.btnOnCreate.Text = "Copy";
+            this.btnOnCreate.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
+            this.btnOnCreate.UseAccentColor = false;
+            this.btnOnCreate.UseVisualStyleBackColor = true;
+            this.btnOnCreate.Click += new System.EventHandler(this.btnOnCreate_Click);
             // 
             // txtService
             // 
@@ -1766,28 +1771,29 @@ namespace Tools_Injector_Mod_Menu
             this.txtService.Name = "txtService";
             this.txtService.Size = new System.Drawing.Size(596, 36);
             this.txtService.TabIndex = 3;
-            this.txtService.Text = "<service android:name=\"uk.lgl.modmenu.FloatingModMenuService\" android:enabled=\"tr" +
-    "ue\" android:exported=\"false\" android:stopWithTask=\"true\"/>";
+            this.txtService.Text = "<service android:name=\"com.tfive.modmenu.FloatingModMenuService\" android:enabled=" +
+    "\"true\" android:exported=\"false\" android:stopWithTask=\"true\"/>";
             this.txtService.UseTallSize = false;
             // 
-            // materialButton3
+            // btnCopyService
             // 
-            this.materialButton3.AutoSize = false;
-            this.materialButton3.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.materialButton3.Depth = 0;
-            this.materialButton3.DrawShadows = true;
-            this.materialButton3.HighEmphasis = true;
-            this.materialButton3.Icon = null;
-            this.materialButton3.Location = new System.Drawing.Point(609, 70);
-            this.materialButton3.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
-            this.materialButton3.MouseState = MaterialSkin.MouseState.HOVER;
-            this.materialButton3.Name = "materialButton3";
-            this.materialButton3.Size = new System.Drawing.Size(125, 36);
-            this.materialButton3.TabIndex = 2;
-            this.materialButton3.Text = "Copy";
-            this.materialButton3.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
-            this.materialButton3.UseAccentColor = false;
-            this.materialButton3.UseVisualStyleBackColor = true;
+            this.btnCopyService.AutoSize = false;
+            this.btnCopyService.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.btnCopyService.Depth = 0;
+            this.btnCopyService.DrawShadows = true;
+            this.btnCopyService.HighEmphasis = true;
+            this.btnCopyService.Icon = null;
+            this.btnCopyService.Location = new System.Drawing.Point(609, 70);
+            this.btnCopyService.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
+            this.btnCopyService.MouseState = MaterialSkin.MouseState.HOVER;
+            this.btnCopyService.Name = "btnCopyService";
+            this.btnCopyService.Size = new System.Drawing.Size(125, 36);
+            this.btnCopyService.TabIndex = 2;
+            this.btnCopyService.Text = "Copy";
+            this.btnCopyService.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
+            this.btnCopyService.UseAccentColor = false;
+            this.btnCopyService.UseVisualStyleBackColor = true;
+            this.btnCopyService.Click += new System.EventHandler(this.btnCopyService_Click);
             // 
             // txtPermission
             // 
@@ -1805,24 +1811,25 @@ namespace Tools_Injector_Mod_Menu
             this.txtPermission.Text = "<uses-permission android:name=\"android.permission.SYSTEM_ALERT_WINDOW\"/>";
             this.txtPermission.UseTallSize = false;
             // 
-            // materialButton2
+            // btnCopyPermission
             // 
-            this.materialButton2.AutoSize = false;
-            this.materialButton2.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.materialButton2.Depth = 0;
-            this.materialButton2.DrawShadows = true;
-            this.materialButton2.HighEmphasis = true;
-            this.materialButton2.Icon = null;
-            this.materialButton2.Location = new System.Drawing.Point(609, 22);
-            this.materialButton2.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
-            this.materialButton2.MouseState = MaterialSkin.MouseState.HOVER;
-            this.materialButton2.Name = "materialButton2";
-            this.materialButton2.Size = new System.Drawing.Size(125, 36);
-            this.materialButton2.TabIndex = 0;
-            this.materialButton2.Text = "Copy";
-            this.materialButton2.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
-            this.materialButton2.UseAccentColor = false;
-            this.materialButton2.UseVisualStyleBackColor = true;
+            this.btnCopyPermission.AutoSize = false;
+            this.btnCopyPermission.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.btnCopyPermission.Depth = 0;
+            this.btnCopyPermission.DrawShadows = true;
+            this.btnCopyPermission.HighEmphasis = true;
+            this.btnCopyPermission.Icon = null;
+            this.btnCopyPermission.Location = new System.Drawing.Point(609, 22);
+            this.btnCopyPermission.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
+            this.btnCopyPermission.MouseState = MaterialSkin.MouseState.HOVER;
+            this.btnCopyPermission.Name = "btnCopyPermission";
+            this.btnCopyPermission.Size = new System.Drawing.Size(125, 36);
+            this.btnCopyPermission.TabIndex = 0;
+            this.btnCopyPermission.Text = "Copy";
+            this.btnCopyPermission.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
+            this.btnCopyPermission.UseAccentColor = false;
+            this.btnCopyPermission.UseVisualStyleBackColor = true;
+            this.btnCopyPermission.Click += new System.EventHandler(this.btnCopyPermission_Click);
             // 
             // menuIconList
             // 
@@ -2004,18 +2011,18 @@ namespace Tools_Injector_Mod_Menu
         private MaterialSkin.Controls.MaterialCard materialCard8;
         private System.Windows.Forms.GroupBox groupBox5;
         private MaterialSkin.Controls.MaterialTextBox txtOnCreate;
-        private MaterialSkin.Controls.MaterialButton materialButton4;
+        private MaterialSkin.Controls.MaterialButton btnOnCreate;
         private MaterialSkin.Controls.MaterialTextBox txtService;
-        private MaterialSkin.Controls.MaterialButton materialButton3;
+        private MaterialSkin.Controls.MaterialButton btnCopyService;
         private MaterialSkin.Controls.MaterialTextBox txtPermission;
-        private MaterialSkin.Controls.MaterialButton materialButton2;
+        private MaterialSkin.Controls.MaterialButton btnCopyPermission;
         private MaterialSkin.Controls.MaterialCard materialCard14;
         private System.Windows.Forms.GroupBox groupBox15;
-        private MaterialSkin.Controls.MaterialButton materialButton5;
-        private System.Windows.Forms.TextBox textBox1;
-        private MaterialSkin.Controls.MaterialButton materialButton6;
-        private MaterialSkin.Controls.MaterialTextBox materialTextBox3;
-        private MaterialSkin.Controls.MaterialButton materialButton7;
-        private MaterialSkin.Controls.MaterialButton materialButton8;
+        private MaterialSkin.Controls.MaterialButton btnSaveMethod2;
+        private System.Windows.Forms.TextBox txtActionMain;
+        private MaterialSkin.Controls.MaterialButton btnCopyActionMain;
+        private MaterialSkin.Controls.MaterialTextBox txtFind;
+        private MaterialSkin.Controls.MaterialButton btnCopyFind;
+        private MaterialSkin.Controls.MaterialButton btnSaveMethod1;
     }
 }
