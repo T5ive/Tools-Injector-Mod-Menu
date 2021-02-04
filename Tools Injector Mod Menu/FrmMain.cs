@@ -452,7 +452,7 @@ namespace Tools_Injector_Mod_Menu
                 frmFunction.ShowDialog();
                 Show();
                 frmFunction.Dispose();
-                AddAllListView();
+                AddAllListView(true);
             }
         }
 
@@ -473,9 +473,13 @@ namespace Tools_Injector_Mod_Menu
             OffsetPatch.OffsetList.Clear();
         }
 
-        private void AddAllListView()
+        private void AddAllListView(bool reValues = false)
         {
             listView1.Items.Clear();
+            if (reValues)
+            {
+                WriteOutput("[Success] Clear Function List");
+            }
             for (var i = 0; i < OffsetPatch.FunctionList.Count; i++)
             {
                 var offsetList = OffsetPatch.ConvertFunctionList(i);
@@ -1442,5 +1446,6 @@ namespace Tools_Injector_Mod_Menu
         }
 
         #endregion Dev Page
+
     }
 }
