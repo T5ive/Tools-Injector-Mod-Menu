@@ -708,6 +708,7 @@ namespace Tools_Injector_Mod_Menu
                 return;
             }
             FormState(State.Running);
+            materialTabControl1.SelectedTab = materialTabControl1.TabPages[2];
             if (!DeleteAll(_tempPathMenu)) return;
             if (!ExtractZip(AppPath + $"\\Menu\\{comboMenu.SelectedItem}.zip", _tempPathMenu)) return;
             if (!ExtractZip(AppPath + $"\\Theme\\{comboMenu.SelectedItem}.zip", _tempPathMenu)) return;
@@ -1229,7 +1230,7 @@ namespace Tools_Injector_Mod_Menu
             EnableController(this, state != State.Running);
             if (state == State.Idle)
             {
-                if(!Properties.Settings.Default.chkSound) return;
+                if (!Properties.Settings.Default.chkSound) return;
                 System.Media.SystemSounds.Beep.Play();
             }
         }
@@ -1402,6 +1403,9 @@ namespace Tools_Injector_Mod_Menu
 
         private void btnSaveMethod1_Click(object sender, EventArgs e)
         {
+            if (!MyMessage.MsgOkCancel("Do you want to save?\n\n" +
+                                       "Click \"OK\" to confirm.\n\n" +
+                                       "Click \"Cancel\" to cancel.")) return;
             Properties.Settings.Default.txtService = txtService.Text;
             Properties.Settings.Default.txtOnCreate = txtOnCreate.Text;
         }
@@ -1422,6 +1426,9 @@ namespace Tools_Injector_Mod_Menu
 
         private void btnSaveMethod2_Click(object sender, EventArgs e)
         {
+            if (!MyMessage.MsgOkCancel("Do you want to save?\n\n" +
+                                       "Click \"OK\" to confirm.\n\n" +
+                                       "Click \"Cancel\" to cancel.")) return;
             Properties.Settings.Default.txtActionMain = txtActionMain.Text;
         }
 

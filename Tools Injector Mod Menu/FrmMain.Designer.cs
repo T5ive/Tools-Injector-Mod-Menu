@@ -251,7 +251,7 @@ namespace Tools_Injector_Mod_Menu
             this.chkRemoveTemp.Checked = true;
             this.chkRemoveTemp.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkRemoveTemp.Depth = 0;
-            this.chkRemoveTemp.Location = new System.Drawing.Point(6, 20);
+            this.chkRemoveTemp.Location = new System.Drawing.Point(127, 57);
             this.chkRemoveTemp.Margin = new System.Windows.Forms.Padding(0);
             this.chkRemoveTemp.MouseLocation = new System.Drawing.Point(-1, -1);
             this.chkRemoveTemp.MouseState = MaterialSkin.MouseState.HOVER;
@@ -268,7 +268,7 @@ namespace Tools_Injector_Mod_Menu
             this.chkTFiveCredit.Checked = true;
             this.chkTFiveCredit.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkTFiveCredit.Depth = 0;
-            this.chkTFiveCredit.Location = new System.Drawing.Point(6, 57);
+            this.chkTFiveCredit.Location = new System.Drawing.Point(6, 20);
             this.chkTFiveCredit.Margin = new System.Windows.Forms.Padding(0);
             this.chkTFiveCredit.MouseLocation = new System.Drawing.Point(-1, -1);
             this.chkTFiveCredit.MouseState = MaterialSkin.MouseState.HOVER;
@@ -1644,7 +1644,7 @@ namespace Tools_Injector_Mod_Menu
             this.txtFind.Depth = 0;
             this.txtFind.Font = new System.Drawing.Font("Roboto", 12F);
             this.txtFind.Location = new System.Drawing.Point(6, 22);
-            this.txtFind.MaxLength = 50;
+            this.txtFind.MaxLength = 3000;
             this.txtFind.MouseState = MaterialSkin.MouseState.OUT;
             this.txtFind.Multiline = false;
             this.txtFind.Name = "txtFind";
@@ -1732,7 +1732,7 @@ namespace Tools_Injector_Mod_Menu
             this.txtOnCreate.Depth = 0;
             this.txtOnCreate.Font = new System.Drawing.Font("Roboto", 12F);
             this.txtOnCreate.Location = new System.Drawing.Point(6, 118);
-            this.txtOnCreate.MaxLength = 50;
+            this.txtOnCreate.MaxLength = 3000;
             this.txtOnCreate.MouseState = MaterialSkin.MouseState.OUT;
             this.txtOnCreate.Multiline = false;
             this.txtOnCreate.Name = "txtOnCreate";
@@ -1767,7 +1767,7 @@ namespace Tools_Injector_Mod_Menu
             this.txtService.Depth = 0;
             this.txtService.Font = new System.Drawing.Font("Roboto", 12F);
             this.txtService.Location = new System.Drawing.Point(6, 70);
-            this.txtService.MaxLength = 50;
+            this.txtService.MaxLength = 3000;
             this.txtService.MouseState = MaterialSkin.MouseState.OUT;
             this.txtService.Multiline = false;
             this.txtService.Name = "txtService";
@@ -1803,7 +1803,7 @@ namespace Tools_Injector_Mod_Menu
             this.txtPermission.Depth = 0;
             this.txtPermission.Font = new System.Drawing.Font("Roboto", 12F);
             this.txtPermission.Location = new System.Drawing.Point(6, 22);
-            this.txtPermission.MaxLength = 50;
+            this.txtPermission.MaxLength = 3000;
             this.txtPermission.MouseState = MaterialSkin.MouseState.OUT;
             this.txtPermission.Multiline = false;
             this.txtPermission.Name = "txtPermission";
@@ -1857,7 +1857,7 @@ namespace Tools_Injector_Mod_Menu
             this.chkSound.Checked = true;
             this.chkSound.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkSound.Depth = 0;
-            this.chkSound.Location = new System.Drawing.Point(239, 20);
+            this.chkSound.Location = new System.Drawing.Point(6, 57);
             this.chkSound.Margin = new System.Windows.Forms.Padding(0);
             this.chkSound.MouseLocation = new System.Drawing.Point(-1, -1);
             this.chkSound.MouseState = MaterialSkin.MouseState.HOVER;
