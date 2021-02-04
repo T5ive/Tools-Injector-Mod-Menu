@@ -29,6 +29,7 @@ namespace Tools_Injector_Mod_Menu
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmSeekBar));
             this.materialCard1 = new MaterialSkin.Controls.MaterialCard();
             this.numMax = new System.Windows.Forms.NumericUpDown();
             this.numMin = new System.Windows.Forms.NumericUpDown();
@@ -173,6 +174,7 @@ namespace Tools_Injector_Mod_Menu
             this.ClientSize = new System.Drawing.Size(239, 156);
             this.Controls.Add(this.materialCard1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "FrmSeekBar";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "SeekBar";

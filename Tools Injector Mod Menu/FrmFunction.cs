@@ -30,17 +30,9 @@ namespace Tools_Injector_Mod_Menu
             }
         }
 
-        private void btnClose_Click(object sender, EventArgs e)
-        {
-            if (!MyMessage.MsgOkCancel("Do you want to save?\n\n" +
-                                       "Click \"OK\" to confirm.\n\n" +
-                                       "Click \"Cancel\" to cancel.")) return;
-            Dispose();
-        }
-
         private void btnSave_Click(object sender, EventArgs e)
         {
-            if (!MyMessage.MsgOkCancel("Do you want to close?\n\n" +
+            if (!MyMessage.MsgOkCancel("Do you want to save?\n\n" +
                                        "Click \"OK\" to confirm.\n\n" +
                                        "Click \"Cancel\" to cancel.")) return;
             try
@@ -73,6 +65,14 @@ namespace Tools_Injector_Mod_Menu
             {
                 MyMessage.MsgShowError("Error" + exception.Message);
             }
+        }
+
+        private void btnClose_Click(object sender, EventArgs e)
+        {
+            if (!MyMessage.MsgOkCancel("Do you want to close?\n\n" +
+                                       "Click \"OK\" to confirm.\n\n" +
+                                       "Click \"Cancel\" to cancel.")) return;
+            Dispose();
         }
 
         private void dataGridView1_KeyDown(object sender, KeyEventArgs e)
