@@ -37,7 +37,7 @@ namespace Tools_Injector_Mod_Menu
 
         public static string Category, SeekBar;
 
-        private int _compile = 0;
+        private int _compile;
 
         public enum State
         {
@@ -79,13 +79,13 @@ namespace Tools_Injector_Mod_Menu
 
             if (!Utility.CheckFiles("Theme", "Default.zip"))
             {
-                MyMessage.MsgShow(@"Theme file Default.zip is missing!!", MessageBoxIcon.Error);
+                MyMessage.MsgShowError(@"Theme file Default.zip is missing!!");
                 Application.Exit();
             }
 
             if (!Utility.CheckFiles("Menu", "Default.zip"))
             {
-                MyMessage.MsgShow(@"Menu file Default.zip is missing!!", MessageBoxIcon.Error);
+                MyMessage.MsgShowError(@"Menu file Default.zip is missing!!");
                 Application.Exit();
             }
         }
@@ -97,13 +97,13 @@ namespace Tools_Injector_Mod_Menu
 
             if (themeFiles.Length == 0)
             {
-                MyMessage.MsgShow(@"Not found Theme files .zip!!", MessageBoxIcon.Error);
+                MyMessage.MsgShowError(@"Not found Theme files .zip!!");
                 Application.Exit();
             }
 
             if (_menuFiles.Length == 0)
             {
-                MyMessage.MsgShow(@"Not found Menu files .zip!!", MessageBoxIcon.Error);
+                MyMessage.MsgShowError(@"Not found Menu files .zip!!");
                 Application.Exit();
             }
 
@@ -112,7 +112,7 @@ namespace Tools_Injector_Mod_Menu
 
             if (!Utility.IsEqual(themFile, menuFile))
             {
-                MyMessage.MsgShow("Theme files not equal Menu files", MessageBoxIcon.Error);
+                MyMessage.MsgShowError("Theme files not equal Menu files");
                 Application.Exit();
             }
 
@@ -202,7 +202,7 @@ namespace Tools_Injector_Mod_Menu
             {
                 if (folderBrowser.SelectedPath.IsPathSpecialChar())
                 {
-                    MyMessage.MsgShow("Ndk path must without any special character", MessageBoxIcon.Warning);
+                    MyMessage.MsgShowWarning("Ndk path must without any special character");
                     WriteOutput("[Error:022] Ndk path must without any special character", Color.Red);
                     return;
                 }
@@ -297,7 +297,7 @@ namespace Tools_Injector_Mod_Menu
             {
                 if (txtOffset.Text != @"-")
                 {
-                    MyMessage.MsgShow(@"Offset Does not start with ""0x"" Please Check it again!!!", MessageBoxIcon.Asterisk);
+                    MyMessage.MsgShowWarning(@"Offset Does not start with ""0x"" Please Check it again!!!");
                     WriteOutput(@"[Warning] Offset Does not start with ""0x""", Color.Orange);
                     return;
                 }
@@ -404,7 +404,7 @@ namespace Tools_Injector_Mod_Menu
                 return;
             }
 
-        category:
+            category:
 
             var functionType = (Enums.FunctionType)comboFunction.SelectedIndex;
             var functionValue = "";
@@ -523,7 +523,7 @@ namespace Tools_Injector_Mod_Menu
                 }
                 else
                 {
-                    MyMessage.MsgShow("There is no Items Functions in the List!!", MessageBoxIcon.Error);
+                    MyMessage.MsgShowWarning("There is no Items Functions in the List!!");
                     WriteOutput("[Waring] There is no Items Functions to Remove", Color.Orange);
                 }
             }
@@ -558,7 +558,7 @@ namespace Tools_Injector_Mod_Menu
         {
             if (OffsetPatch.FunctionList.Count <= 0)
             {
-                MyMessage.MsgShow(@"Function list is Empty, Please Check it again!!!", MessageBoxIcon.Asterisk);
+                MyMessage.MsgShowWarning(@"Function list is Empty, Please Check it again!!!");
                 WriteOutput("[Waring] Function list is Empty", Color.Orange);
                 return;
             }
@@ -684,20 +684,20 @@ namespace Tools_Injector_Mod_Menu
         {
             if (Utility.IsEmpty(txtNameGame))
             {
-                MyMessage.MsgShow(@"Name Game is Empty, Please Check it again!!!", MessageBoxIcon.Asterisk);
+                MyMessage.MsgShowWarning(@"Name Game is Empty, Please Check it again!!!");
                 WriteOutput("[Warning] Name Game is Empty", Color.Orange);
                 return;
             }
             if (Utility.IsEmpty(txtTargetLib))
             {
-                MyMessage.MsgShow(@"Target Library Name is Empty, Please Check it again!!!", MessageBoxIcon.Asterisk);
+                MyMessage.MsgShowWarning(@"Target Library Name is Empty, Please Check it again!!!");
                 WriteOutput("[Warning] Name Game is Empty", Color.Orange);
                 return;
             }
 
             if (OffsetPatch.FunctionList.Count <= 0)
             {
-                MyMessage.MsgShow(@"Function list is Empty, Please Check it again!!!", MessageBoxIcon.Asterisk);
+                MyMessage.MsgShowWarning(@"Function list is Empty, Please Check it again!!!");
                 WriteOutput("[Warning] Name Game is Empty", Color.Orange);
                 return;
             }
@@ -707,7 +707,7 @@ namespace Tools_Injector_Mod_Menu
             if (!ExtractZip(AppPath + $"\\Theme\\{comboMenu.SelectedItem}.zip", _tempPathMenu)) return;
             if (!Replacer())
             {
-                MyMessage.MsgShow("Failed to Replace Something", MessageBoxIcon.Error);
+                MyMessage.MsgShowError("Failed to Replace Something");
                 WriteOutput("[Error:018] Failed to Replace Something", Color.Red);
                 FormState(State.Idle);
                 return;
@@ -744,7 +744,7 @@ namespace Tools_Injector_Mod_Menu
             }
             catch (Exception ex)
             {
-                MyMessage.MsgShow("Error " + ex.Message, MessageBoxIcon.Error);
+                MyMessage.MsgShowError("Error " + ex.Message);
                 WriteOutput("[Error:009] " + ex.Message, Color.Red);
                 FormState(State.Idle);
                 return false;
@@ -763,7 +763,7 @@ namespace Tools_Injector_Mod_Menu
             }
             catch (Exception ex)
             {
-                MyMessage.MsgShow("Error " + ex.Message, MessageBoxIcon.Error);
+                MyMessage.MsgShowError("Error " + ex.Message);
                 WriteOutput("[Error:010] " + ex.Message, Color.Red);
                 FormState(State.Idle);
                 return false;
@@ -799,7 +799,7 @@ namespace Tools_Injector_Mod_Menu
             }
             catch (Exception ex)
             {
-                MyMessage.MsgShow("Error " + ex.Message, MessageBoxIcon.Error);
+                MyMessage.MsgShowError("Error " + ex.Message);
                 WriteOutput("[Error:011] " + ex.Message, Color.Red);
                 FormState(State.Idle);
                 return false;
@@ -819,7 +819,7 @@ namespace Tools_Injector_Mod_Menu
             }
             catch (Exception ex)
             {
-                MyMessage.MsgShow("Error " + ex.Message, MessageBoxIcon.Error);
+                MyMessage.MsgShowError("Error " + ex.Message);
                 WriteOutput("[Error:012] " + ex.Message, Color.Red);
                 FormState(State.Idle);
                 return false;
@@ -847,7 +847,7 @@ namespace Tools_Injector_Mod_Menu
             }
             catch (Exception ex)
             {
-                MyMessage.MsgShow("Error " + ex.Message, MessageBoxIcon.Error);
+                MyMessage.MsgShowError("Error " + ex.Message);
                 WriteOutput("[Error:013] " + ex.Message, Color.Red);
                 FormState(State.Idle);
                 return false;
@@ -877,7 +877,7 @@ namespace Tools_Injector_Mod_Menu
             }
             catch (Exception ex)
             {
-                MyMessage.MsgShow("Error " + ex.Message, MessageBoxIcon.Error);
+                MyMessage.MsgShowError("Error " + ex.Message);
                 WriteOutput("[Error:014] " + ex.Message, Color.Red);
                 FormState(State.Idle);
                 return false;
@@ -907,7 +907,7 @@ namespace Tools_Injector_Mod_Menu
             }
             catch (Exception ex)
             {
-                MyMessage.MsgShow("Error " + ex.Message, MessageBoxIcon.Error);
+                MyMessage.MsgShowError("Error " + ex.Message);
                 WriteOutput("[Error:015] " + ex.Message, Color.Red);
                 FormState(State.Idle);
                 return false;
@@ -1060,7 +1060,7 @@ namespace Tools_Injector_Mod_Menu
         private void ErrorDataReceived(object sender, DataReceivedEventArgs e)
         {
             _compile++;
-            if(_compile <= 2) return;
+            if (_compile <= 2) return;
             WriteOutput("[Compile] " + e.Data, Color.Red);
         }
 
@@ -1068,7 +1068,7 @@ namespace Tools_Injector_Mod_Menu
         {
             if (_compile > 2)
             {
-                MyMessage.MsgShow("Failed to Compile", MessageBoxIcon.Error);
+                MyMessage.MsgShowError("Failed to Compile");
                 WriteOutput("[Error:020] Failed to Compile", Color.Red);
                 FormState(State.Idle);
                 return;
@@ -1113,7 +1113,7 @@ namespace Tools_Injector_Mod_Menu
             }
             catch (Exception ex)
             {
-                MyMessage.MsgShow("Error " + ex.Message, MessageBoxIcon.Error);
+                MyMessage.MsgShowError("Error " + ex.Message);
                 WriteOutput("[Error:016] " + ex.Message, Color.Red);
                 FormState(State.Idle);
                 return false;
@@ -1133,7 +1133,7 @@ namespace Tools_Injector_Mod_Menu
             }
             catch (Exception ex)
             {
-                MyMessage.MsgShow("Error " + ex.Message, MessageBoxIcon.Error);
+                MyMessage.MsgShowError("Error " + ex.Message);
                 WriteOutput("[Error:017] " + ex.Message, Color.Red);
                 FormState(State.Idle);
                 return false;
@@ -1172,7 +1172,7 @@ namespace Tools_Injector_Mod_Menu
             }
             catch (Exception ex)
             {
-                MyMessage.MsgShow("Error " + ex.Message, MessageBoxIcon.Error);
+                MyMessage.MsgShowError("Error " + ex.Message);
                 WriteOutput("[Error:019] " + ex.Message, Color.Red);
                 FormState(State.Idle);
                 return false;
@@ -1211,7 +1211,7 @@ namespace Tools_Injector_Mod_Menu
             }
             catch (Exception ex)
             {
-                MyMessage.MsgShow("Error " + ex.Message, MessageBoxIcon.Error);
+                MyMessage.MsgShowError("Error " + ex.Message);
                 WriteOutput("[Error:022] " + ex.Message, Color.Red);
                 FormState(State.Idle);
                 return false;

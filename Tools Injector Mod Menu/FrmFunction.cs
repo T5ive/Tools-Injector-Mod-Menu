@@ -32,34 +32,47 @@ namespace Tools_Injector_Mod_Menu
 
         private void btnClose_Click(object sender, EventArgs e)
         {
+            if (!MyMessage.MsgOkCancel("Do you want to close?\n\n" +
+                                       "Click \"OK\" to confirm.\n\n" +
+                                       "Click \"Cancel\" to cancel.")) return;
             Dispose();
         }
 
         private void btnSave_Click(object sender, EventArgs e)
         {
-            var offsetList = new List<OffsetInfo>();
-            for (var i = 0; i < dataList.Rows.Count; i++)
+            if (!MyMessage.MsgOkCancel("Do you want to close?\n\n" +
+                                       "Click \"OK\" to confirm.\n\n" +
+                                       "Click \"Cancel\" to cancel.")) return;
+            try
             {
-                var offset = new OffsetInfo
+                var offsetList = new List<OffsetInfo>();
+                for (var i = 0; i < dataList.Rows.Count; i++)
                 {
-                    OffsetId = i,
-                    Offset = dataList.Rows[i].Cells[0].Value.ToString(),
-                    Hex = dataList.Rows[i].Cells[1].Value.ToString()
+                    var offset = new OffsetInfo
+                    {
+                        OffsetId = i,
+                        Offset = dataList.Rows[i].Cells[0].Value.ToString(),
+                        Hex = dataList.Rows[i].Cells[1].Value.ToString()
+                    };
+                    offsetList.Add(offset);
+                }
+
+                var functionList = new FunctionList()
+                {
+                    CheatName = txtNameCheat.Text,
+                    FunctionValue = txtValues.Text,
+                    FunctionType = _type,
+                    OffsetList = offsetList
                 };
-                offsetList.Add(offset);
+
+                OffsetPatch.FunctionList[_index] = functionList;
+
+                Dispose();
             }
-
-            var functionList = new FunctionList()
+            catch (Exception exception)
             {
-                CheatName = txtNameCheat.Text,
-                FunctionValue = txtValues.Text,
-                FunctionType = _type,
-                OffsetList = offsetList
-            };
-
-            OffsetPatch.FunctionList[_index] = functionList;
-
-            Dispose();
+                MyMessage.MsgShowError("Error" + exception.Message);
+            }
         }
 
         private void dataGridView1_KeyDown(object sender, KeyEventArgs e)
@@ -96,6 +109,7 @@ namespace Tools_Injector_Mod_Menu
                 }
                 catch
                 {
+                    //
                 }
             }
 
@@ -121,6 +135,7 @@ namespace Tools_Injector_Mod_Menu
             }
             catch
             {
+                //
             }
         }
 

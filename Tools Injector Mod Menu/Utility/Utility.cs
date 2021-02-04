@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
-using System.Windows.Forms;
 using Tools_Injector_Mod_Menu.Patch_Manager;
 
 namespace Tools_Injector_Mod_Menu
@@ -47,7 +46,7 @@ namespace Tools_Injector_Mod_Menu
                 {
                     if (offsetInfo.Offset == offset.Offset)
                     {
-                        MyMessage.MsgShow(@"Found Duplicate " + offsetInfo.Offset + @", Please Check it again before adding a offset!!!");
+                        MyMessage.MsgShowWarning(@"Found Duplicate " + offsetInfo.Offset + @", Please Check it again before adding a offset!!!");
                         return true;
                     }
                 }
@@ -63,7 +62,7 @@ namespace Tools_Injector_Mod_Menu
                 {
                     if (nameCheat == result.CheatName)
                     {
-                        MyMessage.MsgShow(@"Found Duplicate " + nameCheat + @", Please Check it again before adding a offset!!!");
+                        MyMessage.MsgShowWarning(@"Found Duplicate " + nameCheat + @", Please Check it again before adding a offset!!!");
                         return true;
                     }
                 }
@@ -75,7 +74,7 @@ namespace Tools_Injector_Mod_Menu
         {
             if (string.IsNullOrWhiteSpace(textBox.Text))
             {
-                MyMessage.MsgShow($@"{textBox.Name} is Empty, Please Check it again!!!", MessageBoxIcon.Asterisk);
+                MyMessage.MsgShowWarning($@"{textBox.Name} is Empty, Please Check it again!!!");
                 return true;
             }
 
@@ -86,7 +85,7 @@ namespace Tools_Injector_Mod_Menu
         {
             if (string.IsNullOrWhiteSpace(str))
             {
-                MyMessage.MsgShow($@"{str} is Empty, Please Check it again!!!", MessageBoxIcon.Asterisk);
+                MyMessage.MsgShowWarning($@"{str} is Empty, Please Check it again!!!");
                 return true;
             }
             return false;
@@ -136,7 +135,7 @@ namespace Tools_Injector_Mod_Menu
                 {
                     if (offsetInfo.Offset == offset.Offset)
                     {
-                        MyMessage.MsgShow(@"Found Duplicate " + offsetInfo.Offset + @", Please Check it again before adding a offset!!!");
+                        MyMessage.MsgShowWarning(@"Found Duplicate " + offsetInfo.Offset + @", Please Check it again before adding a offset!!!");
                         return true;
                     }
                 }
@@ -154,7 +153,7 @@ namespace Tools_Injector_Mod_Menu
                     {
                         if (offsetInfo.Offset == offset.Offset)
                         {
-                            MyMessage.MsgShow(@"Found Duplicate " + offsetInfo.Offset + @", Please Check it again before adding a offset!!!");
+                            MyMessage.MsgShowWarning(@"Found Duplicate " + offsetInfo.Offset + @", Please Check it again before adding a offset!!!");
                             return true;
                         }
                     }
@@ -171,7 +170,7 @@ namespace Tools_Injector_Mod_Menu
                 {
                     if (nameCheat == offsetDict)
                     {
-                        MyMessage.MsgShow(@"Found Duplicate " + nameCheat + @", Please Check it again before adding a offset!!!");
+                        MyMessage.MsgShowWarning(@"Found Duplicate " + nameCheat + @", Please Check it again before adding a offset!!!");
                         return true;
                     }
                 }

@@ -10,8 +10,20 @@ namespace Tools_Injector_Mod_Menu
             InitializeComponent();
         }
 
+        private void btnSave_Click(object sender, EventArgs e)
+        {
+            if (!MyMessage.MsgOkCancel("Do you want to close?\n\n" +
+                                       "Click \"OK\" to confirm.\n\n" +
+                                       "Click \"Cancel\" to cancel.")) return;
+            FrmMain.SeekBar = $"{numMin.Value}_{numMax.Value}";
+            Dispose();
+        }
+
         private void btnClose_Click(object sender, EventArgs e)
         {
+            if (!MyMessage.MsgOkCancel("Do you want to close?\n\n" +
+                                       "Click \"OK\" to confirm.\n\n" +
+                                       "Click \"Cancel\" to cancel.")) return;
             Dispose();
         }
 
@@ -21,12 +33,6 @@ namespace Tools_Injector_Mod_Menu
             {
                 numMax.Value = numMin.Value + 1;
             }
-        }
-
-        private void btnSave_Click(object sender, EventArgs e)
-        {
-            FrmMain.SeekBar = $"{numMin.Value}_{numMax.Value}";
-            Dispose();
         }
     }
 }
