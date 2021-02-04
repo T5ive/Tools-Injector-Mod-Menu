@@ -150,6 +150,7 @@ namespace Tools_Injector_Mod_Menu
             chkLogsComplie.Checked = settings.chkLogsComplie;
             chkLogsSuccess.Checked = settings.chkLogsSuccess;
             chkLogsError.Checked = settings.chkLogsError;
+            chkSound.Checked = settings.chkSound;
 
             txtService.Text = settings.txtService;
             txtOnCreate.Text = settings.txtOnCreate;
@@ -241,6 +242,7 @@ namespace Tools_Injector_Mod_Menu
                     settings.chkLogsComplie = chkLogsComplie.Checked;
                     settings.chkLogsSuccess = chkLogsSuccess.Checked;
                     settings.chkLogsError = chkLogsError.Checked;
+                    settings.chkSound = chkSound.Checked;
                     settings.Save();
                     WriteOutput("[Success] Saved Settings", Color.Green);
                 }
@@ -1227,6 +1229,7 @@ namespace Tools_Injector_Mod_Menu
             EnableController(this, state != State.Running);
             if (state == State.Idle)
             {
+                if(!Properties.Settings.Default.chkSound) return;
                 System.Media.SystemSounds.Beep.Play();
             }
         }
@@ -1427,6 +1430,7 @@ namespace Tools_Injector_Mod_Menu
         private void CopyText(string str)
         {
             Clipboard.SetText(str);
+            if (!Properties.Settings.Default.chkSound) return;
             System.Media.SystemSounds.Beep.Play();
         }
 

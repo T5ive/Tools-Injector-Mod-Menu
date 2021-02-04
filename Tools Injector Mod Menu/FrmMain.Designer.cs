@@ -143,6 +143,7 @@ namespace Tools_Injector_Mod_Menu
             this.btnCopyPermission = new MaterialSkin.Controls.MaterialButton();
             this.menuIconList = new System.Windows.Forms.ImageList(this.components);
             this.compilerWorker = new System.ComponentModel.BackgroundWorker();
+            this.chkSound = new MaterialSkin.Controls.MaterialCheckbox();
             this.materialTabControl1.SuspendLayout();
             this.tabMain.SuspendLayout();
             this.materialCard5.SuspendLayout();
@@ -229,6 +230,7 @@ namespace Tools_Injector_Mod_Menu
             // 
             // groupBox8
             // 
+            this.groupBox8.Controls.Add(this.chkSound);
             this.groupBox8.Controls.Add(this.chkRemoveTemp);
             this.groupBox8.Controls.Add(this.chkTFiveCredit);
             this.groupBox8.Controls.Add(this.chkLogsError);
@@ -255,9 +257,9 @@ namespace Tools_Injector_Mod_Menu
             this.chkRemoveTemp.MouseState = MaterialSkin.MouseState.HOVER;
             this.chkRemoveTemp.Name = "chkRemoveTemp";
             this.chkRemoveTemp.Ripple = true;
-            this.chkRemoveTemp.Size = new System.Drawing.Size(197, 37);
+            this.chkRemoveTemp.Size = new System.Drawing.Size(193, 37);
             this.chkRemoveTemp.TabIndex = 16;
-            this.chkRemoveTemp.Text = "Remove modified files.";
+            this.chkRemoveTemp.Text = "Remove modified files";
             this.chkRemoveTemp.UseVisualStyleBackColor = true;
             // 
             // chkTFiveCredit
@@ -283,7 +285,7 @@ namespace Tools_Injector_Mod_Menu
             this.chkLogsError.Checked = true;
             this.chkLogsError.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkLogsError.Depth = 0;
-            this.chkLogsError.Location = new System.Drawing.Point(193, 94);
+            this.chkLogsError.Location = new System.Drawing.Point(239, 94);
             this.chkLogsError.Margin = new System.Windows.Forms.Padding(0);
             this.chkLogsError.MouseLocation = new System.Drawing.Point(-1, -1);
             this.chkLogsError.MouseState = MaterialSkin.MouseState.HOVER;
@@ -317,7 +319,7 @@ namespace Tools_Injector_Mod_Menu
             this.chkLogsSuccess.Checked = true;
             this.chkLogsSuccess.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkLogsSuccess.Depth = 0;
-            this.chkLogsSuccess.Location = new System.Drawing.Point(99, 94);
+            this.chkLogsSuccess.Location = new System.Drawing.Point(127, 94);
             this.chkLogsSuccess.Margin = new System.Windows.Forms.Padding(0);
             this.chkLogsSuccess.MouseLocation = new System.Drawing.Point(-1, -1);
             this.chkLogsSuccess.MouseState = MaterialSkin.MouseState.HOVER;
@@ -1849,6 +1851,23 @@ namespace Tools_Injector_Mod_Menu
             this.compilerWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.compilerWorker_DoWork);
             this.compilerWorker.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.compilerWorker_RunWorkerCompleted);
             // 
+            // chkSound
+            // 
+            this.chkSound.AutoSize = true;
+            this.chkSound.Checked = true;
+            this.chkSound.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkSound.Depth = 0;
+            this.chkSound.Location = new System.Drawing.Point(239, 20);
+            this.chkSound.Margin = new System.Windows.Forms.Padding(0);
+            this.chkSound.MouseLocation = new System.Drawing.Point(-1, -1);
+            this.chkSound.MouseState = MaterialSkin.MouseState.HOVER;
+            this.chkSound.Name = "chkSound";
+            this.chkSound.Ripple = true;
+            this.chkSound.Size = new System.Drawing.Size(81, 37);
+            this.chkSound.TabIndex = 17;
+            this.chkSound.Text = "Sound";
+            this.chkSound.UseVisualStyleBackColor = true;
+            // 
             // FrmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -2024,5 +2043,6 @@ namespace Tools_Injector_Mod_Menu
         private MaterialSkin.Controls.MaterialTextBox txtFind;
         private MaterialSkin.Controls.MaterialButton btnCopyFind;
         private MaterialSkin.Controls.MaterialButton btnSaveMethod1;
+        private MaterialSkin.Controls.MaterialCheckbox chkSound;
     }
 }

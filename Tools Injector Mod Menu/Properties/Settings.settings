@@ -58,5 +58,8 @@
      &lt;/intent-filter&gt;
 &lt;/activity&gt;</Value>
     </Setting>
+    <Setting Name="chkSound" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

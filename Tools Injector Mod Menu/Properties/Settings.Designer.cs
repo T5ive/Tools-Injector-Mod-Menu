@@ -232,5 +232,17 @@ namespace Tools_Injector_Mod_Menu.Properties {
                 this["txtActionMain"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool chkSound {
+            get {
+                return ((bool)(this["chkSound"]));
+            }
+            set {
+                this["chkSound"] = value;
+            }
+        }
     }
 }
