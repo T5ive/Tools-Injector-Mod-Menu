@@ -999,7 +999,6 @@ namespace Tools_Injector_Mod_Menu
 
         private string HackThread()
         {
-            return "";
             return OffsetPatch.FunctionList.Where(t => comboType.SelectedIndex == (int)Enums.TypeAbi.Arm | comboType.SelectedIndex == (int)Enums.TypeAbi.X86 && t.FunctionType != Enums.FunctionType.Category && t.FunctionType != Enums.FunctionType.SeekBar)
                 .Aggregate("", (current1, t) => t.OffsetList.Aggregate(current1, (current, t1) => current + $@"    hexPatches.{t.CheatName.RemoveSuperSpecialCharacters().ReplaceNumCharacters()}_{t1.OffsetId} = MemoryPatch::createWithHex(""{txtTargetLib.Text}"",
                         string2Offset(OBFUSCATE_KEY(""{t1.Offset}"", 't')),
