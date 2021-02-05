@@ -144,6 +144,9 @@ namespace Tools_Injector_Mod_Menu
             this.menuIconList = new System.Windows.Forms.ImageList(this.components);
             this.compilerWorker = new System.ComponentModel.BackgroundWorker();
             this.chkSound = new MaterialSkin.Controls.MaterialCheckbox();
+            this.materialCard15 = new MaterialSkin.Controls.MaterialCard();
+            this.groupBox16 = new System.Windows.Forms.GroupBox();
+            this.btnSavePermission = new MaterialSkin.Controls.MaterialButton();
             this.materialTabControl1.SuspendLayout();
             this.tabMain.SuspendLayout();
             this.materialCard5.SuspendLayout();
@@ -178,6 +181,8 @@ namespace Tools_Injector_Mod_Menu
             this.groupBox15.SuspendLayout();
             this.materialCard8.SuspendLayout();
             this.groupBox5.SuspendLayout();
+            this.materialCard15.SuspendLayout();
+            this.groupBox16.SuspendLayout();
             this.SuspendLayout();
             // 
             // materialTabControl1
@@ -1547,6 +1552,7 @@ namespace Tools_Injector_Mod_Menu
             // 
             // tabDev
             // 
+            this.tabDev.Controls.Add(this.materialCard15);
             this.tabDev.Controls.Add(this.materialCard14);
             this.tabDev.Controls.Add(this.materialCard8);
             this.tabDev.ImageKey = "moderator-24.png";
@@ -1563,7 +1569,7 @@ namespace Tools_Injector_Mod_Menu
             this.materialCard14.Controls.Add(this.groupBox15);
             this.materialCard14.Depth = 0;
             this.materialCard14.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.materialCard14.Location = new System.Drawing.Point(14, 252);
+            this.materialCard14.Location = new System.Drawing.Point(14, 264);
             this.materialCard14.Margin = new System.Windows.Forms.Padding(14);
             this.materialCard14.MouseState = MaterialSkin.MouseState.HOVER;
             this.materialCard14.Name = "materialCard14";
@@ -1680,12 +1686,12 @@ namespace Tools_Injector_Mod_Menu
             this.materialCard8.Controls.Add(this.groupBox5);
             this.materialCard8.Depth = 0;
             this.materialCard8.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.materialCard8.Location = new System.Drawing.Point(14, 14);
+            this.materialCard8.Location = new System.Drawing.Point(14, 158);
             this.materialCard8.Margin = new System.Windows.Forms.Padding(14);
             this.materialCard8.MouseState = MaterialSkin.MouseState.HOVER;
             this.materialCard8.Name = "materialCard8";
             this.materialCard8.Padding = new System.Windows.Forms.Padding(14);
-            this.materialCard8.Size = new System.Drawing.Size(769, 235);
+            this.materialCard8.Size = new System.Drawing.Size(769, 103);
             this.materialCard8.TabIndex = 2;
             // 
             // groupBox5
@@ -1693,15 +1699,11 @@ namespace Tools_Injector_Mod_Menu
             this.groupBox5.Controls.Add(this.btnSaveMethod1);
             this.groupBox5.Controls.Add(this.txtOnCreate);
             this.groupBox5.Controls.Add(this.btnOnCreate);
-            this.groupBox5.Controls.Add(this.txtService);
-            this.groupBox5.Controls.Add(this.btnCopyService);
-            this.groupBox5.Controls.Add(this.txtPermission);
-            this.groupBox5.Controls.Add(this.btnCopyPermission);
             this.groupBox5.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox5.Font = new System.Drawing.Font("Roboto", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
             this.groupBox5.Location = new System.Drawing.Point(14, 14);
             this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Size = new System.Drawing.Size(741, 207);
+            this.groupBox5.Size = new System.Drawing.Size(741, 75);
             this.groupBox5.TabIndex = 2;
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "METHOD 1";
@@ -1714,7 +1716,7 @@ namespace Tools_Injector_Mod_Menu
             this.btnSaveMethod1.DrawShadows = true;
             this.btnSaveMethod1.HighEmphasis = true;
             this.btnSaveMethod1.Icon = null;
-            this.btnSaveMethod1.Location = new System.Drawing.Point(609, 166);
+            this.btnSaveMethod1.Location = new System.Drawing.Point(476, 25);
             this.btnSaveMethod1.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
             this.btnSaveMethod1.MouseState = MaterialSkin.MouseState.HOVER;
             this.btnSaveMethod1.Name = "btnSaveMethod1";
@@ -1731,12 +1733,12 @@ namespace Tools_Injector_Mod_Menu
             this.txtOnCreate.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.txtOnCreate.Depth = 0;
             this.txtOnCreate.Font = new System.Drawing.Font("Roboto", 12F);
-            this.txtOnCreate.Location = new System.Drawing.Point(6, 118);
+            this.txtOnCreate.Location = new System.Drawing.Point(6, 25);
             this.txtOnCreate.MaxLength = 3000;
             this.txtOnCreate.MouseState = MaterialSkin.MouseState.OUT;
             this.txtOnCreate.Multiline = false;
             this.txtOnCreate.Name = "txtOnCreate";
-            this.txtOnCreate.Size = new System.Drawing.Size(596, 36);
+            this.txtOnCreate.Size = new System.Drawing.Size(463, 36);
             this.txtOnCreate.TabIndex = 5;
             this.txtOnCreate.Text = "invoke-static {p0}, Lcom/tfive/MainActivity;->Start(Landroid/content/Context;)V";
             this.txtOnCreate.UseTallSize = false;
@@ -1749,7 +1751,7 @@ namespace Tools_Injector_Mod_Menu
             this.btnOnCreate.DrawShadows = true;
             this.btnOnCreate.HighEmphasis = true;
             this.btnOnCreate.Icon = null;
-            this.btnOnCreate.Location = new System.Drawing.Point(609, 118);
+            this.btnOnCreate.Location = new System.Drawing.Point(609, 25);
             this.btnOnCreate.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
             this.btnOnCreate.MouseState = MaterialSkin.MouseState.HOVER;
             this.btnOnCreate.Name = "btnOnCreate";
@@ -1766,12 +1768,12 @@ namespace Tools_Injector_Mod_Menu
             this.txtService.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.txtService.Depth = 0;
             this.txtService.Font = new System.Drawing.Font("Roboto", 12F);
-            this.txtService.Location = new System.Drawing.Point(6, 70);
+            this.txtService.Location = new System.Drawing.Point(6, 81);
             this.txtService.MaxLength = 3000;
             this.txtService.MouseState = MaterialSkin.MouseState.OUT;
             this.txtService.Multiline = false;
             this.txtService.Name = "txtService";
-            this.txtService.Size = new System.Drawing.Size(596, 36);
+            this.txtService.Size = new System.Drawing.Size(463, 36);
             this.txtService.TabIndex = 3;
             this.txtService.Text = "<service android:name=\"com.tfive.modmenu.FloatingModMenuService\" android:enabled=" +
     "\"true\" android:exported=\"false\" android:stopWithTask=\"true\"/>";
@@ -1785,7 +1787,7 @@ namespace Tools_Injector_Mod_Menu
             this.btnCopyService.DrawShadows = true;
             this.btnCopyService.HighEmphasis = true;
             this.btnCopyService.Icon = null;
-            this.btnCopyService.Location = new System.Drawing.Point(609, 70);
+            this.btnCopyService.Location = new System.Drawing.Point(609, 81);
             this.btnCopyService.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
             this.btnCopyService.MouseState = MaterialSkin.MouseState.HOVER;
             this.btnCopyService.Name = "btnCopyService";
@@ -1802,7 +1804,7 @@ namespace Tools_Injector_Mod_Menu
             this.txtPermission.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.txtPermission.Depth = 0;
             this.txtPermission.Font = new System.Drawing.Font("Roboto", 12F);
-            this.txtPermission.Location = new System.Drawing.Point(6, 22);
+            this.txtPermission.Location = new System.Drawing.Point(6, 33);
             this.txtPermission.MaxLength = 3000;
             this.txtPermission.MouseState = MaterialSkin.MouseState.OUT;
             this.txtPermission.Multiline = false;
@@ -1821,7 +1823,7 @@ namespace Tools_Injector_Mod_Menu
             this.btnCopyPermission.DrawShadows = true;
             this.btnCopyPermission.HighEmphasis = true;
             this.btnCopyPermission.Icon = null;
-            this.btnCopyPermission.Location = new System.Drawing.Point(609, 22);
+            this.btnCopyPermission.Location = new System.Drawing.Point(609, 33);
             this.btnCopyPermission.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
             this.btnCopyPermission.MouseState = MaterialSkin.MouseState.HOVER;
             this.btnCopyPermission.Name = "btnCopyPermission";
@@ -1867,6 +1869,56 @@ namespace Tools_Injector_Mod_Menu
             this.chkSound.TabIndex = 17;
             this.chkSound.Text = "Sound";
             this.chkSound.UseVisualStyleBackColor = true;
+            // 
+            // materialCard15
+            // 
+            this.materialCard15.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.materialCard15.Controls.Add(this.groupBox16);
+            this.materialCard15.Depth = 0;
+            this.materialCard15.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.materialCard15.Location = new System.Drawing.Point(14, 0);
+            this.materialCard15.Margin = new System.Windows.Forms.Padding(14);
+            this.materialCard15.MouseState = MaterialSkin.MouseState.HOVER;
+            this.materialCard15.Name = "materialCard15";
+            this.materialCard15.Padding = new System.Windows.Forms.Padding(14);
+            this.materialCard15.Size = new System.Drawing.Size(769, 155);
+            this.materialCard15.TabIndex = 7;
+            // 
+            // groupBox16
+            // 
+            this.groupBox16.Controls.Add(this.btnSavePermission);
+            this.groupBox16.Controls.Add(this.txtPermission);
+            this.groupBox16.Controls.Add(this.btnCopyPermission);
+            this.groupBox16.Controls.Add(this.btnCopyService);
+            this.groupBox16.Controls.Add(this.txtService);
+            this.groupBox16.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.groupBox16.Font = new System.Drawing.Font("Roboto", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.groupBox16.Location = new System.Drawing.Point(14, 14);
+            this.groupBox16.Name = "groupBox16";
+            this.groupBox16.Size = new System.Drawing.Size(741, 127);
+            this.groupBox16.TabIndex = 2;
+            this.groupBox16.TabStop = false;
+            this.groupBox16.Text = "Permission";
+            // 
+            // btnSavePermission
+            // 
+            this.btnSavePermission.AutoSize = false;
+            this.btnSavePermission.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.btnSavePermission.Depth = 0;
+            this.btnSavePermission.DrawShadows = true;
+            this.btnSavePermission.HighEmphasis = true;
+            this.btnSavePermission.Icon = null;
+            this.btnSavePermission.Location = new System.Drawing.Point(476, 81);
+            this.btnSavePermission.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
+            this.btnSavePermission.MouseState = MaterialSkin.MouseState.HOVER;
+            this.btnSavePermission.Name = "btnSavePermission";
+            this.btnSavePermission.Size = new System.Drawing.Size(125, 36);
+            this.btnSavePermission.TabIndex = 7;
+            this.btnSavePermission.Text = "Save";
+            this.btnSavePermission.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
+            this.btnSavePermission.UseAccentColor = false;
+            this.btnSavePermission.UseVisualStyleBackColor = true;
+            this.btnSavePermission.Click += new System.EventHandler(this.btnSavePermission_Click);
             // 
             // FrmMain
             // 
@@ -1926,6 +1978,8 @@ namespace Tools_Injector_Mod_Menu
             this.groupBox15.PerformLayout();
             this.materialCard8.ResumeLayout(false);
             this.groupBox5.ResumeLayout(false);
+            this.materialCard15.ResumeLayout(false);
+            this.groupBox16.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -2045,5 +2099,8 @@ namespace Tools_Injector_Mod_Menu
         private MaterialSkin.Controls.MaterialButton btnCopyFind;
         private MaterialSkin.Controls.MaterialButton btnSaveMethod1;
         private MaterialSkin.Controls.MaterialCheckbox chkSound;
+        private MaterialSkin.Controls.MaterialCard materialCard15;
+        private System.Windows.Forms.GroupBox groupBox16;
+        private MaterialSkin.Controls.MaterialButton btnSavePermission;
     }
 }

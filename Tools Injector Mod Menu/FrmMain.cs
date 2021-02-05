@@ -846,12 +846,6 @@ namespace Tools_Injector_Mod_Menu
                     Replace("(yourSite)", txtSite.Text).
                     Replace("(yourText)", txtText.Text).
                     Replace("(yourImage)", txtImg.Text);
-
-                if (chkTFiveCredit.Checked)
-                {
-                    text = text.Replace("//(TFiveEndCredit)", @"OBFUSCATE(""0_RichWebView_<html><body><marquee style=\""color: white; font-weight:bold;\"" direction=\""left\"" scrollamount=\""5\"" behavior=\""scroll\"">TFive Tools</marquee></body></html>"")");
-                }
-
                 File.WriteAllText(_tempPathMenu + "\\jni\\Menu.h", text);
                 WriteOutput("[Success] Replaced Menu.h (Credit)", Color.Green);
                 return true;
@@ -912,6 +906,7 @@ namespace Tools_Injector_Mod_Menu
                     .Replace("//(yourFeatures)", newFeatures)
                     .Replace("//(hackThread64)", hackThread64)
                     .Replace("//(hackThread)", hackThread);
+                text = chkTFiveCredit.Checked ? text.Replace("//(TFiveEndCredit)", @"OBFUSCATE(""0_RichWebView_<html><body><marquee style=\""color: white; font-weight:bold;\"" direction=\""left\"" scrollamount=\""5\"" behavior=\""scroll\"">TFive Tools</marquee></body></html>"")") : text;
                 File.WriteAllText(_tempPathMenu + "\\jni\\Main.cpp", text);
                 WriteOutput("[Success] Replaced Main.cpp", Color.Green);
                 return true;
@@ -1004,6 +999,7 @@ namespace Tools_Injector_Mod_Menu
 
         private string HackThread()
         {
+            return "";
             return OffsetPatch.FunctionList.Where(t => comboType.SelectedIndex == (int)Enums.TypeAbi.Arm | comboType.SelectedIndex == (int)Enums.TypeAbi.X86 && t.FunctionType != Enums.FunctionType.Category && t.FunctionType != Enums.FunctionType.SeekBar)
                 .Aggregate("", (current1, t) => t.OffsetList.Aggregate(current1, (current, t1) => current + $@"    hexPatches.{t.CheatName.RemoveSuperSpecialCharacters().ReplaceNumCharacters()}_{t1.OffsetId} = MemoryPatch::createWithHex(""{txtTargetLib.Text}"",
                         string2Offset(OBFUSCATE_KEY(""{t1.Offset}"", 't')),
@@ -1388,7 +1384,7 @@ namespace Tools_Injector_Mod_Menu
 
         #region Dev Page
 
-        #region Method 1
+        #region Permission
 
         private void btnCopyPermission_Click(object sender, EventArgs e)
         {
@@ -1399,6 +1395,17 @@ namespace Tools_Injector_Mod_Menu
         {
             CopyText(txtService.Text);
         }
+        private void btnSavePermission_Click(object sender, EventArgs e)
+        {
+            if (!MyMessage.MsgOkCancel("Do you want to save?\n\n" +
+                                       "Click \"OK\" to confirm.\n\n" +
+                                       "Click \"Cancel\" to cancel.")) return;
+            Properties.Settings.Default.txtService = txtService.Text;
+        }
+
+        #endregion
+        
+        #region Method 1
 
         private void btnOnCreate_Click(object sender, EventArgs e)
         {
@@ -1410,7 +1417,6 @@ namespace Tools_Injector_Mod_Menu
             if (!MyMessage.MsgOkCancel("Do you want to save?\n\n" +
                                        "Click \"OK\" to confirm.\n\n" +
                                        "Click \"Cancel\" to cancel.")) return;
-            Properties.Settings.Default.txtService = txtService.Text;
             Properties.Settings.Default.txtOnCreate = txtOnCreate.Text;
         }
 
@@ -1437,7 +1443,7 @@ namespace Tools_Injector_Mod_Menu
         }
 
         #endregion Method 2
-
+        
         private void CopyText(string str)
         {
             Clipboard.SetText(str);
