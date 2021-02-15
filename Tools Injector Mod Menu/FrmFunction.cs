@@ -28,6 +28,20 @@ namespace Tools_Injector_Mod_Menu
             {
                 dataList.Rows.Add(t.Offset, t.Hex);
             }
+
+            if (_type == Enums.FunctionType.ToggleSeekBar ||
+                _type == Enums.FunctionType.ButtonOnOffSeekBar ||
+                _type == Enums.FunctionType.ToggleInputValue ||
+                _type == Enums.FunctionType.ButtonOnOffInputValue)
+            {
+                chkMultiple.Enabled = true;
+                txtValues.Enabled = true;
+            }
+
+            if (_type == Enums.FunctionType.Category)
+            {
+                txtValues.Enabled = true;
+            }
         }
 
         private void btnSave_Click(object sender, EventArgs e)
@@ -49,15 +63,14 @@ namespace Tools_Injector_Mod_Menu
                     offsetList.Add(offset);
                 }
 
-                var functionList = new FunctionList()
+                OffsetPatch.FunctionList[_index] = new FunctionList()
                 {
                     CheatName = txtNameCheat.Text,
                     FunctionValue = txtValues.Text,
                     FunctionType = _type,
-                    OffsetList = offsetList
+                    OffsetList = offsetList,
+                    MultipleValue = chkMultiple.Checked
                 };
-
-                OffsetPatch.FunctionList[_index] = functionList;
 
                 Dispose();
             }

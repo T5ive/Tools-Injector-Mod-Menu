@@ -147,6 +147,8 @@ namespace Tools_Injector_Mod_Menu
             this.btnOnCreate = new MaterialSkin.Controls.MaterialButton();
             this.menuIconList = new System.Windows.Forms.ImageList(this.components);
             this.compilerWorker = new System.ComponentModel.BackgroundWorker();
+            this.chkMultiple = new MaterialSkin.Controls.MaterialCheckbox();
+            this.columnMultiple = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.materialTabControl1.SuspendLayout();
             this.tabMain.SuspendLayout();
             this.materialCard5.SuspendLayout();
@@ -829,7 +831,8 @@ namespace Tools_Injector_Mod_Menu
             this.colHex,
             this.colFunction,
             this.colValues,
-            this.colOffsetCount});
+            this.colOffsetCount,
+            this.columnMultiple});
             this.listView1.Dock = System.Windows.Forms.DockStyle.Top;
             this.listView1.FullRowSelect = true;
             this.listView1.GridLines = true;
@@ -1077,6 +1080,7 @@ namespace Tools_Injector_Mod_Menu
             // 
             // groupBox11
             // 
+            this.groupBox11.Controls.Add(this.chkMultiple);
             this.groupBox11.Controls.Add(this.btnFunction);
             this.groupBox11.Controls.Add(this.comboFunction);
             this.groupBox11.Controls.Add(this.chkDup);
@@ -1134,10 +1138,9 @@ namespace Tools_Injector_Mod_Menu
             "ButtonOnOff",
             "ToggleSeekBar",
             "ToggleInputValue",
-            "ButtonSeekBar",
-            "ButtonInputValue",
-            "InstanceSeekBar",
-            "InstanceInputValue",
+            "ButtonOnOffSeekBar",
+            "ButtonOnOffInputValue",
+            "Patch",
             "Category"});
             this.comboFunction.Location = new System.Drawing.Point(126, 25);
             this.comboFunction.MaxDropDownItems = 4;
@@ -1222,7 +1225,7 @@ namespace Tools_Injector_Mod_Menu
             this.txtOffset.MouseState = MaterialSkin.MouseState.OUT;
             this.txtOffset.Multiline = false;
             this.txtOffset.Name = "txtOffset";
-            this.txtOffset.Size = new System.Drawing.Size(224, 36);
+            this.txtOffset.Size = new System.Drawing.Size(128, 36);
             this.txtOffset.TabIndex = 3;
             this.txtOffset.Text = "";
             this.txtOffset.UseTallSize = false;
@@ -1345,7 +1348,7 @@ namespace Tools_Injector_Mod_Menu
             this.txtNameGame.Font = new System.Drawing.Font("Roboto", 12F);
             this.txtNameGame.Hint = "Among Us";
             this.txtNameGame.Location = new System.Drawing.Point(126, 24);
-            this.txtNameGame.MaxLength = 50;
+            this.txtNameGame.MaxLength = 500;
             this.txtNameGame.MouseState = MaterialSkin.MouseState.OUT;
             this.txtNameGame.Multiline = false;
             this.txtNameGame.Name = "txtNameGame";
@@ -1926,6 +1929,28 @@ namespace Tools_Injector_Mod_Menu
             this.compilerWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.compilerWorker_DoWork);
             this.compilerWorker.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.compilerWorker_RunWorkerCompleted);
             // 
+            // chkMultiple
+            // 
+            this.chkMultiple.AutoSize = true;
+            this.chkMultiple.Checked = true;
+            this.chkMultiple.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkMultiple.Depth = 0;
+            this.chkMultiple.Enabled = false;
+            this.chkMultiple.Location = new System.Drawing.Point(257, 65);
+            this.chkMultiple.Margin = new System.Windows.Forms.Padding(0);
+            this.chkMultiple.MouseLocation = new System.Drawing.Point(-1, -1);
+            this.chkMultiple.MouseState = MaterialSkin.MouseState.HOVER;
+            this.chkMultiple.Name = "chkMultiple";
+            this.chkMultiple.Ripple = true;
+            this.chkMultiple.Size = new System.Drawing.Size(92, 37);
+            this.chkMultiple.TabIndex = 13;
+            this.chkMultiple.Text = "Multiple";
+            this.chkMultiple.UseVisualStyleBackColor = true;
+            // 
+            // columnMultiple
+            // 
+            this.columnMultiple.Text = "Multiple";
+            // 
             // FrmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -2108,5 +2133,7 @@ namespace Tools_Injector_Mod_Menu
         private MaterialSkin.Controls.MaterialCard materialCard15;
         private System.Windows.Forms.GroupBox groupBox16;
         private MaterialSkin.Controls.MaterialButton btnSavePermission;
+        private MaterialSkin.Controls.MaterialCheckbox chkMultiple;
+        private System.Windows.Forms.ColumnHeader columnMultiple;
     }
 }

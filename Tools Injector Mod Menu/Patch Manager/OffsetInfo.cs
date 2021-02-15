@@ -34,5 +34,8 @@ namespace Tools_Injector_Mod_Menu.Patch_Manager
         [XmlElement(ElementName = "FunctionType")] public Enums.FunctionType FunctionType { get; set; }
 
         [XmlElement(ElementName = "FunctionValue")] public string FunctionValue { get; set; }
+
+        [XmlElement(ElementName = "MultipleValue")] public bool MultipleValue { get; set; }
+        
     }
 }

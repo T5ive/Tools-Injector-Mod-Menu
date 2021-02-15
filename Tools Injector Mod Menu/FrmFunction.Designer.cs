@@ -40,6 +40,7 @@ namespace Tools_Injector_Mod_Menu
             this.addToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.removeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.chkMultiple = new MaterialSkin.Controls.MaterialCheckbox();
             this.btnClose = new MaterialSkin.Controls.MaterialButton();
             this.btnSave = new MaterialSkin.Controls.MaterialButton();
             this.txtValues = new MaterialSkin.Controls.MaterialTextBox();
@@ -129,6 +130,7 @@ namespace Tools_Injector_Mod_Menu
             // groupBox1
             // 
             this.groupBox1.BackColor = System.Drawing.Color.White;
+            this.groupBox1.Controls.Add(this.chkMultiple);
             this.groupBox1.Controls.Add(this.btnClose);
             this.groupBox1.Controls.Add(this.btnSave);
             this.groupBox1.Controls.Add(this.txtValues);
@@ -143,6 +145,24 @@ namespace Tools_Injector_Mod_Menu
             this.groupBox1.TabIndex = 1;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Main Settings";
+            // 
+            // chkMultiple
+            // 
+            this.chkMultiple.AutoSize = true;
+            this.chkMultiple.Checked = true;
+            this.chkMultiple.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkMultiple.Depth = 0;
+            this.chkMultiple.Enabled = false;
+            this.chkMultiple.Location = new System.Drawing.Point(3, 74);
+            this.chkMultiple.Margin = new System.Windows.Forms.Padding(0);
+            this.chkMultiple.MouseLocation = new System.Drawing.Point(-1, -1);
+            this.chkMultiple.MouseState = MaterialSkin.MouseState.HOVER;
+            this.chkMultiple.Name = "chkMultiple";
+            this.chkMultiple.Ripple = true;
+            this.chkMultiple.Size = new System.Drawing.Size(92, 37);
+            this.chkMultiple.TabIndex = 20;
+            this.chkMultiple.Text = "Multiple";
+            this.chkMultiple.UseVisualStyleBackColor = true;
             // 
             // btnClose
             // 
@@ -188,6 +208,7 @@ namespace Tools_Injector_Mod_Menu
             // 
             this.txtValues.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.txtValues.Depth = 0;
+            this.txtValues.Enabled = false;
             this.txtValues.Font = new System.Drawing.Font("Roboto", 12F);
             this.txtValues.Location = new System.Drawing.Point(388, 30);
             this.txtValues.MaxLength = 50;
@@ -285,5 +306,6 @@ namespace Tools_Injector_Mod_Menu
         private System.Windows.Forms.DataGridViewTextBoxColumn colOffset;
         private System.Windows.Forms.DataGridViewTextBoxColumn colHex;
         private System.Windows.Forms.ToolStripMenuItem addToolStripMenuItem;
+        private MaterialSkin.Controls.MaterialCheckbox chkMultiple;
     }
 }

@@ -1,6 +1,6 @@
 ﻿namespace Tools_Injector_Mod_Menu.Patch_Manager
 {
-    public class Enums
+    public static class Enums
     {
         public enum TypeAbi
         {
@@ -16,10 +16,9 @@
             ButtonOnOff,
             ToggleSeekBar,
             ToggleInputValue,
-            ButtonSeekBar,
-            ButtonInputValue,
-            InstanceSeekBar,
-            InstanceInputValue,
+            ButtonOnOffSeekBar,
+            ButtonOnOffInputValue,
+            Patch,
             Category,
             Empty
         }

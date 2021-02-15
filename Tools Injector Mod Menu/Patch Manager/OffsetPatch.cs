@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace Tools_Injector_Mod_Menu.Patch_Manager
 {
-    public class OffsetPatch
+    public static class OffsetPatch
     {
         public static List<OffsetInfo> OffsetList = new List<OffsetInfo>();
         public static List<FunctionList> FunctionList = new List<FunctionList>();
@@ -30,14 +30,15 @@ namespace Tools_Injector_Mod_Menu.Patch_Manager
             });
         }
 
-        public static void AddFunction(string cheatName = null, List<OffsetInfo> offsetList = null, Enums.FunctionType functionType = Enums.FunctionType.Category, string functionValue = null)
+        public static void AddFunction(string cheatName = null, List<OffsetInfo> offsetList = null, Enums.FunctionType functionType = Enums.FunctionType.Category, string functionValue = null, bool multipleValue = false)
         {
             FunctionList.Add(new FunctionList
             {
                 CheatName = cheatName,
                 OffsetList = (offsetList ?? new List<OffsetInfo>()).ToList(),
                 FunctionType = functionType,
-                FunctionValue = functionValue
+                FunctionValue = functionValue,
+                MultipleValue = multipleValue
             });
         }
 

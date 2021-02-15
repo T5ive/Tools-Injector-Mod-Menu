@@ -85,7 +85,7 @@ namespace Tools_Injector_Mod_Menu
         {
             if (string.IsNullOrWhiteSpace(str))
             {
-                MyMessage.MsgShowWarning($@"{str} is Empty, Please Check it again!!!");
+                MyMessage.MsgShowWarning($"{nameof(str)} is Empty, Please Check it again!!!");
                 return true;
             }
             return false;
