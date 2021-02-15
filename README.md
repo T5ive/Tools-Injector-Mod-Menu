@@ -48,6 +48,8 @@
 
 7. You can edit the function values by doubly click
 
+- In listview you can right click to add/remove
+
 
 #How to use
 
