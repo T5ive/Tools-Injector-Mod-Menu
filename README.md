@@ -1,7 +1,7 @@
 # Tools-Injector-Mod-Menu
 
 
-#Prepare
+# Prepare
 
 1. Download my tool!
 
@@ -10,7 +10,7 @@
 3. Use APK Easy Tool to extract files
 
 
-#Set up program
+# Set up program
 
 1. On the main page, complete the settings then press Save Settings Button
 
@@ -29,7 +29,7 @@
 - Target Library, don't touch it!
 
 
-#Explain
+# Explain
 1. All buttons are not available 02/15/2021
 
 2. For now, only Select and Direct can input hex code
@@ -51,7 +51,7 @@
 - In listview you can right click to add/remove
 
 
-#How to use
+# How to use
 
 1. For the function value button You have to edit the value
 
