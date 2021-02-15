@@ -51,9 +51,9 @@ namespace Tools_Injector_Mod_Menu
 
         private void FrmMain_Load(object sender, EventArgs e)
         {
+            CheckFolder();
             LoadFiles();
             LoadSettings();
-            CheckFolder();
         }
 
         private void LoadTheme()
@@ -76,18 +76,6 @@ namespace Tools_Injector_Mod_Menu
             Utility.CheckFolder("Output");
             Utility.CheckFolder("Save");
             Utility.CheckFolder("Logs");
-
-            if (!Utility.CheckFiles("Theme", "Default.zip"))
-            {
-                MyMessage.MsgShowError(@"Theme file Default.zip is missing!!");
-                Application.Exit();
-            }
-
-            if (!Utility.CheckFiles("Menu", "Default.zip"))
-            {
-                MyMessage.MsgShowError(@"Menu file Default.zip is missing!!");
-                Application.Exit();
-            }
         }
 
         private void LoadFiles()
@@ -104,6 +92,18 @@ namespace Tools_Injector_Mod_Menu
             if (_menuFiles.Length == 0)
             {
                 MyMessage.MsgShowError(@"Not found Menu files .zip!!");
+                Application.Exit();
+            }
+
+            if (!Utility.CheckFiles("Theme", "Default.zip"))
+            {
+                MyMessage.MsgShowError(@"Theme file Default.zip is missing!!");
+                Application.Exit();
+            }
+
+            if (!Utility.CheckFiles("Menu", "Default.zip"))
+            {
+                MyMessage.MsgShowError(@"Menu file Default.zip is missing!!");
                 Application.Exit();
             }
 
@@ -297,6 +297,7 @@ namespace Tools_Injector_Mod_Menu
                 chkMultiple.Checked = false;
             }
         }
+
         private void comboFunction_SelectedIndexChanged(object sender, EventArgs e)
         {
             var functionType = (Enums.FunctionType)comboFunction.SelectedIndex;
@@ -306,11 +307,11 @@ namespace Tools_Injector_Mod_Menu
             {
                 //TODO
                 comboFunction.SelectedIndex = -1;
-                // I don't know why the buttons won't work. But don't worry, Toggle still works. 
+                // I don't know why the buttons won't work. But don't worry, Toggle still works.
             }
 
             BtnFunctionManager();
-            
+
             if (functionType == Enums.FunctionType.ToggleSeekBar ||
                 functionType == Enums.FunctionType.ButtonOnOffSeekBar ||
                 functionType == Enums.FunctionType.ToggleInputValue ||
@@ -354,8 +355,10 @@ namespace Tools_Injector_Mod_Menu
                 case Enums.FunctionType.ToggleSeekBar:
                 case Enums.FunctionType.ButtonOnOffSeekBar:
                     return Utility.IsEmpty(SeekBar) ? Enums.FunctionType.Empty : functionType;
+
                 case Enums.FunctionType.Category:
                     return Utility.IsEmpty(Category) ? Enums.FunctionType.Empty : Enums.FunctionType.Category;
+
                 default:
                     return functionType;
             }
@@ -378,20 +381,21 @@ namespace Tools_Injector_Mod_Menu
 
             if (!MyMessage.MsgOkCancel("Add Patch Offset.\n\n" +
                                        "Click \"OK\" to Continue if Your Offset and Hex Code are Correct!\n\n" +
-                                       "Click \"Cancel\" to Fix it if Your Offset and Hex Code not Correct!")) 
+                                       "Click \"Cancel\" to Fix it if Your Offset and Hex Code not Correct!"))
                 return;
 
             OffsetPatch.AddOffset(offset, OffsetPatch.OffsetList);
             _offsetCount++;
-                
+
             switch (functionType)
             {
                 case Enums.FunctionType.ToggleSeekBar:
                 case Enums.FunctionType.ButtonOnOffSeekBar:
                     btnFunction.HighEmphasis = false;
                     EasyEnabled(btnFunction, false);
-                    EasyEnabled(chkMultiple,false);
+                    EasyEnabled(chkMultiple, false);
                     break;
+
                 case Enums.FunctionType.Category:
                     EasyEnabled(btnAddOffset, false);
                     EasyEnabled(chkDup, false);
@@ -449,10 +453,10 @@ namespace Tools_Injector_Mod_Menu
                 return;
             }
 
-            category:
+        category:
 
             var functionValue = FunctionValue();
-            
+
             OffsetPatch.AddFunction(txtNameCheat.Text, OffsetPatch.OffsetList, functionType, functionValue, chkMultiple.Checked);
 
             _offsetCount = 1;
@@ -472,9 +476,11 @@ namespace Tools_Injector_Mod_Menu
             {
                 case Enums.FunctionType.Category:
                     return Category;
+
                 case Enums.FunctionType.ToggleSeekBar:
                 case Enums.FunctionType.ButtonOnOffSeekBar:
                     return SeekBar;
+
                 default:
                     return "";
             }
@@ -844,6 +850,7 @@ namespace Tools_Injector_Mod_Menu
                     case (int)Enums.TypeAbi.X86:
                         type = "x86";
                         break;
+
                     case (int)Enums.TypeAbi.All:
                         type = "armeabi-v7a arm64-v8a x86";
                         break;
@@ -918,7 +925,6 @@ namespace Tools_Injector_Mod_Menu
                 var newFeatures = NewFeatures();
                 var hackThread = HackThread();
 
-
                 text = text.Replace("//VariableHere", memoryPatch)
                     .Replace("//NewVariableHere", newVariable)
                     .Replace("//NewMethodHere", newMethod)
@@ -926,7 +932,7 @@ namespace Tools_Injector_Mod_Menu
                     .Replace("//(yourFeaturesList)", featuresList)
                     .Replace("(yourEndCredit)", txtEndCredit.Text)
                     .Replace("//(yourFeatures)", newFeatures)
-                    .Replace(comboType.SelectedIndex == (int) Enums.TypeAbi.Arm64 ? "//(hackThread64)" : "//(hackThread)", hackThread);
+                    .Replace(comboType.SelectedIndex == (int)Enums.TypeAbi.Arm64 ? "//(hackThread64)" : "//(hackThread)", hackThread);
 
                 File.WriteAllText(_tempPathMenu + "\\jni\\Main.cpp", text);
                 WriteOutput("[Success] Replaced Main.cpp", Color.Green);
@@ -964,27 +970,32 @@ namespace Tools_Injector_Mod_Menu
                         num = (realCount + 1).ToString();
                         result += $@"{Environment.NewLine}            OBFUSCATE(""{num}_SeekBar_{cheatName}{functionExtra}""),";
                         break;
+
                     case Enums.FunctionType.ToggleInputValue:
                         result += $@"{Environment.NewLine}            OBFUSCATE(""{num}_Toggle_{cheatName}""),";
                         realCount++;
                         num = (realCount + 1).ToString();
                         result += $@"{Environment.NewLine}            OBFUSCATE(""{num}_InputValue_{cheatName}{functionExtra}""),";
                         break;
+
                     case Enums.FunctionType.ButtonOnOffSeekBar:
                         result += $@"{Environment.NewLine}            OBFUSCATE(""{num}_SeekBar_{cheatName}{functionExtra}""),";
                         realCount++;
                         num = (realCount + 1).ToString();
                         result += $@"{Environment.NewLine}            OBFUSCATE(""{num}_ButtonOnOff_{cheatName}""),";
                         break;
+
                     case Enums.FunctionType.ButtonOnOffInputValue:
                         result += $@"{Environment.NewLine}            OBFUSCATE(""{num}_InputValue_{cheatName}{functionExtra}""),";
                         realCount++;
                         num = (realCount + 1).ToString();
                         result += $@"{Environment.NewLine}            OBFUSCATE(""{num}_ButtonOnOff_{cheatName}""),";
                         break;
+
                     case Enums.FunctionType.Patch:
                         result += $@"{Environment.NewLine}            OBFUSCATE(""0_RichTextView_{cheatName} - Activated""),";
                         break;
+
                     default:
                         result += $@"{Environment.NewLine}            OBFUSCATE(""{num}_{type}_{cheatName}{functionExtra}""),";
                         break;
@@ -1023,6 +1034,7 @@ namespace Tools_Injector_Mod_Menu
                     case Enums.FunctionType.ButtonOnOff:
                         result += $"bool _{nameCheat} = false;{Environment.NewLine}";
                         break;
+
                     case Enums.FunctionType.ToggleSeekBar:
                     case Enums.FunctionType.ToggleInputValue:
                     case Enums.FunctionType.ButtonOnOffSeekBar:
@@ -1046,7 +1058,6 @@ namespace Tools_Injector_Mod_Menu
                 if (list.FunctionType == Enums.FunctionType.ToggleSeekBar || list.FunctionType == Enums.FunctionType.ToggleInputValue ||
                     list.FunctionType == Enums.FunctionType.ButtonOnOffSeekBar || list.FunctionType == Enums.FunctionType.ButtonOnOffInputValue)
                 {
-
                     result += $@"int (*old_{nameCheat})(void *instance);
 int Update{nameCheat}(void *instance) {{
     if (instance != NULL && _{nameCheat} && _{nameCheat}Value > 1) {{
@@ -1093,6 +1104,7 @@ int Update{nameCheat}(void *instance) {{
                             }}
                             break;{Environment.NewLine}";
                         break;
+
                     case Enums.FunctionType.ToggleSeekBar:
                     case Enums.FunctionType.ToggleInputValue:
                     case Enums.FunctionType.ButtonOnOffSeekBar:
@@ -1106,7 +1118,7 @@ int Update{nameCheat}(void *instance) {{
                         num = (realCount + 1).ToString();
                         result += $@"
                         case {num}:
-                            if (value >= 1) {{                                
+                            if (value >= 1) {{
                                 _{cheatName}Value = value;
                             }}
                             break;{Environment.NewLine}";
@@ -1151,14 +1163,13 @@ int Update{nameCheat}(void *instance) {{
                 {
                     result = list.OffsetList.Aggregate(result, (current, info) => current + $@"hexPatches.{nameCheat}_{info.OffsetId} = MemoryPatch::createWithHex(""{txtTargetLib.Text}"",
                                         string2Offset(OBFUSCATE_KEY(""{info.Offset}"", 't')),
-                                        OBFUSCATE(""{info.Hex}"")); 
+                                        OBFUSCATE(""{info.Hex}""));
     hexPatches.{nameCheat}_{info.OffsetId}.Modify();{Environment.NewLine}    ");
                 }
             }
-            
+
             return result;
         }
-        
 
         #endregion Main.cpp
 
@@ -1403,6 +1414,7 @@ int Update{nameCheat}(void *instance) {{
                     case "RichTextBox":
                         control.Enabled = value;
                         break;
+
                     case "GroupBox":
                     case "MaterialCard":
                     case "MaterialForm":
@@ -1546,6 +1558,7 @@ int Update{nameCheat}(void *instance) {{
         {
             CopyText(txtService.Text);
         }
+
         private void btnSavePermission_Click(object sender, EventArgs e)
         {
             if (!MyMessage.MsgOkCancel("Do you want to save?\n\n" +
@@ -1554,8 +1567,8 @@ int Update{nameCheat}(void *instance) {{
             Properties.Settings.Default.txtService = txtService.Text;
         }
 
-        #endregion
-        
+        #endregion Permission
+
         #region Method 1
 
         private void btnOnCreate_Click(object sender, EventArgs e)
@@ -1594,7 +1607,7 @@ int Update{nameCheat}(void *instance) {{
         }
 
         #endregion Method 2
-        
+
         private void CopyText(string str)
         {
             Clipboard.SetText(str);
@@ -1603,6 +1616,5 @@ int Update{nameCheat}(void *instance) {{
         }
 
         #endregion Dev Page
-
     }
 }
