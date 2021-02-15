@@ -2,6 +2,10 @@
 
 ![enter image description here](https://platinmods.com/attachments/orvxlyp-gif.277110/)
 
+# Video
+
+[![](http://img.youtube.com/vi/h4sqozxd3v8/0.jpg)](https://youtu.be/h4sqozxd3v8 "")
+
 # Prepare
 
 1. Download my tool!
