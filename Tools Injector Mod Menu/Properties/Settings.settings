@@ -45,7 +45,7 @@
       <Value Profile="(Default)">True</Value>
     </Setting>
     <Setting Name="txtService" Type="System.String" Scope="User">
-      <Value Profile="(Default)">&lt;service android:name="com.tfive.modmenu.FloatingModMenuService" android:enabled="true" android:exported="false" android:stopWithTask="true"/&gt;</Value>
+      <Value Profile="(Default)">&lt;service android:enabled="true" android:exported="false" android:name="com.tfive.modmenu.FloatingModMenuService" android:stopWithTask="true"/&gt;</Value>
     </Setting>
     <Setting Name="txtOnCreate" Type="System.String" Scope="User">
       <Value Profile="(Default)">invoke-static {p0}, Lcom/tfive/MainActivity;-&gt;Start(Landroid/content/Context;)V</Value>

@@ -6,15 +6,22 @@
         {
             Arm,
             Arm64,
-            X86
+            X86,
+            All
         }
 
         public enum FunctionType
         {
             Toggle,
             ButtonOnOff,
-            SeekBar,
-            Category
+            ToggleSeekBar,
+            ToggleInputValue,
+            ButtonSeekBar,
+            ButtonInputValue,
+            InstanceSeekBar,
+            InstanceInputValue,
+            Category,
+            Empty
         }
     }
 }

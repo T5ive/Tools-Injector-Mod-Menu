@@ -193,8 +193,8 @@ namespace Tools_Injector_Mod_Menu.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("<service android:name=\"com.tfive.modmenu.FloatingModMenuService\" android:enabled=" +
-            "\"true\" android:exported=\"false\" android:stopWithTask=\"true\"/>")]
+        [global::System.Configuration.DefaultSettingValueAttribute("<service android:enabled=\"true\" android:exported=\"false\" android:name=\"com.tfive." +
+            "modmenu.FloatingModMenuService\" android:stopWithTask=\"true\"/>")]
         public string txtService {
             get {
                 return ((string)(this["txtService"]));
