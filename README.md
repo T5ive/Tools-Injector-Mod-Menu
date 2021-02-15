@@ -4,15 +4,13 @@ Not available yet.
 
 Everything is quite complete.
 
-Only Main.cpp still has problems.
-
 # Todo
 
-- Add Button, ButtonLink and InputValue
+- Add Button and InputValue
 
 Want the perfect game cheat example
 
-1. Toggle
+1. ~~Toggle~~
 
 2. Only Button
 
@@ -22,4 +20,6 @@ Want the perfect game cheat example
 
 5. Only Seekbar (instance)
 
-6. Instance Cheat, Hook or anything that is meant to be cheated already without the need for Toggle, Button or Seekbar.
+6. ~~Instance Cheat~~
+
+Can someone explain me about the hooking?
