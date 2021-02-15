@@ -127,14 +127,11 @@ namespace Tools_Injector_Mod_Menu
         {
             var settings = Properties.Settings.Default;
             txtLibName.Text = settings.txtLibName;
-            if (!string.IsNullOrWhiteSpace(settings.txtToast))
+            if (!string.IsNullOrWhiteSpace(settings.txtToast) && settings.txtToast.Contains('|'))
             {
-                if (settings.txtToast.Contains('|'))
+                foreach (var t in settings.txtToast.Split('|'))
                 {
-                    foreach (var t in settings.txtToast.Split('|'))
-                    {
-                        listToast.Items.Add(t);
-                    }
+                    listToast.Items.Add(t);
                 }
             }
             txtName.Text = settings.txtName;
