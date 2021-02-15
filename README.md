@@ -94,4 +94,9 @@ Want the perfect game cheat example
 
 2. Seekbar or InputValue with Button
 
+# Credits/Acknowledgements
+
 Default Theme -> https://github.com/T5ive/Android-Mod-Menu/tree/inject-mod-menu
+LGLTeam / Android-Mod-Menu: https://github.com/LGLTeam/Android-Mod-Menu
+PMT DVA for tut
+PMT Mika Cybertron for idea
