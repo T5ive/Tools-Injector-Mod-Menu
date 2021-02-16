@@ -35,7 +35,7 @@ namespace Tools_Injector_Mod_Menu
 
         private readonly string _tempPathMenu = Path.GetTempPath() + "TFiveMenu";
 
-        public static string Category, SeekBar;
+        public static string Category, SeekBar, ImageCode;
 
         private int _compile;
 
@@ -144,7 +144,7 @@ namespace Tools_Injector_Mod_Menu
             txtSite.Text = settings.txtSite;
             txtText.Text = settings.txtText;
             txtEndCredit.Text = settings.txtEndCredit;
-            txtImg.Text = settings.txtImg;
+            ImageCode = settings.ImageCode;
             txtNDK.Text = settings.txtNDK;
 
             chkRemoveTemp.Checked = settings.chkRemoveTemp;
@@ -201,6 +201,13 @@ namespace Tools_Injector_Mod_Menu
                 WriteOutput("[Error:002] " + exception.Message, Color.Red);
             }
         }
+        
+        private void btnImage_Click(object sender, EventArgs e)
+        {
+            var frmImage = new FrmImageText();
+            frmImage.ShowDialog();
+            frmImage.Dispose();
+        }
 
         private void btnBrowseNDK_Click(object sender, EventArgs e)
         {
@@ -236,7 +243,7 @@ namespace Tools_Injector_Mod_Menu
                     settings.txtSite = txtSite.Text;
                     settings.txtText = txtText.Text;
                     settings.txtEndCredit = txtEndCredit.Text;
-                    settings.txtImg = txtImg.Text;
+                    settings.ImageCode = ImageCode;
                     settings.txtNDK = txtNDK.Text;
                     settings.menuStyle = comboMenu.SelectedIndex;
                     settings.chkRemoveTemp = chkRemoveTemp.Checked;
@@ -258,6 +265,11 @@ namespace Tools_Injector_Mod_Menu
         private void lbImageEncoder_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             Process.Start("https://codebeautify.org/image-to-base64-converter");
+        }
+
+        private void lbImgCompress_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            Process.Start("https://compresspng.com/");
         }
 
         #endregion Main Page
@@ -901,7 +913,7 @@ namespace Tools_Injector_Mod_Menu
                 text = text.Replace("(yourName)", txtLibName.Text).
                     Replace("(yourSite)", txtSite.Text).
                     Replace("(yourText)", txtText.Text).
-                    Replace("(yourImage)", txtImg.Text);
+                    Replace("(yourImage)", ImageCode);
                 text = chkTFiveCredit.Checked ? text.Replace("//(TFiveEndCredit)", @"OBFUSCATE(""0_RichWebView_<html><body><marquee style=\""color: white; font-weight:bold;\"" direction=\""left\"" scrollamount=\""5\"" behavior=\""scroll\"">TFive Tools</marquee></body></html>"")") : text;
                 File.WriteAllText(_tempPathMenu + "\\jni\\Menu.h", text);
                 WriteOutput("[Success] Replaced Menu.h (Credit)", Color.Green);
@@ -1275,7 +1287,7 @@ int Update{nameCheat}(void *instance) {{
                 {
                     dir.Delete(true);
                 }
-                WriteOutput("[Success] Deleted" + path, Color.Green);
+                WriteOutput("[Success] Deleted " + path, Color.Green);
                 return true;
             }
             catch (Exception ex)
@@ -1482,9 +1494,14 @@ int Update{nameCheat}(void *instance) {{
             Process.Start(AppPath + "\\Output");
         }
 
-        private void materialButton1_Click(object sender, EventArgs e)
+        private void btnTempDir_Click(object sender, EventArgs e)
         {
             Process.Start(_tempPathMenu);
+        }
+
+        private void btnUpdate_Click(object sender, EventArgs e)
+        {
+
         }
 
         private void btnClearLog_Click(object sender, EventArgs e)

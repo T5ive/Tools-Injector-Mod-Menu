@@ -20,7 +20,7 @@
     <Setting Name="txtEndCredit" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
-    <Setting Name="txtImg" Type="System.String" Scope="User">
+    <Setting Name="ImageCode" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
     <Setting Name="txtNDK" Type="System.String" Scope="User">

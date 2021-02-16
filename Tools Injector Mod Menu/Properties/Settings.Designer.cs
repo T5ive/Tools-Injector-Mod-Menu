@@ -98,12 +98,12 @@ namespace Tools_Injector_Mod_Menu.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string txtImg {
+        public string ImageCode {
             get {
-                return ((string)(this["txtImg"]));
+                return ((string)(this["ImageCode"]));
             }
             set {
-                this["txtImg"] = value;
+                this["ImageCode"] = value;
             }
         }
         
