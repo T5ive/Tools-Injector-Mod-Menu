@@ -6,6 +6,10 @@
 
 [![](http://img.youtube.com/vi/h4sqozxd3v8/0.jpg)](https://youtu.be/h4sqozxd3v8 "")
 
+# Known Issue
+
+- Does not work on Windows 7 or 32 bit.
+
 # Prepare
 0. Download https://developer.android.com/ndk/downloads ndkVersion "22.0.7026061"
 
