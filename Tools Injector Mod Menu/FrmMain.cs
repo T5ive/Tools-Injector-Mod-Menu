@@ -134,6 +134,12 @@ namespace Tools_Injector_Mod_Menu
                     listToast.Items.Add(t);
                 }
             }
+
+            if (!settings.txtToast.Contains('|'))
+            {
+                listToast.Items.Add(settings.txtToast);
+            }
+
             txtName.Text = settings.txtName;
             txtSite.Text = settings.txtSite;
             txtText.Text = settings.txtText;
@@ -1353,8 +1359,7 @@ int Update{nameCheat}(void *instance) {{
 
                 var dirs = dir.GetDirectories();
                 Directory.CreateDirectory(destDirName);
-                var files = dir.GetFiles();
-                foreach (var file in files)
+                foreach (var file in dir.GetFiles())
                 {
                     var tempPath = Path.Combine(destDirName, file.Name);
                     file.CopyTo(tempPath, false);
@@ -1490,7 +1495,7 @@ int Update{nameCheat}(void *instance) {{
         private void btnSaveLog_Click(object sender, EventArgs e)
         {
             var date = DateTime.Now.ToString("yyyy-M-d HH-mm-ss");
-            var path = $"{AppPath}\\Log\\{date}.txt";
+            var path = $"{AppPath}\\Logs\\{date}.txt";
             File.WriteAllText(path, rbLog.Text);
         }
 
