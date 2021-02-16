@@ -38,6 +38,8 @@ namespace Tools_Injector_Mod_Menu
                 txtValues.Enabled = true;
             }
 
+            chkMultiple.Checked = OffsetPatch.FunctionList[_index].MultipleValue;
+
             if (_type == Enums.FunctionType.Category)
             {
                 txtValues.Enabled = true;

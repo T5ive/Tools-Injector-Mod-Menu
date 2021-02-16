@@ -149,8 +149,6 @@ namespace Tools_Injector_Mod_Menu
             // chkMultiple
             // 
             this.chkMultiple.AutoSize = true;
-            this.chkMultiple.Checked = true;
-            this.chkMultiple.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkMultiple.Depth = 0;
             this.chkMultiple.Enabled = false;
             this.chkMultiple.Location = new System.Drawing.Point(3, 74);
