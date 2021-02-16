@@ -7,6 +7,9 @@
 [![](http://img.youtube.com/vi/h4sqozxd3v8/0.jpg)](https://youtu.be/h4sqozxd3v8 "")
 
 # Prepare
+0. Download https://developer.android.com/ndk/downloads ndkVersion "22.0.7026061"
+
+- ndk path must without any spaces. If any folder has spaces, it will cause problem
 
 1. Download my tool!
 
