@@ -135,7 +135,7 @@ namespace Tools_Injector_Mod_Menu
                 }
             }
 
-            if (!settings.txtToast.Contains('|'))
+            if (!settings.txtToast.Contains('|') && !string.IsNullOrWhiteSpace(settings.txtToast))
             {
                 listToast.Items.Add(settings.txtToast);
             }
@@ -1233,19 +1233,21 @@ int Update{nameCheat}(void *instance) {{
 
         private void OutputDataReceived(object sender, DataReceivedEventArgs e)
         {
-            WriteOutput("[Compile] " + e.Data);
+             if(string.IsNullOrWhiteSpace(e.Data)) return;
+             WriteOutput("[Compile] " + e.Data);
         }
 
         private void ErrorDataReceived(object sender, DataReceivedEventArgs e)
         {
+            if (string.IsNullOrWhiteSpace(e.Data)) return;
+            if(e.Data == "fcntl(): Bad file descriptor") return;
             _compile++;
-            if (_compile <= 2) return;
             WriteOutput("[Compile] " + e.Data, Color.Red);
         }
 
         private void compilerWorker_RunWorkerCompleted(object sender, System.ComponentModel.RunWorkerCompletedEventArgs e)
         {
-            if (_compile > 2)
+            if (_compile > 0)
             {
                 MyMessage.MsgShowError("Failed to Compile");
                 WriteOutput("[Error:020] Failed to Compile", Color.Red);

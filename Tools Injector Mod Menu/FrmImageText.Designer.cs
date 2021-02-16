@@ -29,6 +29,7 @@ namespace Tools_Injector_Mod_Menu
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmImageText));
             this.txtImg = new System.Windows.Forms.RichTextBox();
             this.materialCard1 = new MaterialSkin.Controls.MaterialCard();
             this.btnClose = new MaterialSkin.Controls.MaterialButton();
@@ -41,9 +42,9 @@ namespace Tools_Injector_Mod_Menu
             this.txtImg.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtImg.Dock = System.Windows.Forms.DockStyle.Top;
             this.txtImg.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.txtImg.Location = new System.Drawing.Point(0, 0);
+            this.txtImg.Location = new System.Drawing.Point(14, 14);
             this.txtImg.Name = "txtImg";
-            this.txtImg.Size = new System.Drawing.Size(534, 452);
+            this.txtImg.Size = new System.Drawing.Size(506, 438);
             this.txtImg.TabIndex = 18;
             this.txtImg.Text = "";
             // 
@@ -60,6 +61,7 @@ namespace Tools_Injector_Mod_Menu
             this.materialCard1.Margin = new System.Windows.Forms.Padding(14);
             this.materialCard1.MouseState = MaterialSkin.MouseState.HOVER;
             this.materialCard1.Name = "materialCard1";
+            this.materialCard1.Padding = new System.Windows.Forms.Padding(14);
             this.materialCard1.Size = new System.Drawing.Size(534, 511);
             this.materialCard1.TabIndex = 19;
             // 
@@ -110,8 +112,11 @@ namespace Tools_Injector_Mod_Menu
             this.ClientSize = new System.Drawing.Size(534, 511);
             this.Controls.Add(this.materialCard1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "FrmImageText";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "FrmImageText";
+            this.TopMost = true;
             this.materialCard1.ResumeLayout(false);
             this.ResumeLayout(false);
 
