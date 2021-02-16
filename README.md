@@ -94,6 +94,8 @@ https://github.com/LGLTeam/Android-Mod-Menu
 
 - Add&Fix ButtonInputValue
 
+- Fix Hook! (Critical bug)
+
 
 Want the perfect game cheat example
 
