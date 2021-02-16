@@ -81,6 +81,7 @@ namespace Tools_Injector_Mod_Menu
             this.colFunction = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.colValues = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.colOffsetCount = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnMultiple = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.groupBox14 = new System.Windows.Forms.GroupBox();
             this.btnSaveCheat = new MaterialSkin.Controls.MaterialButton();
             this.btnLoadCheat = new MaterialSkin.Controls.MaterialButton();
@@ -94,6 +95,7 @@ namespace Tools_Injector_Mod_Menu
             this.label16 = new System.Windows.Forms.Label();
             this.materialCard11 = new MaterialSkin.Controls.MaterialCard();
             this.groupBox11 = new System.Windows.Forms.GroupBox();
+            this.chkMultiple = new MaterialSkin.Controls.MaterialCheckbox();
             this.btnFunction = new MaterialSkin.Controls.MaterialButton();
             this.comboFunction = new MaterialSkin.Controls.MaterialComboBox();
             this.chkDup = new MaterialSkin.Controls.MaterialCheckbox();
@@ -147,8 +149,6 @@ namespace Tools_Injector_Mod_Menu
             this.btnOnCreate = new MaterialSkin.Controls.MaterialButton();
             this.menuIconList = new System.Windows.Forms.ImageList(this.components);
             this.compilerWorker = new System.ComponentModel.BackgroundWorker();
-            this.chkMultiple = new MaterialSkin.Controls.MaterialCheckbox();
-            this.columnMultiple = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.materialTabControl1.SuspendLayout();
             this.tabMain.SuspendLayout();
             this.materialCard5.SuspendLayout();
@@ -426,7 +426,7 @@ namespace Tools_Injector_Mod_Menu
             this.txtNDK.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.txtNDK.Depth = 0;
             this.txtNDK.Font = new System.Drawing.Font("Roboto", 12F);
-            this.txtNDK.Hint = "C:\\Android\\NDK";
+            this.txtNDK.Hint = "C:\\Android\\Sdk\\ndk\\22.0.7026061";
             this.txtNDK.Location = new System.Drawing.Point(6, 25);
             this.txtNDK.MaxLength = 32767;
             this.txtNDK.MouseState = MaterialSkin.MouseState.OUT;
@@ -877,6 +877,10 @@ namespace Tools_Injector_Mod_Menu
             this.colOffsetCount.Text = "offsetCount";
             this.colOffsetCount.Width = 100;
             // 
+            // columnMultiple
+            // 
+            this.columnMultiple.Text = "Multiple";
+            // 
             // groupBox14
             // 
             this.groupBox14.Controls.Add(this.btnSaveCheat);
@@ -1097,6 +1101,24 @@ namespace Tools_Injector_Mod_Menu
             this.groupBox11.Size = new System.Drawing.Size(356, 241);
             this.groupBox11.TabIndex = 4;
             this.groupBox11.TabStop = false;
+            // 
+            // chkMultiple
+            // 
+            this.chkMultiple.AutoSize = true;
+            this.chkMultiple.Checked = true;
+            this.chkMultiple.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkMultiple.Depth = 0;
+            this.chkMultiple.Enabled = false;
+            this.chkMultiple.Location = new System.Drawing.Point(257, 65);
+            this.chkMultiple.Margin = new System.Windows.Forms.Padding(0);
+            this.chkMultiple.MouseLocation = new System.Drawing.Point(-1, -1);
+            this.chkMultiple.MouseState = MaterialSkin.MouseState.HOVER;
+            this.chkMultiple.Name = "chkMultiple";
+            this.chkMultiple.Ripple = true;
+            this.chkMultiple.Size = new System.Drawing.Size(92, 37);
+            this.chkMultiple.TabIndex = 13;
+            this.chkMultiple.Text = "Multiple";
+            this.chkMultiple.UseVisualStyleBackColor = true;
             // 
             // btnFunction
             // 
@@ -1928,28 +1950,6 @@ namespace Tools_Injector_Mod_Menu
             this.compilerWorker.WorkerSupportsCancellation = true;
             this.compilerWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.compilerWorker_DoWork);
             this.compilerWorker.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.compilerWorker_RunWorkerCompleted);
-            // 
-            // chkMultiple
-            // 
-            this.chkMultiple.AutoSize = true;
-            this.chkMultiple.Checked = true;
-            this.chkMultiple.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkMultiple.Depth = 0;
-            this.chkMultiple.Enabled = false;
-            this.chkMultiple.Location = new System.Drawing.Point(257, 65);
-            this.chkMultiple.Margin = new System.Windows.Forms.Padding(0);
-            this.chkMultiple.MouseLocation = new System.Drawing.Point(-1, -1);
-            this.chkMultiple.MouseState = MaterialSkin.MouseState.HOVER;
-            this.chkMultiple.Name = "chkMultiple";
-            this.chkMultiple.Ripple = true;
-            this.chkMultiple.Size = new System.Drawing.Size(92, 37);
-            this.chkMultiple.TabIndex = 13;
-            this.chkMultiple.Text = "Multiple";
-            this.chkMultiple.UseVisualStyleBackColor = true;
-            // 
-            // columnMultiple
-            // 
-            this.columnMultiple.Text = "Multiple";
             // 
             // FrmMain
             // 

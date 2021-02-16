@@ -59,12 +59,7 @@ namespace Tools_Injector_Mod_Menu.Patch_Manager
 
         public static List<string> ConvertNameList()
         {
-            var cheatName = new List<string>();
-            foreach (var result in FunctionList)
-            {
-                cheatName.Add(result.CheatName);
-            }
-            return cheatName;
+            return FunctionList.Select(result => result.CheatName).ToList();
         }
 
         public static List<OffsetInfo> ConvertFunction(FunctionList functionList)

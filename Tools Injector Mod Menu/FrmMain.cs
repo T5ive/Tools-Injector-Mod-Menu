@@ -1519,17 +1519,17 @@ int Update{nameCheat}(void *instance) {{
 
         private void WriteOutput(string str, Color color)
         {
-            if (!chkLogsComplie.Checked)
+            if (!chkLogsComplie.Checked && str.Contains("[Compile]"))
             {
-                if (str.Contains("[Compile]")) return;
+                return;
             }
-            if (!chkLogsSuccess.Checked)
+            if (!chkLogsSuccess.Checked && str.Contains("[Success]"))
             {
-                if (str.Contains("[Success]")) return;
+                return;
             }
-            if (!chkLogsError.Checked)
+            if (!chkLogsError.Checked && str.Contains("[Error:"))
             {
-                if (str.Contains("[Error:")) return;
+                return;
             }
             Invoke(new MethodInvoker(delegate
             {
