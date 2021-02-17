@@ -157,7 +157,7 @@ namespace Tools_Injector_Mod_Menu
             txtService.Text = settings.txtService;
             txtOnCreate.Text = settings.txtOnCreate;
             txtActionMain.Text = settings.txtActionMain;
-
+            LoadImg();
             try
             {
                 comboMenu.SelectedIndex = settings.menuStyle;
@@ -166,6 +166,34 @@ namespace Tools_Injector_Mod_Menu
             {
                 comboMenu.SelectedIndex = 0;
             }
+        }
+
+        private void LoadImg()
+        {
+            try
+            {
+                if (!string.IsNullOrWhiteSpace(ImageCode))
+                {
+                    var bytes = Convert.FromBase64String(ImageCode);
+                    picImg.Image = ByteToImage(bytes);
+                }
+            }
+            catch (Exception exception)
+            {
+                picImg.Image = null;
+                ImageCode = "";
+                WriteOutput("[Error:023] " + exception.Message, Color.Red);
+            }
+        }
+
+        private static Bitmap ByteToImage(byte[] blob)
+        {
+            var mStream = new MemoryStream();
+            var pData = blob;
+            mStream.Write(pData, 0, Convert.ToInt32(pData.Length));
+            var bm = new Bitmap(mStream, false);
+            mStream.Dispose();
+            return bm;
         }
 
         #endregion Load
@@ -201,12 +229,13 @@ namespace Tools_Injector_Mod_Menu
                 WriteOutput("[Error:002] " + exception.Message, Color.Red);
             }
         }
-        
+
         private void btnImage_Click(object sender, EventArgs e)
         {
             var frmImage = new FrmImageText();
             frmImage.ShowDialog();
             frmImage.Dispose();
+            LoadImg();
         }
 
         private void btnBrowseNDK_Click(object sender, EventArgs e)
@@ -318,10 +347,11 @@ namespace Tools_Injector_Mod_Menu
             var functionType = (Enums.FunctionType)comboFunction.SelectedIndex;
 
             if (functionType == Enums.FunctionType.ButtonOnOffSeekBar ||
-                functionType == Enums.FunctionType.ButtonOnOffInputValue)
+                functionType == Enums.FunctionType.ButtonOnOffInputValue ||
+                functionType == Enums.FunctionType.ButtonOnOff)
             {
                 //TODO
-                comboFunction.SelectedIndex = -1;
+                comboFunction.SelectedIndex = 0;
                 // I don't know why the buttons won't work. But don't worry, Toggle still works.
             }
 
@@ -1222,6 +1252,7 @@ int Update{nameCheat}(void *instance) {{
                 process.BeginOutputReadLine();
                 process.BeginErrorReadLine();
                 process.WaitForExit(50000);
+                process.Close();
             }
             catch (Exception exception)
             {
@@ -1233,14 +1264,14 @@ int Update{nameCheat}(void *instance) {{
 
         private void OutputDataReceived(object sender, DataReceivedEventArgs e)
         {
-             if(string.IsNullOrWhiteSpace(e.Data)) return;
-             WriteOutput("[Compile] " + e.Data);
+            if (string.IsNullOrWhiteSpace(e.Data)) return;
+            WriteOutput("[Compile] " + e.Data);
         }
 
         private void ErrorDataReceived(object sender, DataReceivedEventArgs e)
         {
             if (string.IsNullOrWhiteSpace(e.Data)) return;
-            if(e.Data == "fcntl(): Bad file descriptor") return;
+            if (e.Data == "fcntl(): Bad file descriptor") return;
             _compile++;
             WriteOutput("[Compile] " + e.Data, Color.Red);
         }
@@ -1503,7 +1534,6 @@ int Update{nameCheat}(void *instance) {{
 
         private void btnUpdate_Click(object sender, EventArgs e)
         {
-
         }
 
         private void btnClearLog_Click(object sender, EventArgs e)

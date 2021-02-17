@@ -1,11 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Tools_Injector_Mod_Menu
@@ -15,6 +8,11 @@ namespace Tools_Injector_Mod_Menu
         public FrmImageText()
         {
             InitializeComponent();
+        }
+
+        private void FrmImageText_Load(object sender, EventArgs e)
+        {
+            txtImg.Text = FrmMain.ImageCode;
         }
 
         private void btnSave_Click(object sender, EventArgs e)

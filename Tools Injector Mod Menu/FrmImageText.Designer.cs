@@ -117,6 +117,7 @@ namespace Tools_Injector_Mod_Menu
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "FrmImageText";
             this.TopMost = true;
+            this.Load += new System.EventHandler(this.FrmImageText_Load);
             this.materialCard1.ResumeLayout(false);
             this.ResumeLayout(false);
 
