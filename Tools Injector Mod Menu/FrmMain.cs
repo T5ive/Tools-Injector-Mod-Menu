@@ -187,16 +187,6 @@ namespace Tools_Injector_Mod_Menu
             }
         }
 
-        private static Bitmap ByteToImage(byte[] bytes)
-        {
-            var mStream = new MemoryStream();
-            var pData = bytes;
-            mStream.Write(pData, 0, Convert.ToInt32(pData.Length));
-            var bm = new Bitmap(mStream, false);
-            mStream.Dispose();
-            return bm;
-        }
-
         #endregion Load
 
         #region Main Page
@@ -1323,7 +1313,175 @@ int Update{nameCheat}(void *instance) {{
 
         #endregion Compile
 
+        #endregion Menu Page
+
+        #region Log&About Page
+
+        private void btnOutput_Click(object sender, EventArgs e)
+        {
+            Process.Start(AppPath + "\\Output");
+        }
+
+        private void btnTempDir_Click(object sender, EventArgs e)
+        {
+            Process.Start(_tempPathMenu);
+        }
+
+        private void btnUpdate_Click(object sender, EventArgs e)
+        {
+        }
+
+        private void btnClearLog_Click(object sender, EventArgs e)
+        {
+            rbLog.Clear();
+        }
+
+        private void btnSaveLog_Click(object sender, EventArgs e)
+        {
+            var date = DateTime.Now.ToString("yyyy-M-d HH-mm-ss");
+            var path = $"{AppPath}\\Logs\\{date}.txt";
+            File.WriteAllText(path, rbLog.Text);
+        }
+
+        private static void AppendText(RichTextBox box, string text, Color color)
+        {
+            box.SelectionStart = box.TextLength;
+            box.SelectionLength = 0;
+            box.SelectionColor = color;
+            box.AppendText(text);
+            box.SelectionColor = box.ForeColor;
+            box.ScrollToCaret();
+        }
+
+        private void TextToLogs(string str, Color color)
+        {
+            Invoke(new MethodInvoker(delegate
+            {
+                AppendText(rbLog, str, color);
+            }));
+        }
+
+        private void WriteOutput(string str, Color color)
+        {
+            if (!chkLogsComplie.Checked && str.Contains("[Compile]"))
+            {
+                return;
+            }
+            if (!chkLogsSuccess.Checked && str.Contains("[Success]"))
+            {
+                return;
+            }
+            if (!chkLogsError.Checked && str.Contains("[Error:"))
+            {
+                return;
+            }
+            Invoke(new MethodInvoker(delegate
+            {
+                TextToLogs(DateTime.Now.ToString("HH:mm:ss tt") + " " + str + Environment.NewLine, color);
+            }));
+        }
+
+        private void WriteOutput(string str)
+        {
+            Invoke(new MethodInvoker(delegate
+            {
+                TextToLogs(DateTime.Now.ToString("HH:mm:ss tt") + " " + str + Environment.NewLine, Color.Black);
+            }));
+        }
+
+        #endregion Log&About Page
+
+        #region Dev Page
+
+        #region Permission
+
+        private void btnCopyPermission_Click(object sender, EventArgs e)
+        {
+            CopyText(txtPermission.Text);
+        }
+
+        private void btnCopyService_Click(object sender, EventArgs e)
+        {
+            CopyText(txtService.Text);
+        }
+
+        private void btnSavePermission_Click(object sender, EventArgs e)
+        {
+            if (!MyMessage.MsgOkCancel("Do you want to save?\n\n" +
+                                       "Click \"OK\" to confirm.\n\n" +
+                                       "Click \"Cancel\" to cancel.")) return;
+            Properties.Settings.Default.txtService = txtService.Text;
+        }
+
+        #endregion Permission
+
+        #region Method 1
+
+        private void btnOnCreate_Click(object sender, EventArgs e)
+        {
+            CopyText(txtOnCreate.Text);
+        }
+
+        private void btnSaveMethod1_Click(object sender, EventArgs e)
+        {
+            if (!MyMessage.MsgOkCancel("Do you want to save?\n\n" +
+                                       "Click \"OK\" to confirm.\n\n" +
+                                       "Click \"Cancel\" to cancel.")) return;
+            Properties.Settings.Default.txtOnCreate = txtOnCreate.Text;
+        }
+
+        #endregion Method 1
+
+        #region Method 2
+
+        private void btnCopyFind_Click(object sender, EventArgs e)
+        {
+            CopyText(txtFind.Text);
+        }
+
+        private void btnCopyActionMain2_Click(object sender, EventArgs e)
+        {
+            CopyText(txtActionMain.Text);
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            var abc = Environment.OSVersion.Version.Major;
+            var ccc = Environment.OSVersion.Version.Minor;
+            var ddd = Environment.OSVersion.Version;
+            var ac = "";
+        }
+
+        private void btnSaveMethod2_Click(object sender, EventArgs e)
+        {
+            if (!MyMessage.MsgOkCancel("Do you want to save?\n\n" +
+                                       "Click \"OK\" to confirm.\n\n" +
+                                       "Click \"Cancel\" to cancel.")) return;
+            Properties.Settings.Default.txtActionMain = txtActionMain.Text;
+        }
+
+        #endregion Method 2
+
+        private void CopyText(string str)
+        {
+            Clipboard.SetText(str);
+            if (!Properties.Settings.Default.chkSound) return;
+            System.Media.SystemSounds.Beep.Play();
+        }
+
+        #endregion Dev Page
+
         #region Utility
+
+        private static Bitmap ByteToImage(byte[] bytes)
+        {
+            var mStream = new MemoryStream();
+            var pData = bytes;
+            mStream.Write(pData, 0, Convert.ToInt32(pData.Length));
+            var bm = new Bitmap(mStream, false);
+            mStream.Dispose();
+            return bm;
+        }
 
         private bool DeleteAll(string path)
         {
@@ -1537,174 +1695,16 @@ int Update{nameCheat}(void *instance) {{
         private static bool IsWindows7 => OS_Name().Contains("Windows 7");
 
         private static bool IsWindows10 => OS_Name().Contains("Windows 10");
-        
+
         private static bool Is64Bit => Environment.Is64BitOperatingSystem;
 
         private static string OS_Name()
         {
             return (string)(from x in new ManagementObjectSearcher(
                     "SELECT Caption FROM Win32_OperatingSystem").Get().Cast<ManagementObject>()
-                select x.GetPropertyValue("Caption")).FirstOrDefault();
+                            select x.GetPropertyValue("Caption")).FirstOrDefault();
         }
 
         #endregion Utility
-
-        #endregion Menu Page
-
-        #region Log&About Page
-
-        private void btnOutput_Click(object sender, EventArgs e)
-        {
-            Process.Start(AppPath + "\\Output");
-        }
-
-        private void btnTempDir_Click(object sender, EventArgs e)
-        {
-            Process.Start(_tempPathMenu);
-        }
-
-        private void btnUpdate_Click(object sender, EventArgs e)
-        {
-        }
-
-        private void btnClearLog_Click(object sender, EventArgs e)
-        {
-            rbLog.Clear();
-        }
-
-        private void btnSaveLog_Click(object sender, EventArgs e)
-        {
-            var date = DateTime.Now.ToString("yyyy-M-d HH-mm-ss");
-            var path = $"{AppPath}\\Logs\\{date}.txt";
-            File.WriteAllText(path, rbLog.Text);
-        }
-
-        private static void AppendText(RichTextBox box, string text, Color color)
-        {
-            box.SelectionStart = box.TextLength;
-            box.SelectionLength = 0;
-            box.SelectionColor = color;
-            box.AppendText(text);
-            box.SelectionColor = box.ForeColor;
-            box.ScrollToCaret();
-        }
-
-        private void TextToLogs(string str, Color color)
-        {
-            Invoke(new MethodInvoker(delegate
-            {
-                AppendText(rbLog, str, color);
-            }));
-        }
-
-        private void WriteOutput(string str, Color color)
-        {
-            if (!chkLogsComplie.Checked && str.Contains("[Compile]"))
-            {
-                return;
-            }
-            if (!chkLogsSuccess.Checked && str.Contains("[Success]"))
-            {
-                return;
-            }
-            if (!chkLogsError.Checked && str.Contains("[Error:"))
-            {
-                return;
-            }
-            Invoke(new MethodInvoker(delegate
-            {
-                TextToLogs(DateTime.Now.ToString("HH:mm:ss tt") + " " + str + Environment.NewLine, color);
-            }));
-        }
-
-        private void WriteOutput(string str)
-        {
-            Invoke(new MethodInvoker(delegate
-            {
-                TextToLogs(DateTime.Now.ToString("HH:mm:ss tt") + " " + str + Environment.NewLine, Color.Black);
-            }));
-        }
-
-        #endregion Log&About Page
-
-        #region Dev Page
-
-        #region Permission
-
-        private void btnCopyPermission_Click(object sender, EventArgs e)
-        {
-            CopyText(txtPermission.Text);
-        }
-
-        private void btnCopyService_Click(object sender, EventArgs e)
-        {
-            CopyText(txtService.Text);
-        }
-
-        private void btnSavePermission_Click(object sender, EventArgs e)
-        {
-            if (!MyMessage.MsgOkCancel("Do you want to save?\n\n" +
-                                       "Click \"OK\" to confirm.\n\n" +
-                                       "Click \"Cancel\" to cancel.")) return;
-            Properties.Settings.Default.txtService = txtService.Text;
-        }
-
-        #endregion Permission
-
-        #region Method 1
-
-        private void btnOnCreate_Click(object sender, EventArgs e)
-        {
-            CopyText(txtOnCreate.Text);
-        }
-
-        private void btnSaveMethod1_Click(object sender, EventArgs e)
-        {
-            if (!MyMessage.MsgOkCancel("Do you want to save?\n\n" +
-                                       "Click \"OK\" to confirm.\n\n" +
-                                       "Click \"Cancel\" to cancel.")) return;
-            Properties.Settings.Default.txtOnCreate = txtOnCreate.Text;
-        }
-
-        #endregion Method 1
-
-        #region Method 2
-
-        private void btnCopyFind_Click(object sender, EventArgs e)
-        {
-            CopyText(txtFind.Text);
-        }
-
-        private void btnCopyActionMain2_Click(object sender, EventArgs e)
-        {
-            CopyText(txtActionMain.Text);
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            var abc = Environment.OSVersion.Version.Major;
-            var ccc = Environment.OSVersion.Version.Minor;
-            var ddd = Environment.OSVersion.Version;
-            var ac = "";
-        }
-
-        private void btnSaveMethod2_Click(object sender, EventArgs e)
-        {
-            if (!MyMessage.MsgOkCancel("Do you want to save?\n\n" +
-                                       "Click \"OK\" to confirm.\n\n" +
-                                       "Click \"Cancel\" to cancel.")) return;
-            Properties.Settings.Default.txtActionMain = txtActionMain.Text;
-        }
-
-        #endregion Method 2
-
-        private void CopyText(string str)
-        {
-            Clipboard.SetText(str);
-            if (!Properties.Settings.Default.chkSound) return;
-            System.Media.SystemSounds.Beep.Play();
-        }
-
-        #endregion Dev Page
     }
 }
