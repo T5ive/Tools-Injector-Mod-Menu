@@ -10,15 +10,25 @@
             All
         }
 
+        public enum Type
+        {
+            Int,
+            Long,
+            Float,
+            Double
+        }
         public enum FunctionType
         {
-            Toggle,
-            ButtonOnOff,
-            ToggleSeekBar,
-            ToggleInputValue,
-            ButtonOnOffSeekBar,
-            ButtonOnOffInputValue,
-            Patch,
+            Toggle, //Patch
+            ToggleSeekBar, //Hook Method
+            ToggleInputValue, //Hook Method
+            ButtonOnOff, //Patch
+            ButtonOnOffSeekBar, //Hook Method
+            ButtonOnOffInputValue, //Hook Method
+            Button, //Hook Method
+            ButtonSeekBar, //Hook Method
+            ButtonInputValue, //Hook Method
+            Patch, //Patch
             Category,
             Empty
         }

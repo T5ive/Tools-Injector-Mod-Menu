@@ -7,6 +7,7 @@ using System.Drawing;
 using System.IO;
 using System.IO.Compression;
 using System.Linq;
+using System.Management;
 using System.Reflection;
 using System.Windows.Forms;
 using System.Xml;
@@ -127,7 +128,7 @@ namespace Tools_Injector_Mod_Menu
         {
             var settings = Properties.Settings.Default;
             txtLibName.Text = settings.txtLibName;
-            if (!string.IsNullOrWhiteSpace(settings.txtToast) && settings.txtToast.Contains('|'))
+            if (!Utility.IsEmpty(settings.txtToast, false) && settings.txtToast.Contains('|'))
             {
                 foreach (var t in settings.txtToast.Split('|'))
                 {
@@ -135,7 +136,7 @@ namespace Tools_Injector_Mod_Menu
                 }
             }
 
-            if (!settings.txtToast.Contains('|') && !string.IsNullOrWhiteSpace(settings.txtToast))
+            if (!settings.txtToast.Contains('|') && !Utility.IsEmpty(settings.txtToast, false))
             {
                 listToast.Items.Add(settings.txtToast);
             }
@@ -172,7 +173,7 @@ namespace Tools_Injector_Mod_Menu
         {
             try
             {
-                if (!string.IsNullOrWhiteSpace(ImageCode))
+                if (!Utility.IsEmpty(ImageCode, false))
                 {
                     var bytes = Convert.FromBase64String(ImageCode);
                     picImg.Image = ByteToImage(bytes);
@@ -186,10 +187,10 @@ namespace Tools_Injector_Mod_Menu
             }
         }
 
-        private static Bitmap ByteToImage(byte[] blob)
+        private static Bitmap ByteToImage(byte[] bytes)
         {
             var mStream = new MemoryStream();
-            var pData = blob;
+            var pData = bytes;
             mStream.Write(pData, 0, Convert.ToInt32(pData.Length));
             var bm = new Bitmap(mStream, false);
             mStream.Dispose();
@@ -752,7 +753,7 @@ namespace Tools_Injector_Mod_Menu
 
         private T LoadXml<T>(string fileName)
         {
-            if (Utility.IsEmpty(fileName)) { return default(T); }
+            if (Utility.IsEmpty(fileName, false)) { return default; }
 
             var objectOut = default(T);
 
@@ -788,20 +789,37 @@ namespace Tools_Injector_Mod_Menu
 
         private void btnCompile_Click(object sender, EventArgs e)
         {
-            if (Utility.IsEmpty(txtNameGame))
+            if (Utility.IsEmpty(txtLibName, false))
+            {
+                MyMessage.MsgShowWarning(@"Library Name is Empty, Please Check it again!!!");
+                WriteOutput("[Warning] Library Name is Empty", Color.Orange);
+                return;
+            }
+            if (Utility.IsEmpty(txtNDK, false))
+            {
+                MyMessage.MsgShowWarning(@"NDK Path is Empty, Please Check it again!!!");
+                WriteOutput("[Warning] NDK Path is Empty", Color.Orange);
+                return;
+            }
+            if (Utility.IsEmpty(ImageCode, false))
+            {
+                MyMessage.MsgShowWarning(@"Image Code is Empty, Please Check it again!!!");
+                WriteOutput("[Warning] Image Code is Empty", Color.Orange);
+                return;
+            }
+            if (Utility.IsEmpty(txtNameGame, false))
             {
                 MyMessage.MsgShowWarning(@"Name Game is Empty, Please Check it again!!!");
                 WriteOutput("[Warning] Name Game is Empty", Color.Orange);
                 return;
             }
-            if (Utility.IsEmpty(txtTargetLib))
+            if (Utility.IsEmpty(txtTargetLib, false))
             {
                 MyMessage.MsgShowWarning(@"Target Library Name is Empty, Please Check it again!!!");
                 WriteOutput("[Warning] Name Game is Empty", Color.Orange);
                 return;
             }
-
-            if (OffsetPatch.FunctionList.Count <= 0)
+            if (OffsetPatch.FunctionList.Count == 0)
             {
                 MyMessage.MsgShowWarning(@"Function list is Empty, Please Check it again!!!");
                 WriteOutput("[Warning] Name Game is Empty", Color.Orange);
@@ -1004,7 +1022,7 @@ namespace Tools_Injector_Mod_Menu
                 var num = functionList[i].FunctionType == Enums.FunctionType.Category ? "0" : (realCount + 1).ToString();
                 var type = functionList[i].FunctionType;
                 var cheatName = functionList[i].CheatName;
-                var functionExtra = !string.IsNullOrWhiteSpace(functionList[i].FunctionValue)
+                var functionExtra = !Utility.IsEmpty(functionList[i].FunctionValue, false)
                     ? "_" + functionList[i].FunctionValue
                     : "";
                 switch (type)
@@ -1264,13 +1282,13 @@ int Update{nameCheat}(void *instance) {{
 
         private void OutputDataReceived(object sender, DataReceivedEventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(e.Data)) return;
+            if (Utility.IsEmpty(e.Data, false)) return;
             WriteOutput("[Compile] " + e.Data);
         }
 
         private void ErrorDataReceived(object sender, DataReceivedEventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(e.Data)) return;
+            if (Utility.IsEmpty(e.Data, false)) return;
             if (e.Data == "fcntl(): Bad file descriptor") return;
             _compile++;
             WriteOutput("[Compile] " + e.Data, Color.Red);
@@ -1439,7 +1457,7 @@ int Update{nameCheat}(void *instance) {{
             }
         }
 
-        private void EnableController(Form form, bool value)
+        private static void EnableController(Form form, bool value)
         {
             foreach (var obj in form.Controls)
             {
@@ -1474,7 +1492,7 @@ int Update{nameCheat}(void *instance) {{
             }
         }
 
-        private void EnableController(Control control, bool value)
+        private static void EnableController(Control control, bool value)
         {
             foreach (var obj in control.Controls)
             {
@@ -1511,9 +1529,22 @@ int Update{nameCheat}(void *instance) {{
             }
         }
 
-        private void EasyEnabled(Control control, bool status = true)
+        private static void EasyEnabled(Control control, bool status = true)
         {
             control.Enabled = status;
+        }
+
+        private static bool IsWindows7 => OS_Name().Contains("Windows 7");
+
+        private static bool IsWindows10 => OS_Name().Contains("Windows 10");
+        
+        private static bool Is64Bit => Environment.Is64BitOperatingSystem;
+
+        private static string OS_Name()
+        {
+            return (string)(from x in new ManagementObjectSearcher(
+                    "SELECT Caption FROM Win32_OperatingSystem").Get().Cast<ManagementObject>()
+                select x.GetPropertyValue("Caption")).FirstOrDefault();
         }
 
         #endregion Utility
@@ -1647,6 +1678,14 @@ int Update{nameCheat}(void *instance) {{
         private void btnCopyActionMain2_Click(object sender, EventArgs e)
         {
             CopyText(txtActionMain.Text);
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            var abc = Environment.OSVersion.Version.Major;
+            var ccc = Environment.OSVersion.Version.Minor;
+            var ddd = Environment.OSVersion.Version;
+            var ac = "";
         }
 
         private void btnSaveMethod2_Click(object sender, EventArgs e)

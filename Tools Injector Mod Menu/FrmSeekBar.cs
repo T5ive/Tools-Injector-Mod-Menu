@@ -34,5 +34,19 @@ namespace Tools_Injector_Mod_Menu
                 numMax.Value = numMin.Value + 1;
             }
         }
+        
+        private void chkField_CheckedChanged(object sender, EventArgs e)
+        {
+            if (chkField.Checked)
+            {
+                txtOffset.Enabled = true;
+                comboType.Enabled = true;
+            }
+            else
+            {
+                txtOffset.Enabled = false;
+                comboType.Enabled = false;
+            }
+        }
     }
 }

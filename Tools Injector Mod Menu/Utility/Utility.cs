@@ -70,10 +70,12 @@ namespace Tools_Injector_Mod_Menu
             return false;
         }
 
-        public static bool IsEmpty(MaterialTextBox textBox)
+        public static bool IsEmpty(MaterialTextBox textBox, bool msg = true)
         {
             if (string.IsNullOrWhiteSpace(textBox.Text))
             {
+                if (!msg) return true;
+
                 MyMessage.MsgShowWarning($@"{textBox.Name} is Empty, Please Check it again!!!");
                 return true;
             }
@@ -81,10 +83,12 @@ namespace Tools_Injector_Mod_Menu
             return false;
         }
 
-        public static bool IsEmpty(string str)
+        public static bool IsEmpty(string str, bool msg = true)
         {
             if (string.IsNullOrWhiteSpace(str))
             {
+                if (!msg) return true;
+
                 MyMessage.MsgShowWarning($"{nameof(str)} is Empty, Please Check it again!!!");
                 return true;
             }
