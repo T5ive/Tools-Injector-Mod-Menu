@@ -109,14 +109,12 @@ Default Theme -> https://github.com/T5ive/Android-Mod-Menu/tree/inject-mod-menu
 
 LGLTeam / Android-Mod-Menu: https://github.com/LGLTeam/Android-Mod-Menu
 
+IvesAwadi #0418: Love You!
+
 PMT DVA for tut
 
 PMT Mika Cybertron for idea
 
 PMT IvesAwadiYT for some codes sample
 
-Hook 
-
-- https://polarmods.com/threads/%F0%9F%8E%83-hooking-part-1-how-to-hook-a-field-with-mod-menu-%F0%9F%8E%83.1536/
-
-- https://polarmods.com/threads/%F0%9F%8E%83-hooking-part-2-how-to-hook-a-function-with-menu-%F0%9F%8E%83.1539/
+7.Hackers polarmods for tutorial
