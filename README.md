@@ -109,7 +109,7 @@ Default Theme -> https://github.com/T5ive/Android-Mod-Menu/tree/inject-mod-menu
 
 LGLTeam / Android-Mod-Menu: https://github.com/LGLTeam/Android-Mod-Menu
 
-IvesAwadi #0418 for hook tutorial
+PMT IvesAwadi for hook tutorial
 
 PMT DVA for basic tutorial
 
