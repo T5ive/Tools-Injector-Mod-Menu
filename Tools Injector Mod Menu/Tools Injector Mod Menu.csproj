@@ -53,49 +53,49 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="FrmButton.cs">
+    <Compile Include="Form\FrmButton.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FrmButton.Designer.cs">
+    <Compile Include="Form\FrmButton.Designer.cs">
       <DependentUpon>FrmButton.cs</DependentUpon>
     </Compile>
-    <Compile Include="FrmImageText.cs">
+    <Compile Include="Form\FrmImageText.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FrmImageText.Designer.cs">
+    <Compile Include="Form\FrmImageText.Designer.cs">
       <DependentUpon>FrmImageText.cs</DependentUpon>
     </Compile>
-    <Compile Include="FrmSeekBar.cs">
+    <Compile Include="Form\FrmSeekBar.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FrmSeekBar.Designer.cs">
+    <Compile Include="Form\FrmSeekBar.Designer.cs">
       <DependentUpon>FrmSeekBar.cs</DependentUpon>
     </Compile>
-    <Compile Include="FrmFunction.cs">
+    <Compile Include="Form\FrmFunction.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FrmFunction.Designer.cs">
+    <Compile Include="Form\FrmFunction.Designer.cs">
       <DependentUpon>FrmFunction.cs</DependentUpon>
     </Compile>
-    <Compile Include="FrmCategory.cs">
+    <Compile Include="Form\FrmCategory.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FrmCategory.Designer.cs">
+    <Compile Include="Form\FrmCategory.Designer.cs">
       <DependentUpon>FrmCategory.cs</DependentUpon>
     </Compile>
-    <Compile Include="FrmMain.cs">
+    <Compile Include="Form\FrmMain.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FrmMain.Designer.cs">
+    <Compile Include="Form\FrmMain.Designer.cs">
       <DependentUpon>FrmMain.cs</DependentUpon>
     </Compile>
-    <Compile Include="FrmToggleHook.cs">
+    <Compile Include="Form\FrmToggleHook.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FrmToggleHook.Designer.cs">
+    <Compile Include="Form\FrmToggleHook.Designer.cs">
       <DependentUpon>FrmToggleHook.cs</DependentUpon>
     </Compile>
-    <Compile Include="MyMessage.cs" />
+    <Compile Include="Utility\MyMessage.cs" />
     <Compile Include="Patch Manager\Enums.cs" />
     <Compile Include="Patch Manager\OffsetInfo.cs" />
     <Compile Include="Patch Manager\OffsetPatch.cs" />
@@ -103,26 +103,26 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utility\Utility.cs" />
     <Compile Include="Utility\ZipArchiveExtensions.cs" />
-    <Compile Include="Values.cs" />
-    <EmbeddedResource Include="FrmButton.resx">
+    <Compile Include="Utility\Values.cs" />
+    <EmbeddedResource Include="Form\FrmButton.resx">
       <DependentUpon>FrmButton.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FrmImageText.resx">
+    <EmbeddedResource Include="Form\FrmImageText.resx">
       <DependentUpon>FrmImageText.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FrmSeekBar.resx">
+    <EmbeddedResource Include="Form\FrmSeekBar.resx">
       <DependentUpon>FrmSeekBar.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FrmFunction.resx">
+    <EmbeddedResource Include="Form\FrmFunction.resx">
       <DependentUpon>FrmFunction.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FrmCategory.resx">
+    <EmbeddedResource Include="Form\FrmCategory.resx">
       <DependentUpon>FrmCategory.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FrmMain.resx">
+    <EmbeddedResource Include="Form\FrmMain.resx">
       <DependentUpon>FrmMain.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FrmToggleHook.resx">
+    <EmbeddedResource Include="Form\FrmToggleHook.resx">
       <DependentUpon>FrmToggleHook.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -170,5 +170,6 @@
       <Name>ModernFolderBrowserDialog</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
