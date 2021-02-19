@@ -30,7 +30,7 @@ namespace Tools_Injector_Mod_Menu.Patch_Manager
             });
         }
 
-        public static void AddFunction(string cheatName = null, List<OffsetInfo> offsetList = null, Enums.FunctionType functionType = Enums.FunctionType.Category, string functionValue = null, bool multipleValue = false)
+        public static void AddFunction(string cheatName = null, List<OffsetInfo> offsetList = null, Enums.FunctionType functionType = Enums.FunctionType.Category, string functionValue = null, bool multipleValue = false, HookInfo hookInfo = null)
         {
             FunctionList.Add(new FunctionList
             {
@@ -38,7 +38,8 @@ namespace Tools_Injector_Mod_Menu.Patch_Manager
                 OffsetList = (offsetList ?? new List<OffsetInfo>()).ToList(),
                 FunctionType = functionType,
                 FunctionValue = functionValue,
-                MultipleValue = multipleValue
+                MultipleValue = multipleValue,
+                HookInfo = hookInfo
             });
         }
 

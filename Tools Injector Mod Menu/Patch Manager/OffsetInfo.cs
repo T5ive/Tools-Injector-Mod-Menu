@@ -21,7 +21,7 @@ namespace Tools_Injector_Mod_Menu.Patch_Manager
 
         [XmlElement(ElementName = "Offset")] public string Offset { get; set; }
 
-        [XmlElement(ElementName = "Offset")] public (string, string) Method { get; set; }
+        [XmlElement(ElementName = "Method")] public (string, string) Method { get; set; }
     }
 
     public class TFiveMenu

@@ -15,7 +15,8 @@
             Int,
             Long,
             Float,
-            Double
+            Double,
+            Empty
         }
         public enum FunctionType
         {

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows.Forms;
+using Tools_Injector_Mod_Menu.Patch_Manager;
 
 namespace Tools_Injector_Mod_Menu
 {
@@ -15,7 +16,14 @@ namespace Tools_Injector_Mod_Menu
             if (!MyMessage.MsgOkCancel("Do you want to save?\n\n" +
                                        "Click \"OK\" to confirm.\n\n" +
                                        "Click \"Cancel\" to cancel.")) return;
-            FrmMain.SeekBar = $"{numMin.Value}_{numMax.Value}";
+            Values.SeekBar = $"{numMin.Value}_{numMax.Value}";
+            if (chkField.Checked)
+            {
+                if (Utility.IsEmpty(txtOffset)) return;
+                Values.Field = chkField.Checked;
+                Values.Type = (Enums.Type) comboType.SelectedIndex;
+                Values.Offset = txtOffset.Text;
+            }
             Dispose();
         }
 

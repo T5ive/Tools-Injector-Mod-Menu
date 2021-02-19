@@ -36,7 +36,7 @@ namespace Tools_Injector_Mod_Menu
 
         private readonly string _tempPathMenu = Path.GetTempPath() + "TFiveMenu";
 
-        public static string Category, SeekBar, ImageCode;
+        public static string ImageCode;
 
         private int _compile;
 
@@ -339,7 +339,10 @@ namespace Tools_Injector_Mod_Menu
 
             if (functionType == Enums.FunctionType.ButtonOnOffSeekBar ||
                 functionType == Enums.FunctionType.ButtonOnOffInputValue ||
-                functionType == Enums.FunctionType.ButtonOnOff)
+                functionType == Enums.FunctionType.ButtonOnOff ||
+                functionType == Enums.FunctionType.Button ||
+                functionType == Enums.FunctionType.ButtonSeekBar ||
+                functionType == Enums.FunctionType.ButtonInputValue)
             {
                 //TODO
                 comboFunction.SelectedIndex = 0;
@@ -390,10 +393,10 @@ namespace Tools_Injector_Mod_Menu
             {
                 case Enums.FunctionType.ToggleSeekBar:
                 case Enums.FunctionType.ButtonOnOffSeekBar:
-                    return Utility.IsEmpty(SeekBar) ? Enums.FunctionType.Empty : functionType;
+                    return Utility.IsEmpty(Values.SeekBar) ? Enums.FunctionType.Empty : functionType;
 
                 case Enums.FunctionType.Category:
-                    return Utility.IsEmpty(Category) ? Enums.FunctionType.Empty : Enums.FunctionType.Category;
+                    return Utility.IsEmpty(Values.Category) ? Enums.FunctionType.Empty : Enums.FunctionType.Category;
 
                 default:
                     return functionType;
@@ -493,8 +496,8 @@ namespace Tools_Injector_Mod_Menu
 
             var functionValue = FunctionValue();
 
-            OffsetPatch.AddFunction(txtNameCheat.Text, OffsetPatch.OffsetList, functionType, functionValue, chkMultiple.Checked);
-
+            OffsetPatch.AddFunction(txtNameCheat.Text, OffsetPatch.OffsetList, functionType, functionValue, chkMultiple.Checked, HookValue());
+            ClearValue();
             _offsetCount = 1;
 
             BtnFunctionManager();
@@ -506,20 +509,41 @@ namespace Tools_Injector_Mod_Menu
             txtNameCheat.Clear();
         }
 
+        private static HookInfo HookValue()
+        {
+            return new HookInfo
+            {
+                Field = Values.Field,
+                Type = Values.Type,
+                Offset = Values.Offset,
+                Method = Values.Method
+            };
+        }
+
         private string FunctionValue()
         {
             switch ((Enums.FunctionType)comboFunction.SelectedIndex)
             {
                 case Enums.FunctionType.Category:
-                    return Category;
+                    return Values.Category;
 
                 case Enums.FunctionType.ToggleSeekBar:
                 case Enums.FunctionType.ButtonOnOffSeekBar:
-                    return SeekBar;
+                    return Values.SeekBar;
 
                 default:
                     return "";
             }
+        }
+        
+        private static void ClearValue()
+        {
+            Values.Category = null;
+            Values.SeekBar = null;
+            Values.Offset = null;
+            Values.Field = false;
+            Values.Type = Enums.Type.Empty;
+            Values.Method = (null, null);
         }
 
         #endregion Function Group
@@ -1108,10 +1132,24 @@ namespace Tools_Injector_Mod_Menu
             {
                 var nameCheat = list.CheatName.RemoveSuperSpecialCharacters().ReplaceNumCharacters();
                 var multiple = list.MultipleValue ? $@"return _{nameCheat}Value*old_{nameCheat}(instance);" : $@"return _{nameCheat}Value;";
+                var fieldMultiple = list.MultipleValue ? $"*({Type2String(list.HookInfo.Type)} *) ((uint64_t) instance + {list.HookInfo.Offset}) = _{nameCheat}Value*old_{nameCheat}(instance);" : $"*({Type2String(list.HookInfo.Type)} *) ((uint64_t) instance + {list.HookInfo.Offset}) = _{nameCheat}Value;";
                 if (list.FunctionType == Enums.FunctionType.ToggleSeekBar || list.FunctionType == Enums.FunctionType.ToggleInputValue ||
                     list.FunctionType == Enums.FunctionType.ButtonOnOffSeekBar || list.FunctionType == Enums.FunctionType.ButtonOnOffInputValue)
                 {
-                    result += $@"int (*old_{nameCheat})(void *instance);
+                    if (list.HookInfo.Field)
+                    {
+                        result += $@"void (*old_{nameCheat})(void *instance);
+void Update{nameCheat}(void *instance) {{
+    if (instance != NULL && _{nameCheat} && _{nameCheat}Value > 1) {{
+        {fieldMultiple}
+    }}
+    return old_{nameCheat}(instance);
+}}
+";
+                    }
+                    else
+                    {
+                        result += $@"int (*old_{nameCheat})(void *instance);
 int Update{nameCheat}(void *instance) {{
     if (instance != NULL && _{nameCheat} && _{nameCheat}Value > 1) {{
         {multiple}
@@ -1119,6 +1157,7 @@ int Update{nameCheat}(void *instance) {{
     return old_{nameCheat}(instance);
 }}
 ";
+                    }
                 }
             }
 
@@ -1444,14 +1483,6 @@ int Update{nameCheat}(void *instance) {{
             CopyText(txtActionMain.Text);
         }
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-            var abc = Environment.OSVersion.Version.Major;
-            var ccc = Environment.OSVersion.Version.Minor;
-            var ddd = Environment.OSVersion.Version;
-            var ac = "";
-        }
-
         private void btnSaveMethod2_Click(object sender, EventArgs e)
         {
             if (!MyMessage.MsgOkCancel("Do you want to save?\n\n" +
@@ -1473,6 +1504,22 @@ int Update{nameCheat}(void *instance) {{
 
         #region Utility
 
+        private static string Type2String(Enums.Type type)
+        {
+            switch (type)
+            {
+                case Enums.Type.Int:
+                    return "int";
+                case Enums.Type.Long:
+                    return "long";
+                case Enums.Type.Float:
+                    return "float";
+                case Enums.Type.Double:
+                    return "double";
+                default:
+                    return "int";
+            }
+        }
         private static Bitmap ByteToImage(byte[] bytes)
         {
             var mStream = new MemoryStream();
