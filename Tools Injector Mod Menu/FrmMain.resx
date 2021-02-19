@@ -117,14 +117,6 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="txtActionMain.Text" xml:space="preserve">
-    <value>&lt;activity android:configChanges="keyboardHidden|orientation|screenSize" android:name="com.tfivel.MainActivity"&gt;
-     &lt;intent-filter&gt;
-         &lt;action android:name="android.intent.action.MAIN"/&gt;
-         &lt;category android:name="android.intent.category.LAUNCHER"/&gt;
-     &lt;/intent-filter&gt;
-&lt;/activity&gt;</value>
-  </data>
   <metadata name="menuIconList.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
   </metadata>
@@ -256,6 +248,14 @@
         AQAB/wHgAQABBwH8AQABPwEfAf8B+AH/AcMB/wHwAQABDwH8AQABPwMAAf8B5wH/AfgBAAEfAfwBQgE/
         AwAD/wH+AQABfwH9AeMBvwGAAQABAQs=
 </value>
+  </data>
+  <data name="txtActionMain.Text" xml:space="preserve">
+    <value>&lt;activity android:configChanges="keyboardHidden|orientation|screenSize" android:name="com.tfivel.MainActivity"&gt;
+     &lt;intent-filter&gt;
+         &lt;action android:name="android.intent.action.MAIN"/&gt;
+         &lt;category android:name="android.intent.category.LAUNCHER"/&gt;
+     &lt;/intent-filter&gt;
+&lt;/activity&gt;</value>
   </data>
   <metadata name="compilerWorker.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>141, 17</value>

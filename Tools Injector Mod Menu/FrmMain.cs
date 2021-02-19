@@ -18,6 +18,7 @@ namespace Tools_Injector_Mod_Menu
 {
     public partial class FrmMain : MaterialForm
     {
+        private const bool Debug = true;
         public FrmMain()
         {
             InitializeComponent();
@@ -880,9 +881,13 @@ namespace Tools_Injector_Mod_Menu
                 FormState(State.Idle);
                 return;
             }
-
+            if (Debug)
+            {
+                FormState(State.Idle);
+                return;
+            }
             if (!MoveDirectory(_tempPathMenu + "\\com", $"{AppPath}\\Output\\{txtNameGame.Text}\\smali\\com")) return;
-
+            
             CompileNdk();
         }
 
@@ -1161,12 +1166,17 @@ namespace Tools_Injector_Mod_Menu
             {
                 var nameCheat = list.CheatName.RemoveSuperSpecialCharacters().ReplaceNumCharacters();
                 var multiple = list.MultipleValue ? $@"return _{nameCheat}Value*old_{nameCheat}(instance);" : $@"return _{nameCheat}Value;";
-                var fieldMultiple = list.MultipleValue ? $"*({Type2String(list.HookInfo.Type)} *) ((uint64_t) instance + {list.HookInfo.Offset}) = _{nameCheat}Value*old_{nameCheat}(instance);" : $"*({Type2String(list.HookInfo.Type)} *) ((uint64_t) instance + {list.HookInfo.Offset}) = _{nameCheat}Value;";
+                var fieldMultiple = "";
                 if (list.FunctionType == Enums.FunctionType.ToggleSeekBar || list.FunctionType == Enums.FunctionType.ToggleInputValue ||
                     list.FunctionType == Enums.FunctionType.ButtonOnOffSeekBar || list.FunctionType == Enums.FunctionType.ButtonOnOffInputValue)
                 {
                     if (list.HookInfo.Field)
                     {
+                        var fieldValues = list.HookInfo.Offset.RemoveMiniSpecialCharacters().Split(',');
+                        fieldMultiple = fieldValues.Aggregate(fieldMultiple, (current, t) => current + (list.MultipleValue
+                            ? $"*({Type2String(list.HookInfo.Type)} *) ((uint64_t) instance + {t}) = _{nameCheat}Value*old_{nameCheat}(instance);{Environment.NewLine}        "
+                            : $"*({Type2String(list.HookInfo.Type)} *) ((uint64_t) instance + {t}) = _{nameCheat}Value;{Environment.NewLine}        "));
+
                         result += $@"void (*old_{nameCheat})(void *instance);
 void Update{nameCheat}(void *instance) {{
     if (instance != NULL && _{nameCheat} && _{nameCheat}Value > 1) {{
@@ -1782,5 +1792,6 @@ int Update{nameCheat}(void *instance) {{
         }
 
         #endregion Utility
+        
     }
 }

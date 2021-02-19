@@ -119,7 +119,7 @@ namespace Tools_Injector_Mod_Menu
             this.txtOffset.Font = new System.Drawing.Font("Roboto", 12F);
             this.txtOffset.Hint = "0x10, 0x20, 0x30, 0x40";
             this.txtOffset.Location = new System.Drawing.Point(137, 10);
-            this.txtOffset.MaxLength = 10;
+            this.txtOffset.MaxLength = 300;
             this.txtOffset.MouseState = MaterialSkin.MouseState.OUT;
             this.txtOffset.Multiline = false;
             this.txtOffset.Name = "txtOffset";
