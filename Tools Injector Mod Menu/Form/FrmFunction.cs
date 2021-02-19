@@ -6,7 +6,6 @@ using Tools_Injector_Mod_Menu.Patch_Manager;
 namespace Tools_Injector_Mod_Menu
 {
     //TODO Check offset, hex before save
-    //Confirm Save/Close
     public partial class FrmFunction : Form
     {
         private readonly int _index;
@@ -24,6 +23,9 @@ namespace Tools_Injector_Mod_Menu
             txtNameCheat.Text = OffsetPatch.FunctionList[_index].CheatName;
             txtValues.Text = OffsetPatch.FunctionList[_index].FunctionValue;
             _type = OffsetPatch.FunctionList[_index].FunctionType;
+            var hookInfo = OffsetPatch.FunctionList[_index].HookInfo;
+
+
             foreach (var t in OffsetPatch.FunctionList[_index].OffsetList)
             {
                 dataList.Rows.Add(t.Offset, t.Hex);
@@ -36,6 +38,12 @@ namespace Tools_Injector_Mod_Menu
             {
                 chkMultiple.Enabled = true;
                 txtValues.Enabled = true;
+                if (hookInfo.Field)
+                {
+                    chkField.Checked = hookInfo.Field;
+                    txtOffset.Text = hookInfo.Offset;
+                    comboType.SelectedIndex = (int) hookInfo.Type;
+                }
             }
 
             chkMultiple.Checked = OffsetPatch.FunctionList[_index].MultipleValue;
@@ -71,7 +79,8 @@ namespace Tools_Injector_Mod_Menu
                     FunctionValue = txtValues.Text,
                     FunctionType = _type,
                     OffsetList = offsetList,
-                    MultipleValue = chkMultiple.Checked
+                    MultipleValue = chkMultiple.Checked,
+                    HookInfo = HookValue()
                 };
 
                 Dispose();
@@ -81,7 +90,16 @@ namespace Tools_Injector_Mod_Menu
                 MyMessage.MsgShowError("Error" + exception.Message);
             }
         }
-
+        private  HookInfo HookValue()
+        {
+            return new HookInfo
+            {
+                Field = chkField.Checked,
+                Type = (Enums.Type) comboType.SelectedIndex,
+                Offset = txtOffset.Text,
+                Method = (null, null)
+            };
+        }
         private void btnClose_Click(object sender, EventArgs e)
         {
             if (!MyMessage.MsgOkCancel("Do you want to close?\n\n" +
@@ -157,6 +175,12 @@ namespace Tools_Injector_Mod_Menu
         private void addToolStripMenuItem_Click(object sender, EventArgs e)
         {
             dataList.Rows.Add(null, null);
+        }
+
+        private void chkField_CheckedChanged(object sender, EventArgs e)
+        {
+            txtOffset.Enabled = chkField.Checked;
+            comboType.Enabled = chkField.Checked;
         }
     }
 }

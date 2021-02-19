@@ -40,6 +40,11 @@ namespace Tools_Injector_Mod_Menu
             this.addToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.removeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.chkField = new MaterialSkin.Controls.MaterialCheckbox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.txtOffset = new MaterialSkin.Controls.MaterialTextBox();
+            this.comboType = new MaterialSkin.Controls.MaterialComboBox();
             this.chkMultiple = new MaterialSkin.Controls.MaterialCheckbox();
             this.btnClose = new MaterialSkin.Controls.MaterialButton();
             this.btnSave = new MaterialSkin.Controls.MaterialButton();
@@ -88,7 +93,7 @@ namespace Tools_Injector_Mod_Menu
             this.dataList.MultiSelect = false;
             this.dataList.Name = "dataList";
             this.dataList.RowHeadersVisible = false;
-            this.dataList.Size = new System.Drawing.Size(800, 296);
+            this.dataList.Size = new System.Drawing.Size(800, 269);
             this.dataList.TabIndex = 0;
             this.dataList.KeyDown += new System.Windows.Forms.KeyEventHandler(this.dataGridView1_KeyDown);
             this.dataList.MouseDown += new System.Windows.Forms.MouseEventHandler(this.dataList_MouseDown);
@@ -130,6 +135,11 @@ namespace Tools_Injector_Mod_Menu
             // groupBox1
             // 
             this.groupBox1.BackColor = System.Drawing.Color.White;
+            this.groupBox1.Controls.Add(this.chkField);
+            this.groupBox1.Controls.Add(this.label2);
+            this.groupBox1.Controls.Add(this.label4);
+            this.groupBox1.Controls.Add(this.txtOffset);
+            this.groupBox1.Controls.Add(this.comboType);
             this.groupBox1.Controls.Add(this.chkMultiple);
             this.groupBox1.Controls.Add(this.btnClose);
             this.groupBox1.Controls.Add(this.btnSave);
@@ -141,17 +151,97 @@ namespace Tools_Injector_Mod_Menu
             this.groupBox1.Font = new System.Drawing.Font("Roboto", 15F);
             this.groupBox1.Location = new System.Drawing.Point(14, 14);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(772, 126);
+            this.groupBox1.Size = new System.Drawing.Size(772, 170);
             this.groupBox1.TabIndex = 1;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Main Settings";
+            // 
+            // chkField
+            // 
+            this.chkField.AutoSize = true;
+            this.chkField.Depth = 0;
+            this.chkField.Location = new System.Drawing.Point(149, 76);
+            this.chkField.Margin = new System.Windows.Forms.Padding(0);
+            this.chkField.MouseLocation = new System.Drawing.Point(-1, -1);
+            this.chkField.MouseState = MaterialSkin.MouseState.HOVER;
+            this.chkField.Name = "chkField";
+            this.chkField.Ripple = true;
+            this.chkField.Size = new System.Drawing.Size(69, 37);
+            this.chkField.TabIndex = 28;
+            this.chkField.Text = "Field";
+            this.chkField.UseVisualStyleBackColor = true;
+            this.chkField.CheckedChanged += new System.EventHandler(this.chkField_CheckedChanged);
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(623, 81);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(62, 24);
+            this.label2.TabIndex = 27;
+            this.label2.Text = "Type: ";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(263, 81);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(119, 24);
+            this.label4.TabIndex = 26;
+            this.label4.Text = "Field Offset:";
+            // 
+            // txtOffset
+            // 
+            this.txtOffset.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.txtOffset.Depth = 0;
+            this.txtOffset.Enabled = false;
+            this.txtOffset.Font = new System.Drawing.Font("Roboto", 12F);
+            this.txtOffset.Hint = "0x10, 0x20, 0x30";
+            this.txtOffset.Location = new System.Drawing.Point(388, 77);
+            this.txtOffset.MaxLength = 300;
+            this.txtOffset.MouseState = MaterialSkin.MouseState.OUT;
+            this.txtOffset.Multiline = false;
+            this.txtOffset.Name = "txtOffset";
+            this.txtOffset.Size = new System.Drawing.Size(229, 36);
+            this.txtOffset.TabIndex = 24;
+            this.txtOffset.Text = "";
+            this.txtOffset.UseTallSize = false;
+            // 
+            // comboType
+            // 
+            this.comboType.AutoResize = false;
+            this.comboType.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.comboType.Depth = 0;
+            this.comboType.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
+            this.comboType.DropDownHeight = 118;
+            this.comboType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboType.DropDownWidth = 121;
+            this.comboType.Enabled = false;
+            this.comboType.Font = new System.Drawing.Font("Roboto Medium", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
+            this.comboType.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.comboType.FormattingEnabled = true;
+            this.comboType.IntegralHeight = false;
+            this.comboType.ItemHeight = 29;
+            this.comboType.Items.AddRange(new object[] {
+            "int",
+            "long",
+            "float",
+            "double"});
+            this.comboType.Location = new System.Drawing.Point(691, 77);
+            this.comboType.MaxDropDownItems = 4;
+            this.comboType.MouseState = MaterialSkin.MouseState.OUT;
+            this.comboType.Name = "comboType";
+            this.comboType.Size = new System.Drawing.Size(74, 35);
+            this.comboType.StartIndex = 0;
+            this.comboType.TabIndex = 23;
+            this.comboType.UseTallSize = false;
             // 
             // chkMultiple
             // 
             this.chkMultiple.AutoSize = true;
             this.chkMultiple.Depth = 0;
             this.chkMultiple.Enabled = false;
-            this.chkMultiple.Location = new System.Drawing.Point(3, 74);
+            this.chkMultiple.Location = new System.Drawing.Point(3, 76);
             this.chkMultiple.Margin = new System.Windows.Forms.Padding(0);
             this.chkMultiple.MouseLocation = new System.Drawing.Point(-1, -1);
             this.chkMultiple.MouseState = MaterialSkin.MouseState.HOVER;
@@ -170,11 +260,11 @@ namespace Tools_Injector_Mod_Menu
             this.btnClose.DrawShadows = true;
             this.btnClose.HighEmphasis = true;
             this.btnClose.Icon = null;
-            this.btnClose.Location = new System.Drawing.Point(601, 75);
+            this.btnClose.Location = new System.Drawing.Point(645, 125);
             this.btnClose.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
             this.btnClose.MouseState = MaterialSkin.MouseState.HOVER;
             this.btnClose.Name = "btnClose";
-            this.btnClose.Size = new System.Drawing.Size(164, 36);
+            this.btnClose.Size = new System.Drawing.Size(120, 36);
             this.btnClose.TabIndex = 19;
             this.btnClose.Text = "Close";
             this.btnClose.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
@@ -190,11 +280,11 @@ namespace Tools_Injector_Mod_Menu
             this.btnSave.DrawShadows = true;
             this.btnSave.HighEmphasis = true;
             this.btnSave.Icon = null;
-            this.btnSave.Location = new System.Drawing.Point(429, 75);
+            this.btnSave.Location = new System.Drawing.Point(517, 125);
             this.btnSave.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
             this.btnSave.MouseState = MaterialSkin.MouseState.HOVER;
             this.btnSave.Name = "btnSave";
-            this.btnSave.Size = new System.Drawing.Size(164, 36);
+            this.btnSave.Size = new System.Drawing.Size(120, 36);
             this.btnSave.TabIndex = 18;
             this.btnSave.Text = "Save";
             this.btnSave.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
@@ -258,26 +348,25 @@ namespace Tools_Injector_Mod_Menu
             this.materialCard1.Depth = 0;
             this.materialCard1.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.materialCard1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.materialCard1.Location = new System.Drawing.Point(0, 296);
+            this.materialCard1.Location = new System.Drawing.Point(0, 269);
             this.materialCard1.Margin = new System.Windows.Forms.Padding(14);
             this.materialCard1.MouseState = MaterialSkin.MouseState.HOVER;
             this.materialCard1.Name = "materialCard1";
             this.materialCard1.Padding = new System.Windows.Forms.Padding(14);
-            this.materialCard1.Size = new System.Drawing.Size(800, 154);
+            this.materialCard1.Size = new System.Drawing.Size(800, 198);
             this.materialCard1.TabIndex = 2;
             // 
             // FrmFunction
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(800, 467);
             this.Controls.Add(this.dataList);
             this.Controls.Add(this.materialCard1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "FrmFunction";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "CheatName";
             this.TopMost = true;
             ((System.ComponentModel.ISupportInitialize)(this.dataList)).EndInit();
             this.contextMenuStrip1.ResumeLayout(false);
@@ -305,5 +394,10 @@ namespace Tools_Injector_Mod_Menu
         private System.Windows.Forms.DataGridViewTextBoxColumn colHex;
         private System.Windows.Forms.ToolStripMenuItem addToolStripMenuItem;
         private MaterialSkin.Controls.MaterialCheckbox chkMultiple;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label4;
+        private MaterialSkin.Controls.MaterialTextBox txtOffset;
+        private MaterialSkin.Controls.MaterialComboBox comboType;
+        private MaterialSkin.Controls.MaterialCheckbox chkField;
     }
 }

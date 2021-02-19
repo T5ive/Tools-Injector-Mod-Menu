@@ -119,7 +119,6 @@ namespace Tools_Injector_Mod_Menu
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "FrmCategory";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Category";
             this.TopMost = true;
             this.materialCard1.ResumeLayout(false);
             this.ResumeLayout(false);

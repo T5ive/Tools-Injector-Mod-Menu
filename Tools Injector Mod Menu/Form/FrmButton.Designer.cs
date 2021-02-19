@@ -76,6 +76,7 @@ namespace Tools_Injector_Mod_Menu
             this.materialCard1.Margin = new System.Windows.Forms.Padding(14);
             this.materialCard1.MouseState = MaterialSkin.MouseState.HOVER;
             this.materialCard1.Name = "materialCard1";
+            this.materialCard1.Padding = new System.Windows.Forms.Padding(14);
             this.materialCard1.Size = new System.Drawing.Size(239, 386);
             this.materialCard1.TabIndex = 2;
             // 
@@ -86,9 +87,9 @@ namespace Tools_Injector_Mod_Menu
             this.panel1.Controls.Add(this.btnRemove);
             this.panel1.Controls.Add(this.btnAdd);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel1.Location = new System.Drawing.Point(0, 275);
+            this.panel1.Location = new System.Drawing.Point(14, 261);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(239, 111);
+            this.panel1.Size = new System.Drawing.Size(211, 111);
             this.panel1.TabIndex = 58;
             // 
             // btnClose
@@ -346,7 +347,6 @@ namespace Tools_Injector_Mod_Menu
             this.Controls.Add(this.materialCard1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Name = "FrmButton";
-            this.Text = "FrmButton";
             this.materialCard1.ResumeLayout(false);
             this.materialCard1.PerformLayout();
             this.panel1.ResumeLayout(false);
