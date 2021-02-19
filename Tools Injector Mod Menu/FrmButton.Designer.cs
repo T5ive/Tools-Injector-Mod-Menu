@@ -30,8 +30,15 @@ namespace Tools_Injector_Mod_Menu
         private void InitializeComponent()
         {
             this.materialCard1 = new MaterialSkin.Controls.MaterialCard();
-            this.btnAdd = new MaterialSkin.Controls.MaterialButton();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.btnClose = new MaterialSkin.Controls.MaterialButton();
+            this.btnSave = new MaterialSkin.Controls.MaterialButton();
             this.btnRemove = new MaterialSkin.Controls.MaterialButton();
+            this.btnAdd = new MaterialSkin.Controls.MaterialButton();
+            this.numMax = new System.Windows.Forms.NumericUpDown();
+            this.numMin = new System.Windows.Forms.NumericUpDown();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label10 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.txtType = new MaterialSkin.Controls.MaterialTextBox();
@@ -39,19 +46,12 @@ namespace Tools_Injector_Mod_Menu
             this.listView1 = new System.Windows.Forms.ListView();
             this.colType = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.colValue = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.btnSave = new MaterialSkin.Controls.MaterialButton();
-            this.btnClose = new MaterialSkin.Controls.MaterialButton();
             this.label3 = new System.Windows.Forms.Label();
             this.txtOffset = new MaterialSkin.Controls.MaterialTextBox();
-            this.numMax = new System.Windows.Forms.NumericUpDown();
-            this.numMin = new System.Windows.Forms.NumericUpDown();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label10 = new System.Windows.Forms.Label();
-            this.panel1 = new System.Windows.Forms.Panel();
             this.materialCard1.SuspendLayout();
+            this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numMax)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numMin)).BeginInit();
-            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // materialCard1
@@ -79,24 +79,55 @@ namespace Tools_Injector_Mod_Menu
             this.materialCard1.Size = new System.Drawing.Size(239, 386);
             this.materialCard1.TabIndex = 2;
             // 
-            // btnAdd
+            // panel1
             // 
-            this.btnAdd.AutoSize = false;
-            this.btnAdd.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.btnAdd.Depth = 0;
-            this.btnAdd.DrawShadows = true;
-            this.btnAdd.HighEmphasis = true;
-            this.btnAdd.Icon = null;
-            this.btnAdd.Location = new System.Drawing.Point(33, 13);
-            this.btnAdd.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
-            this.btnAdd.MouseState = MaterialSkin.MouseState.HOVER;
-            this.btnAdd.Name = "btnAdd";
-            this.btnAdd.Size = new System.Drawing.Size(80, 36);
-            this.btnAdd.TabIndex = 53;
-            this.btnAdd.Text = "Add";
-            this.btnAdd.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
-            this.btnAdd.UseAccentColor = false;
-            this.btnAdd.UseVisualStyleBackColor = true;
+            this.panel1.Controls.Add(this.btnClose);
+            this.panel1.Controls.Add(this.btnSave);
+            this.panel1.Controls.Add(this.btnRemove);
+            this.panel1.Controls.Add(this.btnAdd);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.panel1.Location = new System.Drawing.Point(0, 275);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(239, 111);
+            this.panel1.TabIndex = 58;
+            // 
+            // btnClose
+            // 
+            this.btnClose.AutoSize = false;
+            this.btnClose.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.btnClose.Depth = 0;
+            this.btnClose.DrawShadows = true;
+            this.btnClose.HighEmphasis = true;
+            this.btnClose.Icon = null;
+            this.btnClose.Location = new System.Drawing.Point(126, 61);
+            this.btnClose.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
+            this.btnClose.MouseState = MaterialSkin.MouseState.HOVER;
+            this.btnClose.Name = "btnClose";
+            this.btnClose.Size = new System.Drawing.Size(100, 35);
+            this.btnClose.TabIndex = 2;
+            this.btnClose.Text = "Cancel";
+            this.btnClose.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
+            this.btnClose.UseAccentColor = false;
+            this.btnClose.UseVisualStyleBackColor = true;
+            // 
+            // btnSave
+            // 
+            this.btnSave.AutoSize = false;
+            this.btnSave.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.btnSave.Depth = 0;
+            this.btnSave.DrawShadows = true;
+            this.btnSave.HighEmphasis = true;
+            this.btnSave.Icon = null;
+            this.btnSave.Location = new System.Drawing.Point(13, 61);
+            this.btnSave.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
+            this.btnSave.MouseState = MaterialSkin.MouseState.HOVER;
+            this.btnSave.Name = "btnSave";
+            this.btnSave.Size = new System.Drawing.Size(100, 35);
+            this.btnSave.TabIndex = 1;
+            this.btnSave.Text = "Save";
+            this.btnSave.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
+            this.btnSave.UseAccentColor = false;
+            this.btnSave.UseVisualStyleBackColor = true;
             // 
             // btnRemove
             // 
@@ -117,11 +148,95 @@ namespace Tools_Injector_Mod_Menu
             this.btnRemove.UseAccentColor = false;
             this.btnRemove.UseVisualStyleBackColor = true;
             // 
+            // btnAdd
+            // 
+            this.btnAdd.AutoSize = false;
+            this.btnAdd.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.btnAdd.Depth = 0;
+            this.btnAdd.DrawShadows = true;
+            this.btnAdd.HighEmphasis = true;
+            this.btnAdd.Icon = null;
+            this.btnAdd.Location = new System.Drawing.Point(33, 13);
+            this.btnAdd.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
+            this.btnAdd.MouseState = MaterialSkin.MouseState.HOVER;
+            this.btnAdd.Name = "btnAdd";
+            this.btnAdd.Size = new System.Drawing.Size(80, 36);
+            this.btnAdd.TabIndex = 53;
+            this.btnAdd.Text = "Add";
+            this.btnAdd.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
+            this.btnAdd.UseAccentColor = false;
+            this.btnAdd.UseVisualStyleBackColor = true;
+            // 
+            // numMax
+            // 
+            this.numMax.Enabled = false;
+            this.numMax.Font = new System.Drawing.Font("Roboto", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.numMax.Location = new System.Drawing.Point(73, 318);
+            this.numMax.Maximum = new decimal(new int[] {
+            1000,
+            0,
+            0,
+            0});
+            this.numMax.Minimum = new decimal(new int[] {
+            2,
+            0,
+            0,
+            0});
+            this.numMax.Name = "numMax";
+            this.numMax.Size = new System.Drawing.Size(154, 32);
+            this.numMax.TabIndex = 57;
+            this.numMax.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.numMax.Value = new decimal(new int[] {
+            100,
+            0,
+            0,
+            0});
+            // 
+            // numMin
+            // 
+            this.numMin.Enabled = false;
+            this.numMin.Font = new System.Drawing.Font("Roboto", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.numMin.Location = new System.Drawing.Point(73, 280);
+            this.numMin.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.numMin.Name = "numMin";
+            this.numMin.Size = new System.Drawing.Size(154, 32);
+            this.numMin.TabIndex = 56;
+            this.numMin.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.numMin.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Roboto", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.label4.Location = new System.Drawing.Point(3, 311);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(44, 18);
+            this.label4.TabIndex = 55;
+            this.label4.Text = "Max: ";
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Font = new System.Drawing.Font("Roboto", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.label10.Location = new System.Drawing.Point(6, 273);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(41, 18);
+            this.label10.TabIndex = 54;
+            this.label10.Text = "Min: ";
+            // 
             // label2
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Roboto", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            this.label2.Location = new System.Drawing.Point(14, 245);
+            this.label2.Location = new System.Drawing.Point(10, 245);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(58, 18);
             this.label2.TabIndex = 51;
@@ -131,7 +246,7 @@ namespace Tools_Injector_Mod_Menu
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Roboto", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            this.label1.Location = new System.Drawing.Point(14, 204);
+            this.label1.Location = new System.Drawing.Point(10, 203);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(47, 18);
             this.label1.TabIndex = 50;
@@ -196,49 +311,11 @@ namespace Tools_Injector_Mod_Menu
             this.colValue.Text = "Value";
             this.colValue.Width = 92;
             // 
-            // btnSave
-            // 
-            this.btnSave.AutoSize = false;
-            this.btnSave.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.btnSave.Depth = 0;
-            this.btnSave.DrawShadows = true;
-            this.btnSave.HighEmphasis = true;
-            this.btnSave.Icon = null;
-            this.btnSave.Location = new System.Drawing.Point(13, 61);
-            this.btnSave.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
-            this.btnSave.MouseState = MaterialSkin.MouseState.HOVER;
-            this.btnSave.Name = "btnSave";
-            this.btnSave.Size = new System.Drawing.Size(100, 35);
-            this.btnSave.TabIndex = 1;
-            this.btnSave.Text = "Save";
-            this.btnSave.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
-            this.btnSave.UseAccentColor = false;
-            this.btnSave.UseVisualStyleBackColor = true;
-            // 
-            // btnClose
-            // 
-            this.btnClose.AutoSize = false;
-            this.btnClose.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.btnClose.Depth = 0;
-            this.btnClose.DrawShadows = true;
-            this.btnClose.HighEmphasis = true;
-            this.btnClose.Icon = null;
-            this.btnClose.Location = new System.Drawing.Point(126, 61);
-            this.btnClose.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
-            this.btnClose.MouseState = MaterialSkin.MouseState.HOVER;
-            this.btnClose.Name = "btnClose";
-            this.btnClose.Size = new System.Drawing.Size(100, 35);
-            this.btnClose.TabIndex = 2;
-            this.btnClose.Text = "Cancel";
-            this.btnClose.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
-            this.btnClose.UseAccentColor = false;
-            this.btnClose.UseVisualStyleBackColor = true;
-            // 
             // label3
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Roboto", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            this.label3.Location = new System.Drawing.Point(12, 19);
+            this.label3.Location = new System.Drawing.Point(10, 19);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(104, 18);
             this.label3.TabIndex = 21;
@@ -261,83 +338,6 @@ namespace Tools_Injector_Mod_Menu
             this.txtOffset.Text = "";
             this.txtOffset.UseTallSize = false;
             // 
-            // numMax
-            // 
-            this.numMax.Enabled = false;
-            this.numMax.Font = new System.Drawing.Font("Roboto", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            this.numMax.Location = new System.Drawing.Point(73, 318);
-            this.numMax.Maximum = new decimal(new int[] {
-            1000,
-            0,
-            0,
-            0});
-            this.numMax.Minimum = new decimal(new int[] {
-            2,
-            0,
-            0,
-            0});
-            this.numMax.Name = "numMax";
-            this.numMax.Size = new System.Drawing.Size(154, 32);
-            this.numMax.TabIndex = 57;
-            this.numMax.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.numMax.Value = new decimal(new int[] {
-            100,
-            0,
-            0,
-            0});
-            // 
-            // numMin
-            // 
-            this.numMin.Enabled = false;
-            this.numMin.Font = new System.Drawing.Font("Roboto", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            this.numMin.Location = new System.Drawing.Point(73, 280);
-            this.numMin.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.numMin.Name = "numMin";
-            this.numMin.Size = new System.Drawing.Size(154, 32);
-            this.numMin.TabIndex = 56;
-            this.numMin.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.numMin.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Roboto", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            this.label4.Location = new System.Drawing.Point(17, 325);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(44, 18);
-            this.label4.TabIndex = 55;
-            this.label4.Text = "Max: ";
-            // 
-            // label10
-            // 
-            this.label10.AutoSize = true;
-            this.label10.Font = new System.Drawing.Font("Roboto", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            this.label10.Location = new System.Drawing.Point(20, 287);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(41, 18);
-            this.label10.TabIndex = 54;
-            this.label10.Text = "Min: ";
-            // 
-            // panel1
-            // 
-            this.panel1.Controls.Add(this.btnClose);
-            this.panel1.Controls.Add(this.btnSave);
-            this.panel1.Controls.Add(this.btnRemove);
-            this.panel1.Controls.Add(this.btnAdd);
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel1.Location = new System.Drawing.Point(0, 275);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(239, 111);
-            this.panel1.TabIndex = 58;
-            // 
             // FrmButton
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -349,9 +349,9 @@ namespace Tools_Injector_Mod_Menu
             this.Text = "FrmButton";
             this.materialCard1.ResumeLayout(false);
             this.materialCard1.PerformLayout();
+            this.panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.numMax)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numMin)).EndInit();
-            this.panel1.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }

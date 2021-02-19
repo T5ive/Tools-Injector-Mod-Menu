@@ -41,17 +41,14 @@ namespace Tools_Injector_Mod_Menu
             this.chkLogsError = new MaterialSkin.Controls.MaterialCheckbox();
             this.chkLogsComplie = new MaterialSkin.Controls.MaterialCheckbox();
             this.chkLogsSuccess = new MaterialSkin.Controls.MaterialCheckbox();
-            this.btnSaveSettings = new MaterialSkin.Controls.MaterialButton();
             this.materialCard7 = new MaterialSkin.Controls.MaterialCard();
             this.groupBox7 = new System.Windows.Forms.GroupBox();
-            this.btnBrowseNDK = new MaterialSkin.Controls.MaterialButton();
             this.txtNDK = new MaterialSkin.Controls.MaterialTextBox();
             this.materialCard6 = new MaterialSkin.Controls.MaterialCard();
             this.groupBox6 = new System.Windows.Forms.GroupBox();
             this.comboMenu = new MaterialSkin.Controls.MaterialComboBox();
             this.materialCard4 = new MaterialSkin.Controls.MaterialCard();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
-            this.picImg = new System.Windows.Forms.PictureBox();
             this.lbImgCompress = new System.Windows.Forms.LinkLabel();
             this.btnImage = new MaterialSkin.Controls.MaterialButton();
             this.lbImageEncoder = new System.Windows.Forms.LinkLabel();
@@ -83,7 +80,7 @@ namespace Tools_Injector_Mod_Menu
             this.colFunction = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.colValues = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.colOffsetCount = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnMultiple = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.colMultiple = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.groupBox14 = new System.Windows.Forms.GroupBox();
             this.btnSaveCheat = new MaterialSkin.Controls.MaterialButton();
             this.btnLoadCheat = new MaterialSkin.Controls.MaterialButton();
@@ -152,6 +149,12 @@ namespace Tools_Injector_Mod_Menu
             this.btnOnCreate = new MaterialSkin.Controls.MaterialButton();
             this.menuIconList = new System.Windows.Forms.ImageList(this.components);
             this.compilerWorker = new System.ComponentModel.BackgroundWorker();
+            this.btnSaveSettings = new MaterialSkin.Controls.MaterialButton();
+            this.btnBrowseNDK = new MaterialSkin.Controls.MaterialButton();
+            this.picImg = new System.Windows.Forms.PictureBox();
+            this.colFieldOffset = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.colType = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.colField = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.materialTabControl1.SuspendLayout();
             this.tabMain.SuspendLayout();
             this.materialCard5.SuspendLayout();
@@ -162,7 +165,6 @@ namespace Tools_Injector_Mod_Menu
             this.groupBox6.SuspendLayout();
             this.materialCard4.SuspendLayout();
             this.groupBox4.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.picImg)).BeginInit();
             this.materialCard3.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.tabMenuPatch.SuspendLayout();
@@ -189,6 +191,7 @@ namespace Tools_Injector_Mod_Menu
             this.groupBox15.SuspendLayout();
             this.materialCard8.SuspendLayout();
             this.groupBox5.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.picImg)).BeginInit();
             this.SuspendLayout();
             // 
             // materialTabControl1
@@ -358,26 +361,6 @@ namespace Tools_Injector_Mod_Menu
             this.chkLogsSuccess.Text = "Success";
             this.chkLogsSuccess.UseVisualStyleBackColor = true;
             // 
-            // btnSaveSettings
-            // 
-            this.btnSaveSettings.AutoSize = false;
-            this.btnSaveSettings.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.btnSaveSettings.Depth = 0;
-            this.btnSaveSettings.DrawShadows = true;
-            this.btnSaveSettings.HighEmphasis = true;
-            this.btnSaveSettings.Icon = global::Tools_Injector_Mod_Menu.Properties.Resources.save_24;
-            this.btnSaveSettings.Location = new System.Drawing.Point(399, 435);
-            this.btnSaveSettings.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
-            this.btnSaveSettings.MouseState = MaterialSkin.MouseState.HOVER;
-            this.btnSaveSettings.Name = "btnSaveSettings";
-            this.btnSaveSettings.Size = new System.Drawing.Size(384, 36);
-            this.btnSaveSettings.TabIndex = 21;
-            this.btnSaveSettings.Text = "Save Settings";
-            this.btnSaveSettings.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
-            this.btnSaveSettings.UseAccentColor = false;
-            this.btnSaveSettings.UseVisualStyleBackColor = true;
-            this.btnSaveSettings.Click += new System.EventHandler(this.btnSaveSettings_Click);
-            // 
             // materialCard7
             // 
             this.materialCard7.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
@@ -404,26 +387,6 @@ namespace Tools_Injector_Mod_Menu
             this.groupBox7.TabIndex = 4;
             this.groupBox7.TabStop = false;
             this.groupBox7.Text = "NDK Path";
-            // 
-            // btnBrowseNDK
-            // 
-            this.btnBrowseNDK.AutoSize = false;
-            this.btnBrowseNDK.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.btnBrowseNDK.Depth = 0;
-            this.btnBrowseNDK.DrawShadows = true;
-            this.btnBrowseNDK.HighEmphasis = true;
-            this.btnBrowseNDK.Icon = global::Tools_Injector_Mod_Menu.Properties.Resources.folder_7_24;
-            this.btnBrowseNDK.Location = new System.Drawing.Point(6, 65);
-            this.btnBrowseNDK.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
-            this.btnBrowseNDK.MouseState = MaterialSkin.MouseState.HOVER;
-            this.btnBrowseNDK.Name = "btnBrowseNDK";
-            this.btnBrowseNDK.Size = new System.Drawing.Size(342, 36);
-            this.btnBrowseNDK.TabIndex = 5;
-            this.btnBrowseNDK.Text = "Browse";
-            this.btnBrowseNDK.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
-            this.btnBrowseNDK.UseAccentColor = false;
-            this.btnBrowseNDK.UseVisualStyleBackColor = true;
-            this.btnBrowseNDK.Click += new System.EventHandler(this.btnBrowseNDK_Click);
             // 
             // txtNDK
             // 
@@ -528,16 +491,6 @@ namespace Tools_Injector_Mod_Menu
             this.groupBox4.TabIndex = 4;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Mod Settings";
-            // 
-            // picImg
-            // 
-            this.picImg.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.picImg.Location = new System.Drawing.Point(100, 193);
-            this.picImg.Name = "picImg";
-            this.picImg.Size = new System.Drawing.Size(65, 65);
-            this.picImg.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.picImg.TabIndex = 20;
-            this.picImg.TabStop = false;
             // 
             // lbImgCompress
             // 
@@ -869,7 +822,10 @@ namespace Tools_Injector_Mod_Menu
             this.colFunction,
             this.colValues,
             this.colOffsetCount,
-            this.columnMultiple});
+            this.colMultiple,
+            this.colField,
+            this.colFieldOffset,
+            this.colType});
             this.listView1.Dock = System.Windows.Forms.DockStyle.Top;
             this.listView1.FullRowSelect = true;
             this.listView1.GridLines = true;
@@ -914,9 +870,9 @@ namespace Tools_Injector_Mod_Menu
             this.colOffsetCount.Text = "offsetCount";
             this.colOffsetCount.Width = 100;
             // 
-            // columnMultiple
+            // colMultiple
             // 
-            this.columnMultiple.Text = "Multiple";
+            this.colMultiple.Text = "Multiple";
             // 
             // groupBox14
             // 
@@ -1194,6 +1150,7 @@ namespace Tools_Injector_Mod_Menu
             this.comboFunction.ItemHeight = 29;
             this.comboFunction.Items.AddRange(new object[] {
             "Toggle",
+            "ToggleHook",
             "ToggleSeekBar",
             "ToggleInputValue",
             "ButtonOnOff",
@@ -2012,6 +1969,71 @@ namespace Tools_Injector_Mod_Menu
             this.compilerWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.compilerWorker_DoWork);
             this.compilerWorker.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.compilerWorker_RunWorkerCompleted);
             // 
+            // btnSaveSettings
+            // 
+            this.btnSaveSettings.AutoSize = false;
+            this.btnSaveSettings.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.btnSaveSettings.Depth = 0;
+            this.btnSaveSettings.DrawShadows = true;
+            this.btnSaveSettings.HighEmphasis = true;
+            this.btnSaveSettings.Icon = global::Tools_Injector_Mod_Menu.Properties.Resources.save_24;
+            this.btnSaveSettings.Location = new System.Drawing.Point(399, 435);
+            this.btnSaveSettings.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
+            this.btnSaveSettings.MouseState = MaterialSkin.MouseState.HOVER;
+            this.btnSaveSettings.Name = "btnSaveSettings";
+            this.btnSaveSettings.Size = new System.Drawing.Size(384, 36);
+            this.btnSaveSettings.TabIndex = 21;
+            this.btnSaveSettings.Text = "Save Settings";
+            this.btnSaveSettings.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
+            this.btnSaveSettings.UseAccentColor = false;
+            this.btnSaveSettings.UseVisualStyleBackColor = true;
+            this.btnSaveSettings.Click += new System.EventHandler(this.btnSaveSettings_Click);
+            // 
+            // btnBrowseNDK
+            // 
+            this.btnBrowseNDK.AutoSize = false;
+            this.btnBrowseNDK.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.btnBrowseNDK.Depth = 0;
+            this.btnBrowseNDK.DrawShadows = true;
+            this.btnBrowseNDK.HighEmphasis = true;
+            this.btnBrowseNDK.Icon = global::Tools_Injector_Mod_Menu.Properties.Resources.folder_7_24;
+            this.btnBrowseNDK.Location = new System.Drawing.Point(6, 65);
+            this.btnBrowseNDK.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
+            this.btnBrowseNDK.MouseState = MaterialSkin.MouseState.HOVER;
+            this.btnBrowseNDK.Name = "btnBrowseNDK";
+            this.btnBrowseNDK.Size = new System.Drawing.Size(342, 36);
+            this.btnBrowseNDK.TabIndex = 5;
+            this.btnBrowseNDK.Text = "Browse";
+            this.btnBrowseNDK.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
+            this.btnBrowseNDK.UseAccentColor = false;
+            this.btnBrowseNDK.UseVisualStyleBackColor = true;
+            this.btnBrowseNDK.Click += new System.EventHandler(this.btnBrowseNDK_Click);
+            // 
+            // picImg
+            // 
+            this.picImg.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.picImg.Location = new System.Drawing.Point(100, 193);
+            this.picImg.Name = "picImg";
+            this.picImg.Size = new System.Drawing.Size(65, 65);
+            this.picImg.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.picImg.TabIndex = 20;
+            this.picImg.TabStop = false;
+            // 
+            // colFieldOffset
+            // 
+            this.colFieldOffset.DisplayIndex = 7;
+            this.colFieldOffset.Text = "Field Offset";
+            // 
+            // colType
+            // 
+            this.colType.DisplayIndex = 8;
+            this.colType.Text = "Type";
+            // 
+            // colField
+            // 
+            this.colField.DisplayIndex = 9;
+            this.colField.Text = "Field";
+            // 
             // FrmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -2041,7 +2063,6 @@ namespace Tools_Injector_Mod_Menu
             this.materialCard4.ResumeLayout(false);
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.picImg)).EndInit();
             this.materialCard3.ResumeLayout(false);
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
@@ -2073,6 +2094,7 @@ namespace Tools_Injector_Mod_Menu
             this.groupBox15.PerformLayout();
             this.materialCard8.ResumeLayout(false);
             this.groupBox5.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.picImg)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -2195,10 +2217,13 @@ namespace Tools_Injector_Mod_Menu
         private System.Windows.Forms.GroupBox groupBox16;
         private MaterialSkin.Controls.MaterialButton btnSavePermission;
         private MaterialSkin.Controls.MaterialCheckbox chkMultiple;
-        private System.Windows.Forms.ColumnHeader columnMultiple;
+        private System.Windows.Forms.ColumnHeader colMultiple;
         private MaterialSkin.Controls.MaterialButton btnUpdate;
         private MaterialSkin.Controls.MaterialButton btnImage;
         private System.Windows.Forms.LinkLabel lbImgCompress;
         private System.Windows.Forms.PictureBox picImg;
+        private System.Windows.Forms.ColumnHeader colFieldOffset;
+        private System.Windows.Forms.ColumnHeader colType;
+        private System.Windows.Forms.ColumnHeader colField;
     }
 }

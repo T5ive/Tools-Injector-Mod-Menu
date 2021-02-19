@@ -89,6 +89,12 @@
     <Compile Include="FrmMain.Designer.cs">
       <DependentUpon>FrmMain.cs</DependentUpon>
     </Compile>
+    <Compile Include="FrmToggleHook.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmToggleHook.Designer.cs">
+      <DependentUpon>FrmToggleHook.cs</DependentUpon>
+    </Compile>
     <Compile Include="MyMessage.cs" />
     <Compile Include="Patch Manager\Enums.cs" />
     <Compile Include="Patch Manager\OffsetInfo.cs" />
@@ -115,6 +121,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FrmMain.resx">
       <DependentUpon>FrmMain.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmToggleHook.resx">
+      <DependentUpon>FrmToggleHook.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

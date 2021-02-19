@@ -69,7 +69,7 @@ namespace Tools_Injector_Mod_Menu
             this.materialCard1.MouseState = MaterialSkin.MouseState.HOVER;
             this.materialCard1.Name = "materialCard1";
             this.materialCard1.Padding = new System.Windows.Forms.Padding(14);
-            this.materialCard1.Size = new System.Drawing.Size(239, 267);
+            this.materialCard1.Size = new System.Drawing.Size(391, 267);
             this.materialCard1.TabIndex = 0;
             // 
             // btnSave
@@ -80,7 +80,7 @@ namespace Tools_Injector_Mod_Menu
             this.btnSave.DrawShadows = true;
             this.btnSave.HighEmphasis = true;
             this.btnSave.Icon = null;
-            this.btnSave.Location = new System.Drawing.Point(13, 214);
+            this.btnSave.Location = new System.Drawing.Point(19, 217);
             this.btnSave.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
             this.btnSave.MouseState = MaterialSkin.MouseState.HOVER;
             this.btnSave.Name = "btnSave";
@@ -100,7 +100,7 @@ namespace Tools_Injector_Mod_Menu
             this.btnClose.DrawShadows = true;
             this.btnClose.HighEmphasis = true;
             this.btnClose.Icon = null;
-            this.btnClose.Location = new System.Drawing.Point(126, 214);
+            this.btnClose.Location = new System.Drawing.Point(274, 217);
             this.btnClose.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
             this.btnClose.MouseState = MaterialSkin.MouseState.HOVER;
             this.btnClose.Name = "btnClose";
@@ -134,9 +134,9 @@ namespace Tools_Injector_Mod_Menu
             this.label3.Font = new System.Drawing.Font("Roboto", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
             this.label3.Location = new System.Drawing.Point(16, 174);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(85, 18);
+            this.label3.Size = new System.Drawing.Size(93, 18);
             this.label3.TabIndex = 21;
-            this.label3.Text = "Field Offset";
+            this.label3.Text = "Field Offset: ";
             // 
             // txtOffset
             // 
@@ -144,13 +144,13 @@ namespace Tools_Injector_Mod_Menu
             this.txtOffset.Depth = 0;
             this.txtOffset.Enabled = false;
             this.txtOffset.Font = new System.Drawing.Font("Roboto", 12F);
-            this.txtOffset.Hint = "0x10";
-            this.txtOffset.Location = new System.Drawing.Point(126, 166);
+            this.txtOffset.Hint = "0x10, 0x20, 0x30";
+            this.txtOffset.Location = new System.Drawing.Point(115, 166);
             this.txtOffset.MaxLength = 10;
             this.txtOffset.MouseState = MaterialSkin.MouseState.OUT;
             this.txtOffset.Multiline = false;
             this.txtOffset.Name = "txtOffset";
-            this.txtOffset.Size = new System.Drawing.Size(100, 36);
+            this.txtOffset.Size = new System.Drawing.Size(259, 36);
             this.txtOffset.TabIndex = 20;
             this.txtOffset.Text = "";
             this.txtOffset.UseTallSize = false;
@@ -179,7 +179,7 @@ namespace Tools_Injector_Mod_Menu
             this.comboType.MaxDropDownItems = 4;
             this.comboType.MouseState = MaterialSkin.MouseState.OUT;
             this.comboType.Name = "comboType";
-            this.comboType.Size = new System.Drawing.Size(147, 35);
+            this.comboType.Size = new System.Drawing.Size(294, 35);
             this.comboType.StartIndex = 0;
             this.comboType.TabIndex = 19;
             this.comboType.UseTallSize = false;
@@ -188,11 +188,11 @@ namespace Tools_Injector_Mod_Menu
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Roboto", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            this.label2.Location = new System.Drawing.Point(16, 133);
+            this.label2.Location = new System.Drawing.Point(16, 134);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(39, 18);
+            this.label2.Size = new System.Drawing.Size(47, 18);
             this.label2.TabIndex = 8;
-            this.label2.Text = "Type";
+            this.label2.Text = "Type: ";
             // 
             // numMax
             // 
@@ -209,7 +209,7 @@ namespace Tools_Injector_Mod_Menu
             0,
             0});
             this.numMax.Name = "numMax";
-            this.numMax.Size = new System.Drawing.Size(154, 32);
+            this.numMax.Size = new System.Drawing.Size(301, 32);
             this.numMax.TabIndex = 7;
             this.numMax.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.numMax.Value = new decimal(new int[] {
@@ -229,7 +229,7 @@ namespace Tools_Injector_Mod_Menu
             0,
             0});
             this.numMin.Name = "numMin";
-            this.numMin.Size = new System.Drawing.Size(154, 32);
+            this.numMin.Size = new System.Drawing.Size(301, 32);
             this.numMin.TabIndex = 6;
             this.numMin.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.numMin.Value = new decimal(new int[] {
@@ -243,33 +243,32 @@ namespace Tools_Injector_Mod_Menu
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Roboto", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            this.label1.Location = new System.Drawing.Point(17, 57);
+            this.label1.Location = new System.Drawing.Point(16, 57);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(36, 18);
+            this.label1.Size = new System.Drawing.Size(44, 18);
             this.label1.TabIndex = 5;
-            this.label1.Text = "Max";
+            this.label1.Text = "Max: ";
             // 
             // label10
             // 
             this.label10.AutoSize = true;
             this.label10.Font = new System.Drawing.Font("Roboto", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            this.label10.Location = new System.Drawing.Point(17, 19);
+            this.label10.Location = new System.Drawing.Point(16, 19);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(33, 18);
+            this.label10.Size = new System.Drawing.Size(41, 18);
             this.label10.TabIndex = 3;
-            this.label10.Text = "Min";
+            this.label10.Text = "Min: ";
             // 
             // FrmSeekBar
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(239, 267);
+            this.ClientSize = new System.Drawing.Size(391, 267);
             this.Controls.Add(this.materialCard1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "FrmSeekBar";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "SeekBar";
             this.TopMost = true;
             this.materialCard1.ResumeLayout(false);
             this.materialCard1.PerformLayout();

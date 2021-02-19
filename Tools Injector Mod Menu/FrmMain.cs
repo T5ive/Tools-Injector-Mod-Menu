@@ -301,7 +301,8 @@ namespace Tools_Injector_Mod_Menu
         private void BtnFunctionManager()
         {
             var functionType = (Enums.FunctionType)comboFunction.SelectedIndex;
-            if (functionType == Enums.FunctionType.ToggleSeekBar ||
+            if (functionType == Enums.FunctionType.ToggleHook ||
+                functionType == Enums.FunctionType.ToggleSeekBar ||
                 functionType == Enums.FunctionType.ButtonOnOffSeekBar)
             {
                 EasyEnabled(btnFunction);
@@ -351,7 +352,8 @@ namespace Tools_Injector_Mod_Menu
 
             BtnFunctionManager();
 
-            if (functionType == Enums.FunctionType.ToggleSeekBar ||
+            if (functionType == Enums.FunctionType.ToggleHook ||
+                functionType == Enums.FunctionType.ToggleSeekBar ||
                 functionType == Enums.FunctionType.ButtonOnOffSeekBar ||
                 functionType == Enums.FunctionType.ToggleInputValue ||
                 functionType == Enums.FunctionType.ButtonOnOffInputValue ||
@@ -372,7 +374,7 @@ namespace Tools_Injector_Mod_Menu
 
         private void btnAddFunction_Click(object sender, EventArgs e)
         {
-            if (Utility.IsEmpty(txtOffset) || Utility.IsEmpty(txtHex)) return;
+            if (Utility.IsEmpty(txtOffset)) return;
             if (!txtOffset.Text.StartsWith("0x") && txtOffset.Text != "-")
             {
                 MyMessage.MsgShowWarning(@"Offset Does not start with ""0x"" Please Check it again!!!");
@@ -391,10 +393,19 @@ namespace Tools_Injector_Mod_Menu
             var functionType = (Enums.FunctionType)comboFunction.SelectedIndex;
             switch (functionType)
             {
+                case Enums.FunctionType.ToggleHook:
+                    if (!Values.Field)
+                    {
+                        return functionType;
+                    }
+                    return Utility.IsEmpty(Values.Offset) ? Enums.FunctionType.Empty : functionType;
                 case Enums.FunctionType.ToggleSeekBar:
                 case Enums.FunctionType.ButtonOnOffSeekBar:
+                    if (Values.Field && Utility.IsEmpty(Values.Offset))
+                    {
+                        return Enums.FunctionType.Empty;
+                    }
                     return Utility.IsEmpty(Values.SeekBar) ? Enums.FunctionType.Empty : functionType;
-
                 case Enums.FunctionType.Category:
                     return Utility.IsEmpty(Values.Category) ? Enums.FunctionType.Empty : Enums.FunctionType.Category;
 
@@ -428,6 +439,7 @@ namespace Tools_Injector_Mod_Menu
 
             switch (functionType)
             {
+                case Enums.FunctionType.ToggleHook:
                 case Enums.FunctionType.ToggleSeekBar:
                 case Enums.FunctionType.ButtonOnOffSeekBar:
                     btnFunction.HighEmphasis = false;
@@ -451,6 +463,11 @@ namespace Tools_Injector_Mod_Menu
         {
             switch ((Enums.FunctionType)comboFunction.SelectedIndex)
             {
+                case Enums.FunctionType.ToggleHook:
+                    var frmToggleHook = new FrmToggleHook();
+                    frmToggleHook.ShowDialog();
+                    frmToggleHook.Dispose();
+                    break;
                 case Enums.FunctionType.ToggleSeekBar:
                 case Enums.FunctionType.ButtonOnOffSeekBar:
                     var frmSeekBar = new FrmSeekBar();
@@ -495,8 +512,9 @@ namespace Tools_Injector_Mod_Menu
         category:
 
             var functionValue = FunctionValue();
+            var hookInfo = HookValue();
 
-            OffsetPatch.AddFunction(txtNameCheat.Text, OffsetPatch.OffsetList, functionType, functionValue, chkMultiple.Checked, HookValue());
+            OffsetPatch.AddFunction(txtNameCheat.Text, OffsetPatch.OffsetList, functionType, functionValue, chkMultiple.Checked, hookInfo);
             ClearValue();
             _offsetCount = 1;
 
@@ -577,7 +595,11 @@ namespace Tools_Injector_Mod_Menu
             var hex = offsetCount > 1 ? "Multiple Patch Hex Code" : offsetList[offsetList.Count - 1].Hex;
             var multiple = OffsetPatch.FunctionList[OffsetPatch.FunctionList.Count - 1].MultipleValue ? "Yes" : "No";
 
-            AddListValues(function, offset, hex, cheatName[cheatName.Count - 1], offsetCount, multiple, value);
+            var field = OffsetPatch.FunctionList[OffsetPatch.FunctionList.Count - 1].HookInfo.Field.ToString();
+            var fieldOffset = OffsetPatch.FunctionList[OffsetPatch.FunctionList.Count - 1].HookInfo.Offset;
+            var type = OffsetPatch.FunctionList[OffsetPatch.FunctionList.Count - 1].HookInfo.Type.ToString();
+
+            AddListValues(function, offset, hex, cheatName[cheatName.Count - 1], offsetCount, multiple, field, value, fieldOffset, type);
 
             OffsetPatch.OffsetList.Clear();
         }
@@ -602,13 +624,17 @@ namespace Tools_Injector_Mod_Menu
                 var hex = offsetCount > 1 ? "Multiple Patch Hex Code" : offsetList[offsetList.Count - 1].Hex;
                 var multiple = OffsetPatch.FunctionList[OffsetPatch.FunctionList.Count - 1].MultipleValue ? "Yes" : "No";
 
-                AddListValues(function, offset, hex, cheatName[i], offsetCount, multiple, value);
+                var field = OffsetPatch.FunctionList[OffsetPatch.FunctionList.Count - 1].HookInfo.Field.ToString();
+                var fieldOffset = OffsetPatch.FunctionList[OffsetPatch.FunctionList.Count - 1].HookInfo.Offset;
+                var type = OffsetPatch.FunctionList[OffsetPatch.FunctionList.Count - 1].HookInfo.Type.ToString();
+
+                AddListValues(function, offset, hex, cheatName[i], offsetCount, multiple, field, value, fieldOffset, type);
                 OffsetPatch.OffsetList.Clear();
             }
         }
 
-        private void AddListValues(string function, string offset, string hex, string cheatName, int offsetCount, string multiple,
-              string value = "")
+        private void AddListValues(string function, string offset, string hex, string cheatName, int offsetCount, string multiple, string field,
+              string value = "", string fieldOffset = "", string type = "")
         {
             var items = new ListViewItem(cheatName);
             items.SubItems.Add(offset);
@@ -617,6 +643,9 @@ namespace Tools_Injector_Mod_Menu
             items.SubItems.Add(value);
             items.SubItems.Add(offsetCount.ToString());
             items.SubItems.Add(multiple);
+            items.SubItems.Add(field);
+            items.SubItems.Add(fieldOffset);
+            items.SubItems.Add(type);
             listView1.Items.Add(items);
 
             WriteOutput("[Success] Added Function " + cheatName, Color.Green);

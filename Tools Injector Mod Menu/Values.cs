@@ -6,7 +6,7 @@ namespace Tools_Injector_Mod_Menu
     {
         public static string Category, SeekBar, Offset;
         public static bool Field;
-        public static Enums.Type Type;
+        public static Enums.Type Type = Enums.Type.Empty;
         public static (string, string) Method;
     }
 }

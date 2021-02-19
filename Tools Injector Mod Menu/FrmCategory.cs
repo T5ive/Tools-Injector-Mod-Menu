@@ -18,7 +18,7 @@ namespace Tools_Injector_Mod_Menu
 
             if (!Utility.IsEmpty(txtValues))
             {
-                FrmMain.Category = txtValues.Text;
+                Values.Category = txtValues.Text;
             }
             else
             {

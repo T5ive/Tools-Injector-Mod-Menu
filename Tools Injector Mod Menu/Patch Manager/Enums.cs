@@ -21,6 +21,7 @@
         public enum FunctionType
         {
             Toggle, //Patch
+            ToggleHook, // Hook Method
             ToggleSeekBar, //Hook Method
             ToggleInputValue, //Hook Method
             ButtonOnOff, //Patch
