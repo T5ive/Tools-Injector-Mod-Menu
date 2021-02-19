@@ -1075,6 +1075,10 @@ namespace Tools_Injector_Mod_Menu
                     : "";
                 switch (type)
                 {
+                    case Enums.FunctionType.ToggleHook:
+                        result += $@"{Environment.NewLine}            OBFUSCATE(""{num}_Toggle_{cheatName}""),";
+                        break;
+
                     case Enums.FunctionType.ToggleSeekBar:
                         result += $@"{Environment.NewLine}            OBFUSCATE(""{num}_Toggle_{cheatName}""),";
                         realCount++;
@@ -1087,6 +1091,10 @@ namespace Tools_Injector_Mod_Menu
                         realCount++;
                         num = (realCount + 1).ToString();
                         result += $@"{Environment.NewLine}            OBFUSCATE(""{num}_InputValue_{cheatName}{functionExtra}""),";
+                        break;
+
+                    case Enums.FunctionType.ButtonOnOffHook:
+                        result += $@"{Environment.NewLine}            OBFUSCATE(""{num}_ButtonOnOff_{cheatName}""),";
                         break;
 
                     case Enums.FunctionType.ButtonOnOffSeekBar:
@@ -1142,7 +1150,9 @@ namespace Tools_Injector_Mod_Menu
                 switch (list.FunctionType)
                 {
                     case Enums.FunctionType.Toggle:
+                    case Enums.FunctionType.ToggleHook:
                     case Enums.FunctionType.ButtonOnOff:
+                    case Enums.FunctionType.ButtonOnOffHook:
                         result += $"bool _{nameCheat} = false;{Environment.NewLine}";
                         break;
 
@@ -1165,11 +1175,11 @@ namespace Tools_Injector_Mod_Menu
             foreach (var list in OffsetPatch.FunctionList)
             {
                 var nameCheat = list.CheatName.RemoveSuperSpecialCharacters().ReplaceNumCharacters();
-                var multiple = list.MultipleValue ? $@"return _{nameCheat}Value*old_{nameCheat}(instance);" : $@"return _{nameCheat}Value;";
                 var fieldMultiple = "";
                 if (list.FunctionType == Enums.FunctionType.ToggleSeekBar || list.FunctionType == Enums.FunctionType.ToggleInputValue ||
                     list.FunctionType == Enums.FunctionType.ButtonOnOffSeekBar || list.FunctionType == Enums.FunctionType.ButtonOnOffInputValue)
                 {
+                    var multiple = list.MultipleValue ? $"return _{nameCheat}Value*old_{nameCheat}(instance);" : $"return _{nameCheat}Value;";
                     if (list.HookInfo.Field)
                     {
                         var fieldValues = list.HookInfo.Offset.RemoveMiniSpecialCharacters().Split(',');
@@ -1192,6 +1202,34 @@ void Update{nameCheat}(void *instance) {{
 int Update{nameCheat}(void *instance) {{
     if (instance != NULL && _{nameCheat} && _{nameCheat}Value > 1) {{
         {multiple}
+    }}
+    return old_{nameCheat}(instance);
+}}
+";
+                    }
+                }
+
+                else if (list.FunctionType == Enums.FunctionType.ToggleHook || list.FunctionType == Enums.FunctionType.ButtonOnOffHook)
+                {
+                    if (list.HookInfo.Field)
+                    {
+                        fieldMultiple = list.HookInfo.Offset.RemoveMiniSpecialCharacters().Split(',').Aggregate(fieldMultiple, (current, value) => current + $"*(bool *) ((uint64_t) instance + {value}) = _{nameCheat};{Environment.NewLine}        ");
+
+                        result += $@"void (*old_{nameCheat})(void *instance);
+void Update{nameCheat}(void *instance) {{
+    if (instance != NULL && _{nameCheat}) {{
+        {fieldMultiple}
+    }}
+    return old_{nameCheat}(instance);
+}}
+";
+                    }
+                    else
+                    {
+                        result += $@"bool (*old_{nameCheat})(void *instance);
+bool Update{nameCheat}(void *instance) {{
+    if (instance != NULL && _{nameCheat}) {{
+        return _{nameCheat};
     }}
     return old_{nameCheat}(instance);
 }}
@@ -1235,7 +1273,13 @@ int Update{nameCheat}(void *instance) {{
                             }}
                             break;{Environment.NewLine}";
                         break;
-
+                    case Enums.FunctionType.ButtonOnOffHook:
+                    case Enums.FunctionType.ToggleHook:
+                        result += $@"
+                        case {num}:
+                            _{cheatName} = boolean;
+                            break;{Environment.NewLine}";
+                        break;
                     case Enums.FunctionType.ToggleSeekBar:
                     case Enums.FunctionType.ToggleInputValue:
                     case Enums.FunctionType.ButtonOnOffSeekBar:
@@ -1277,6 +1321,14 @@ int Update{nameCheat}(void *instance) {{
                     result = list.OffsetList.Aggregate(result, (current, info) => current + $@"hexPatches.{nameCheat}_{info.OffsetId} = MemoryPatch::createWithHex(""{txtTargetLib.Text}"",
                                         string2Offset(OBFUSCATE_KEY(""{info.Offset}"", 't')),
                                         OBFUSCATE(""{info.Hex}""));{Environment.NewLine}    ");
+                    continue;
+                }
+
+                if (list.FunctionType == Enums.FunctionType.ToggleHook ||
+                    list.FunctionType == Enums.FunctionType.ButtonOnOffHook)
+                {
+                    result = list.OffsetList.Aggregate(result, (current, info) => current + $@"MSHookFunction((void *) getAbsoluteAddress(targetLibName, string2Offset(OBFUSCATE_KEY(""{info.Offset}"", 't'))),
+                            (void *) Update{nameCheat}, (void **) &old_{nameCheat});{Environment.NewLine}    ");
                     continue;
                 }
 

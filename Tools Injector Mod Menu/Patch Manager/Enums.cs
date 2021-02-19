@@ -25,6 +25,7 @@
             ToggleSeekBar, //Hook Method
             ToggleInputValue, //Hook Method
             ButtonOnOff, //Patch
+            ButtonOnOffHook, // Hook Method
             ButtonOnOffSeekBar, //Hook Method
             ButtonOnOffInputValue, //Hook Method
             Button, //Hook Method

@@ -1154,6 +1154,7 @@ namespace Tools_Injector_Mod_Menu
             "ToggleSeekBar",
             "ToggleInputValue",
             "ButtonOnOff",
+            "ButtonOnOffHook",
             "ButtonOnOffSeekBar",
             "ButtonOnOffInputValue",
             "Button",
