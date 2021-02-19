@@ -114,3 +114,9 @@ PMT DVA for tut
 PMT Mika Cybertron for idea
 
 PMT IvesAwadiYT for some codes sample
+
+Hook 
+
+- https://polarmods.com/threads/%F0%9F%8E%83-hooking-part-1-how-to-hook-a-field-with-mod-menu-%F0%9F%8E%83.1536/
+
+- https://polarmods.com/threads/%F0%9F%8E%83-hooking-part-2-how-to-hook-a-function-with-menu-%F0%9F%8E%83.1539/
