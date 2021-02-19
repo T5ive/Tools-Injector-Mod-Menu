@@ -115,6 +115,4 @@ PMT DVA for basic tutorial
 
 PMT Mika Cybertron for idea
 
-PMT IvesAwadiYT for some codes sample
-
 7.Hackers polarmods for hook tutorial
