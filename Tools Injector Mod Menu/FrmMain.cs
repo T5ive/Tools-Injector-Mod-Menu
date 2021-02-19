@@ -303,6 +303,7 @@ namespace Tools_Injector_Mod_Menu
         {
             var functionType = (Enums.FunctionType)comboFunction.SelectedIndex;
             if (functionType == Enums.FunctionType.ToggleHook ||
+                functionType == Enums.FunctionType.ButtonOnOffHook ||
                 functionType == Enums.FunctionType.ToggleSeekBar ||
                 functionType == Enums.FunctionType.ButtonOnOffSeekBar)
             {
@@ -339,10 +340,7 @@ namespace Tools_Injector_Mod_Menu
         {
             var functionType = (Enums.FunctionType)comboFunction.SelectedIndex;
 
-            if (functionType == Enums.FunctionType.ButtonOnOffSeekBar ||
-                functionType == Enums.FunctionType.ButtonOnOffInputValue ||
-                functionType == Enums.FunctionType.ButtonOnOff ||
-                functionType == Enums.FunctionType.Button ||
+            if (functionType == Enums.FunctionType.Button ||
                 functionType == Enums.FunctionType.ButtonSeekBar ||
                 functionType == Enums.FunctionType.ButtonInputValue)
             {
@@ -354,6 +352,7 @@ namespace Tools_Injector_Mod_Menu
             BtnFunctionManager();
 
             if (functionType == Enums.FunctionType.ToggleHook ||
+                functionType == Enums.FunctionType.ButtonOnOffHook ||
                 functionType == Enums.FunctionType.ToggleSeekBar ||
                 functionType == Enums.FunctionType.ButtonOnOffSeekBar ||
                 functionType == Enums.FunctionType.ToggleInputValue ||
@@ -395,6 +394,7 @@ namespace Tools_Injector_Mod_Menu
             switch (functionType)
             {
                 case Enums.FunctionType.ToggleHook:
+                case Enums.FunctionType.ButtonOnOffHook:
                     if (!Values.Field)
                     {
                         return functionType;
@@ -441,6 +441,7 @@ namespace Tools_Injector_Mod_Menu
             switch (functionType)
             {
                 case Enums.FunctionType.ToggleHook:
+                case Enums.FunctionType.ButtonOnOffHook:
                 case Enums.FunctionType.ToggleSeekBar:
                 case Enums.FunctionType.ButtonOnOffSeekBar:
                     btnFunction.HighEmphasis = false;
@@ -465,6 +466,7 @@ namespace Tools_Injector_Mod_Menu
             switch ((Enums.FunctionType)comboFunction.SelectedIndex)
             {
                 case Enums.FunctionType.ToggleHook:
+                case Enums.FunctionType.ButtonOnOffHook:
                     var frmToggleHook = new FrmToggleHook();
                     frmToggleHook.ShowDialog();
                     frmToggleHook.Dispose();
