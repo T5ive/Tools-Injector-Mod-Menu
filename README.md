@@ -16,17 +16,6 @@ https://github.com/T5ive/Tools-Injector-Mod-Menu/wiki
 - Does not work on Windows 7 or 32 bit.
 
 
-# Todo
-
-- Add&Fix Button
-
-- Add&Fix ButtonSeekbar
-
-- Add&Fix ButtonInputValue
-
-- Fix Hook! (Critical bug)
-
-
 # Credits/Acknowledgements
 
 Default Theme -> https://github.com/T5ive/Android-Mod-Menu/tree/inject-mod-menu
@@ -40,3 +29,5 @@ PMT DVA for basic tutorial
 PMT Mika Cybertron for idea
 
 7.Hackers polarmods for hook tutorial
+
+and you :))
