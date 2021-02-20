@@ -36,6 +36,7 @@ namespace Tools_Injector_Mod_Menu
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
+            if(Utility.IsEmpty(txtType) || Utility.IsEmpty(txtValue)) return;
             var items = new ListViewItem(txtType.Text);
             items.SubItems.Add(txtValue.Text);
             listView1.Items.Add(items);
