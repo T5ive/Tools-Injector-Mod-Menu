@@ -316,16 +316,10 @@ namespace Tools_Injector_Mod_Menu
                 case Enums.FunctionType.ButtonOnOffHook:
                 case Enums.FunctionType.ToggleSeekBar:
                 case Enums.FunctionType.ButtonOnOffSeekBar:
-                    EasyEnabled(btnFunction);
-                    btnFunction.HighEmphasis = true;
-                    EasyEnabled(chkMultiple);
-                    EasyEnabled(txtHex, false);
-                    break;
-
                 case Enums.FunctionType.ToggleInputValue:
                 case Enums.FunctionType.ButtonOnOffInputValue:
-                    EasyEnabled(btnFunction, false);
-                    btnFunction.HighEmphasis = false;
+                    EasyEnabled(btnFunction);
+                    btnFunction.HighEmphasis = true;
                     EasyEnabled(chkMultiple);
                     EasyEnabled(txtHex, false);
                     break;
@@ -421,6 +415,14 @@ namespace Tools_Injector_Mod_Menu
                     }
                     return Utility.IsEmpty(Values.SeekBar) ? Enums.FunctionType.Empty : functionType;
 
+                case Enums.FunctionType.ToggleInputValue:
+                case Enums.FunctionType.ButtonOnOffInputValue:
+                    if (Values.Field && Utility.IsEmpty(Values.Offset))
+                    {
+                        return Enums.FunctionType.Empty;
+                    }
+                    return functionType;
+                    
                 case Enums.FunctionType.Button:
                     return Utility.IsEmpty(Values.Method) ? Enums.FunctionType.Empty : functionType;
 
@@ -494,6 +496,13 @@ namespace Tools_Injector_Mod_Menu
                     var frmSeekBar = new FrmSeekBar();
                     frmSeekBar.ShowDialog();
                     frmSeekBar.Dispose();
+                    break;
+
+                case Enums.FunctionType.ToggleInputValue:
+                case Enums.FunctionType.ButtonOnOffInputValue:
+                    var frmInputValue = new FrmSeekBar(1);
+                    frmInputValue.ShowDialog();
+                    frmInputValue.Dispose();
                     break;
 
                 case Enums.FunctionType.Button:

@@ -6,19 +6,30 @@ namespace Tools_Injector_Mod_Menu
 {
     public partial class FrmSeekBar : Form
     {
-        public FrmSeekBar()
+        private readonly int _index;
+        public FrmSeekBar(int index = 0)
         {
             InitializeComponent();
+            _index = index;
         }
 
         private void FrmSeekBar_Load(object sender, EventArgs e)
         {
             try
             {
-                if (Utility.IsEmpty(Values.SeekBar, false)) return;
-                var num = Values.SeekBar.Split('_');
-                numMin.Value = Convert.ToDecimal(num[0]);
-                numMax.Value = Convert.ToDecimal(num[1]);
+                if (_index == 1)
+                {
+                    numMin.Enabled = false;
+                    numMax.Enabled = false;
+                }
+
+                if (!Utility.IsEmpty(Values.SeekBar, false) && _index != 1)
+                {
+                    var num = Values.SeekBar.Split('_');
+                    numMin.Value = Convert.ToDecimal(num[0]);
+                    numMax.Value = Convert.ToDecimal(num[1]);
+                }
+
                 chkField.Checked = Values.Field;
                 comboType.SelectedIndex = (int)Values.Type;
                 txtOffset.Text = Values.Offset;

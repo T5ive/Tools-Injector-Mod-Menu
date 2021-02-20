@@ -2046,7 +2046,7 @@ namespace Tools_Injector_Mod_Menu
             this.Name = "FrmMain";
             this.Padding = new System.Windows.Forms.Padding(53, 38, 0, 0);
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "FrmMain";
+            this.Text = "Tools Injector Mod Menu";
             this.Load += new System.EventHandler(this.FrmMain_Load);
             this.materialTabControl1.ResumeLayout(false);
             this.tabMain.ResumeLayout(false);
