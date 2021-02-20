@@ -1,14 +1,12 @@
-# Tools-Injector-Mod-Menu
+# Tools Injector Mod Menu
 
 ![](https://i.imgur.com/orvXLYp.gif)
 
 # [Wiki](https://github.com/T5ive/Tools-Injector-Mod-Menu/wiki)
 
-
 # Known Issue
 
 - Does not work on Windows 7 or 32 bit.
-
 
 # Credits/Acknowledgements
 
