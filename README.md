@@ -12,7 +12,7 @@
 
 Default Theme -> https://github.com/T5ive/Android-Mod-Menu/tree/inject-mod-menu
 
-LGLTeam / Android-Mod-Menu: https://github.com/LGLTeam/Android-Mod-Menu
+https://github.com/LGLTeam/Android-Mod-Menu
 
 [PMT IvesAwadi](https://platinmods.com/members/ivesawadiyt.629982/) for hook tutorial
 
