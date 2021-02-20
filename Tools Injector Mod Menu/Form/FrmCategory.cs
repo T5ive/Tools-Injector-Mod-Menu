@@ -8,6 +8,18 @@ namespace Tools_Injector_Mod_Menu
         public FrmCategory()
         {
             InitializeComponent();
+            txtValues.Text = Values.Category;
+        }
+
+        private void FrmCategory_Load(object sender, EventArgs e)
+        {
+            try
+            {
+                txtValues.Text = Values.Category;
+            }
+            catch
+            {
+            }
         }
 
         private void btnSave_Click(object sender, EventArgs e)

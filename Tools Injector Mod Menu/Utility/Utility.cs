@@ -105,6 +105,11 @@ namespace Tools_Injector_Mod_Menu
             return functionList.Count == 0;
         }
 
+        public static bool IsEmpty(List<(string, string)> methodList)
+        {
+            return methodList.Count == 0;
+        }
+
         public static string InsertSpaces(string str)
         {
             if (!str.Contains(' '))

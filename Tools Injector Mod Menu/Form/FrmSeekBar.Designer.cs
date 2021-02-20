@@ -270,6 +270,7 @@ namespace Tools_Injector_Mod_Menu
             this.Name = "FrmSeekBar";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.TopMost = true;
+            this.Load += new System.EventHandler(this.FrmSeekBar_Load);
             this.materialCard1.ResumeLayout(false);
             this.materialCard1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numMax)).EndInit();

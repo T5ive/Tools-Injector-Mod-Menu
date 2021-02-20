@@ -41,14 +41,17 @@ namespace Tools_Injector_Mod_Menu
             this.chkLogsError = new MaterialSkin.Controls.MaterialCheckbox();
             this.chkLogsComplie = new MaterialSkin.Controls.MaterialCheckbox();
             this.chkLogsSuccess = new MaterialSkin.Controls.MaterialCheckbox();
+            this.btnSaveSettings = new MaterialSkin.Controls.MaterialButton();
             this.materialCard7 = new MaterialSkin.Controls.MaterialCard();
             this.groupBox7 = new System.Windows.Forms.GroupBox();
+            this.btnBrowseNDK = new MaterialSkin.Controls.MaterialButton();
             this.txtNDK = new MaterialSkin.Controls.MaterialTextBox();
             this.materialCard6 = new MaterialSkin.Controls.MaterialCard();
             this.groupBox6 = new System.Windows.Forms.GroupBox();
             this.comboMenu = new MaterialSkin.Controls.MaterialComboBox();
             this.materialCard4 = new MaterialSkin.Controls.MaterialCard();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.picImg = new System.Windows.Forms.PictureBox();
             this.lbImgCompress = new System.Windows.Forms.LinkLabel();
             this.btnImage = new MaterialSkin.Controls.MaterialButton();
             this.lbImageEncoder = new System.Windows.Forms.LinkLabel();
@@ -81,6 +84,9 @@ namespace Tools_Injector_Mod_Menu
             this.colValues = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.colOffsetCount = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.colMultiple = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.colField = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.colFieldOffset = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.colType = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.groupBox14 = new System.Windows.Forms.GroupBox();
             this.btnSaveCheat = new MaterialSkin.Controls.MaterialButton();
             this.btnLoadCheat = new MaterialSkin.Controls.MaterialButton();
@@ -93,7 +99,7 @@ namespace Tools_Injector_Mod_Menu
             this.txtNameCheat = new MaterialSkin.Controls.MaterialTextBox();
             this.label16 = new System.Windows.Forms.Label();
             this.materialCard11 = new MaterialSkin.Controls.MaterialCard();
-            this.groupBox11 = new System.Windows.Forms.GroupBox();
+            this.groupOffsets = new System.Windows.Forms.GroupBox();
             this.chkMultiple = new MaterialSkin.Controls.MaterialCheckbox();
             this.btnFunction = new MaterialSkin.Controls.MaterialButton();
             this.comboFunction = new MaterialSkin.Controls.MaterialComboBox();
@@ -149,12 +155,6 @@ namespace Tools_Injector_Mod_Menu
             this.btnOnCreate = new MaterialSkin.Controls.MaterialButton();
             this.menuIconList = new System.Windows.Forms.ImageList(this.components);
             this.compilerWorker = new System.ComponentModel.BackgroundWorker();
-            this.btnSaveSettings = new MaterialSkin.Controls.MaterialButton();
-            this.btnBrowseNDK = new MaterialSkin.Controls.MaterialButton();
-            this.picImg = new System.Windows.Forms.PictureBox();
-            this.colFieldOffset = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.colType = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.colField = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.materialTabControl1.SuspendLayout();
             this.tabMain.SuspendLayout();
             this.materialCard5.SuspendLayout();
@@ -165,6 +165,7 @@ namespace Tools_Injector_Mod_Menu
             this.groupBox6.SuspendLayout();
             this.materialCard4.SuspendLayout();
             this.groupBox4.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.picImg)).BeginInit();
             this.materialCard3.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.tabMenuPatch.SuspendLayout();
@@ -174,7 +175,7 @@ namespace Tools_Injector_Mod_Menu
             this.materialCard12.SuspendLayout();
             this.groupBox12.SuspendLayout();
             this.materialCard11.SuspendLayout();
-            this.groupBox11.SuspendLayout();
+            this.groupOffsets.SuspendLayout();
             this.materialCard10.SuspendLayout();
             this.groupBox10.SuspendLayout();
             this.tabAbout.SuspendLayout();
@@ -191,7 +192,6 @@ namespace Tools_Injector_Mod_Menu
             this.groupBox15.SuspendLayout();
             this.materialCard8.SuspendLayout();
             this.groupBox5.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.picImg)).BeginInit();
             this.SuspendLayout();
             // 
             // materialTabControl1
@@ -361,6 +361,26 @@ namespace Tools_Injector_Mod_Menu
             this.chkLogsSuccess.Text = "Success";
             this.chkLogsSuccess.UseVisualStyleBackColor = true;
             // 
+            // btnSaveSettings
+            // 
+            this.btnSaveSettings.AutoSize = false;
+            this.btnSaveSettings.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.btnSaveSettings.Depth = 0;
+            this.btnSaveSettings.DrawShadows = true;
+            this.btnSaveSettings.HighEmphasis = true;
+            this.btnSaveSettings.Icon = global::Tools_Injector_Mod_Menu.Properties.Resources.save_24;
+            this.btnSaveSettings.Location = new System.Drawing.Point(399, 435);
+            this.btnSaveSettings.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
+            this.btnSaveSettings.MouseState = MaterialSkin.MouseState.HOVER;
+            this.btnSaveSettings.Name = "btnSaveSettings";
+            this.btnSaveSettings.Size = new System.Drawing.Size(384, 36);
+            this.btnSaveSettings.TabIndex = 21;
+            this.btnSaveSettings.Text = "Save Settings";
+            this.btnSaveSettings.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
+            this.btnSaveSettings.UseAccentColor = false;
+            this.btnSaveSettings.UseVisualStyleBackColor = true;
+            this.btnSaveSettings.Click += new System.EventHandler(this.btnSaveSettings_Click);
+            // 
             // materialCard7
             // 
             this.materialCard7.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
@@ -387,6 +407,26 @@ namespace Tools_Injector_Mod_Menu
             this.groupBox7.TabIndex = 4;
             this.groupBox7.TabStop = false;
             this.groupBox7.Text = "NDK Path";
+            // 
+            // btnBrowseNDK
+            // 
+            this.btnBrowseNDK.AutoSize = false;
+            this.btnBrowseNDK.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.btnBrowseNDK.Depth = 0;
+            this.btnBrowseNDK.DrawShadows = true;
+            this.btnBrowseNDK.HighEmphasis = true;
+            this.btnBrowseNDK.Icon = global::Tools_Injector_Mod_Menu.Properties.Resources.folder_7_24;
+            this.btnBrowseNDK.Location = new System.Drawing.Point(6, 65);
+            this.btnBrowseNDK.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
+            this.btnBrowseNDK.MouseState = MaterialSkin.MouseState.HOVER;
+            this.btnBrowseNDK.Name = "btnBrowseNDK";
+            this.btnBrowseNDK.Size = new System.Drawing.Size(342, 36);
+            this.btnBrowseNDK.TabIndex = 5;
+            this.btnBrowseNDK.Text = "Browse";
+            this.btnBrowseNDK.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
+            this.btnBrowseNDK.UseAccentColor = false;
+            this.btnBrowseNDK.UseVisualStyleBackColor = true;
+            this.btnBrowseNDK.Click += new System.EventHandler(this.btnBrowseNDK_Click);
             // 
             // txtNDK
             // 
@@ -491,6 +531,16 @@ namespace Tools_Injector_Mod_Menu
             this.groupBox4.TabIndex = 4;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Mod Settings";
+            // 
+            // picImg
+            // 
+            this.picImg.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.picImg.Location = new System.Drawing.Point(100, 193);
+            this.picImg.Name = "picImg";
+            this.picImg.Size = new System.Drawing.Size(65, 65);
+            this.picImg.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.picImg.TabIndex = 20;
+            this.picImg.TabStop = false;
             // 
             // lbImgCompress
             // 
@@ -874,6 +924,21 @@ namespace Tools_Injector_Mod_Menu
             // 
             this.colMultiple.Text = "Multiple";
             // 
+            // colField
+            // 
+            this.colField.DisplayIndex = 9;
+            this.colField.Text = "Field";
+            // 
+            // colFieldOffset
+            // 
+            this.colFieldOffset.DisplayIndex = 7;
+            this.colFieldOffset.Text = "Field Offset";
+            // 
+            // colType
+            // 
+            this.colType.DisplayIndex = 8;
+            this.colType.Text = "Type";
+            // 
             // groupBox14
             // 
             this.groupBox14.Controls.Add(this.btnSaveCheat);
@@ -1064,7 +1129,7 @@ namespace Tools_Injector_Mod_Menu
             // materialCard11
             // 
             this.materialCard11.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            this.materialCard11.Controls.Add(this.groupBox11);
+            this.materialCard11.Controls.Add(this.groupOffsets);
             this.materialCard11.Depth = 0;
             this.materialCard11.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.materialCard11.Location = new System.Drawing.Point(10, 201);
@@ -1075,31 +1140,29 @@ namespace Tools_Injector_Mod_Menu
             this.materialCard11.Size = new System.Drawing.Size(384, 269);
             this.materialCard11.TabIndex = 2;
             // 
-            // groupBox11
+            // groupOffsets
             // 
-            this.groupBox11.Controls.Add(this.chkMultiple);
-            this.groupBox11.Controls.Add(this.btnFunction);
-            this.groupBox11.Controls.Add(this.comboFunction);
-            this.groupBox11.Controls.Add(this.chkDup);
-            this.groupBox11.Controls.Add(this.btnAddOffset);
-            this.groupBox11.Controls.Add(this.txtHex);
-            this.groupBox11.Controls.Add(this.label14);
-            this.groupBox11.Controls.Add(this.txtOffset);
-            this.groupBox11.Controls.Add(this.label15);
-            this.groupBox11.Controls.Add(this.label12);
-            this.groupBox11.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox11.Font = new System.Drawing.Font("Roboto", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            this.groupBox11.Location = new System.Drawing.Point(14, 14);
-            this.groupBox11.Name = "groupBox11";
-            this.groupBox11.Size = new System.Drawing.Size(356, 241);
-            this.groupBox11.TabIndex = 4;
-            this.groupBox11.TabStop = false;
+            this.groupOffsets.Controls.Add(this.chkMultiple);
+            this.groupOffsets.Controls.Add(this.btnFunction);
+            this.groupOffsets.Controls.Add(this.comboFunction);
+            this.groupOffsets.Controls.Add(this.chkDup);
+            this.groupOffsets.Controls.Add(this.btnAddOffset);
+            this.groupOffsets.Controls.Add(this.txtHex);
+            this.groupOffsets.Controls.Add(this.label14);
+            this.groupOffsets.Controls.Add(this.txtOffset);
+            this.groupOffsets.Controls.Add(this.label15);
+            this.groupOffsets.Controls.Add(this.label12);
+            this.groupOffsets.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.groupOffsets.Font = new System.Drawing.Font("Roboto", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.groupOffsets.Location = new System.Drawing.Point(14, 14);
+            this.groupOffsets.Name = "groupOffsets";
+            this.groupOffsets.Size = new System.Drawing.Size(356, 241);
+            this.groupOffsets.TabIndex = 4;
+            this.groupOffsets.TabStop = false;
             // 
             // chkMultiple
             // 
             this.chkMultiple.AutoSize = true;
-            this.chkMultiple.Checked = true;
-            this.chkMultiple.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkMultiple.Depth = 0;
             this.chkMultiple.Enabled = false;
             this.chkMultiple.Location = new System.Drawing.Point(257, 65);
@@ -1158,8 +1221,6 @@ namespace Tools_Injector_Mod_Menu
             "ButtonOnOffSeekBar",
             "ButtonOnOffInputValue",
             "Button",
-            "ButtonSeekBar",
-            "ButtonInputValue",
             "Patch",
             "Category"});
             this.comboFunction.Location = new System.Drawing.Point(126, 25);
@@ -1970,71 +2031,6 @@ namespace Tools_Injector_Mod_Menu
             this.compilerWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.compilerWorker_DoWork);
             this.compilerWorker.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.compilerWorker_RunWorkerCompleted);
             // 
-            // btnSaveSettings
-            // 
-            this.btnSaveSettings.AutoSize = false;
-            this.btnSaveSettings.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.btnSaveSettings.Depth = 0;
-            this.btnSaveSettings.DrawShadows = true;
-            this.btnSaveSettings.HighEmphasis = true;
-            this.btnSaveSettings.Icon = global::Tools_Injector_Mod_Menu.Properties.Resources.save_24;
-            this.btnSaveSettings.Location = new System.Drawing.Point(399, 435);
-            this.btnSaveSettings.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
-            this.btnSaveSettings.MouseState = MaterialSkin.MouseState.HOVER;
-            this.btnSaveSettings.Name = "btnSaveSettings";
-            this.btnSaveSettings.Size = new System.Drawing.Size(384, 36);
-            this.btnSaveSettings.TabIndex = 21;
-            this.btnSaveSettings.Text = "Save Settings";
-            this.btnSaveSettings.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
-            this.btnSaveSettings.UseAccentColor = false;
-            this.btnSaveSettings.UseVisualStyleBackColor = true;
-            this.btnSaveSettings.Click += new System.EventHandler(this.btnSaveSettings_Click);
-            // 
-            // btnBrowseNDK
-            // 
-            this.btnBrowseNDK.AutoSize = false;
-            this.btnBrowseNDK.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.btnBrowseNDK.Depth = 0;
-            this.btnBrowseNDK.DrawShadows = true;
-            this.btnBrowseNDK.HighEmphasis = true;
-            this.btnBrowseNDK.Icon = global::Tools_Injector_Mod_Menu.Properties.Resources.folder_7_24;
-            this.btnBrowseNDK.Location = new System.Drawing.Point(6, 65);
-            this.btnBrowseNDK.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
-            this.btnBrowseNDK.MouseState = MaterialSkin.MouseState.HOVER;
-            this.btnBrowseNDK.Name = "btnBrowseNDK";
-            this.btnBrowseNDK.Size = new System.Drawing.Size(342, 36);
-            this.btnBrowseNDK.TabIndex = 5;
-            this.btnBrowseNDK.Text = "Browse";
-            this.btnBrowseNDK.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
-            this.btnBrowseNDK.UseAccentColor = false;
-            this.btnBrowseNDK.UseVisualStyleBackColor = true;
-            this.btnBrowseNDK.Click += new System.EventHandler(this.btnBrowseNDK_Click);
-            // 
-            // picImg
-            // 
-            this.picImg.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.picImg.Location = new System.Drawing.Point(100, 193);
-            this.picImg.Name = "picImg";
-            this.picImg.Size = new System.Drawing.Size(65, 65);
-            this.picImg.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.picImg.TabIndex = 20;
-            this.picImg.TabStop = false;
-            // 
-            // colFieldOffset
-            // 
-            this.colFieldOffset.DisplayIndex = 7;
-            this.colFieldOffset.Text = "Field Offset";
-            // 
-            // colType
-            // 
-            this.colType.DisplayIndex = 8;
-            this.colType.Text = "Type";
-            // 
-            // colField
-            // 
-            this.colField.DisplayIndex = 9;
-            this.colField.Text = "Field";
-            // 
             // FrmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -2064,6 +2060,7 @@ namespace Tools_Injector_Mod_Menu
             this.materialCard4.ResumeLayout(false);
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.picImg)).EndInit();
             this.materialCard3.ResumeLayout(false);
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
@@ -2075,8 +2072,8 @@ namespace Tools_Injector_Mod_Menu
             this.groupBox12.ResumeLayout(false);
             this.groupBox12.PerformLayout();
             this.materialCard11.ResumeLayout(false);
-            this.groupBox11.ResumeLayout(false);
-            this.groupBox11.PerformLayout();
+            this.groupOffsets.ResumeLayout(false);
+            this.groupOffsets.PerformLayout();
             this.materialCard10.ResumeLayout(false);
             this.groupBox10.ResumeLayout(false);
             this.groupBox10.PerformLayout();
@@ -2095,7 +2092,6 @@ namespace Tools_Injector_Mod_Menu
             this.groupBox15.PerformLayout();
             this.materialCard8.ResumeLayout(false);
             this.groupBox5.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.picImg)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -2142,7 +2138,7 @@ namespace Tools_Injector_Mod_Menu
         private MaterialSkin.Controls.MaterialTextBox txtNameGame;
         private System.Windows.Forms.Label label10;
         private MaterialSkin.Controls.MaterialCard materialCard11;
-        private System.Windows.Forms.GroupBox groupBox11;
+        private System.Windows.Forms.GroupBox groupOffsets;
         private MaterialSkin.Controls.MaterialTextBox txtHex;
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.Label label15;

@@ -120,6 +120,7 @@ namespace Tools_Injector_Mod_Menu
             this.Name = "FrmCategory";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.TopMost = true;
+            this.Load += new System.EventHandler(this.FrmCategory_Load);
             this.materialCard1.ResumeLayout(false);
             this.ResumeLayout(false);
 

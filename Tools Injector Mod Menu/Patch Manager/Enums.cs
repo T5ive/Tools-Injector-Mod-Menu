@@ -29,8 +29,6 @@
             ButtonOnOffSeekBar, //Hook Method
             ButtonOnOffInputValue, //Hook Method
             Button, //Hook Method
-            ButtonSeekBar, //Hook Method
-            ButtonInputValue, //Hook Method
             Patch, //Patch
             Category,
             Empty

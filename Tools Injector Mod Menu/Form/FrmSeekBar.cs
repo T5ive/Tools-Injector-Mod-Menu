@@ -11,6 +11,23 @@ namespace Tools_Injector_Mod_Menu
             InitializeComponent();
         }
 
+        private void FrmSeekBar_Load(object sender, EventArgs e)
+        {
+            try
+            {
+                if (Utility.IsEmpty(Values.SeekBar, false)) return;
+                var num = Values.SeekBar.Split('_');
+                numMin.Value = Convert.ToDecimal(num[0]);
+                numMax.Value = Convert.ToDecimal(num[1]);
+                chkField.Checked = Values.Field;
+                comboType.SelectedIndex = (int)Values.Type;
+                txtOffset.Text = Values.Offset;
+            }
+            catch
+            {
+            }
+        }
+
         private void btnSave_Click(object sender, EventArgs e)
         {
             if (!MyMessage.MsgOkCancel("Do you want to save?\n\n" +
@@ -21,7 +38,7 @@ namespace Tools_Injector_Mod_Menu
             {
                 if (Utility.IsEmpty(txtOffset)) return;
                 Values.Field = chkField.Checked;
-                Values.Type = (Enums.Type) comboType.SelectedIndex;
+                Values.Type = (Enums.Type)comboType.SelectedIndex;
                 Values.Offset = txtOffset.Text;
             }
             Dispose();
@@ -42,7 +59,7 @@ namespace Tools_Injector_Mod_Menu
                 numMax.Value = numMin.Value + 1;
             }
         }
-        
+
         private void chkField_CheckedChanged(object sender, EventArgs e)
         {
             if (chkField.Checked)

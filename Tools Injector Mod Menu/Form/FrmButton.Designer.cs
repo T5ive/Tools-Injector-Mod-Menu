@@ -30,15 +30,10 @@ namespace Tools_Injector_Mod_Menu
         private void InitializeComponent()
         {
             this.materialCard1 = new MaterialSkin.Controls.MaterialCard();
-            this.panel1 = new System.Windows.Forms.Panel();
             this.btnClose = new MaterialSkin.Controls.MaterialButton();
             this.btnSave = new MaterialSkin.Controls.MaterialButton();
             this.btnRemove = new MaterialSkin.Controls.MaterialButton();
             this.btnAdd = new MaterialSkin.Controls.MaterialButton();
-            this.numMax = new System.Windows.Forms.NumericUpDown();
-            this.numMin = new System.Windows.Forms.NumericUpDown();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label10 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.txtType = new MaterialSkin.Controls.MaterialTextBox();
@@ -49,19 +44,15 @@ namespace Tools_Injector_Mod_Menu
             this.label3 = new System.Windows.Forms.Label();
             this.txtOffset = new MaterialSkin.Controls.MaterialTextBox();
             this.materialCard1.SuspendLayout();
-            this.panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numMax)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numMin)).BeginInit();
             this.SuspendLayout();
             // 
             // materialCard1
             // 
             this.materialCard1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            this.materialCard1.Controls.Add(this.panel1);
-            this.materialCard1.Controls.Add(this.numMax);
-            this.materialCard1.Controls.Add(this.numMin);
-            this.materialCard1.Controls.Add(this.label4);
-            this.materialCard1.Controls.Add(this.label10);
+            this.materialCard1.Controls.Add(this.btnClose);
+            this.materialCard1.Controls.Add(this.btnSave);
+            this.materialCard1.Controls.Add(this.btnRemove);
+            this.materialCard1.Controls.Add(this.btnAdd);
             this.materialCard1.Controls.Add(this.label2);
             this.materialCard1.Controls.Add(this.label1);
             this.materialCard1.Controls.Add(this.txtType);
@@ -77,20 +68,8 @@ namespace Tools_Injector_Mod_Menu
             this.materialCard1.MouseState = MaterialSkin.MouseState.HOVER;
             this.materialCard1.Name = "materialCard1";
             this.materialCard1.Padding = new System.Windows.Forms.Padding(14);
-            this.materialCard1.Size = new System.Drawing.Size(239, 386);
+            this.materialCard1.Size = new System.Drawing.Size(239, 382);
             this.materialCard1.TabIndex = 2;
-            // 
-            // panel1
-            // 
-            this.panel1.Controls.Add(this.btnClose);
-            this.panel1.Controls.Add(this.btnSave);
-            this.panel1.Controls.Add(this.btnRemove);
-            this.panel1.Controls.Add(this.btnAdd);
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel1.Location = new System.Drawing.Point(14, 261);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(211, 111);
-            this.panel1.TabIndex = 58;
             // 
             // btnClose
             // 
@@ -100,7 +79,7 @@ namespace Tools_Injector_Mod_Menu
             this.btnClose.DrawShadows = true;
             this.btnClose.HighEmphasis = true;
             this.btnClose.Icon = null;
-            this.btnClose.Location = new System.Drawing.Point(126, 61);
+            this.btnClose.Location = new System.Drawing.Point(126, 331);
             this.btnClose.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
             this.btnClose.MouseState = MaterialSkin.MouseState.HOVER;
             this.btnClose.Name = "btnClose";
@@ -110,6 +89,7 @@ namespace Tools_Injector_Mod_Menu
             this.btnClose.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
             this.btnClose.UseAccentColor = false;
             this.btnClose.UseVisualStyleBackColor = true;
+            this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
             // 
             // btnSave
             // 
@@ -119,7 +99,7 @@ namespace Tools_Injector_Mod_Menu
             this.btnSave.DrawShadows = true;
             this.btnSave.HighEmphasis = true;
             this.btnSave.Icon = null;
-            this.btnSave.Location = new System.Drawing.Point(13, 61);
+            this.btnSave.Location = new System.Drawing.Point(13, 331);
             this.btnSave.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
             this.btnSave.MouseState = MaterialSkin.MouseState.HOVER;
             this.btnSave.Name = "btnSave";
@@ -129,6 +109,7 @@ namespace Tools_Injector_Mod_Menu
             this.btnSave.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
             this.btnSave.UseAccentColor = false;
             this.btnSave.UseVisualStyleBackColor = true;
+            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
             // btnRemove
             // 
@@ -138,7 +119,7 @@ namespace Tools_Injector_Mod_Menu
             this.btnRemove.DrawShadows = true;
             this.btnRemove.HighEmphasis = true;
             this.btnRemove.Icon = null;
-            this.btnRemove.Location = new System.Drawing.Point(126, 13);
+            this.btnRemove.Location = new System.Drawing.Point(126, 283);
             this.btnRemove.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
             this.btnRemove.MouseState = MaterialSkin.MouseState.HOVER;
             this.btnRemove.Name = "btnRemove";
@@ -148,6 +129,7 @@ namespace Tools_Injector_Mod_Menu
             this.btnRemove.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
             this.btnRemove.UseAccentColor = false;
             this.btnRemove.UseVisualStyleBackColor = true;
+            this.btnRemove.Click += new System.EventHandler(this.btnRemove_Click);
             // 
             // btnAdd
             // 
@@ -157,7 +139,7 @@ namespace Tools_Injector_Mod_Menu
             this.btnAdd.DrawShadows = true;
             this.btnAdd.HighEmphasis = true;
             this.btnAdd.Icon = null;
-            this.btnAdd.Location = new System.Drawing.Point(33, 13);
+            this.btnAdd.Location = new System.Drawing.Point(33, 283);
             this.btnAdd.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
             this.btnAdd.MouseState = MaterialSkin.MouseState.HOVER;
             this.btnAdd.Name = "btnAdd";
@@ -167,77 +149,13 @@ namespace Tools_Injector_Mod_Menu
             this.btnAdd.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
             this.btnAdd.UseAccentColor = false;
             this.btnAdd.UseVisualStyleBackColor = true;
-            // 
-            // numMax
-            // 
-            this.numMax.Enabled = false;
-            this.numMax.Font = new System.Drawing.Font("Roboto", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            this.numMax.Location = new System.Drawing.Point(73, 318);
-            this.numMax.Maximum = new decimal(new int[] {
-            1000,
-            0,
-            0,
-            0});
-            this.numMax.Minimum = new decimal(new int[] {
-            2,
-            0,
-            0,
-            0});
-            this.numMax.Name = "numMax";
-            this.numMax.Size = new System.Drawing.Size(154, 32);
-            this.numMax.TabIndex = 57;
-            this.numMax.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.numMax.Value = new decimal(new int[] {
-            100,
-            0,
-            0,
-            0});
-            // 
-            // numMin
-            // 
-            this.numMin.Enabled = false;
-            this.numMin.Font = new System.Drawing.Font("Roboto", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            this.numMin.Location = new System.Drawing.Point(73, 280);
-            this.numMin.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.numMin.Name = "numMin";
-            this.numMin.Size = new System.Drawing.Size(154, 32);
-            this.numMin.TabIndex = 56;
-            this.numMin.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.numMin.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Roboto", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            this.label4.Location = new System.Drawing.Point(3, 311);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(44, 18);
-            this.label4.TabIndex = 55;
-            this.label4.Text = "Max: ";
-            // 
-            // label10
-            // 
-            this.label10.AutoSize = true;
-            this.label10.Font = new System.Drawing.Font("Roboto", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            this.label10.Location = new System.Drawing.Point(6, 273);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(41, 18);
-            this.label10.TabIndex = 54;
-            this.label10.Text = "Min: ";
+            this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
             // 
             // label2
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Roboto", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            this.label2.Location = new System.Drawing.Point(10, 245);
+            this.label2.Location = new System.Drawing.Point(12, 245);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(58, 18);
             this.label2.TabIndex = 51;
@@ -247,7 +165,7 @@ namespace Tools_Injector_Mod_Menu
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Roboto", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            this.label1.Location = new System.Drawing.Point(10, 203);
+            this.label1.Location = new System.Drawing.Point(23, 203);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(47, 18);
             this.label1.TabIndex = 50;
@@ -318,15 +236,14 @@ namespace Tools_Injector_Mod_Menu
             this.label3.Font = new System.Drawing.Font("Roboto", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
             this.label3.Location = new System.Drawing.Point(10, 19);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(104, 18);
+            this.label3.Size = new System.Drawing.Size(108, 18);
             this.label3.TabIndex = 21;
-            this.label3.Text = "Offset Update:";
+            this.label3.Text = "Offset Method:";
             // 
             // txtOffset
             // 
             this.txtOffset.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.txtOffset.Depth = 0;
-            this.txtOffset.Enabled = false;
             this.txtOffset.Font = new System.Drawing.Font("Roboto", 12F);
             this.txtOffset.Hint = "0x1234567";
             this.txtOffset.Location = new System.Drawing.Point(122, 12);
@@ -343,15 +260,15 @@ namespace Tools_Injector_Mod_Menu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(239, 386);
+            this.ClientSize = new System.Drawing.Size(239, 382);
             this.Controls.Add(this.materialCard1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Name = "FrmButton";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.TopMost = true;
+            this.Load += new System.EventHandler(this.FrmButton_Load);
             this.materialCard1.ResumeLayout(false);
             this.materialCard1.PerformLayout();
-            this.panel1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.numMax)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numMin)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -372,10 +289,5 @@ namespace Tools_Injector_Mod_Menu
         private MaterialSkin.Controls.MaterialTextBox txtValue;
         private MaterialSkin.Controls.MaterialButton btnAdd;
         private MaterialSkin.Controls.MaterialButton btnRemove;
-        private System.Windows.Forms.NumericUpDown numMax;
-        private System.Windows.Forms.NumericUpDown numMin;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Label label10;
-        private System.Windows.Forms.Panel panel1;
     }
 }

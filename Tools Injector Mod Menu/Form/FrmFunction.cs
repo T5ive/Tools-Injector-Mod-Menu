@@ -97,7 +97,7 @@ namespace Tools_Injector_Mod_Menu
                 Field = chkField.Checked,
                 Type = (Enums.Type) comboType.SelectedIndex,
                 Offset = txtOffset.Text,
-                Method = (null, null)
+                Method = null
             };
         }
         private void btnClose_Click(object sender, EventArgs e)
