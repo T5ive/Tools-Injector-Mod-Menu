@@ -2,13 +2,7 @@
 
 ![](https://i.imgur.com/orvXLYp.gif)
 
-# Video
-
-[![](http://img.youtube.com/vi/h4sqozxd3v8/0.jpg)](https://youtu.be/h4sqozxd3v8 "")
-
-# How to use
-
-https://github.com/T5ive/Tools-Injector-Mod-Menu/wiki
+# [Wiki](https://github.com/T5ive/Tools-Injector-Mod-Menu/wiki)
 
 
 # Known Issue
