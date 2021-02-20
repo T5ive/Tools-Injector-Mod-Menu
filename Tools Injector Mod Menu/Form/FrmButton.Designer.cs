@@ -238,7 +238,7 @@ namespace Tools_Injector_Mod_Menu
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(108, 18);
             this.label3.TabIndex = 21;
-            this.label3.Text = "Offset Method:";
+            this.label3.Text = "Method Offset:";
             // 
             // txtOffset
             // 

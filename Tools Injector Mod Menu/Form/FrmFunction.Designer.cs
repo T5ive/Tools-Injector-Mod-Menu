@@ -42,7 +42,7 @@ namespace Tools_Injector_Mod_Menu
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.chkField = new MaterialSkin.Controls.MaterialCheckbox();
             this.label2 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
+            this.lbOffset = new System.Windows.Forms.Label();
             this.txtOffset = new MaterialSkin.Controls.MaterialTextBox();
             this.comboType = new MaterialSkin.Controls.MaterialComboBox();
             this.chkMultiple = new MaterialSkin.Controls.MaterialCheckbox();
@@ -137,7 +137,7 @@ namespace Tools_Injector_Mod_Menu
             this.groupBox1.BackColor = System.Drawing.Color.White;
             this.groupBox1.Controls.Add(this.chkField);
             this.groupBox1.Controls.Add(this.label2);
-            this.groupBox1.Controls.Add(this.label4);
+            this.groupBox1.Controls.Add(this.lbOffset);
             this.groupBox1.Controls.Add(this.txtOffset);
             this.groupBox1.Controls.Add(this.comboType);
             this.groupBox1.Controls.Add(this.chkMultiple);
@@ -181,14 +181,14 @@ namespace Tools_Injector_Mod_Menu
             this.label2.TabIndex = 27;
             this.label2.Text = "Type: ";
             // 
-            // label4
+            // lbOffset
             // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(263, 81);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(119, 24);
-            this.label4.TabIndex = 26;
-            this.label4.Text = "Field Offset:";
+            this.lbOffset.AutoSize = true;
+            this.lbOffset.Location = new System.Drawing.Point(263, 81);
+            this.lbOffset.Name = "lbOffset";
+            this.lbOffset.Size = new System.Drawing.Size(119, 24);
+            this.lbOffset.TabIndex = 26;
+            this.lbOffset.Text = "Field Offset:";
             // 
             // txtOffset
             // 
@@ -395,7 +395,7 @@ namespace Tools_Injector_Mod_Menu
         private System.Windows.Forms.ToolStripMenuItem addToolStripMenuItem;
         private MaterialSkin.Controls.MaterialCheckbox chkMultiple;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label lbOffset;
         private MaterialSkin.Controls.MaterialTextBox txtOffset;
         private MaterialSkin.Controls.MaterialComboBox comboType;
         private MaterialSkin.Controls.MaterialCheckbox chkField;

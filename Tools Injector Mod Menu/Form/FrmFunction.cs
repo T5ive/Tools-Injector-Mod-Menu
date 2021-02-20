@@ -5,7 +5,6 @@ using Tools_Injector_Mod_Menu.Patch_Manager;
 
 namespace Tools_Injector_Mod_Menu
 {
-    //TODO Check offset, hex before save
     public partial class FrmFunction : Form
     {
         private readonly int _index;
@@ -25,6 +24,11 @@ namespace Tools_Injector_Mod_Menu
             _type = OffsetPatch.FunctionList[_index].FunctionType;
             var hookInfo = OffsetPatch.FunctionList[_index].HookInfo;
 
+            if (_type == Enums.FunctionType.Button)
+            {
+                MyMessage.MsgShowInfo("Button Type Not Support Yet!");
+                Dispose();
+            }
 
             foreach (var t in OffsetPatch.FunctionList[_index].OffsetList)
             {

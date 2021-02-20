@@ -19,7 +19,7 @@ namespace Tools_Injector_Mod_Menu
 {
     public partial class FrmMain : MaterialForm
     {
-        private const bool Debug = true;
+        private const bool Debug = false;
 
         public FrmMain()
         {
@@ -359,16 +359,7 @@ namespace Tools_Injector_Mod_Menu
         private void comboFunction_SelectedIndexChanged(object sender, EventArgs e)
         {
             var functionType = (Enums.FunctionType)comboFunction.SelectedIndex;
-
-            //if (functionType == Enums.FunctionType.Button ||
-            //    functionType == Enums.FunctionType.ButtonSeekBar ||
-            //    functionType == Enums.FunctionType.ButtonInputValue)
-            //{
-            //    //TODO
-            //    comboFunction.SelectedIndex = 0;
-            //    // I don't know why the buttons won't work. But don't worry, Toggle still works.
-            //}
-
+            
             BtnFunctionManager();
 
             if (functionType == Enums.FunctionType.ToggleHook ||
