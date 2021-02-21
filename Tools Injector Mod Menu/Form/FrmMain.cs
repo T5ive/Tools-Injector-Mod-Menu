@@ -31,6 +31,8 @@ namespace Tools_Injector_Mod_Menu
 
         public static readonly string AppPath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
 
+        private MySettings _mySettings = new MySettings();
+
         private string[] _menuFiles;
 
         private int _offsetCount = 1;
@@ -129,43 +131,43 @@ namespace Tools_Injector_Mod_Menu
 
         private void LoadSettings()
         {
-            var settings = MySettings.Load();
-            txtLibName.Text = settings.txtLibName;
-            if (!Utility.IsEmpty(settings.txtToast, false) && settings.txtToast.Contains('|'))
+            _mySettings = MySettings.Load();
+            txtLibName.Text = _mySettings.txtLibName;
+            if (!Utility.IsEmpty(_mySettings.txtToast, false) && _mySettings.txtToast.Contains('|'))
             {
-                foreach (var t in settings.txtToast.Split('|'))
+                foreach (var t in _mySettings.txtToast.Split('|'))
                 {
                     listToast.Items.Add(t);
                 }
             }
 
-            if (!Utility.IsEmpty(settings.txtToast, false) && !settings.txtToast.Contains('|'))
+            if (!Utility.IsEmpty(_mySettings.txtToast, false) && !_mySettings.txtToast.Contains('|'))
             {
-                listToast.Items.Add(settings.txtToast);
+                listToast.Items.Add(_mySettings.txtToast);
             }
 
-            txtName.Text = settings.txtName;
-            txtSite.Text = settings.txtSite;
-            txtText.Text = settings.txtText;
-            txtEndCredit.Text = settings.txtEndCredit;
-            ImageCode = settings.ImageCode;
-            txtNDK.Text = settings.txtNDK;
+            txtName.Text = _mySettings.txtName;
+            txtSite.Text = _mySettings.txtSite;
+            txtText.Text = _mySettings.txtText;
+            txtEndCredit.Text = _mySettings.txtEndCredit;
+            ImageCode = _mySettings.ImageCode;
+            txtNDK.Text = _mySettings.txtNDK;
 
-            chkRemoveTemp.Checked = settings.chkRemoveTemp;
-            chkTFiveCredit.Checked = settings.chkTFiveCredit;
-            chkLogsComplie.Checked = settings.chkLogsComplie;
-            chkLogsSuccess.Checked = settings.chkLogsSuccess;
-            chkLogsError.Checked = settings.chkLogsError;
-            chkSound.Checked = settings.chkSound;
+            chkRemoveTemp.Checked = _mySettings.chkRemoveTemp;
+            chkTFiveCredit.Checked = _mySettings.chkTFiveCredit;
+            chkLogsComplie.Checked = _mySettings.chkLogsComplie;
+            chkLogsSuccess.Checked = _mySettings.chkLogsSuccess;
+            chkLogsError.Checked = _mySettings.chkLogsError;
+            chkSound.Checked = _mySettings.chkSound;
 
-            txtService.Text = settings.txtService;
-            txtOnCreate.Text = settings.txtOnCreate;
-            txtActionMain.Text = settings.txtActionMain;
+            txtService.Text = _mySettings.txtService;
+            txtOnCreate.Text = _mySettings.txtOnCreate;
+            txtActionMain.Text = _mySettings.txtActionMain;
             LoadImg();
 
             try
             {
-                comboMenu.SelectedIndex = settings.menuStyle;
+                comboMenu.SelectedIndex = _mySettings.menuStyle;
             }
             catch
             {
@@ -257,26 +259,25 @@ namespace Tools_Injector_Mod_Menu
                                           "Click \"OK\" to confirm.\n\n" +
                                           "Click \"Cancel\" to cancel."))
                 {
-                    var settings = MySettings.Load();
-                    settings.txtLibName = txtLibName.Text;
+                    _mySettings.txtLibName = txtLibName.Text;
                     var toast = listToast.Items.Cast<object>().Aggregate("", (current, t) => current + (t + "|"));
                     if (listToast.Items.Count > 0)
                         toast = toast.Substring(0, toast.Length - 1);
-                    settings.txtToast = toast;
-                    settings.txtName = txtName.Text;
-                    settings.txtSite = txtSite.Text;
-                    settings.txtText = txtText.Text;
-                    settings.txtEndCredit = txtEndCredit.Text;
-                    settings.ImageCode = ImageCode;
-                    settings.txtNDK = txtNDK.Text;
-                    settings.menuStyle = comboMenu.SelectedIndex;
-                    settings.chkRemoveTemp = chkRemoveTemp.Checked;
-                    settings.chkTFiveCredit = chkTFiveCredit.Checked;
-                    settings.chkLogsComplie = chkLogsComplie.Checked;
-                    settings.chkLogsSuccess = chkLogsSuccess.Checked;
-                    settings.chkLogsError = chkLogsError.Checked;
-                    settings.chkSound = chkSound.Checked;
-                    settings.Save();
+                    _mySettings.txtToast = toast;
+                    _mySettings.txtName = txtName.Text;
+                    _mySettings.txtSite = txtSite.Text;
+                    _mySettings.txtText = txtText.Text;
+                    _mySettings.txtEndCredit = txtEndCredit.Text;
+                    _mySettings.ImageCode = ImageCode;
+                    _mySettings.txtNDK = txtNDK.Text;
+                    _mySettings.menuStyle = comboMenu.SelectedIndex;
+                    _mySettings.chkRemoveTemp = chkRemoveTemp.Checked;
+                    _mySettings.chkTFiveCredit = chkTFiveCredit.Checked;
+                    _mySettings.chkLogsComplie = chkLogsComplie.Checked;
+                    _mySettings.chkLogsSuccess = chkLogsSuccess.Checked;
+                    _mySettings.chkLogsError = chkLogsError.Checked;
+                    _mySettings.chkSound = chkSound.Checked;
+                    _mySettings.Save();
                     WriteOutput("[Success] Saved Settings", Color.Green);
                 }
             }
@@ -1594,7 +1595,7 @@ void Update{cheatName}(void *instance) {{
                     StartInfo =
                     {
                         FileName = "cmd.exe",
-                        Arguments = $"/c {Properties.Settings.Default.txtNDK}\\build\\ndk-build",
+                        Arguments = $"/c {_mySettings.txtNDK}\\build\\ndk-build",
                         WindowStyle = ProcessWindowStyle.Hidden,
                         UseShellExecute = false,
                         RedirectStandardError = true,
@@ -1761,7 +1762,7 @@ void Update{cheatName}(void *instance) {{
             if (!MyMessage.MsgOkCancel("Do you want to save?\n\n" +
                                        "Click \"OK\" to confirm.\n\n" +
                                        "Click \"Cancel\" to cancel.")) return;
-            Properties.Settings.Default.txtService = txtService.Text;
+            _mySettings.txtService = txtService.Text;
         }
 
         #endregion Permission
@@ -1778,7 +1779,7 @@ void Update{cheatName}(void *instance) {{
             if (!MyMessage.MsgOkCancel("Do you want to save?\n\n" +
                                        "Click \"OK\" to confirm.\n\n" +
                                        "Click \"Cancel\" to cancel.")) return;
-            Properties.Settings.Default.txtOnCreate = txtOnCreate.Text;
+            _mySettings.txtOnCreate = txtOnCreate.Text;
         }
 
         #endregion Method 1
@@ -1800,7 +1801,7 @@ void Update{cheatName}(void *instance) {{
             if (!MyMessage.MsgOkCancel("Do you want to save?\n\n" +
                                        "Click \"OK\" to confirm.\n\n" +
                                        "Click \"Cancel\" to cancel.")) return;
-            Properties.Settings.Default.txtActionMain = txtActionMain.Text;
+            _mySettings.txtActionMain = txtActionMain.Text;
         }
 
         #endregion Method 2
@@ -1808,7 +1809,7 @@ void Update{cheatName}(void *instance) {{
         private void CopyText(string str)
         {
             Clipboard.SetText(str);
-            if (!Properties.Settings.Default.chkSound) return;
+            if (!_mySettings.chkSound) return;
             System.Media.SystemSounds.Beep.Play();
         }
 
@@ -1974,7 +1975,7 @@ void Update{cheatName}(void *instance) {{
             EnableController(this, state != State.Running);
             if (state == State.Idle)
             {
-                if (!Properties.Settings.Default.chkSound) return;
+                if (!_mySettings.chkSound) return;
                 System.Media.SystemSounds.Beep.Play();
             }
         }

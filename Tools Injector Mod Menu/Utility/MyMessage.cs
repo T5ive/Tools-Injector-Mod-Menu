@@ -2,7 +2,7 @@
 
 namespace Tools_Injector_Mod_Menu
 {
-    public class MyMessage
+    public static class MyMessage
     {
         private const string Caption = "Tools Injector";
 
