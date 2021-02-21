@@ -94,7 +94,7 @@ namespace Tools_Injector_Mod_Menu
             this.btnClear = new MaterialSkin.Controls.MaterialButton();
             this.btnRemove = new MaterialSkin.Controls.MaterialButton();
             this.materialCard12 = new MaterialSkin.Controls.MaterialCard();
-            this.groupBox12 = new System.Windows.Forms.GroupBox();
+            this.groupFunction = new System.Windows.Forms.GroupBox();
             this.btnAddFunction = new MaterialSkin.Controls.MaterialButton();
             this.txtNameCheat = new MaterialSkin.Controls.MaterialTextBox();
             this.label16 = new System.Windows.Forms.Label();
@@ -173,7 +173,7 @@ namespace Tools_Injector_Mod_Menu
             this.groupBox13.SuspendLayout();
             this.groupBox14.SuspendLayout();
             this.materialCard12.SuspendLayout();
-            this.groupBox12.SuspendLayout();
+            this.groupFunction.SuspendLayout();
             this.materialCard11.SuspendLayout();
             this.groupOffsets.SuspendLayout();
             this.materialCard10.SuspendLayout();
@@ -1057,7 +1057,7 @@ namespace Tools_Injector_Mod_Menu
             // materialCard12
             // 
             this.materialCard12.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            this.materialCard12.Controls.Add(this.groupBox12);
+            this.materialCard12.Controls.Add(this.groupFunction);
             this.materialCard12.Depth = 0;
             this.materialCard12.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.materialCard12.Location = new System.Drawing.Point(399, 14);
@@ -1068,18 +1068,19 @@ namespace Tools_Injector_Mod_Menu
             this.materialCard12.Size = new System.Drawing.Size(384, 147);
             this.materialCard12.TabIndex = 3;
             // 
-            // groupBox12
+            // groupFunction
             // 
-            this.groupBox12.Controls.Add(this.btnAddFunction);
-            this.groupBox12.Controls.Add(this.txtNameCheat);
-            this.groupBox12.Controls.Add(this.label16);
-            this.groupBox12.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox12.Font = new System.Drawing.Font("Roboto", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            this.groupBox12.Location = new System.Drawing.Point(14, 14);
-            this.groupBox12.Name = "groupBox12";
-            this.groupBox12.Size = new System.Drawing.Size(356, 119);
-            this.groupBox12.TabIndex = 4;
-            this.groupBox12.TabStop = false;
+            this.groupFunction.Controls.Add(this.btnAddFunction);
+            this.groupFunction.Controls.Add(this.txtNameCheat);
+            this.groupFunction.Controls.Add(this.label16);
+            this.groupFunction.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.groupFunction.Enabled = false;
+            this.groupFunction.Font = new System.Drawing.Font("Roboto", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.groupFunction.Location = new System.Drawing.Point(14, 14);
+            this.groupFunction.Name = "groupFunction";
+            this.groupFunction.Size = new System.Drawing.Size(356, 119);
+            this.groupFunction.TabIndex = 4;
+            this.groupFunction.TabStop = false;
             // 
             // btnAddFunction
             // 
@@ -2069,8 +2070,8 @@ namespace Tools_Injector_Mod_Menu
             this.groupBox13.ResumeLayout(false);
             this.groupBox14.ResumeLayout(false);
             this.materialCard12.ResumeLayout(false);
-            this.groupBox12.ResumeLayout(false);
-            this.groupBox12.PerformLayout();
+            this.groupFunction.ResumeLayout(false);
+            this.groupFunction.PerformLayout();
             this.materialCard11.ResumeLayout(false);
             this.groupOffsets.ResumeLayout(false);
             this.groupOffsets.PerformLayout();
@@ -2147,7 +2148,7 @@ namespace Tools_Injector_Mod_Menu
         private MaterialSkin.Controls.MaterialButton btnAddOffset;
         private MaterialSkin.Controls.MaterialCheckbox chkDup;
         private MaterialSkin.Controls.MaterialCard materialCard12;
-        private System.Windows.Forms.GroupBox groupBox12;
+        private System.Windows.Forms.GroupBox groupFunction;
         private MaterialSkin.Controls.MaterialButton btnAddFunction;
         private MaterialSkin.Controls.MaterialTextBox txtNameCheat;
         private System.Windows.Forms.Label label16;

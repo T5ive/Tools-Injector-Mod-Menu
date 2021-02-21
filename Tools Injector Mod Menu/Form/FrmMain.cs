@@ -127,7 +127,6 @@ namespace Tools_Injector_Mod_Menu
             }
         }
 
-        
         private void LoadSettings()
         {
             var settings = Properties.Settings.Default;
@@ -354,7 +353,7 @@ namespace Tools_Injector_Mod_Menu
         private void comboFunction_SelectedIndexChanged(object sender, EventArgs e)
         {
             var functionType = (Enums.FunctionType)comboFunction.SelectedIndex;
-            
+
             BtnFunctionManager();
 
             if (functionType == Enums.FunctionType.ToggleHook ||
@@ -423,7 +422,7 @@ namespace Tools_Injector_Mod_Menu
                         return Enums.FunctionType.Empty;
                     }
                     return functionType;
-                    
+
                 case Enums.FunctionType.Button:
                     return Utility.IsEmpty(Values.Method) ? Enums.FunctionType.Empty : functionType;
 
@@ -475,8 +474,9 @@ namespace Tools_Injector_Mod_Menu
                     break;
             }
 
+            EasyEnabled(groupFunction);
             EasyEnabled(comboFunction, false);
-            if(functionType != Enums.FunctionType.Button)
+            if (functionType != Enums.FunctionType.Button)
                 txtOffset.Clear();
 
             WriteOutput($"[Success] Added Offset - Offset ID: {offset.OffsetId}, Offset: {offset.Offset}, Hex: {offset.Hex}", Color.Green);
@@ -484,6 +484,7 @@ namespace Tools_Injector_Mod_Menu
 
         private void btnFunction_Click(object sender, EventArgs e)
         {
+            Hide();
             switch ((Enums.FunctionType)comboFunction.SelectedIndex)
             {
                 case Enums.FunctionType.ToggleHook:
@@ -519,6 +520,7 @@ namespace Tools_Injector_Mod_Menu
                     frmCategory.Dispose();
                     break;
             }
+            Show();
         }
 
         #endregion Offset Group
@@ -561,7 +563,7 @@ namespace Tools_Injector_Mod_Menu
             EasyEnabled(btnAddOffset);
             EasyEnabled(chkDup);
             EasyEnabled(groupOffsets);
-
+            EasyEnabled(groupFunction, false);
             AddListView();
             txtNameCheat.Clear();
         }
