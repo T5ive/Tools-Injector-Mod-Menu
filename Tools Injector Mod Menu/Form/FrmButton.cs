@@ -7,8 +7,6 @@ namespace Tools_Injector_Mod_Menu
 {
     public partial class FrmButton : Form
     {
-        //seekbar_0_100
-        //inputvalue
         public FrmButton()
         {
             InitializeComponent();
@@ -36,7 +34,7 @@ namespace Tools_Injector_Mod_Menu
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
-            if(Utility.IsEmpty(txtType) || Utility.IsEmpty(txtValue)) return;
+            if (Utility.IsEmpty(txtType) || Utility.IsEmpty(txtValue)) return;
             var items = new ListViewItem(txtType.Text);
             items.SubItems.Add(txtValue.Text);
             listView1.Items.Add(items);
