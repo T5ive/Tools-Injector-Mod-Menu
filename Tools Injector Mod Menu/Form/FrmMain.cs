@@ -129,7 +129,7 @@ namespace Tools_Injector_Mod_Menu
 
         private void LoadSettings()
         {
-            var settings = Properties.Settings.Default;
+            var settings = MySettings.Load();
             txtLibName.Text = settings.txtLibName;
             if (!Utility.IsEmpty(settings.txtToast, false) && settings.txtToast.Contains('|'))
             {
@@ -139,7 +139,7 @@ namespace Tools_Injector_Mod_Menu
                 }
             }
 
-            if (!settings.txtToast.Contains('|') && !Utility.IsEmpty(settings.txtToast, false))
+            if (!Utility.IsEmpty(settings.txtToast, false) && !settings.txtToast.Contains('|'))
             {
                 listToast.Items.Add(settings.txtToast);
             }
@@ -162,6 +162,7 @@ namespace Tools_Injector_Mod_Menu
             txtOnCreate.Text = settings.txtOnCreate;
             txtActionMain.Text = settings.txtActionMain;
             LoadImg();
+
             try
             {
                 comboMenu.SelectedIndex = settings.menuStyle;
@@ -256,7 +257,7 @@ namespace Tools_Injector_Mod_Menu
                                           "Click \"OK\" to confirm.\n\n" +
                                           "Click \"Cancel\" to cancel."))
                 {
-                    var settings = Properties.Settings.Default;
+                    var settings = MySettings.Load();
                     settings.txtLibName = txtLibName.Text;
                     var toast = listToast.Items.Cast<object>().Aggregate("", (current, t) => current + (t + "|"));
                     if (listToast.Items.Count > 0)

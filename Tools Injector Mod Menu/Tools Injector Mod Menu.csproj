@@ -42,6 +42,7 @@
     <Reference Include="System.IO.Compression.FileSystem" />
     <Reference Include="System.Management" />
     <Reference Include="System.Security" />
+    <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -95,6 +96,7 @@
     <Compile Include="Form\FrmToggleHook.Designer.cs">
       <DependentUpon>FrmToggleHook.cs</DependentUpon>
     </Compile>
+    <Compile Include="Utility\AppSettings.cs" />
     <Compile Include="Utility\MyMessage.cs" />
     <Compile Include="Patch Manager\Enums.cs" />
     <Compile Include="Patch Manager\OffsetInfo.cs" />
