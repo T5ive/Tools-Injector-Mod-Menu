@@ -127,6 +127,7 @@ namespace Tools_Injector_Mod_Menu
             }
         }
 
+        
         private void LoadSettings()
         {
             var settings = Properties.Settings.Default;
@@ -475,7 +476,8 @@ namespace Tools_Injector_Mod_Menu
             }
 
             EasyEnabled(comboFunction, false);
-            txtOffset.Clear();
+            if(functionType != Enums.FunctionType.Button)
+                txtOffset.Clear();
 
             WriteOutput($"[Success] Added Offset - Offset ID: {offset.OffsetId}, Offset: {offset.Offset}, Hex: {offset.Hex}", Color.Green);
         }
@@ -1560,7 +1562,7 @@ void Update{cheatName}(void *instance) {{
                 {
                     result += $", {value}";
                 }
-                else if (method[i].Item2.IndexOf("intputvalue", StringComparison.OrdinalIgnoreCase) >= 0)
+                else if (method[i].Item2.IndexOf("inputvalue", StringComparison.OrdinalIgnoreCase) >= 0)
                 {
                     result += $", {value}";
                 }
