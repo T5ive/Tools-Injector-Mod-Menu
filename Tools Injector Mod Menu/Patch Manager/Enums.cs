@@ -19,6 +19,7 @@
             Double,
             Empty
         }
+
         public enum FunctionType
         {
             Toggle, //Patch

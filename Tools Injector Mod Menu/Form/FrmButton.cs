@@ -95,9 +95,10 @@ namespace Tools_Injector_Mod_Menu
         {
             switch (comboType.SelectedIndex)
             {
-                case (int) Enums.Type.Bool:
+                case (int)Enums.Type.Bool:
                     txtValue.Hint = "true";
                     break;
+
                 case (int)Enums.Type.Int:
                 case (int)Enums.Type.Long:
                 case (int)Enums.Type.Float:

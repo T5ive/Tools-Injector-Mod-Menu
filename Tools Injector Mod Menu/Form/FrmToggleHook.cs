@@ -20,7 +20,6 @@ namespace Tools_Injector_Mod_Menu
             catch
             {
             }
-            
         }
 
         private void btnSave_Click(object sender, EventArgs e)

@@ -26,6 +26,7 @@ namespace Tools_Injector_Mod_Menu
 
         public string txtService = @"<service android:enabled=""true"" android:exported=""false"" android:name=""com.tfive.modmenu.FloatingModMenuService"" android:stopWithTask=""true""/>";
         public string txtOnCreate = "invoke-static {p0}, Lcom/tfive/MainActivity;->Start(Landroid/content/Context;)V";
+
         public string txtActionMain = @"<activity android:configChanges=""keyboardHidden|orientation|screenSize"" android:name=""com.tfivel.MainActivity"">
      <intent-filter>
          <action android:name=""android.intent.action.MAIN""/>
@@ -34,6 +35,7 @@ namespace Tools_Injector_Mod_Menu
 </activity>
 ";
     }
+
     public class AppSettings<T> where T : new()
     {
         private const string DefaultFilename = "settings.json";

@@ -1463,11 +1463,11 @@ void Update{cheatName}(void *instance) {{
         private string HackThread()
         {
             var result = "";
-            var abiType = comboType.SelectedIndex == (int) Enums.TypeAbi.Arm64 ? "A64HookFunction" : "MSHookFunction";
+            var abiType = comboType.SelectedIndex == (int)Enums.TypeAbi.Arm64 ? "A64HookFunction" : "MSHookFunction";
             foreach (var list in OffsetPatch.FunctionList)
             {
                 var cheatName = list.CheatName.RemoveSuperSpecialCharacters().ReplaceNumCharacters();
-                
+
                 switch (list.FunctionType)
                 {
                     case Enums.FunctionType.Toggle:

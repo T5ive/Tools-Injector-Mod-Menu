@@ -46,7 +46,7 @@ namespace Tools_Injector_Mod_Menu
                 {
                     chkField.Checked = hookInfo.Field;
                     txtOffset.Text = hookInfo.Offset;
-                    comboType.SelectedIndex = (int) hookInfo.Type;
+                    comboType.SelectedIndex = (int)hookInfo.Type;
                 }
             }
 
@@ -94,16 +94,18 @@ namespace Tools_Injector_Mod_Menu
                 MyMessage.MsgShowError("Error" + exception.Message);
             }
         }
-        private  HookInfo HookValue()
+
+        private HookInfo HookValue()
         {
             return new HookInfo
             {
                 Field = chkField.Checked,
-                Type = (Enums.Type) comboType.SelectedIndex,
+                Type = (Enums.Type)comboType.SelectedIndex,
                 Offset = txtOffset.Text,
                 Method = null
             };
         }
+
         private void btnClose_Click(object sender, EventArgs e)
         {
             if (!MyMessage.MsgOkCancel("Do you want to close?\n\n" +

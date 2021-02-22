@@ -202,6 +202,7 @@ namespace Tools_Injector_Mod_Menu
             const string specialChar = @"|!#$%&/()=?»«@£§€{};'<>_, ";
             return specialChar.Any(input.Contains);
         }
+
         public static string RemoveSpecialCharacters(this string str)
         {
             var sb = new StringBuilder();
@@ -211,6 +212,7 @@ namespace Tools_Injector_Mod_Menu
             }
             return sb.ToString();
         }
+
         public static string RemoveMiniSpecialCharacters(this string str)
         {
             var sb = new StringBuilder();
@@ -220,6 +222,7 @@ namespace Tools_Injector_Mod_Menu
             }
             return sb.ToString();
         }
+
         public static string RemoveSuperSpecialCharacters(this string str)
         {
             var sb = new StringBuilder();
@@ -234,8 +237,9 @@ namespace Tools_Injector_Mod_Menu
         {
             return str.Replace("0", "Zero").Replace("1", "One").Replace("2", "Two").Replace("3", "Three")
                 .Replace("4", "Four").Replace("5", "Five").Replace("6", "Six").Replace("7", "Seven")
-                .Replace("8", "Eight").Replace("9", "Nine").Replace("-","Dash").Replace(".","Dot").Replace(",","Comma");
+                .Replace("8", "Eight").Replace("9", "Nine").Replace("-", "Dash").Replace(".", "Dot").Replace(",", "Comma");
         }
+
         #endregion Old
     }
 }

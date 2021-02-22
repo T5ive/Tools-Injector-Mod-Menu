@@ -8,6 +8,6 @@ namespace Tools_Injector_Mod_Menu
         public static string Category, SeekBar, Offset;
         public static bool Field;
         public static Enums.Type Type = Enums.Type.Empty;
-        public static List<(string,string)> Method;
+        public static List<(string, string)> Method;
     }
 }

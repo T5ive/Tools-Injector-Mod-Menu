@@ -7,6 +7,7 @@ namespace Tools_Injector_Mod_Menu
     public partial class FrmSeekBar : Form
     {
         private readonly int _index;
+
         public FrmSeekBar(int index = 0)
         {
             InitializeComponent();
