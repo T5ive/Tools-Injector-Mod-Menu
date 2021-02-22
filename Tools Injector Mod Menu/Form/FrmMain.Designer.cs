@@ -368,7 +368,6 @@ namespace Tools_Injector_Mod_Menu
             this.btnSaveSettings.Depth = 0;
             this.btnSaveSettings.DrawShadows = true;
             this.btnSaveSettings.HighEmphasis = true;
-            this.btnSaveSettings.Icon = global::Tools_Injector_Mod_Menu.Properties.Resources.save_24;
             this.btnSaveSettings.Location = new System.Drawing.Point(399, 435);
             this.btnSaveSettings.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
             this.btnSaveSettings.MouseState = MaterialSkin.MouseState.HOVER;
@@ -415,7 +414,6 @@ namespace Tools_Injector_Mod_Menu
             this.btnBrowseNDK.Depth = 0;
             this.btnBrowseNDK.DrawShadows = true;
             this.btnBrowseNDK.HighEmphasis = true;
-            this.btnBrowseNDK.Icon = global::Tools_Injector_Mod_Menu.Properties.Resources.folder_7_24;
             this.btnBrowseNDK.Location = new System.Drawing.Point(6, 65);
             this.btnBrowseNDK.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
             this.btnBrowseNDK.MouseState = MaterialSkin.MouseState.HOVER;
@@ -961,7 +959,6 @@ namespace Tools_Injector_Mod_Menu
             this.btnSaveCheat.Depth = 0;
             this.btnSaveCheat.DrawShadows = true;
             this.btnSaveCheat.HighEmphasis = true;
-            this.btnSaveCheat.Icon = null;
             this.btnSaveCheat.Location = new System.Drawing.Point(179, 74);
             this.btnSaveCheat.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
             this.btnSaveCheat.MouseState = MaterialSkin.MouseState.HOVER;
@@ -981,7 +978,6 @@ namespace Tools_Injector_Mod_Menu
             this.btnLoadCheat.Depth = 0;
             this.btnLoadCheat.DrawShadows = true;
             this.btnLoadCheat.HighEmphasis = true;
-            this.btnLoadCheat.Icon = null;
             this.btnLoadCheat.Location = new System.Drawing.Point(7, 74);
             this.btnLoadCheat.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
             this.btnLoadCheat.MouseState = MaterialSkin.MouseState.HOVER;
@@ -1001,7 +997,6 @@ namespace Tools_Injector_Mod_Menu
             this.btnCompile.Depth = 0;
             this.btnCompile.DrawShadows = true;
             this.btnCompile.HighEmphasis = true;
-            this.btnCompile.Icon = null;
             this.btnCompile.Location = new System.Drawing.Point(179, 28);
             this.btnCompile.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
             this.btnCompile.MouseState = MaterialSkin.MouseState.HOVER;
@@ -1547,7 +1542,6 @@ namespace Tools_Injector_Mod_Menu
             this.btnClearLog.Depth = 0;
             this.btnClearLog.DrawShadows = true;
             this.btnClearLog.HighEmphasis = true;
-            this.btnClearLog.Icon = null;
             this.btnClearLog.Location = new System.Drawing.Point(18, 396);
             this.btnClearLog.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
             this.btnClearLog.MouseState = MaterialSkin.MouseState.HOVER;
@@ -1567,7 +1561,6 @@ namespace Tools_Injector_Mod_Menu
             this.btnSaveLog.Depth = 0;
             this.btnSaveLog.DrawShadows = true;
             this.btnSaveLog.HighEmphasis = true;
-            this.btnSaveLog.Icon = null;
             this.btnSaveLog.Location = new System.Drawing.Point(124, 396);
             this.btnSaveLog.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
             this.btnSaveLog.MouseState = MaterialSkin.MouseState.HOVER;
