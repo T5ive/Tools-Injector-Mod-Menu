@@ -1463,10 +1463,11 @@ void Update{cheatName}(void *instance) {{
         private string HackThread()
         {
             var result = "";
+            var abiType = comboType.SelectedIndex == (int) Enums.TypeAbi.Arm64 ? "A64HookFunction" : "MSHookFunction";
             foreach (var list in OffsetPatch.FunctionList)
             {
                 var cheatName = list.CheatName.RemoveSuperSpecialCharacters().ReplaceNumCharacters();
-
+                
                 switch (list.FunctionType)
                 {
                     case Enums.FunctionType.Toggle:
@@ -1482,7 +1483,7 @@ void Update{cheatName}(void *instance) {{
                     case Enums.FunctionType.ButtonOnOffHook:
                         {
                             result = list.OffsetList.Aggregate(result, (current, info) => current +
-                                $@"MSHookFunction((void *) getAbsoluteAddress(targetLibName, string2Offset(OBFUSCATE_KEY(""{info.Offset}"", 't'))),
+                                $@"{abiType}((void *) getAbsoluteAddress(targetLibName, string2Offset(OBFUSCATE_KEY(""{info.Offset}"", 't'))),
                             (void *) Update{cheatName}, (void **) &old_{cheatName});{Environment.NewLine}    ");
                             continue;
                         }
@@ -1492,16 +1493,16 @@ void Update{cheatName}(void *instance) {{
                     case Enums.FunctionType.ButtonOnOffInputValue:
                         {
                             result = list.OffsetList.Aggregate(result, (current, info) => current +
-                                $@"MSHookFunction((void *) getAbsoluteAddress(targetLibName, string2Offset(OBFUSCATE_KEY(""{info.Offset}"", 't'))),
+                                $@"{abiType}((void *) getAbsoluteAddress(targetLibName, string2Offset(OBFUSCATE_KEY(""{info.Offset}"", 't'))),
                             (void *) Update{cheatName}, (void **) &old_{cheatName});{Environment.NewLine}    ");
                             continue;
                         }
                     case Enums.FunctionType.Button:
                         {
-                            var args = GetButtonArgs(list.HookInfo.Method);
+                            var args = GetButtonType(list.HookInfo.Method);
                             result += $"{cheatName}Method = (void(*)(void *{args}))getAbsoluteAddress(targetLibName, {list.HookInfo.Offset});{Environment.NewLine}";
                             result = list.OffsetList.Aggregate(result, (current, info) => current +
-                                $@"    MSHookFunction((void *) getAbsoluteAddress(targetLibName, string2Offset(OBFUSCATE_KEY(""{info.Offset}"", 't'))),
+                                $@"    {abiType}((void *) getAbsoluteAddress(targetLibName, string2Offset(OBFUSCATE_KEY(""{info.Offset}"", 't'))),
                             (void *) Update{cheatName}, (void **) &old_{cheatName});{Environment.NewLine}    ");
                             continue;
                         }
@@ -1553,6 +1554,16 @@ void Update{cheatName}(void *instance) {{
             for (var i = 0; i < method.Count; i++)
             {
                 result += $", {method[i].Item1} _{method[i].Item1}{i}";
+            }
+            return result;
+        }
+
+        private static string GetButtonType(List<(string, string)> method)
+        {
+            var result = "";
+            for (var i = 0; i < method.Count; i++)
+            {
+                result += $", {method[i].Item1}";
             }
             return result;
         }
@@ -1821,6 +1832,9 @@ void Update{cheatName}(void *instance) {{
         {
             switch (type)
             {
+                case Enums.Type.Bool:
+                    return "bool";
+
                 case Enums.Type.Int:
                     return "int";
 
