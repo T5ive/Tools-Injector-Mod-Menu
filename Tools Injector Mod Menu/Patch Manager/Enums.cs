@@ -12,6 +12,7 @@
 
         public enum Type
         {
+            Bool,
             Int,
             Long,
             Float,

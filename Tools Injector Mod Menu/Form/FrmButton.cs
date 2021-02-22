@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
+using Tools_Injector_Mod_Menu.Patch_Manager;
 
 namespace Tools_Injector_Mod_Menu
 {
@@ -34,8 +35,8 @@ namespace Tools_Injector_Mod_Menu
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
-            if (Utility.IsEmpty(txtType) || Utility.IsEmpty(txtValue)) return;
-            var items = new ListViewItem(txtType.Text);
+            if (Utility.IsEmpty(txtValue)) return;
+            var items = new ListViewItem(comboType.Text);
             items.SubItems.Add(txtValue.Text);
             listView1.Items.Add(items);
         }
@@ -88,6 +89,22 @@ namespace Tools_Injector_Mod_Menu
                                        "Click \"OK\" to confirm.\n\n" +
                                        "Click \"Cancel\" to cancel.")) return;
             Dispose();
+        }
+
+        private void comboType_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            switch (comboType.SelectedIndex)
+            {
+                case (int) Enums.Type.Bool:
+                    txtValue.Hint = "true";
+                    break;
+                case (int)Enums.Type.Int:
+                case (int)Enums.Type.Long:
+                case (int)Enums.Type.Float:
+                case (int)Enums.Type.Double:
+                    txtValue.Hint = "seekbar, inputvale";
+                    break;
+            }
         }
     }
 }
