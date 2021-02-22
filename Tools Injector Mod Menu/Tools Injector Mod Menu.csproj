@@ -157,7 +157,6 @@
     <None Include="Resources\home-7-24.png" />
     <None Include="Resources\package-2-24.png" />
     <None Include="Resources\moderator-24.png" />
-    <None Include="Resources\search-3-24.png" />
     <None Include="Resources\save-24.png" />
     <None Include="Resources\folder-7-24.png" />
     <Content Include="T5 - 32.ico" />

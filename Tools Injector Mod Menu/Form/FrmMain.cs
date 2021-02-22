@@ -1653,6 +1653,7 @@ void Update{cheatName}(void *instance) {{
             {
                 MyMessage.MsgShowError("Failed to Compile");
                 WriteOutput("[Error:020] Failed to Compile", Color.Red);
+                SaveLogs();
                 FormState(State.Idle);
                 return;
             }
@@ -1701,9 +1702,15 @@ void Update{cheatName}(void *instance) {{
 
         private void btnSaveLog_Click(object sender, EventArgs e)
         {
+            SaveLogs();
+        }
+
+        private void SaveLogs()
+        {
             var date = DateTime.Now.ToString("yyyy-M-d HH-mm-ss");
             var path = $"{AppPath}\\Logs\\{date}.txt";
             File.WriteAllText(path, rbLog.Text);
+            WriteOutput($"[Logs] Log saved successfully. {path}", Color.Gold);
         }
 
         private static void AppendText(RichTextBox box, string text, Color color)
