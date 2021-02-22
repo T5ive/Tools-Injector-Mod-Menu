@@ -36,26 +36,26 @@ namespace Tools_Injector_Mod_Menu
             this.btnAdd = new MaterialSkin.Controls.MaterialButton();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.txtType = new MaterialSkin.Controls.MaterialTextBox();
             this.txtValue = new MaterialSkin.Controls.MaterialTextBox();
             this.listView1 = new System.Windows.Forms.ListView();
             this.colType = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.colValue = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.label3 = new System.Windows.Forms.Label();
             this.txtOffset = new MaterialSkin.Controls.MaterialTextBox();
+            this.comboType = new MaterialSkin.Controls.MaterialComboBox();
             this.materialCard1.SuspendLayout();
             this.SuspendLayout();
             // 
             // materialCard1
             // 
             this.materialCard1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.materialCard1.Controls.Add(this.comboType);
             this.materialCard1.Controls.Add(this.btnClose);
             this.materialCard1.Controls.Add(this.btnSave);
             this.materialCard1.Controls.Add(this.btnRemove);
             this.materialCard1.Controls.Add(this.btnAdd);
             this.materialCard1.Controls.Add(this.label2);
             this.materialCard1.Controls.Add(this.label1);
-            this.materialCard1.Controls.Add(this.txtType);
             this.materialCard1.Controls.Add(this.txtValue);
             this.materialCard1.Controls.Add(this.listView1);
             this.materialCard1.Controls.Add(this.label3);
@@ -171,22 +171,6 @@ namespace Tools_Injector_Mod_Menu
             this.label1.TabIndex = 50;
             this.label1.Text = "Type: ";
             // 
-            // txtType
-            // 
-            this.txtType.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.txtType.Depth = 0;
-            this.txtType.Font = new System.Drawing.Font("Roboto", 12F);
-            this.txtType.Hint = "bool";
-            this.txtType.Location = new System.Drawing.Point(76, 196);
-            this.txtType.MaxLength = 50;
-            this.txtType.MouseState = MaterialSkin.MouseState.OUT;
-            this.txtType.Multiline = false;
-            this.txtType.Name = "txtType";
-            this.txtType.Size = new System.Drawing.Size(150, 36);
-            this.txtType.TabIndex = 49;
-            this.txtType.Text = "";
-            this.txtType.UseTallSize = false;
-            // 
             // txtValue
             // 
             this.txtValue.BorderStyle = System.Windows.Forms.BorderStyle.None;
@@ -256,6 +240,36 @@ namespace Tools_Injector_Mod_Menu
             this.txtOffset.Text = "";
             this.txtOffset.UseTallSize = false;
             // 
+            // comboType
+            // 
+            this.comboType.AutoResize = false;
+            this.comboType.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.comboType.Depth = 0;
+            this.comboType.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
+            this.comboType.DropDownHeight = 118;
+            this.comboType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboType.DropDownWidth = 121;
+            this.comboType.Enabled = false;
+            this.comboType.Font = new System.Drawing.Font("Roboto Medium", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
+            this.comboType.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.comboType.FormattingEnabled = true;
+            this.comboType.IntegralHeight = false;
+            this.comboType.ItemHeight = 29;
+            this.comboType.Items.AddRange(new object[] {
+            "bool",
+            "int",
+            "long",
+            "float",
+            "double"});
+            this.comboType.Location = new System.Drawing.Point(76, 197);
+            this.comboType.MaxDropDownItems = 4;
+            this.comboType.MouseState = MaterialSkin.MouseState.OUT;
+            this.comboType.Name = "comboType";
+            this.comboType.Size = new System.Drawing.Size(150, 35);
+            this.comboType.StartIndex = 0;
+            this.comboType.TabIndex = 54;
+            this.comboType.UseTallSize = false;
+            // 
             // FrmButton
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -285,9 +299,9 @@ namespace Tools_Injector_Mod_Menu
         private System.Windows.Forms.ColumnHeader colValue;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
-        private MaterialSkin.Controls.MaterialTextBox txtType;
         private MaterialSkin.Controls.MaterialTextBox txtValue;
         private MaterialSkin.Controls.MaterialButton btnAdd;
         private MaterialSkin.Controls.MaterialButton btnRemove;
+        private MaterialSkin.Controls.MaterialComboBox comboType;
     }
 }
