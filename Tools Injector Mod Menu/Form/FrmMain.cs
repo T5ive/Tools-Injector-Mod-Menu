@@ -1649,7 +1649,7 @@ void Update{cheatName}(void *instance) {{
 
         private void compilerWorker_RunWorkerCompleted(object sender, System.ComponentModel.RunWorkerCompletedEventArgs e)
         {
-            if (_compile > 0)
+            if (_compile > 0 && !_mySettings.debugMode)
             {
                 MyMessage.MsgShowError("Failed to Compile");
                 WriteOutput("[Error:020] Failed to Compile", Color.Red);

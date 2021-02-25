@@ -6,6 +6,7 @@ namespace Tools_Injector_Mod_Menu
     //https://stackoverflow.com/a/6541739/8902883
     public class MySettings : AppSettings<MySettings>
     {
+        public bool debugMode;
         public string txtLibName;
         public string txtToast;
         public string txtName;
