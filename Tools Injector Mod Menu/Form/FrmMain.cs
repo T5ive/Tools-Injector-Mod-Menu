@@ -182,7 +182,6 @@ namespace Tools_Injector_Mod_Menu
             {
                 if (!Utility.IsEmpty(ImageCode, false))
                 {
-                    //var bytes = Convert.FromBase64String(ImageCode);
                     picImg.Image = Base64ToImage(ImageCode);
                 }
             }
@@ -1886,7 +1885,7 @@ void Update{cheatName}(void *instance) {{
             }
         }
 
-        //https://stackoverflow.com/a/45673201/8902883
+        // https://stackoverflow.com/a/45673201/8902883
         private static string ImageToBase64(Image image, ImageFormat format)
         {
             using (MemoryStream ms = new MemoryStream())
@@ -1908,7 +1907,7 @@ void Update{cheatName}(void *instance) {{
         }
 
         // https://stackoverflow.com/a/24651073/8902883
-        private static Image CompressImage(string fileName, int newQuality, ImageFormat imgFormat)   // set quality to 1-100, eg 50
+        private static Image CompressImage(string fileName, int newQuality, ImageFormat imgFormat)
         {
             using (var image = Image.FromFile(fileName))
             using (Image memImage = new Bitmap(image))
