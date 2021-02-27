@@ -124,8 +124,6 @@ namespace Tools_Injector_Mod_Menu
             return str;
         }
 
-        #region Old
-
         public static bool IsEmpty(Dictionary<int, OffsetInfo> offsetDict)
         {
             return offsetDict.Count == 0;
@@ -239,7 +237,5 @@ namespace Tools_Injector_Mod_Menu
                 .Replace("4", "Four").Replace("5", "Five").Replace("6", "Six").Replace("7", "Seven")
                 .Replace("8", "Eight").Replace("9", "Nine").Replace("-", "Dash").Replace(".", "Dot").Replace(",", "Comma");
         }
-
-        #endregion Old
     }
 }

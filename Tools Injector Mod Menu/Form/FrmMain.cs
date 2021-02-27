@@ -14,7 +14,9 @@ using System.Reflection;
 using System.Windows.Forms;
 using System.Xml;
 using System.Xml.Serialization;
+using Octokit;
 using Tools_Injector_Mod_Menu.Patch_Manager;
+using Application = System.Windows.Forms.Application;
 
 namespace Tools_Injector_Mod_Menu
 {
@@ -1717,8 +1719,9 @@ void Update{cheatName}(void *instance) {{
             Process.Start(_tempPathMenu);
         }
 
-        private void btnUpdate_Click(object sender, EventArgs e)
+        private async void btnUpdate_Click(object sender, EventArgs e)
         {
+            await UpdateService.CheckGitHubNewerVersion();
         }
 
         private void btnClearLog_Click(object sender, EventArgs e)

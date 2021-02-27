@@ -836,6 +836,7 @@ namespace Tools_Injector_Mod_Menu
             this.groupBox13.Size = new System.Drawing.Size(356, 277);
             this.groupBox13.TabIndex = 4;
             this.groupBox13.TabStop = false;
+            this.groupBox13.Text = "Function List";
             // 
             // listView1
             // 
