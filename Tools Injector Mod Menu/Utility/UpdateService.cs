@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Tools_Injector_Mod_Menu
 {
-    public class UpdateService
+    public static class UpdateService
     {
         public static async Task CheckGitHubNewerVersion()
         {
@@ -23,6 +23,10 @@ namespace Tools_Injector_Mod_Menu
                 {
                     Process.Start(url);
                 }
+            }
+            else
+            {
+                MyMessage.MsgShowInfo("You are using the latest version");
             }
         }
     }
