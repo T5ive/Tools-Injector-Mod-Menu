@@ -51,7 +51,6 @@ namespace Tools_Injector_Mod_Menu
             this.comboMenu = new MaterialSkin.Controls.MaterialComboBox();
             this.materialCard4 = new MaterialSkin.Controls.MaterialCard();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
-            this.picImg = new System.Windows.Forms.PictureBox();
             this.btnImage = new MaterialSkin.Controls.MaterialButton();
             this.label8 = new System.Windows.Forms.Label();
             this.txtEndCredit = new MaterialSkin.Controls.MaterialTextBox();
@@ -153,6 +152,11 @@ namespace Tools_Injector_Mod_Menu
             this.btnOnCreate = new MaterialSkin.Controls.MaterialButton();
             this.menuIconList = new System.Windows.Forms.ImageList(this.components);
             this.compilerWorker = new System.ComponentModel.BackgroundWorker();
+            this.btnImageCode = new MaterialSkin.Controls.MaterialButton();
+            this.label17 = new System.Windows.Forms.Label();
+            this.label18 = new System.Windows.Forms.Label();
+            this.picImg = new System.Windows.Forms.PictureBox();
+            this.label19 = new System.Windows.Forms.Label();
             this.materialTabControl1.SuspendLayout();
             this.tabMain.SuspendLayout();
             this.materialCard5.SuspendLayout();
@@ -163,7 +167,6 @@ namespace Tools_Injector_Mod_Menu
             this.groupBox6.SuspendLayout();
             this.materialCard4.SuspendLayout();
             this.groupBox4.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.picImg)).BeginInit();
             this.materialCard3.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.tabMenuPatch.SuspendLayout();
@@ -190,6 +193,7 @@ namespace Tools_Injector_Mod_Menu
             this.groupBox15.SuspendLayout();
             this.materialCard8.SuspendLayout();
             this.groupBox5.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.picImg)).BeginInit();
             this.SuspendLayout();
             // 
             // materialTabControl1
@@ -508,6 +512,10 @@ namespace Tools_Injector_Mod_Menu
             // 
             // groupBox4
             // 
+            this.groupBox4.Controls.Add(this.label19);
+            this.groupBox4.Controls.Add(this.label18);
+            this.groupBox4.Controls.Add(this.label17);
+            this.groupBox4.Controls.Add(this.btnImageCode);
             this.groupBox4.Controls.Add(this.picImg);
             this.groupBox4.Controls.Add(this.btnImage);
             this.groupBox4.Controls.Add(this.label8);
@@ -528,16 +536,6 @@ namespace Tools_Injector_Mod_Menu
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Mod Settings";
             // 
-            // picImg
-            // 
-            this.picImg.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.picImg.Location = new System.Drawing.Point(100, 193);
-            this.picImg.Name = "picImg";
-            this.picImg.Size = new System.Drawing.Size(65, 65);
-            this.picImg.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.picImg.TabIndex = 20;
-            this.picImg.TabStop = false;
-            // 
             // btnImage
             // 
             this.btnImage.AutoSize = false;
@@ -546,7 +544,7 @@ namespace Tools_Injector_Mod_Menu
             this.btnImage.DrawShadows = true;
             this.btnImage.HighEmphasis = true;
             this.btnImage.Icon = null;
-            this.btnImage.Location = new System.Drawing.Point(172, 211);
+            this.btnImage.Location = new System.Drawing.Point(277, 195);
             this.btnImage.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
             this.btnImage.MouseState = MaterialSkin.MouseState.HOVER;
             this.btnImage.Name = "btnImage";
@@ -2007,6 +2005,63 @@ namespace Tools_Injector_Mod_Menu
             this.compilerWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.compilerWorker_DoWork);
             this.compilerWorker.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.compilerWorker_RunWorkerCompleted);
             // 
+            // btnImageCode
+            // 
+            this.btnImageCode.AutoSize = false;
+            this.btnImageCode.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.btnImageCode.Depth = 0;
+            this.btnImageCode.DrawShadows = true;
+            this.btnImageCode.HighEmphasis = true;
+            this.btnImageCode.Icon = null;
+            this.btnImageCode.Location = new System.Drawing.Point(277, 228);
+            this.btnImageCode.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
+            this.btnImageCode.MouseState = MaterialSkin.MouseState.HOVER;
+            this.btnImageCode.Name = "btnImageCode";
+            this.btnImageCode.Size = new System.Drawing.Size(30, 30);
+            this.btnImageCode.TabIndex = 21;
+            this.btnImageCode.Text = "+";
+            this.btnImageCode.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
+            this.btnImageCode.UseAccentColor = false;
+            this.btnImageCode.UseVisualStyleBackColor = true;
+            this.btnImageCode.Click += new System.EventHandler(this.btnImageCode_Click);
+            // 
+            // label17
+            // 
+            this.label17.AutoSize = true;
+            this.label17.Location = new System.Drawing.Point(171, 201);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(99, 18);
+            this.label17.TabIndex = 22;
+            this.label17.Text = "Select Image:";
+            // 
+            // label18
+            // 
+            this.label18.AutoSize = true;
+            this.label18.Location = new System.Drawing.Point(171, 234);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(98, 18);
+            this.label18.TabIndex = 23;
+            this.label18.Text = "Input Base64:";
+            // 
+            // picImg
+            // 
+            this.picImg.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.picImg.Location = new System.Drawing.Point(100, 193);
+            this.picImg.Name = "picImg";
+            this.picImg.Size = new System.Drawing.Size(65, 65);
+            this.picImg.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.picImg.TabIndex = 20;
+            this.picImg.TabStop = false;
+            // 
+            // label19
+            // 
+            this.label19.AutoSize = true;
+            this.label19.Location = new System.Drawing.Point(207, 217);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(23, 18);
+            this.label19.TabIndex = 24;
+            this.label19.Text = "Or";
+            // 
             // FrmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -2036,7 +2091,6 @@ namespace Tools_Injector_Mod_Menu
             this.materialCard4.ResumeLayout(false);
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.picImg)).EndInit();
             this.materialCard3.ResumeLayout(false);
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
@@ -2068,6 +2122,7 @@ namespace Tools_Injector_Mod_Menu
             this.groupBox15.PerformLayout();
             this.materialCard8.ResumeLayout(false);
             this.groupBox5.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.picImg)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -2196,5 +2251,9 @@ namespace Tools_Injector_Mod_Menu
         private System.Windows.Forms.ColumnHeader colFieldOffset;
         private System.Windows.Forms.ColumnHeader colType;
         private System.Windows.Forms.ColumnHeader colField;
+        private System.Windows.Forms.Label label18;
+        private System.Windows.Forms.Label label17;
+        private MaterialSkin.Controls.MaterialButton btnImageCode;
+        private System.Windows.Forms.Label label19;
     }
 }

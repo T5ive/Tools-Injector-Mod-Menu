@@ -96,6 +96,12 @@
     <Compile Include="Form\FrmToggleHook.Designer.cs">
       <DependentUpon>FrmToggleHook.cs</DependentUpon>
     </Compile>
+    <Compile Include="Form\FrmImageText.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form\FrmImageText.Designer.cs">
+      <DependentUpon>FrmImageText.cs</DependentUpon>
+    </Compile>
     <Compile Include="Utility\AppSettings.cs" />
     <Compile Include="Utility\MyMessage.cs" />
     <Compile Include="Patch Manager\Enums.cs" />
@@ -124,6 +130,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Form\FrmToggleHook.resx">
       <DependentUpon>FrmToggleHook.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form\FrmImageText.resx">
+      <DependentUpon>FrmImageText.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

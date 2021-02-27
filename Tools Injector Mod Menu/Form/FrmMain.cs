@@ -14,7 +14,6 @@ using System.Reflection;
 using System.Windows.Forms;
 using System.Xml;
 using System.Xml.Serialization;
-using Octokit;
 using Tools_Injector_Mod_Menu.Patch_Manager;
 using Application = System.Windows.Forms.Application;
 
@@ -233,34 +232,16 @@ namespace Tools_Injector_Mod_Menu
         {
             var openFile = new OpenFileDialog()
             {
-                Filter = "Image files (*.jpg, *.jpeg, *.jpe, *.png *.gif *.bmp) | *.jpg; *.jpeg; *.jpe; *.png; *.gif; *.bmp",
+                Filter = "Image files (*.jpg, *.jpeg, *.jpe *.png) | *.jpg; *.jpeg; *.jpe; *.png;",
                 Title = Text,
-                DefaultExt = ".png"
+                DefaultExt = ".jpg"
             };
             if (openFile.ShowDialog() == DialogResult.OK)
             {
                 try
                 {
-                    var imgFormat = ImageFormat.Jpeg;
-                    switch (Path.GetExtension(openFile.FileName))
-                    {
-                        case ".png":
-                            imgFormat = ImageFormat.Png;
-                            break;
-                        case ".jpg":
-                        case ".jpeg":
-                        case ".jpe":
-                            imgFormat = ImageFormat.Jpeg;
-                            break;
-                        case ".gif":
-                            imgFormat = ImageFormat.Gif;
-                            break;
-                        case ".bmp":
-                            imgFormat = ImageFormat.Bmp;
-                            break;
-                    }
-
-                    ImageCode = ImageToBase64(CompressImage(openFile.FileName, 50, imgFormat), imgFormat);
+                    var imgFormat = Path.GetExtension(openFile.FileName) == ".png" ? ImageFormat.Png : ImageFormat.Jpeg;
+                    ImageCode = ImageToBase64(CompressImage(openFile.FileName, 1), imgFormat);
                     LoadImg();
                 }
                 catch
@@ -268,8 +249,14 @@ namespace Tools_Injector_Mod_Menu
                     //
                 }
             }
+        }
 
-           
+        private void btnImageCode_Click(object sender, EventArgs e)
+        {
+            var frmImage = new FrmImageText();
+            frmImage.ShowDialog();
+            frmImage.Dispose();
+            LoadImg();
         }
 
         private void btnBrowseNDK_Click(object sender, EventArgs e)
@@ -323,7 +310,6 @@ namespace Tools_Injector_Mod_Menu
                 WriteOutput("[Error:003] " + exception.Message, Color.Red);
             }
         }
-        
 
         #endregion Main Page
 
@@ -1889,70 +1875,51 @@ void Update{cheatName}(void *instance) {{
         }
 
         // https://stackoverflow.com/a/45673201/8902883
-        private static string ImageToBase64(Image image, ImageFormat format)
+        private static string ImageToBase64(Image image, ImageFormat imageFormat)
         {
-            using (MemoryStream ms = new MemoryStream())
-            {
-                image.Save(ms, format);
-                var imageBytes = ms.ToArray();
-                return Convert.ToBase64String(imageBytes);
-            }
+            using var ms = new MemoryStream();
+            image.Save(ms, imageFormat);
+            var imageBytes = ms.ToArray();
+            return Convert.ToBase64String(imageBytes);
         }
 
         private static Image Base64ToImage(string base64String)
         {
             var imageBytes = Convert.FromBase64String(base64String);
-            using (var ms = new MemoryStream(imageBytes, 0, imageBytes.Length))
-            {
-                ms.Write(imageBytes, 0, imageBytes.Length);
-                return Image.FromStream(ms, true);
-            }
+            using var ms = new MemoryStream(imageBytes, 0, imageBytes.Length);
+            ms.Write(imageBytes, 0, imageBytes.Length);
+            return Image.FromStream(ms, true);
+        }
+
+        private static string GetMimeType(string fileName)
+        {
+            var mimeType = "application/unknown";
+            var ext = Path.GetExtension(fileName).ToLower();
+            var regKey = Microsoft.Win32.Registry.ClassesRoot.OpenSubKey(ext);
+            if (regKey?.GetValue("Content Type") != null)
+                mimeType = regKey.GetValue("Content Type").ToString();
+            return mimeType;
         }
 
         // https://stackoverflow.com/a/24651073/8902883
-        private static Image CompressImage(string fileName, int newQuality, ImageFormat imgFormat)
+        private static Image CompressImage(string fileName, int newQuality)
         {
-            using (var image = Image.FromFile(fileName))
-            using (Image memImage = new Bitmap(image))
+            using var image = new Bitmap(fileName);
+            using var memImage = new Bitmap(image);
+
+            var myEncoderParameters = new EncoderParameters(1)
             {
-                var type = "";
+                Param = { [0] = new EncoderParameter(Encoder.Quality, newQuality) }
+            };
 
-                if (Equals(imgFormat, ImageFormat.Png))
-                {
-                    type = "image/png";
-                }
-                else if (Equals(imgFormat, ImageFormat.Jpeg))
-                {
-                    type = "image/jpeg";
-                }
-                else if (Equals(imgFormat, ImageFormat.Bmp))
-                {
-                    type = "image/bmp";
-                }
-                else if (Equals(imgFormat, ImageFormat.Gif))
-                {
-                    type = "image/gif";
-                }
-                var myImageCodecInfo = GetEncoderInfo(type);
-                var myEncoder = Encoder.Quality;
-                var myEncoderParameters = new EncoderParameters(1)
-                {
-                    Param = {[0] = new EncoderParameter(myEncoder, newQuality)}
-                };
-
-                var memStream = new MemoryStream();
-                memImage.Save(memStream, myImageCodecInfo, myEncoderParameters);
-                var newImage = Image.FromStream(memStream);
-                var imageAttributes = new ImageAttributes();
-                using (var g = Graphics.FromImage(newImage))
-                {
-                    g.InterpolationMode =
-                        System.Drawing.Drawing2D.InterpolationMode.HighQualityBicubic;  //**
-                    g.DrawImage(newImage, new Rectangle(Point.Empty, newImage.Size), 0, 0,
-                        newImage.Width, newImage.Height, GraphicsUnit.Pixel, imageAttributes);
-                }
-                return newImage;
-            }
+            var memStream = new MemoryStream();
+            memImage.Save(memStream, GetEncoderInfo(GetMimeType(fileName)), myEncoderParameters);
+            var newImage = Image.FromStream(memStream);
+            var imageAttributes = new ImageAttributes();
+            using var g = Graphics.FromImage(newImage);
+            g.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.HighQualityBicubic;
+            g.DrawImage(newImage, new Rectangle(Point.Empty, newImage.Size), 0, 0, newImage.Width, newImage.Height, GraphicsUnit.Pixel, imageAttributes);
+            return newImage;
         }
 
         private static ImageCodecInfo GetEncoderInfo(string mimeType)
