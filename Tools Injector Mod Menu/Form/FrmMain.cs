@@ -254,8 +254,10 @@ namespace Tools_Injector_Mod_Menu
         private void btnImageCode_Click(object sender, EventArgs e)
         {
             var frmImage = new FrmImageText();
+            Hide();
             frmImage.ShowDialog();
             frmImage.Dispose();
+            Show();
             LoadImg();
         }
 
