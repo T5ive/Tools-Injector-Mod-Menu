@@ -52,9 +52,7 @@ namespace Tools_Injector_Mod_Menu
             this.materialCard4 = new MaterialSkin.Controls.MaterialCard();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.picImg = new System.Windows.Forms.PictureBox();
-            this.lbImgCompress = new System.Windows.Forms.LinkLabel();
             this.btnImage = new MaterialSkin.Controls.MaterialButton();
-            this.lbImageEncoder = new System.Windows.Forms.LinkLabel();
             this.label8 = new System.Windows.Forms.Label();
             this.txtEndCredit = new MaterialSkin.Controls.MaterialTextBox();
             this.label9 = new System.Windows.Forms.Label();
@@ -368,6 +366,7 @@ namespace Tools_Injector_Mod_Menu
             this.btnSaveSettings.Depth = 0;
             this.btnSaveSettings.DrawShadows = true;
             this.btnSaveSettings.HighEmphasis = true;
+            this.btnSaveSettings.Icon = null;
             this.btnSaveSettings.Location = new System.Drawing.Point(399, 435);
             this.btnSaveSettings.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
             this.btnSaveSettings.MouseState = MaterialSkin.MouseState.HOVER;
@@ -414,6 +413,7 @@ namespace Tools_Injector_Mod_Menu
             this.btnBrowseNDK.Depth = 0;
             this.btnBrowseNDK.DrawShadows = true;
             this.btnBrowseNDK.HighEmphasis = true;
+            this.btnBrowseNDK.Icon = null;
             this.btnBrowseNDK.Location = new System.Drawing.Point(6, 65);
             this.btnBrowseNDK.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
             this.btnBrowseNDK.MouseState = MaterialSkin.MouseState.HOVER;
@@ -509,9 +509,7 @@ namespace Tools_Injector_Mod_Menu
             // groupBox4
             // 
             this.groupBox4.Controls.Add(this.picImg);
-            this.groupBox4.Controls.Add(this.lbImgCompress);
             this.groupBox4.Controls.Add(this.btnImage);
-            this.groupBox4.Controls.Add(this.lbImageEncoder);
             this.groupBox4.Controls.Add(this.label8);
             this.groupBox4.Controls.Add(this.txtEndCredit);
             this.groupBox4.Controls.Add(this.label9);
@@ -540,17 +538,6 @@ namespace Tools_Injector_Mod_Menu
             this.picImg.TabIndex = 20;
             this.picImg.TabStop = false;
             // 
-            // lbImgCompress
-            // 
-            this.lbImgCompress.AutoSize = true;
-            this.lbImgCompress.Location = new System.Drawing.Point(239, 211);
-            this.lbImgCompress.Name = "lbImgCompress";
-            this.lbImgCompress.Size = new System.Drawing.Size(111, 18);
-            this.lbImgCompress.TabIndex = 19;
-            this.lbImgCompress.TabStop = true;
-            this.lbImgCompress.Text = "Compress PNG";
-            this.lbImgCompress.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lbImgCompress_LinkClicked);
-            // 
             // btnImage
             // 
             this.btnImage.AutoSize = false;
@@ -570,17 +557,6 @@ namespace Tools_Injector_Mod_Menu
             this.btnImage.UseAccentColor = false;
             this.btnImage.UseVisualStyleBackColor = true;
             this.btnImage.Click += new System.EventHandler(this.btnImage_Click);
-            // 
-            // lbImageEncoder
-            // 
-            this.lbImageEncoder.AutoSize = true;
-            this.lbImageEncoder.Location = new System.Drawing.Point(242, 240);
-            this.lbImageEncoder.Name = "lbImageEncoder";
-            this.lbImageEncoder.Size = new System.Drawing.Size(108, 18);
-            this.lbImageEncoder.TabIndex = 16;
-            this.lbImageEncoder.TabStop = true;
-            this.lbImageEncoder.Text = "Image Encoder";
-            this.lbImageEncoder.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lbImageEncoder_LinkClicked);
             // 
             // label8
             // 
@@ -959,6 +935,7 @@ namespace Tools_Injector_Mod_Menu
             this.btnSaveCheat.Depth = 0;
             this.btnSaveCheat.DrawShadows = true;
             this.btnSaveCheat.HighEmphasis = true;
+            this.btnSaveCheat.Icon = null;
             this.btnSaveCheat.Location = new System.Drawing.Point(179, 74);
             this.btnSaveCheat.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
             this.btnSaveCheat.MouseState = MaterialSkin.MouseState.HOVER;
@@ -978,6 +955,7 @@ namespace Tools_Injector_Mod_Menu
             this.btnLoadCheat.Depth = 0;
             this.btnLoadCheat.DrawShadows = true;
             this.btnLoadCheat.HighEmphasis = true;
+            this.btnLoadCheat.Icon = null;
             this.btnLoadCheat.Location = new System.Drawing.Point(7, 74);
             this.btnLoadCheat.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
             this.btnLoadCheat.MouseState = MaterialSkin.MouseState.HOVER;
@@ -997,6 +975,7 @@ namespace Tools_Injector_Mod_Menu
             this.btnCompile.Depth = 0;
             this.btnCompile.DrawShadows = true;
             this.btnCompile.HighEmphasis = true;
+            this.btnCompile.Icon = null;
             this.btnCompile.Location = new System.Drawing.Point(179, 28);
             this.btnCompile.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
             this.btnCompile.MouseState = MaterialSkin.MouseState.HOVER;
@@ -1542,6 +1521,7 @@ namespace Tools_Injector_Mod_Menu
             this.btnClearLog.Depth = 0;
             this.btnClearLog.DrawShadows = true;
             this.btnClearLog.HighEmphasis = true;
+            this.btnClearLog.Icon = null;
             this.btnClearLog.Location = new System.Drawing.Point(18, 396);
             this.btnClearLog.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
             this.btnClearLog.MouseState = MaterialSkin.MouseState.HOVER;
@@ -1561,6 +1541,7 @@ namespace Tools_Injector_Mod_Menu
             this.btnSaveLog.Depth = 0;
             this.btnSaveLog.DrawShadows = true;
             this.btnSaveLog.HighEmphasis = true;
+            this.btnSaveLog.Icon = null;
             this.btnSaveLog.Location = new System.Drawing.Point(124, 396);
             this.btnSaveLog.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
             this.btnSaveLog.MouseState = MaterialSkin.MouseState.HOVER;
@@ -2162,7 +2143,6 @@ namespace Tools_Injector_Mod_Menu
         private MaterialSkin.Controls.MaterialButton btnSaveSettings;
         private System.Windows.Forms.Label label8;
         private MaterialSkin.Controls.MaterialTextBox txtEndCredit;
-        private System.Windows.Forms.LinkLabel lbImageEncoder;
         private MaterialSkin.Controls.MaterialButton btnRemoveToast;
         private MaterialSkin.Controls.MaterialButton btnAddToast;
         private System.Windows.Forms.ListBox listToast;
@@ -2211,7 +2191,6 @@ namespace Tools_Injector_Mod_Menu
         private System.Windows.Forms.ColumnHeader colMultiple;
         private MaterialSkin.Controls.MaterialButton btnUpdate;
         private MaterialSkin.Controls.MaterialButton btnImage;
-        private System.Windows.Forms.LinkLabel lbImgCompress;
         private System.Windows.Forms.PictureBox picImg;
         private System.Windows.Forms.ColumnHeader colFieldOffset;
         private System.Windows.Forms.ColumnHeader colType;

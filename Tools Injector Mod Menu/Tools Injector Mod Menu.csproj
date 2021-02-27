@@ -60,12 +60,6 @@
     <Compile Include="Form\FrmButton.Designer.cs">
       <DependentUpon>FrmButton.cs</DependentUpon>
     </Compile>
-    <Compile Include="Form\FrmImageText.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Form\FrmImageText.Designer.cs">
-      <DependentUpon>FrmImageText.cs</DependentUpon>
-    </Compile>
     <Compile Include="Form\FrmSeekBar.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -108,9 +102,6 @@
     <Compile Include="Utility\Values.cs" />
     <EmbeddedResource Include="Form\FrmButton.resx">
       <DependentUpon>FrmButton.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Form\FrmImageText.resx">
-      <DependentUpon>FrmImageText.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Form\FrmSeekBar.resx">
       <DependentUpon>FrmSeekBar.cs</DependentUpon>

@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
+using System.Drawing.Imaging;
 using System.IO;
 using System.IO.Compression;
 using System.Linq;
@@ -181,8 +182,8 @@ namespace Tools_Injector_Mod_Menu
             {
                 if (!Utility.IsEmpty(ImageCode, false))
                 {
-                    var bytes = Convert.FromBase64String(ImageCode);
-                    picImg.Image = ByteToImage(bytes);
+                    //var bytes = Convert.FromBase64String(ImageCode);
+                    picImg.Image = Base64ToImage(ImageCode);
                 }
             }
             catch (Exception exception)
@@ -229,10 +230,45 @@ namespace Tools_Injector_Mod_Menu
 
         private void btnImage_Click(object sender, EventArgs e)
         {
-            var frmImage = new FrmImageText();
-            frmImage.ShowDialog();
-            frmImage.Dispose();
-            LoadImg();
+            var openFile = new OpenFileDialog()
+            {
+                Filter = "Image files (*.jpg, *.jpeg, *.jpe, *.png *.gif *.bmp) | *.jpg; *.jpeg; *.jpe; *.png; *.gif; *.bmp",
+                Title = Text,
+                DefaultExt = ".png"
+            };
+            if (openFile.ShowDialog() == DialogResult.OK)
+            {
+                try
+                {
+                    var imgFormat = ImageFormat.Jpeg;
+                    switch (Path.GetExtension(openFile.FileName))
+                    {
+                        case ".png":
+                            imgFormat = ImageFormat.Png;
+                            break;
+                        case ".jpg":
+                        case ".jpeg":
+                        case ".jpe":
+                            imgFormat = ImageFormat.Jpeg;
+                            break;
+                        case ".gif":
+                            imgFormat = ImageFormat.Gif;
+                            break;
+                        case ".bmp":
+                            imgFormat = ImageFormat.Bmp;
+                            break;
+                    }
+
+                    ImageCode = ImageToBase64(CompressImage(openFile.FileName, 50, imgFormat), imgFormat);
+                    LoadImg();
+                }
+                catch
+                {
+                    //
+                }
+            }
+
+           
         }
 
         private void btnBrowseNDK_Click(object sender, EventArgs e)
@@ -286,16 +322,7 @@ namespace Tools_Injector_Mod_Menu
                 WriteOutput("[Error:003] " + exception.Message, Color.Red);
             }
         }
-
-        private void lbImageEncoder_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
-        {
-            Process.Start("https://codebeautify.org/image-to-base64-converter");
-        }
-
-        private void lbImgCompress_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
-        {
-            Process.Start("https://compresspng.com/");
-        }
+        
 
         #endregion Main Page
 
@@ -1525,7 +1552,7 @@ void Update{cheatName}(void *instance) {{
 
         private static int GetButtonExtra(List<(string, string)> method)
         {
-            for (int i = 0; i < method.Count; i++)
+            for (var i = 0; i < method.Count; i++)
             {
                 if (method[i].Item2.IndexOf("seekbar", StringComparison.OrdinalIgnoreCase) >= 0)
                     return 1;
@@ -1538,7 +1565,7 @@ void Update{cheatName}(void *instance) {{
 
         private static string GetButtonValue(List<(string, string)> method)
         {
-            for (int i = 0; i < method.Count; i++)
+            for (var i = 0; i < method.Count; i++)
             {
                 if (method[i].Item2.IndexOf("seekbar", StringComparison.OrdinalIgnoreCase) >= 0)
                 {
@@ -1859,14 +1886,77 @@ void Update{cheatName}(void *instance) {{
             }
         }
 
-        private static Bitmap ByteToImage(byte[] bytes)
+        //https://stackoverflow.com/a/45673201/8902883
+        private static string ImageToBase64(Image image, ImageFormat format)
         {
-            var mStream = new MemoryStream();
-            var pData = bytes;
-            mStream.Write(pData, 0, Convert.ToInt32(pData.Length));
-            var bm = new Bitmap(mStream, false);
-            mStream.Dispose();
-            return bm;
+            using (MemoryStream ms = new MemoryStream())
+            {
+                image.Save(ms, format);
+                var imageBytes = ms.ToArray();
+                return Convert.ToBase64String(imageBytes);
+            }
+        }
+
+        private static Image Base64ToImage(string base64String)
+        {
+            var imageBytes = Convert.FromBase64String(base64String);
+            using (var ms = new MemoryStream(imageBytes, 0, imageBytes.Length))
+            {
+                ms.Write(imageBytes, 0, imageBytes.Length);
+                return Image.FromStream(ms, true);
+            }
+        }
+
+        // https://stackoverflow.com/a/24651073/8902883
+        private static Image CompressImage(string fileName, int newQuality, ImageFormat imgFormat)   // set quality to 1-100, eg 50
+        {
+            using (var image = Image.FromFile(fileName))
+            using (Image memImage = new Bitmap(image))
+            {
+                var type = "";
+
+                if (Equals(imgFormat, ImageFormat.Png))
+                {
+                    type = "image/png";
+                }
+                else if (Equals(imgFormat, ImageFormat.Jpeg))
+                {
+                    type = "image/jpeg";
+                }
+                else if (Equals(imgFormat, ImageFormat.Bmp))
+                {
+                    type = "image/bmp";
+                }
+                else if (Equals(imgFormat, ImageFormat.Gif))
+                {
+                    type = "image/gif";
+                }
+                var myImageCodecInfo = GetEncoderInfo(type);
+                var myEncoder = Encoder.Quality;
+                var myEncoderParameters = new EncoderParameters(1)
+                {
+                    Param = {[0] = new EncoderParameter(myEncoder, newQuality)}
+                };
+
+                var memStream = new MemoryStream();
+                memImage.Save(memStream, myImageCodecInfo, myEncoderParameters);
+                var newImage = Image.FromStream(memStream);
+                var imageAttributes = new ImageAttributes();
+                using (var g = Graphics.FromImage(newImage))
+                {
+                    g.InterpolationMode =
+                        System.Drawing.Drawing2D.InterpolationMode.HighQualityBicubic;  //**
+                    g.DrawImage(newImage, new Rectangle(Point.Empty, newImage.Size), 0, 0,
+                        newImage.Width, newImage.Height, GraphicsUnit.Pixel, imageAttributes);
+                }
+                return newImage;
+            }
+        }
+
+        private static ImageCodecInfo GetEncoderInfo(string mimeType)
+        {
+            var encoders = ImageCodecInfo.GetImageEncoders();
+            return encoders.FirstOrDefault(ici => ici.MimeType == mimeType);
         }
 
         private bool DeleteAll(string path)
