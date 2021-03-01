@@ -8,7 +8,7 @@
 
 **Only bug reports from Canary builds will be accepted.**
 
-For failed compilation issues, upload both main setting screenshot and logs.
+For failed compilation issues, upload both settings.json and logs.
 
 For Tools Injector Mod Menu issues, Please explain how it went wrong.
 
