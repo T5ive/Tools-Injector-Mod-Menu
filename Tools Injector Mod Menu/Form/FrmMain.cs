@@ -232,7 +232,7 @@ namespace Tools_Injector_Mod_Menu
         {
             var openFile = new OpenFileDialog()
             {
-                Filter = "Image files (*.jpg, *.jpeg, *.jpe *.png) | *.jpg; *.jpeg; *.jpe; *.png;",
+                Filter = "Image files (*.jpg, *.jpeg, *.jpe, *.png) | *.jpg; *.jpeg; *.jpe; *.png;",
                 Title = Text,
                 DefaultExt = ".jpg"
             };
