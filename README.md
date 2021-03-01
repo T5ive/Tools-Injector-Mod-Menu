@@ -22,7 +22,7 @@ For mod not running by Tools Injector (it's not your fault) upload original apk 
 
 # TODO
 
-- Add toggle other type (int, bool)
+- Add toggle other type (int, float)
 - Add hook seekbar and input value without toggle
 - Support button function editor
 
