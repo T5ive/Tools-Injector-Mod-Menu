@@ -4,6 +4,18 @@
 
 # [Wiki](https://github.com/T5ive/Tools-Injector-Mod-Menu/wiki)
 
+# Bug Reports
+
+**Only bug reports from Canary builds will be accepted.**
+
+For failed compilation issues, upload both main setting screenshot and logs.
+
+For Tools Injector Mod Menu issues, Please explain how it went wrong.
+
+For theme issues, upload your theme.
+
+For mod not running by Tools Injector (it's not your fault) upload original apk and method name or address method. (Only accepted for https://github.com/LGLTeam/Android-Mod-Menu work, but my tool doesn't work)
+
 # Known Issue
 
 - Does not work on Windows 7 or 32 bit.
