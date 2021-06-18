@@ -60,29 +60,29 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Form\FrmButton.cs">
-      <SubType>Form</SubType>
+    <Compile Include="Control\CtrlHookButton.cs">
+      <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Form\FrmButton.Designer.cs">
-      <DependentUpon>FrmButton.cs</DependentUpon>
+    <Compile Include="Control\CtrlHookButton.Designer.cs">
+      <DependentUpon>CtrlHookButton.cs</DependentUpon>
     </Compile>
-    <Compile Include="Form\FrmSeekBar.cs">
-      <SubType>Form</SubType>
+    <Compile Include="Control\CtrlHookInput.cs">
+      <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Form\FrmSeekBar.Designer.cs">
-      <DependentUpon>FrmSeekBar.cs</DependentUpon>
+    <Compile Include="Control\CtrlHookInput.Designer.cs">
+      <DependentUpon>CtrlHookInput.cs</DependentUpon>
     </Compile>
-    <Compile Include="Form\FrmFunction.cs">
-      <SubType>Form</SubType>
+    <Compile Include="Control\CtrlHook.cs">
+      <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Form\FrmFunction.Designer.cs">
-      <DependentUpon>FrmFunction.cs</DependentUpon>
+    <Compile Include="Control\CtrlHook.Designer.cs">
+      <DependentUpon>CtrlHook.cs</DependentUpon>
     </Compile>
-    <Compile Include="Form\FrmCategory.cs">
-      <SubType>Form</SubType>
+    <Compile Include="Control\CtrlCategory.cs">
+      <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Form\FrmCategory.Designer.cs">
-      <DependentUpon>FrmCategory.cs</DependentUpon>
+    <Compile Include="Control\CtrlCategory.Designer.cs">
+      <DependentUpon>CtrlCategory.cs</DependentUpon>
     </Compile>
     <Compile Include="Form\FrmMain.cs">
       <SubType>Form</SubType>
@@ -90,17 +90,23 @@
     <Compile Include="Form\FrmMain.Designer.cs">
       <DependentUpon>FrmMain.cs</DependentUpon>
     </Compile>
-    <Compile Include="Form\FrmToggleHook.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Form\FrmToggleHook.Designer.cs">
-      <DependentUpon>FrmToggleHook.cs</DependentUpon>
-    </Compile>
     <Compile Include="Form\FrmImageText.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Form\FrmImageText.Designer.cs">
       <DependentUpon>FrmImageText.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form\FrmAddFunction.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form\FrmAddFunction.Designer.cs">
+      <DependentUpon>FrmAddFunction.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Control\CtrlPatch.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Control\CtrlPatch.Designer.cs">
+      <DependentUpon>CtrlPatch.cs</DependentUpon>
     </Compile>
     <Compile Include="Utility\AppSettings.cs" />
     <Compile Include="Utility\MyMessage.cs" />
@@ -113,26 +119,26 @@
     <Compile Include="Utility\Utility.cs" />
     <Compile Include="Utility\ZipArchiveExtensions.cs" />
     <Compile Include="Utility\Values.cs" />
-    <EmbeddedResource Include="Form\FrmButton.resx">
-      <DependentUpon>FrmButton.cs</DependentUpon>
+    <EmbeddedResource Include="Control\CtrlHookButton.resx">
+      <DependentUpon>CtrlHookButton.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Form\FrmSeekBar.resx">
-      <DependentUpon>FrmSeekBar.cs</DependentUpon>
+    <EmbeddedResource Include="Control\CtrlHookInput.resx">
+      <DependentUpon>CtrlHookInput.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Form\FrmFunction.resx">
-      <DependentUpon>FrmFunction.cs</DependentUpon>
+    <EmbeddedResource Include="Control\CtrlHook.resx">
+      <DependentUpon>CtrlHook.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Form\FrmCategory.resx">
-      <DependentUpon>FrmCategory.cs</DependentUpon>
+    <EmbeddedResource Include="Control\CtrlCategory.resx">
+      <DependentUpon>CtrlCategory.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Form\FrmMain.resx">
       <DependentUpon>FrmMain.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Form\FrmToggleHook.resx">
-      <DependentUpon>FrmToggleHook.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Form\FrmImageText.resx">
       <DependentUpon>FrmImageText.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form\FrmAddFunction.resx">
+      <DependentUpon>FrmAddFunction.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -144,6 +150,9 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="Control\CtrlPatch.resx">
+      <DependentUpon>CtrlPatch.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

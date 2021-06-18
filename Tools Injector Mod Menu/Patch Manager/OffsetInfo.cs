@@ -11,17 +11,32 @@ namespace Tools_Injector_Mod_Menu.Patch_Manager
         [XmlElement(ElementName = "Offset")] public string Offset { get; set; }
 
         [XmlElement(ElementName = "Hex")] public string Hex { get; set; }
+
+        [XmlElement(ElementName = "HookInfo")] public HookInfo HookInfo { get; set; }
+
+        [XmlElement(ElementName = "Name")] public string Name { get; set; }
+
+        [XmlElement(ElementName = "Method")] public (string, string) Method { get; set; }
     }
 
     public class HookInfo
+    {
+        [XmlElement(ElementName = "Type")] public Enums.Type Type { get; set; }
+        
+        [XmlElement(ElementName = "Value")] public string Value { get; set; }
+
+        [XmlElement(ElementName = "Links")] public string Links { get; set; }
+
+        [XmlElement(ElementName = "FieldInfo")] public FieldInfo FieldInfo { get; set; }
+    }
+
+    public class FieldInfo
     {
         [XmlElement(ElementName = "Field")] public bool Field { get; set; }
 
         [XmlElement(ElementName = "Type")] public Enums.Type Type { get; set; }
 
         [XmlElement(ElementName = "Offset")] public string Offset { get; set; }
-
-        [XmlElement(ElementName = "Method")] public List<(string, string)> Method { get; set; }
     }
 
     public class TFiveMenu
@@ -43,11 +58,7 @@ namespace Tools_Injector_Mod_Menu.Patch_Manager
         [XmlElement(ElementName = "CheatName")] public string CheatName { get; set; }
 
         [XmlElement(ElementName = "FunctionType")] public Enums.FunctionType FunctionType { get; set; }
-
-        [XmlElement(ElementName = "FunctionValue")] public string FunctionValue { get; set; }
-
+        
         [XmlElement(ElementName = "MultipleValue")] public bool MultipleValue { get; set; }
-
-        [XmlElement(ElementName = "HookInfo")] public HookInfo HookInfo { get; set; }
     }
 }

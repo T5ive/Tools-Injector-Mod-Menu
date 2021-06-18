@@ -5,9 +5,9 @@ namespace Tools_Injector_Mod_Menu.Patch_Manager
 {
     public static class OffsetPatch
     {
-        public static List<OffsetInfo> OffsetList = new List<OffsetInfo>();
-        public static List<FunctionList> FunctionList = new List<FunctionList>();
-        public static TFiveMenu T5Menu = new TFiveMenu();
+        public static List<OffsetInfo> OffsetList = new();
+        public static List<FunctionList> FunctionList = new();
+        public static TFiveMenu T5Menu = new();
 
         public static void AddOffset(OffsetInfo offsetInfo)
         {
@@ -19,27 +19,36 @@ namespace Tools_Injector_Mod_Menu.Patch_Manager
             offsetList.Add(offsetInfo);
         }
 
-        public static void AddFunction(string cheatName, Enums.FunctionType functionType, string functionValue)
+        public static void AddFunction(string cheatName, Enums.FunctionType functionType)
         {
             FunctionList.Add(new FunctionList
             {
                 CheatName = cheatName,
                 OffsetList = OffsetList.ToList(),
                 FunctionType = functionType,
-                FunctionValue = functionValue
+                MultipleValue = false
             });
         }
 
-        public static void AddFunction(string cheatName = null, List<OffsetInfo> offsetList = null, Enums.FunctionType functionType = Enums.FunctionType.Category, string functionValue = null, bool multipleValue = false, HookInfo hookInfo = null)
+        public static void AddFunction(string cheatName = null, Enums.FunctionType functionType = Enums.FunctionType.Empty, bool multipleValue = false)
+        {
+            FunctionList.Add(new FunctionList
+            {
+                CheatName = cheatName,
+                OffsetList = (OffsetList ?? new List<OffsetInfo>()).ToList(),
+                FunctionType = functionType,
+                MultipleValue = multipleValue
+            });
+        }
+
+        public static void AddFunction(string cheatName = null, List<OffsetInfo> offsetList = null, Enums.FunctionType functionType = Enums.FunctionType.Empty, bool multipleValue = false)
         {
             FunctionList.Add(new FunctionList
             {
                 CheatName = cheatName,
                 OffsetList = (offsetList ?? new List<OffsetInfo>()).ToList(),
                 FunctionType = functionType,
-                FunctionValue = functionValue,
-                MultipleValue = multipleValue,
-                HookInfo = hookInfo
+                MultipleValue = multipleValue
             });
         }
 
@@ -93,6 +102,40 @@ namespace Tools_Injector_Mod_Menu.Patch_Manager
             var offsetList = new List<OffsetInfo>();
             offsetList.AddRange(FunctionList[id].OffsetList);
             return offsetList;
+        }
+
+        public static OffsetInfo OffsetValue()
+        {
+            return new()
+            {
+                OffsetId = 0,
+                Offset = null,
+                Hex = null,
+                HookInfo = HookValue(),
+                Name = null,
+                Method = (null, null)
+            };
+        }
+
+        public static HookInfo HookValue()
+        {
+            return new()
+            {
+                Type = Enums.Type.Empty,
+                Value = null,
+                Links = null,
+                FieldInfo = FieldValue()
+            };
+        }
+
+        public static FieldInfo FieldValue()
+        {
+            return new()
+            {
+                Field = false,
+                Type = Enums.Type.Empty,
+                Offset = null
+            };
         }
     }
 }

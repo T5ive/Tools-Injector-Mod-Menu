@@ -1,8 +1,10 @@
-﻿using MaterialSkin.Controls;
+﻿using System;
+using MaterialSkin.Controls;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Windows.Forms;
 using Tools_Injector_Mod_Menu.Patch_Manager;
 
 namespace Tools_Injector_Mod_Menu
@@ -85,11 +87,41 @@ namespace Tools_Injector_Mod_Menu
 
         public static bool IsEmpty(string str, bool msg = true)
         {
-            if (string.IsNullOrWhiteSpace(str))
+            if (str == null || string.IsNullOrWhiteSpace(str))
             {
                 if (!msg) return true;
 
                 MyMessage.MsgShowWarning($"{nameof(str)} is Empty, Please Check it again!!!");
+                return true;
+            }
+            return false;
+        }
+        public static bool IsEmpty(object str, int line, string name = "", bool msg = true)
+        {
+            if (str == null || string.IsNullOrWhiteSpace(str.ToString()))
+            {
+                if (!msg) return true;
+                MyMessage.MsgShowWarning($"{name} At {line} is Empty, Please Check it again!!!");
+                return true;
+            }
+            return false;
+        }
+        public static bool IsEmpty(object str, int line)
+        {
+            if (str == null || string.IsNullOrWhiteSpace(str.ToString()))
+            {
+                return true;
+            }
+            return false;
+        }
+
+        public static bool IsEmpty(DataGridView dataGrid, bool msg = true)
+        {
+            if (dataGrid.Rows.Count == 0)
+            {
+                if (!msg) return true;
+
+                MyMessage.MsgShowWarning($"{nameof(dataGrid)} is Empty, Please Check it again!!!");
                 return true;
             }
             return false;
@@ -236,6 +268,76 @@ namespace Tools_Injector_Mod_Menu
             return str.Replace("0", "Zero").Replace("1", "One").Replace("2", "Two").Replace("3", "Three")
                 .Replace("4", "Four").Replace("5", "Five").Replace("6", "Six").Replace("7", "Seven")
                 .Replace("8", "Eight").Replace("9", "Nine").Replace("-", "Dash").Replace(".", "Dot").Replace(",", "Comma");
+        }
+
+        public static string FunctionTypeToString(Enums.FunctionType type)
+        {
+            return type switch
+            {
+                Enums.FunctionType.Category => "Category",
+                Enums.FunctionType.HookButton => "Hook: Button",
+                Enums.FunctionType.HookButtonOnOf => "Hook: Button On/Of",
+                Enums.FunctionType.HookInputButton => "Hook: Input Button",
+                Enums.FunctionType.HookInputOnOff => "Hook: Input OnOff",
+                Enums.FunctionType.HookInputValue => "Hook: Input Value",
+                Enums.FunctionType.HookSeekBar => "Hook: SeekBar",
+                Enums.FunctionType.HookSeekBarToggle => "Hook: SeekBar Toggle",
+                Enums.FunctionType.HookToggle => "Hook: Toggle",
+                Enums.FunctionType.PatchButtonOnOff => "Patch: Button On/Off",
+                Enums.FunctionType.PatchLabel => "Patch: Label",
+                Enums.FunctionType.PatchToggle => "Patch: Toggle",
+                _ => "Empty"
+            };
+        }
+        public static Enums.FunctionType StringToFunctionType(string str)
+        {
+            return str switch
+            {
+                "Category" => Enums.FunctionType.Category,
+                "Hook: Button" => Enums.FunctionType.HookButton,
+                "Hook: Button On/Of" => Enums.FunctionType.HookButtonOnOf,
+                "Hook: Input Button" => Enums.FunctionType.HookInputButton,
+                "Hook: Input OnOff" => Enums.FunctionType.HookInputOnOff,
+                "Hook: Input Value" => Enums.FunctionType.HookInputValue,
+                "Hook: SeekBar" => Enums.FunctionType.HookSeekBar,
+                "Hook: SeekBar Toggle" => Enums.FunctionType.HookSeekBarToggle,
+                "Hook: Toggle" => Enums.FunctionType.HookToggle,
+                "Patch: Button On/Off" => Enums.FunctionType.PatchButtonOnOff,
+                "Patch: Label" => Enums.FunctionType.PatchLabel,
+                "Patch: Toggle" => Enums.FunctionType.PatchToggle,
+                _ => Enums.FunctionType.Empty
+            };
+        }
+
+        public static Enums.Type StringToType(string str)
+        {
+            return str switch
+            {
+                "bool" => Enums.Type.Bool,
+                "double" => Enums.Type.Double,
+                "float" => Enums.Type.Float,
+                "int" => Enums.Type.Int,
+                "long" => Enums.Type.Long,
+                "void" => Enums.Type.Void,
+                "links" => Enums.Type.Links,
+                _ => Enums.Type.Empty
+            };
+        }
+
+        public static string TypeToString(Enums.Type type)
+        {
+            return type switch
+            {
+                Enums.Type.Bool => "bool",
+                Enums.Type.Double => "double",
+                Enums.Type.Float => "float",
+                Enums.Type.Int => "int",
+                Enums.Type.Long => "long",
+                Enums.Type.Vector3 => "vector3",
+                Enums.Type.Void => "void",
+                Enums.Type.Links => "links",
+                _ => null
+            };
         }
     }
 }

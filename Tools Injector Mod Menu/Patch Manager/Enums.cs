@@ -13,26 +13,30 @@
         public enum Type
         {
             Bool,
+            Double,
+            Float,
             Int,
             Long,
-            Float,
-            Double,
+            Void,
+            Links,
+            Vector3,
             Empty
         }
 
         public enum FunctionType
         {
-            Toggle, //Patch
-            ToggleHook, // Hook Method
-            ToggleSeekBar, //Hook Method
-            ToggleInputValue, //Hook Method
-            ButtonOnOff, //Patch
-            ButtonOnOffHook, // Hook Method
-            ButtonOnOffSeekBar, //Hook Method
-            ButtonOnOffInputValue, //Hook Method
-            Button, //Hook Method
-            Patch, //Patch
             Category,
+            HookButton,
+            HookButtonOnOf,
+            HookInputButton,
+            HookInputOnOff,
+            HookInputValue,
+            HookSeekBar,
+            HookSeekBarToggle,
+            HookToggle,
+            PatchButtonOnOff,
+            PatchLabel,
+            PatchToggle,
             Empty
         }
     }
