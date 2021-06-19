@@ -897,7 +897,6 @@ namespace Tools_Injector_Mod_Menu
             this.dataList.ContextMenuStrip = this.contextMenuStrip1;
             this.dataList.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataList.Location = new System.Drawing.Point(3, 22);
-            this.dataList.MultiSelect = false;
             this.dataList.Name = "dataList";
             this.dataList.RowHeadersVisible = false;
             this.dataList.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;

@@ -310,7 +310,7 @@ void Update(void *instance) {{
                                     instantValue = $"{newLine}hexPatches.{cheatName}_{offsetInfo.OffsetId}.Modify();{newLine}";
                                 }
                                 result += $@"hexPatches.{cheatName}_{offsetInfo.OffsetId} = MemoryPatch::createWithHex(targetLibName,
-                                            string2Offset(OBFUSCATE_KEY(""{offsetInfo.Offset}"", {RandomString(14)})),
+                                            string2Offset(OBFUSCATE_KEY(""{offsetInfo.Offset}"", {RandomString(12)})),
                                             OBFUSCATE(""{offsetInfo.Hex}""));{instantValue}";
                                 break;
                             }
@@ -343,7 +343,7 @@ void Update(void *instance) {{
                         case Enums.FunctionType.HookInputOnOff:
                             {
                                 result +=
-                                    $@"{abiType}((void *) getAbsoluteAddress(targetLibName, string2Offset(OBFUSCATE_KEY(""{offsetInfo.Offset}"", {RandomString(14)}))),
+                                    $@"{abiType}((void *) getAbsoluteAddress(targetLibName, string2Offset(OBFUSCATE_KEY(""{offsetInfo.Offset}"", {RandomString(12)}))),
                             (void *) Update{cheatName}{id}, (void **) &old_{cheatName}{id});{newLine}    ";
 
                                 break;
@@ -527,11 +527,12 @@ void Update(void *instance) {{
             return 0;
         }
 
+        private static readonly Random RANDOM = new();
         private static string RandomString(int length)
         {
             const string chars = "123456789";
             return new string(Enumerable.Repeat(chars, length)
-                .Select(s => s[new Random().Next(s.Length)]).ToArray());
+                .Select(s => s[RANDOM.Next(s.Length)]).ToArray());
         }
     }
 }

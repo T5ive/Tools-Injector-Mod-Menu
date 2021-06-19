@@ -2,6 +2,7 @@
 using MaterialSkin.Controls;
 using ModernFolderBrowserDialog;
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Imaging;
@@ -123,7 +124,7 @@ namespace Tools_Injector_Mod_Menu
 
             foreach (var t in menuFile)
             {
-                WriteOutput("[Success] Loaded " + t, Color.Green);
+                WriteOutput("[Success] Loaded: " + t, Color.Green);
                 comboMenu.Items.Add(t.Replace(".zip", ""));
             }
         }
@@ -362,7 +363,7 @@ namespace Tools_Injector_Mod_Menu
         private void AddListValues(string cheatName, string functionType)
         {
             dataList.Rows.Add(cheatName, functionType);
-            WriteOutput("[Success] Added Function " + cheatName, Color.Green);
+            WriteOutput("[Success] Added Function: " + cheatName, Color.Green);
         }
 
         private void dataList_MouseDoubleClick(object sender, MouseEventArgs e)
@@ -404,15 +405,25 @@ namespace Tools_Injector_Mod_Menu
                 var selectedRowCount = dataList.Rows.GetRowCount(DataGridViewElementStates.Selected);
                 if (selectedRowCount != 0)
                 {
-                    dataList.Rows.RemoveAt(dataList.SelectedCells[0].RowIndex);
-                    WriteOutput("[Success] Remove Function" + dataList.SelectedRows[0].Cells[0].Value, Color.Green);
-                    OffsetPatch.FunctionList.RemoveAt(0);
+                    var listRemove = new List<int>();
+                    for (var i = 0; i < selectedRowCount; i++)
+                    {
+                        listRemove.Add(dataList.SelectedRows[i].Index);
+                    }
+
+                    foreach (var row in listRemove)
+                    {
+                        WriteOutput("[Success] Remove Function: " + dataList.Rows[row].Cells[0].Value, Color.Green);
+                        OffsetPatch.FunctionList.RemoveAt(row);
+                        dataList.Rows.RemoveAt(row);
+                    }
+                    
                     dataList.ClearSelection();
                 }
             }
-            catch
+            catch (Exception ex)
             {
-                //
+               // WriteOutput("[Error:004] " + ex.Message, Color.Red);
             }
         }
 
@@ -453,13 +464,7 @@ namespace Tools_Injector_Mod_Menu
                 {
                     if (MyMessage.MsgOkCancel("You sure you want remove this function in the List?"))
                     {
-                        for (var i = 0; i < selectedRowCount; i++)
-                        {
-                            dataList.Rows.RemoveAt(dataList.SelectedCells[i].RowIndex);
-                            WriteOutput("[Success] Remove Function" + dataList.SelectedRows[i].Cells[0].Value, Color.Green);
-                            OffsetPatch.FunctionList.RemoveAt(i);
-                            dataList.ClearSelection();
-                        }
+                        RemoveRows();
                     }
                 }
                 else
