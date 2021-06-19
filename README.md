@@ -20,12 +20,6 @@ For mod not running by Tools Injector (it's not your fault) upload original apk 
 
 - Does not work on Windows 7 or 32 bit.
 
-# TODO
-
-- Add toggle other type (int, float)
-- Add hook seekbar and input value without toggle
-- Support button function editor
-
 # Credits/Acknowledgements
 
 Default Theme -> https://github.com/T5ive/Android-Mod-Menu/tree/inject-mod-menu
