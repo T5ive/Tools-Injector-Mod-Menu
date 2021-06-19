@@ -1161,7 +1161,7 @@ namespace Tools_Injector_Mod_Menu
             this.comboType.MouseState = MaterialSkin.MouseState.OUT;
             this.comboType.Name = "comboType";
             this.comboType.Size = new System.Drawing.Size(83, 35);
-            this.comboType.StartIndex = 3;
+            this.comboType.StartIndex = 0;
             this.comboType.TabIndex = 18;
             this.comboType.UseTallSize = false;
             // 

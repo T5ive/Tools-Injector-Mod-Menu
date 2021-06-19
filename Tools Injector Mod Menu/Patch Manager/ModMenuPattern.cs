@@ -171,7 +171,7 @@ void Update{cheatName}{id}(void *instance) {{
                                         result += $@"{typeString} (*old_{cheatName}{id})(void *instance);
 {typeString} Update{cheatName}{id}(void *instance) {{
     if (instance != NULL && _{cheatName} {linkResult}) {{
-        return {hookValue};
+        return ({typeString}) {hookValue};
     }}
     return old_{cheatName}{id}(instance);
 }}
@@ -230,8 +230,8 @@ void Update{cheatName}{id}(void *instance) {{
                                     case Enums.Type.Long:
                                         {
                                             resultMultiple += function.MultipleValue
-                                                ? $"return _{cheatName}Value*old_{cheatName}(instance);"
-                                                : $"return _{cheatName}Value;";
+                                                ? $"return ({typeString}) _{cheatName}Value*old_{cheatName}(instance);"
+                                                : $"return ({typeString}) _{cheatName}Value;";
 
                                             result += $@"{typeString} (*old_{cheatName}{id})(void *instance);
 {typeString} Update{cheatName}{id}(void *instance) {{
