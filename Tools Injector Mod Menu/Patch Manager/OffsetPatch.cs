@@ -26,28 +26,31 @@ namespace Tools_Injector_Mod_Menu.Patch_Manager
                 CheatName = cheatName,
                 OffsetList = OffsetList.ToList(),
                 FunctionType = functionType,
+                FunctionExtra = null,
                 MultipleValue = false
             });
         }
 
-        public static void AddFunction(string cheatName = null, Enums.FunctionType functionType = Enums.FunctionType.Empty, bool multipleValue = false)
+        public static void AddFunction(string cheatName = null, Enums.FunctionType functionType = Enums.FunctionType.Empty, string functionExtra = null, bool multipleValue = false)
         {
             FunctionList.Add(new FunctionList
             {
                 CheatName = cheatName,
                 OffsetList = (OffsetList ?? new List<OffsetInfo>()).ToList(),
                 FunctionType = functionType,
+                FunctionExtra = functionExtra,
                 MultipleValue = multipleValue
             });
         }
 
-        public static void AddFunction(string cheatName = null, List<OffsetInfo> offsetList = null, Enums.FunctionType functionType = Enums.FunctionType.Empty, bool multipleValue = false)
+        public static void AddFunction(string cheatName = null, List<OffsetInfo> offsetList = null, Enums.FunctionType functionType = Enums.FunctionType.Empty, string functionExtra = null, bool multipleValue = false)
         {
             FunctionList.Add(new FunctionList
             {
                 CheatName = cheatName,
                 OffsetList = (offsetList ?? new List<OffsetInfo>()).ToList(),
                 FunctionType = functionType,
+                FunctionExtra = functionExtra,
                 MultipleValue = multipleValue
             });
         }
@@ -113,7 +116,7 @@ namespace Tools_Injector_Mod_Menu.Patch_Manager
                 Hex = null,
                 HookInfo = HookValue(),
                 Name = null,
-                Method = (null, null)
+                Method = new List<(string, string)> { (null, null) }
             };
         }
 
@@ -132,7 +135,6 @@ namespace Tools_Injector_Mod_Menu.Patch_Manager
         {
             return new()
             {
-                Field = false,
                 Type = Enums.Type.Empty,
                 Offset = null
             };

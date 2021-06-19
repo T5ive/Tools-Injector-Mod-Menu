@@ -93,13 +93,17 @@ namespace Tools_Injector_Mod_Menu
                         Hex = hex,
                         HookInfo = OffsetPatch.HookValue(),
                         Name = name,
-                        Method = (null, null)
+                        Method = new List<(string, string)> { (null, null) }
                     };
                     offsetList.Add(offsetInfo);
                 }
                 var functionType = GetFunctionType();
                 if (_index == 1150)
                 {
+                    if (Utility.IsDuplicateName(txtNameCheat.Text, OffsetPatch.FunctionList))
+                    {
+                        return;
+                    }
                     OffsetPatch.OffsetList = offsetList;
                     OffsetPatch.AddFunction(txtNameCheat.Text, functionType);
                     OffsetPatch.OffsetList.Clear();
@@ -113,6 +117,7 @@ namespace Tools_Injector_Mod_Menu
                     {
                         case DialogResult.Cancel:
                             return;
+
                         case DialogResult.No:
                             Values.Save = false;
                             Dispose();
@@ -125,6 +130,7 @@ namespace Tools_Injector_Mod_Menu
                         CheatName = txtNameCheat.Text,
                         FunctionType = functionType,
                         OffsetList = offsetList,
+                        FunctionExtra = null,
                         MultipleValue = false
                     };
                 }

@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
+using System.Linq;
 using System.Windows.Forms;
 using Tools_Injector_Mod_Menu.Patch_Manager;
 
@@ -29,14 +31,16 @@ namespace Tools_Injector_Mod_Menu
 
         private void AddListValues()
         {
+            var num = OffsetPatch.FunctionList[_index].FunctionExtra;
             _type = OffsetPatch.FunctionList[_index].FunctionType;
             switch (_type)
             {
-                case Enums.FunctionType.HookButtonOnOf:
+                case Enums.FunctionType.HookButton:
                     radButton.Checked = true;
                     break;
 
-                case Enums.FunctionType.HookToggle:
+                case Enums.FunctionType.HookInputButton:
+                    numMax.Value = Convert.ToDecimal(num);
                     radInput.Checked = true;
                     break;
             }
@@ -45,7 +49,16 @@ namespace Tools_Injector_Mod_Menu
 
             foreach (var offset in OffsetPatch.FunctionList[_index].OffsetList)
             {
-                dataList.Rows.Add(offset.Name, offset.Offset, offset.Method.Item1, offset.Method.Item2);
+                var type = "";
+                var values = "";
+                for (var i = 0; i < offset.Method.Count; i++)
+                {
+                    type += $"{offset.Method[i].Item1}, ";
+                    values += $"{offset.Method[i].Item2}, ";
+                }
+                type = type.Remove(type.Length - 2);
+                values = values.Remove(values.Length - 2);
+                dataList.Rows.Add(offset.Name, offset.Offset, type, values);
             }
         }
 
@@ -87,6 +100,16 @@ namespace Tools_Injector_Mod_Menu
                         return;
                     }
 
+                    var typeList = type.RemoveMiniSpecialCharacters().Split(',');
+                    var valueList = values.RemoveMiniSpecialCharacters().Split(',');
+                    if (typeList.Length != valueList.Length)
+                    {
+                        MyMessage.MsgShowWarning(@$"Type At {i + 1}, does not equal Values At {i + 1}. Please check it again!!!");
+                        return;
+                    }
+
+                    var method = typeList.Select(t => (typeList[i], valueList[i])).ToList();
+
                     var offsetInfo = new OffsetInfo
                     {
                         OffsetId = i,
@@ -94,17 +117,21 @@ namespace Tools_Injector_Mod_Menu
                         Hex = null,
                         HookInfo = OffsetPatch.HookValue(),
                         Name = name,
-                        Method = (type, values)
+                        Method = method
                     };
                     offsetList.Add(offsetInfo);
                 }
 
                 var functionType = GetFunctionType();
-
+                var functionExtra = numMax.Value.ToString(CultureInfo.InvariantCulture);
                 if (_index == 1150)
                 {
+                    if (Utility.IsDuplicateName(txtNameCheat.Text, OffsetPatch.FunctionList))
+                    {
+                        return;
+                    }
                     OffsetPatch.OffsetList = offsetList;
-                    OffsetPatch.AddFunction(txtNameCheat.Text, functionType);
+                    OffsetPatch.AddFunction(txtNameCheat.Text, functionType, functionExtra);
                     OffsetPatch.OffsetList.Clear();
                 }
                 else
@@ -116,6 +143,7 @@ namespace Tools_Injector_Mod_Menu
                     {
                         case DialogResult.Cancel:
                             return;
+
                         case DialogResult.No:
                             Values.Save = false;
                             Dispose();
@@ -128,6 +156,7 @@ namespace Tools_Injector_Mod_Menu
                         CheatName = txtNameCheat.Text,
                         FunctionType = functionType,
                         OffsetList = offsetList,
+                        FunctionExtra = functionExtra,
                         MultipleValue = false
                     };
                 }
@@ -222,6 +251,7 @@ namespace Tools_Injector_Mod_Menu
         private void rad_CheckedChanged(object sender, EventArgs e)
         {
             _frmAddFunction.Text = HookName();
+            numMax.Enabled = radInput.Checked;
         }
 
         private string HookName()

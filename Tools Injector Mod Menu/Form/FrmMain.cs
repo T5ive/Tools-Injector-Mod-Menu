@@ -2,7 +2,6 @@
 using MaterialSkin.Controls;
 using ModernFolderBrowserDialog;
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Imaging;
@@ -36,7 +35,7 @@ namespace Tools_Injector_Mod_Menu
         private MySettings _mySettings = new MySettings();
 
         private string[] _menuFiles;
-        
+
         private readonly string _tempPath = Path.GetTempPath();
 
         private readonly string _tempPathMenu = Path.GetTempPath() + "TFiveMenu";
@@ -244,7 +243,6 @@ namespace Tools_Injector_Mod_Menu
                 }
                 catch
                 {
-
                 }
             }
         }
@@ -315,8 +313,6 @@ namespace Tools_Injector_Mod_Menu
 
         #region Menu Page
 
-
-
         #region Add Function & Data List
 
         private void AddFunction()
@@ -342,10 +338,7 @@ namespace Tools_Injector_Mod_Menu
         {
             var cheatName = OffsetPatch.ConvertNameList();
             var functionType = OffsetPatch.FunctionList[OffsetPatch.FunctionList.Count - 1].FunctionType;
-            var multiple = functionType == Enums.FunctionType.Category ? "No" :
-                OffsetPatch.FunctionList[OffsetPatch.FunctionList.Count - 1].MultipleValue ? "Yes" : "No";
-
-            AddListValues(cheatName[cheatName.Count - 1], Utility.FunctionTypeToString(functionType), multiple);
+            AddListValues(cheatName[cheatName.Count - 1], Utility.FunctionTypeToString(functionType));
             OffsetPatch.OffsetList.Clear();
         }
 
@@ -361,17 +354,14 @@ namespace Tools_Injector_Mod_Menu
             {
                 var cheatName = OffsetPatch.ConvertNameList();
                 var functionType = OffsetPatch.FunctionList[i].FunctionType;
-                var multiple = functionType == Enums.FunctionType.Category ? "No" :
-                    OffsetPatch.FunctionList[i].MultipleValue ? "Yes" : "No";
-
-                AddListValues(cheatName[i], Utility.FunctionTypeToString(functionType),  multiple);
+                AddListValues(cheatName[i], Utility.FunctionTypeToString(functionType));
                 OffsetPatch.OffsetList.Clear();
             }
         }
 
-        private void AddListValues(string cheatName, string functionType, string multiple)
+        private void AddListValues(string cheatName, string functionType)
         {
-            dataList.Rows.Add(cheatName, functionType, multiple);
+            dataList.Rows.Add(cheatName, functionType);
             WriteOutput("[Success] Added Function " + cheatName, Color.Green);
         }
 
@@ -453,7 +443,7 @@ namespace Tools_Injector_Mod_Menu
                 removeToolStripMenuItem.Enabled = false;
             }
         }
-        
+
         private void btnRemove_Click(object sender, EventArgs e)
         {
             try
@@ -502,7 +492,7 @@ namespace Tools_Injector_Mod_Menu
             }
         }
 
-        #endregion ListView Group
+        #endregion Add Function & Data List
 
         #region ToolStripMenuItem
 
@@ -689,13 +679,13 @@ namespace Tools_Injector_Mod_Menu
             if (!DeleteAll(_tempPathMenu)) return;
             if (!ExtractZip(AppPath + $"\\Menu\\{comboMenu.SelectedItem}.zip", _tempPathMenu)) return;
             if (!ExtractZip(AppPath + $"\\Theme\\{comboMenu.SelectedItem}.zip", _tempPathMenu)) return;
-            //if (!Replacer())
-            //{
-            //    MyMessage.MsgShowError("Failed to Replace Something");
-            //    WriteOutput("[Error:018] Failed to Replace Something", Color.Red);
-            //    FormState(State.Idle);
-            //    return;
-            //}
+            if (!Replacer())
+            {
+                MyMessage.MsgShowError("Failed to Replace Something");
+                WriteOutput("[Error:018] Failed to Replace Something", Color.Red);
+                FormState(State.Idle);
+                return;
+            }
             if (Debug)
             {
                 FormState(State.Idle);
@@ -706,659 +696,150 @@ namespace Tools_Injector_Mod_Menu
             CompileNdk();
         }
 
-//        #region Modify Files
+        #region Modify Files
 
-//        private bool Replacer()
-//        {
-//            if (!MainActivity()) return false;
-//            if (!AndroidMk()) return false;
-//            if (!ApplicationMk()) return false;
-//            if (!MenuString()) return false;
-//            return MainHack();
-//        }
+        private bool Replacer()
+        {
+            if (!MainActivity()) return false;
+            if (!AndroidMk()) return false;
+            if (!ApplicationMk()) return false;
+            if (!MenuString()) return false;
+            return MainHack();
+        }
 
-//        private bool MainActivity()
-//        {
-//            try
-//            {
-//                var text = File.ReadAllText(_tempPathMenu + "\\com\\tfive\\MainActivity.smali");
-//                text = text.Replace("MyLibName", txtLibName.Text);
-//                File.WriteAllText(_tempPathMenu + "\\com\\tfive\\MainActivity.smali", text);
-//                WriteOutput("[Success] Replaced MainActivity.smali", Color.Green);
-//                return true;
-//            }
-//            catch (Exception ex)
-//            {
-//                MyMessage.MsgShowError("Error " + ex.Message);
-//                WriteOutput("[Error:009] " + ex.Message, Color.Red);
-//                FormState(State.Idle);
-//                return false;
-//            }
-//        }
+        private bool MainActivity()
+        {
+            try
+            {
+                var text = File.ReadAllText(_tempPathMenu + "\\com\\tfive\\MainActivity.smali");
+                text = text.Replace("MyLibName", txtLibName.Text);
+                File.WriteAllText(_tempPathMenu + "\\com\\tfive\\MainActivity.smali", text);
+                WriteOutput("[Success] Replaced MainActivity.smali", Color.Green);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                MyMessage.MsgShowError("Error " + ex.Message);
+                WriteOutput("[Error:009] " + ex.Message, Color.Red);
+                FormState(State.Idle);
+                return false;
+            }
+        }
 
-//        private bool AndroidMk()
-//        {
-//            try
-//            {
-//                var text = File.ReadAllText(_tempPathMenu + "\\jni\\Android.mk");
-//                text = text.Replace("MyLibName", txtLibName.Text);
-//                File.WriteAllText(_tempPathMenu + "\\jni\\Android.mk", text);
-//                WriteOutput("[Success] Replaced Android.mk", Color.Green);
-//                return true;
-//            }
-//            catch (Exception ex)
-//            {
-//                MyMessage.MsgShowError("Error " + ex.Message);
-//                WriteOutput("[Error:010] " + ex.Message, Color.Red);
-//                FormState(State.Idle);
-//                return false;
-//            }
-//        }
+        private bool AndroidMk()
+        {
+            try
+            {
+                var text = File.ReadAllText(_tempPathMenu + "\\jni\\Android.mk");
+                text = text.Replace("MyLibName", txtLibName.Text);
+                File.WriteAllText(_tempPathMenu + "\\jni\\Android.mk", text);
+                WriteOutput("[Success] Replaced Android.mk", Color.Green);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                MyMessage.MsgShowError("Error " + ex.Message);
+                WriteOutput("[Error:010] " + ex.Message, Color.Red);
+                FormState(State.Idle);
+                return false;
+            }
+        }
 
-//        private bool ApplicationMk()
-//        {
-//            try
-//            {
-//                var text = File.ReadAllText(_tempPathMenu + "\\jni\\Application.mk");
+        private bool ApplicationMk()
+        {
+            try
+            {
+                var text = File.ReadAllText(_tempPathMenu + "\\jni\\Application.mk");
 
-//                var type = "";
-//                switch (comboType.SelectedIndex)
-//                {
-//                    case (int)Enums.TypeAbi.Arm:
-//                        type = "armeabi-v7a";
-//                        break;
+                var type = "";
+                switch (comboType.SelectedIndex)
+                {
+                    case (int)Enums.TypeAbi.Arm:
+                        type = "armeabi-v7a";
+                        break;
 
-//                    case (int)Enums.TypeAbi.Arm64:
-//                        type = "arm64-v8a";
-//                        break;
+                    case (int)Enums.TypeAbi.Arm64:
+                        type = "arm64-v8a";
+                        break;
+                }
 
-//                    case (int)Enums.TypeAbi.X86:
-//                        type = "x86";
-//                        break;
+                text = text.Replace("(ChangeABIHere)", type);
+                File.WriteAllText(_tempPathMenu + "\\jni\\Application.mk", text);
+                WriteOutput("[Success] Replaced Application.mk", Color.Green);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                MyMessage.MsgShowError("Error " + ex.Message);
+                WriteOutput("[Error:011] " + ex.Message, Color.Red);
+                FormState(State.Idle);
+                return false;
+            }
+        }
 
-//                    case (int)Enums.TypeAbi.All:
-//                        type = "armeabi-v7a arm64-v8a x86";
-//                        break;
-//                }
+        private bool MenuString()
+        {
+            try
+            {
+                var text = File.ReadAllText(_tempPathMenu + "\\jni\\Menu.h");
+                text = text.Replace("(yourName)", txtLibName.Text).
+                    Replace("(yourSite)", txtSite.Text).
+                    Replace("(yourText)", txtText.Text).
+                    Replace("(yourImage)", ImageCode);
+                text = chkTFiveCredit.Checked ? text.Replace("//(TFiveEndCredit)", @"OBFUSCATE(""0_RichWebView_<html><body><marquee style=\""color: white; font-weight:bold;\"" direction=\""left\"" scrollamount=\""5\"" behavior=\""scroll\"">TFive Tools</marquee></body></html>"")") : text;
+                File.WriteAllText(_tempPathMenu + "\\jni\\Menu.h", text);
+                WriteOutput("[Success] Replaced Menu.h (Credit)", Color.Green);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                MyMessage.MsgShowError("Error " + ex.Message);
+                WriteOutput("[Error:013] " + ex.Message, Color.Red);
+                FormState(State.Idle);
+                return false;
+            }
+        }
 
-//                text = text.Replace("(ChangeABIHere)", type);
-//                File.WriteAllText(_tempPathMenu + "\\jni\\Application.mk", text);
-//                WriteOutput("[Success] Replaced Application.mk", Color.Green);
-//                return true;
-//            }
-//            catch (Exception ex)
-//            {
-//                MyMessage.MsgShowError("Error " + ex.Message);
-//                WriteOutput("[Error:011] " + ex.Message, Color.Red);
-//                FormState(State.Idle);
-//                return false;
-//            }
-//        }
+        private bool MainHack()
+        {
+            try
+            {
+                var text = File.ReadAllText(_tempPathMenu + "\\jni\\Main.cpp");
+                var memoryPatch = ModMenuPattern.MemoryPatch();
+                var newVariable = ModMenuPattern.NewVariable();
+                var newMethod = ModMenuPattern.NewMethod();
+                var hackThread64 = ModMenuPattern.HackThread64((Enums.TypeAbi)comboType.SelectedIndex);
+                var hackThread = ModMenuPattern.HackThread((Enums.TypeAbi)comboType.SelectedIndex);
+                var toastHere = ModMenuPattern.ToastHere(listToast);
+                var featuresList = ModMenuPattern.FeaturesList();
+                var newFeatures = ModMenuPattern.NewFeatures();
 
-//        private bool MenuString()
-//        {
-//            try
-//            {
-//                var text = File.ReadAllText(_tempPathMenu + "\\jni\\Menu.h");
-//                text = text.Replace("(yourName)", txtLibName.Text).
-//                    Replace("(yourSite)", txtSite.Text).
-//                    Replace("(yourText)", txtText.Text).
-//                    Replace("(yourImage)", ImageCode);
-//                text = chkTFiveCredit.Checked ? text.Replace("//(TFiveEndCredit)", @"OBFUSCATE(""0_RichWebView_<html><body><marquee style=\""color: white; font-weight:bold;\"" direction=\""left\"" scrollamount=\""5\"" behavior=\""scroll\"">TFive Tools</marquee></body></html>"")") : text;
-//                File.WriteAllText(_tempPathMenu + "\\jni\\Menu.h", text);
-//                WriteOutput("[Success] Replaced Menu.h (Credit)", Color.Green);
-//                return true;
-//            }
-//            catch (Exception ex)
-//            {
-//                MyMessage.MsgShowError("Error " + ex.Message);
-//                WriteOutput("[Error:013] " + ex.Message, Color.Red);
-//                FormState(State.Idle);
-//                return false;
-//            }
-//        }
+                text = text.Replace("//VariableHere", memoryPatch)
+                    .Replace("//NewVariableHere", newVariable)
+                    .Replace("//NewMethodHere", newMethod)
+                    .Replace("(yourTargetLibName)", txtTargetLib.Text)
+                    .Replace("//(hackThread64)", hackThread64)
+                    .Replace("//(hackThread)", hackThread)
+                    .Replace("//ToastHere", toastHere)
+                    .Replace("//(yourFeaturesList)", featuresList)
+                    .Replace("(yourEndCredit)", txtEndCredit.Text)
+                    .Replace("//(yourFeatures)", newFeatures);
+                File.WriteAllText(_tempPathMenu + "\\jni\\Main.cpp", text);
+                WriteOutput("[Success] Replaced Main.cpp", Color.Green);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                MyMessage.MsgShowError("Error " + ex.Message);
+                WriteOutput("[Error:015] " + ex.Message, Color.Red);
+                FormState(State.Idle);
+                return false;
+            }
+        }
 
-//        private bool MainHack()
-//        {
-//            try
-//            {
-//                var text = File.ReadAllText(_tempPathMenu + "\\jni\\Main.cpp");
-//                var memoryPatch = MemoryPatch();
-//                var newVariable = NewVariable();
-//                var newMethod = NewMethod();
-//                var toastHere = ToastHere(listToast);
-//                var featuresList = FeaturesList();
-//                var newFeatures = NewFeatures();
-//                var hackThread = HackThread();
+        #endregion Modify Files
 
-//                text = text.Replace("//VariableHere", memoryPatch)
-//                    .Replace("//NewVariableHere", newVariable)
-//                    .Replace("//NewMethodHere", newMethod)
-//                    .Replace("//ToastHere", toastHere)
-//                    .Replace("(yourTargetLibName)", txtTargetLib.Text)
-//                    .Replace("//(yourFeaturesList)", featuresList)
-//                    .Replace("(yourEndCredit)", txtEndCredit.Text)
-//                    .Replace("//(yourFeatures)", newFeatures)
-//                    .Replace(comboType.SelectedIndex == (int)Enums.TypeAbi.Arm64 ? "//(hackThread64)" : "//(hackThread)", hackThread);
-
-//                File.WriteAllText(_tempPathMenu + "\\jni\\Main.cpp", text);
-//                WriteOutput("[Success] Replaced Main.cpp", Color.Green);
-//                return true;
-//            }
-//            catch (Exception ex)
-//            {
-//                MyMessage.MsgShowError("Error " + ex.Message);
-//                WriteOutput("[Error:015] " + ex.Message, Color.Red);
-//                FormState(State.Idle);
-//                return false;
-//            }
-//        }
-
-//        #region Main.cpp
-
-//        private static string FeaturesList()
-//        {
-//            var functionList = OffsetPatch.FunctionList;
-//            var result = "";
-//            var realCount = 0;
-//            for (var i = 0; i < OffsetPatch.FunctionList.Count; i++)
-//            {
-//                var num = functionList[i].FunctionType == Enums.FunctionType.Category ? "0" : (realCount + 1).ToString();
-//                var type = functionList[i].FunctionType;
-//                var cheatName = functionList[i].CheatName;
-//                var functionExtra = !Utility.IsEmpty(functionList[i].Category, false)
-//                    ? "_" + functionList[i].Category
-//                    : "";
-//                switch (type)
-//                {
-//                    case Enums.FunctionType.ToggleHook:
-//                        result += $@"{Environment.NewLine}            OBFUSCATE(""{num}_Toggle_{cheatName}""),";
-//                        break;
-
-//                    case Enums.FunctionType.ToggleSeekBar:
-//                        result += $@"{Environment.NewLine}            OBFUSCATE(""{num}_Toggle_{cheatName}""),";
-//                        realCount++;
-//                        num = (realCount + 1).ToString();
-//                        result += $@"{Environment.NewLine}            OBFUSCATE(""{num}_SeekBar_{cheatName}{functionExtra}""),";
-//                        break;
-
-//                    case Enums.FunctionType.ToggleInputValue:
-//                        result += $@"{Environment.NewLine}            OBFUSCATE(""{num}_InputValue_{cheatName}""),";
-//                        realCount++;
-//                        num = (realCount + 1).ToString();
-//                        result += $@"{Environment.NewLine}            OBFUSCATE(""{num}_Toggle_{cheatName}""),";
-//                        break;
-
-//                    case Enums.FunctionType.ButtonOnOffHook:
-//                        result += $@"{Environment.NewLine}            OBFUSCATE(""{num}_ButtonOnOff_{cheatName}""),";
-//                        break;
-
-//                    case Enums.FunctionType.ButtonOnOffSeekBar:
-//                        result += $@"{Environment.NewLine}            OBFUSCATE(""{num}_ButtonOnOff_{cheatName}""),";
-//                        realCount++;
-//                        num = (realCount + 1).ToString();
-//                        result += $@"{Environment.NewLine}            OBFUSCATE(""{num}_SeekBar_{cheatName}{functionExtra}""),";
-//                        break;
-
-//                    case Enums.FunctionType.ButtonOnOffInputValue:
-//                        result += $@"{Environment.NewLine}            OBFUSCATE(""{num}_InputValue_{cheatName}""),";
-//                        realCount++;
-//                        num = (realCount + 1).ToString();
-//                        result += $@"{Environment.NewLine}            OBFUSCATE(""{num}_ButtonOnOff_{cheatName}""),";
-//                        break;
-
-//                    //case Enums.FunctionType.Button:
-//                    //    var buttonType = GetButtonExtra(functionList[i].HookInfo.Method);
-//                    //    var buttonExtra = GetButtonValue(functionList[i].HookInfo.Method);
-//                    //    if (buttonType == 2)
-//                    //    {
-//                    //        result += $@"{Environment.NewLine}            OBFUSCATE(""{num}_InputValue_{cheatName}""),";
-//                    //        realCount++;
-//                    //        num = (realCount + 1).ToString();
-//                    //    }
-//                    //    result += $@"{Environment.NewLine}            OBFUSCATE(""{num}_Button_{cheatName}""),";
-//                    //    if (buttonType == 1)
-//                    //    {
-//                    //        realCount++;
-//                    //        num = (realCount + 1).ToString();
-//                    //        result += $@"{Environment.NewLine}            OBFUSCATE(""{num}_SeekBar_{cheatName}{buttonExtra}""),";
-//                    //    }
-//                    //    break;
-
-//                    //case Enums.FunctionType.Patch:
-//                    //    result += $@"{Environment.NewLine}            OBFUSCATE(""0_RichTextView_{cheatName} - Activated""),";
-//                    //    break;
-
-//                    default:
-//                        result += $@"{Environment.NewLine}            OBFUSCATE(""{num}_{type}_{cheatName}{functionExtra}""),";
-//                        break;
-//                }
-
-//                if (type != Enums.FunctionType.Category)
-//                {
-//                    realCount++;
-//                }
-//            }
-//            return result;
-//        }
-
-//        private static string MemoryPatch()
-//        {
-//            var functionList = OffsetPatch.FunctionList;
-//            var result = "MemoryPatch ";
-//            for (var index = 0; index < functionList.Count; index++)
-//            {
-//                var list = OffsetPatch.FunctionList[index];
-//                result = functionList[index].OffsetList.Where(_ => list.FunctionType != Enums.FunctionType.Category).Aggregate(result, (current, info) => current + $"{list.CheatName.RemoveSuperSpecialCharacters().ReplaceNumCharacters()}_{info.OffsetId}, ");
-//            }
-
-//            return result.Remove(result.Length - 2) + ";";
-//        }
-
-//        private static string NewVariable()
-//        {
-//            var result = "";
-//            foreach (var list in OffsetPatch.FunctionList)
-//            {
-//                var cheatName = list.CheatName.RemoveSuperSpecialCharacters().ReplaceNumCharacters();
-//                switch (list.FunctionType)
-//                {
-//                    case Enums.FunctionType.Toggle:
-//                    case Enums.FunctionType.ToggleHook:
-//                    case Enums.FunctionType.ButtonOnOff:
-//                    case Enums.FunctionType.ButtonOnOffHook:
-//                        result += $"bool _{cheatName} = false;{Environment.NewLine}";
-//                        break;
-
-//                    case Enums.FunctionType.ToggleSeekBar:
-//                    case Enums.FunctionType.ToggleInputValue:
-//                    case Enums.FunctionType.ButtonOnOffSeekBar:
-//                    case Enums.FunctionType.ButtonOnOffInputValue:
-//                        result += $"bool _{cheatName} = false;{Environment.NewLine}";
-//                        result += $"int _{cheatName}Value = 1;{Environment.NewLine}";
-//                        break;
-
-//                    //case Enums.FunctionType.Button:
-//                    //    var buttonType = GetButtonExtra(list.HookInfo.Method);
-//                    //    result += $"void *btn{cheatName};{Environment.NewLine}";
-//                    //    if (buttonType == 1 || buttonType == 2)
-//                    //    {
-//                    //        result += $"int _{cheatName}Value = 1;{Environment.NewLine}";
-//                    //    }
-//                    //    break;
-//                }
-//            }
-
-//            return result;
-//        }
-
-//        private static string NewMethod()
-//        {
-//            var result = "";
-//            foreach (var list in OffsetPatch.FunctionList)
-//            {
-//                var cheatName = list.CheatName.RemoveSuperSpecialCharacters().ReplaceNumCharacters();
-//                var fieldMultiple = "";
-//                switch (list.FunctionType)
-//                {
-//                    case Enums.FunctionType.ToggleSeekBar:
-//                    case Enums.FunctionType.ToggleInputValue:
-//                    case Enums.FunctionType.ButtonOnOffSeekBar:
-//                    case Enums.FunctionType.ButtonOnOffInputValue:
-//                        {
-//                            var multiple = list.MultipleValue ? $"return _{cheatName}Value*old_{cheatName}(instance);" : $"return _{cheatName}Value;";
-//                            foreach (var info in list.OffsetList)
-//                            {
-//                                if (info.HookInfo.FieldInfo.Field)
-//                                {
-//                                    var fieldValues = info.HookInfo.FieldInfo.Offset.RemoveMiniSpecialCharacters().Split(',');
-//                                    fieldMultiple = fieldValues.Aggregate(fieldMultiple, (current, t) => current +
-//                                        (list.MultipleValue
-//                                            ? $"*({Type2String(info.HookInfo.Type)} *) ((uint64_t) instance + {t}) = _{cheatName}Value*old_{cheatName}(instance);{Environment.NewLine}        "
-//                                            : $"*({Type2String(info.HookInfo.Type)} *) ((uint64_t) instance + {t}) = _{cheatName}Value;{Environment.NewLine}        "));
-
-//                                    result += $@"int (*old_{cheatName})(void *instance);
-//int Update{cheatName}(void *instance) {{
-//    if (instance != NULL && _{cheatName} && _{cheatName}Value > 1) {{
-//        {fieldMultiple}
-//    }}
-//    return old_{cheatName}(instance);
-//}}
-//";
-//                                }
-//                                else
-//                                {
-//                                    result += $@"int (*old_{cheatName})(void *instance);
-//int Update{cheatName}(void *instance) {{
-//    if (instance != NULL && _{cheatName} && _{cheatName}Value > 1) {{
-//        {multiple}
-//    }}
-//    return old_{cheatName}(instance);
-//}}
-//";
-//                                }
-//                            }
-
-//                            break;
-//                        }
-//                    case Enums.FunctionType.ToggleHook:
-//                    case Enums.FunctionType.ButtonOnOffHook:
-//                        {
-//                            foreach (var info in list.OffsetList)
-//                            {
-//                                if (info.HookInfo.FieldInfo.Field)
-//                                {
-//                                    fieldMultiple = info.HookInfo.FieldInfo.Offset.RemoveMiniSpecialCharacters().Split(',')
-//                                        .Aggregate(fieldMultiple,
-//                                            (current, value) =>
-//                                                current +
-//                                                $"*(bool *) ((uint64_t) instance + {value}) = _{cheatName};{Environment.NewLine}        ");
-
-//                                    result += $@"void (*old_{cheatName})(void *instance);
-//void Update{cheatName}(void *instance) {{
-//    if (instance != NULL && _{cheatName}) {{
-//        {fieldMultiple}
-//    }}
-//    return old_{cheatName}(instance);
-//}}
-//";
-//                                }
-//                                else
-//                                {
-//                                    result += $@"bool (*old_{cheatName})(void *instance);
-//bool Update{cheatName}(void *instance) {{
-//    if (instance != NULL && _{cheatName}) {{
-//        return _{cheatName};
-//    }}
-//    return old_{cheatName}(instance);
-//}}
-//";
-//                                }
-//                            }
-
-//                            break;
-//                        }
-////                    case Enums.FunctionType.Button:
-                        
-
-////                            var args = GetButtonArgs(list.HookInfo.Method);
-////                            result += $@"void (*{cheatName}Method)(void *instance{args});
-////";
-////                            result += $@"void (*old_{cheatName})(void *instance);
-////void Update{cheatName}(void *instance) {{
-////        btn{cheatName} = instance;
-////        old_{cheatName}(instance);
-////}}
-////";
-////                            break;
-////                        }
-//                }
-//            }
-
-//            return result;
-//        }
-
-//        private static string ToastHere(ListBox listBox)
-//        {
-//            return listBox.Items.Cast<object>().Aggregate("", (current, o) => current + @"MakeToast(env, context, OBFUSCATE(""" + o + @"""), Toast::LENGTH_LONG);" + Environment.NewLine);
-//        }
-//        private static string NewFeatures()
-//        {
-//            var functionList = OffsetPatch.FunctionList;
-//            var result = "";
-//            var realCount = 0;
-//            for (var i = 0; i < OffsetPatch.FunctionList.Count; i++)
-//            {
-//                var num = functionList[i].FunctionType == Enums.FunctionType.Category ? "0" : (realCount + 1).ToString();
-//                var type = functionList[i].FunctionType;
-//                var cheatName = functionList[i].CheatName.RemoveSuperSpecialCharacters().ReplaceNumCharacters();
-
-//                switch (type)
-//                {
-//                    case Enums.FunctionType.ButtonOnOff:
-//                    case Enums.FunctionType.Toggle:
-//                        {
-//                            var offsetListModify = functionList[i].OffsetList.Aggregate("", (current, info) => current +
-//                                $@"hexPatches.{cheatName}_{info.OffsetId}.Modify();
-//                                ");
-//                            var offsetListRestore = functionList[i].OffsetList.Aggregate("", (current, info) => current +
-//                                $@"hexPatches.{cheatName}_{info.OffsetId}.Restore();
-//                                ");
-
-//                            result += $@"
-//                        case {num}:
-//                            _{cheatName} = boolean;
-//                            if (_{cheatName}) {{
-//                                {offsetListModify}LOGI(OBFUSCATE(""On""));
-//                            }} else {{
-//                                {offsetListRestore}LOGI(OBFUSCATE(""Off""));
-//                            }}
-//                            break;{Environment.NewLine}";
-//                            break;
-//                        }
-//                    case Enums.FunctionType.ButtonOnOffHook:
-//                    case Enums.FunctionType.ToggleHook:
-//                        {
-//                            result += $@"
-//                        case {num}:
-//                            _{cheatName} = boolean;
-//                            break;{Environment.NewLine}";
-//                            break;
-//                        }
-//                    case Enums.FunctionType.ToggleSeekBar:
-//                    case Enums.FunctionType.ButtonOnOffSeekBar:
-//                        {
-//                            result += $@"
-//                        case {num}:
-//                            _{cheatName} = boolean;
-//                            break;{Environment.NewLine}";
-
-//                            realCount++;
-//                            num = (realCount + 1).ToString();
-//                            result += $@"
-//                        case {num}:
-//                            if (value >= 1) {{
-//                                _{cheatName}Value = value;
-//                            }}
-//                            break;{Environment.NewLine}";
-//                            break;
-//                        }
-//                    case Enums.FunctionType.ButtonOnOffInputValue:
-//                    case Enums.FunctionType.ToggleInputValue:
-//                        {
-//                            result += $@"
-//                        case {num}:
-//                            if (value >= 1) {{
-//                                _{cheatName}Value = value;
-//                            }}
-//                            break;{Environment.NewLine}";
-
-//                            realCount++;
-//                            num = (realCount + 1).ToString();
-//                            result += $@"
-//                        case {num}:
-//                            _{cheatName} = boolean;
-//                            break;{Environment.NewLine}";
-//                            break;
-//                        }
-//                    //case Enums.FunctionType.Button:
-//                    //    {
-//                    //        var buttonType = GetButtonExtra(functionList[i].HookInfo.Method);
-//                    //        var args = GetButtonArgsValues(functionList[i].HookInfo.Method, $"_{cheatName}Value");
-//                    //        if (buttonType == 2)
-//                    //        {
-//                    //            result += $@"
-//                    //    case {num}:
-//                    //        if (value >= 1) {{
-//                    //            _{cheatName}Value = value;
-//                    //        }}
-//                    //        break;{Environment.NewLine}";
-
-//                    //            realCount++;
-//                    //            num = (realCount + 1).ToString();
-//                    //        }
-
-//                    //        result += $@"
-//                    //    case {num}:
-//                    //        if (btn{cheatName} != NULL) {{
-//                    //            {cheatName}Method(btn{cheatName}{args});
-//                    //        }}
-//                    //        break;{Environment.NewLine}";
-
-//                    //        if (buttonType == 1)
-//                    //        {
-//                    //            realCount++;
-//                    //            num = (realCount + 1).ToString();
-//                    //            result += $@"
-//                    //    case {num}:
-//                    //        if (value >= 1) {{
-//                    //            _{cheatName}Value = value;
-//                    //        }}
-//                    //        break;{Environment.NewLine}";
-//                    //        }
-
-//                    //        break;
-//                    //    }
-//                }
-
-//                if (type != Enums.FunctionType.Category)
-//                {
-//                    realCount++;
-//                }
-//            }
-//            return result;
-//        }
-
-//        private string HackThread()
-//        {
-//            var result = "";
-//            var abiType = comboType.SelectedIndex == (int)Enums.TypeAbi.Arm64 ? "A64HookFunction" : "MSHookFunction";
-//            foreach (var list in OffsetPatch.FunctionList)
-//            {
-//                var cheatName = list.CheatName.RemoveSuperSpecialCharacters().ReplaceNumCharacters();
-
-//                switch (list.FunctionType)
-//                {
-//                    case Enums.FunctionType.Toggle:
-//                    case Enums.FunctionType.ButtonOnOff:
-//                        {
-//                            result = list.OffsetList.Aggregate(result, (current, info) => current +
-//                                $@"hexPatches.{cheatName}_{info.OffsetId} = MemoryPatch::createWithHex(""{txtTargetLib.Text}"",
-//                                        string2Offset(OBFUSCATE_KEY(""{info.Offset}"", 't')),
-//                                        OBFUSCATE(""{info.Hex}""));{Environment.NewLine}    ");
-//                            continue;
-//                        }
-//                    case Enums.FunctionType.ToggleHook:
-//                    case Enums.FunctionType.ButtonOnOffHook:
-//                        {
-//                            result = list.OffsetList.Aggregate(result, (current, info) => current +
-//                                $@"{abiType}((void *) getAbsoluteAddress(targetLibName, string2Offset(OBFUSCATE_KEY(""{info.Offset}"", 't'))),
-//                            (void *) Update{cheatName}, (void **) &old_{cheatName});{Environment.NewLine}    ");
-//                            continue;
-//                        }
-//                    case Enums.FunctionType.ToggleSeekBar:
-//                    case Enums.FunctionType.ToggleInputValue:
-//                    case Enums.FunctionType.ButtonOnOffSeekBar:
-//                    case Enums.FunctionType.ButtonOnOffInputValue:
-//                        {
-//                            result = list.OffsetList.Aggregate(result, (current, info) => current +
-//                                $@"{abiType}((void *) getAbsoluteAddress(targetLibName, string2Offset(OBFUSCATE_KEY(""{info.Offset}"", 't'))),
-//                            (void *) Update{cheatName}, (void **) &old_{cheatName});{Environment.NewLine}    ");
-//                            continue;
-//                        }
-//                    //case Enums.FunctionType.Button:
-//                    //    {
-//                    //        var args = GetButtonType(list.HookInfo.Method);
-//                    //        result += $"{cheatName}Method = (void(*)(void *{args}))getAbsoluteAddress(targetLibName, {list.HookInfo.Offset});{Environment.NewLine}";
-//                    //        result = list.OffsetList.Aggregate(result, (current, info) => current +
-//                    //            $@"    {abiType}((void *) getAbsoluteAddress(targetLibName, string2Offset(OBFUSCATE_KEY(""{info.Offset}"", 't'))),
-//                    //        (void *) Update{cheatName}, (void **) &old_{cheatName});{Environment.NewLine}    ");
-//                    //        continue;
-//                    //    }
-//    //                case Enums.FunctionType.Patch:
-//    //                    {
-//    //                        result = list.OffsetList.Aggregate(result, (current, info) => current +
-//    //                            $@"hexPatches.{cheatName}_{info.OffsetId} = MemoryPatch::createWithHex(""{txtTargetLib.Text}"",
-//    //                                    string2Offset(OBFUSCATE_KEY(""{info.Offset}"", 't')),
-//    //                                    OBFUSCATE(""{info.Hex}""));
-//    //hexPatches.{cheatName}_{info.OffsetId}.Modify();{Environment.NewLine}    ");
-//    //                        continue;
-//    //                    }
-//                }
-//            }
-
-//            return result;
-//        }
-
-//        #endregion Main.cpp
-
-//        private static int GetButtonExtra(List<(string, string)> method)
-//        {
-//            for (var i = 0; i < method.Count; i++)
-//            {
-//                if (method[i].Item2.IndexOf("seekbar", StringComparison.OrdinalIgnoreCase) >= 0)
-//                    return 1;
-//                if (method[i].Item2.IndexOf("inputvalue", StringComparison.OrdinalIgnoreCase) >= 0)
-//                    return 2;
-//            }
-
-//            return 0;
-//        }
-
-//        private static string GetButtonValue(List<(string, string)> method)
-//        {
-//            for (var i = 0; i < method.Count; i++)
-//            {
-//                if (method[i].Item2.IndexOf("seekbar", StringComparison.OrdinalIgnoreCase) >= 0)
-//                {
-//                    return method[i].Item2.Replace("seekbar_", "");
-//                }
-//            }
-//            return null;
-//        }
-
-//        private static string GetButtonArgs(List<(string, string)> method)
-//        {
-//            var result = "";
-//            for (var i = 0; i < method.Count; i++)
-//            {
-//                result += $", {method[i].Item1} _{method[i].Item1}{i}";
-//            }
-//            return result;
-//        }
-
-//        private static string GetButtonType(List<(string, string)> method)
-//        {
-//            var result = "";
-//            for (var i = 0; i < method.Count; i++)
-//            {
-//                result += $", {method[i].Item1}";
-//            }
-//            return result;
-//        }
-
-//        private static string GetButtonArgsValues(List<(string, string)> method, string value)
-//        {
-//            var result = "";
-//            for (var i = 0; i < method.Count; i++)
-//            {
-//                if (method[i].Item2.IndexOf("seekbar", StringComparison.OrdinalIgnoreCase) >= 0)
-//                {
-//                    result += $", {value}";
-//                }
-//                else if (method[i].Item2.IndexOf("inputvalue", StringComparison.OrdinalIgnoreCase) >= 0)
-//                {
-//                    result += $", {value}";
-//                }
-//                else
-//                {
-//                    result += $", {method[i].Item2}";
-//                }
-//            }
-//            return result;
-//        }
-
-//        #endregion Modify Files
+        #region Worker
 
         private void CompileNdk()
         {
@@ -1443,6 +924,8 @@ namespace Tools_Injector_Mod_Menu
 
             FormState(State.Idle);
         }
+
+        #endregion Worker
 
         #endregion Compile
 
@@ -1604,30 +1087,6 @@ namespace Tools_Injector_Mod_Menu
         #endregion Dev Page
 
         #region Utility
-
-        private static string Type2String(Enums.Type type)
-        {
-            switch (type)
-            {
-                case Enums.Type.Bool:
-                    return "bool";
-
-                case Enums.Type.Int:
-                    return "int";
-
-                case Enums.Type.Long:
-                    return "long";
-
-                case Enums.Type.Float:
-                    return "float";
-
-                case Enums.Type.Double:
-                    return "double";
-
-                default:
-                    return "int";
-            }
-        }
 
         //https://stackoverflow.com/a/45673201/8902883
         private static string ImageToBase64(Image image, ImageFormat imageFormat)
@@ -1886,11 +1345,6 @@ namespace Tools_Injector_Mod_Menu
             }
         }
 
-        private static void EasyEnabled(Control control, bool status = true)
-        {
-            control.Enabled = status;
-        }
-
         private static bool IsWindows7 => OS_Name().Contains("Windows 7");
 
         private static bool IsWindows10 => OS_Name().Contains("Windows 10");
@@ -1904,12 +1358,6 @@ namespace Tools_Injector_Mod_Menu
                             select x.GetPropertyValue("Caption")).FirstOrDefault();
         }
 
-
-
-
-
         #endregion Utility
-
-        
     }
 }

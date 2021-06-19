@@ -108,6 +108,7 @@
     <Compile Include="Control\CtrlPatch.Designer.cs">
       <DependentUpon>CtrlPatch.cs</DependentUpon>
     </Compile>
+    <Compile Include="Patch Manager\ModMenuPattern.cs" />
     <Compile Include="Utility\AppSettings.cs" />
     <Compile Include="Utility\MyMessage.cs" />
     <Compile Include="Patch Manager\Enums.cs" />

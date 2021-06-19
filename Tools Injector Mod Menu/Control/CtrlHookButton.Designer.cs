@@ -37,6 +37,10 @@ namespace Tools_Injector_Mod_Menu
             this.removeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.materialCard1 = new MaterialSkin.Controls.MaterialCard();
             this.dataList = new System.Windows.Forms.DataGridView();
+            this.colName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colOffset = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colType = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colValue = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.label1 = new System.Windows.Forms.Label();
             this.radButton = new MaterialSkin.Controls.MaterialRadioButton();
@@ -44,14 +48,13 @@ namespace Tools_Injector_Mod_Menu
             this.txtNameCheat = new MaterialSkin.Controls.MaterialTextBox();
             this.label16 = new System.Windows.Forms.Label();
             this.btnSave = new MaterialSkin.Controls.MaterialButton();
-            this.colName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colOffset = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colType = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colValue = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.label3 = new System.Windows.Forms.Label();
+            this.numMax = new System.Windows.Forms.NumericUpDown();
             this.contextMenuStrip1.SuspendLayout();
             this.materialCard1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataList)).BeginInit();
             this.groupBox1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numMax)).BeginInit();
             this.SuspendLayout();
             // 
             // contextMenuStrip1
@@ -128,13 +131,40 @@ namespace Tools_Injector_Mod_Menu
             this.dataList.MultiSelect = false;
             this.dataList.Name = "dataList";
             this.dataList.RowHeadersVisible = false;
-            this.dataList.Size = new System.Drawing.Size(771, 315);
+            this.dataList.Size = new System.Drawing.Size(771, 284);
             this.dataList.TabIndex = 1;
             this.dataList.KeyDown += new System.Windows.Forms.KeyEventHandler(this.dataList_KeyDown);
             this.dataList.MouseDown += new System.Windows.Forms.MouseEventHandler(this.dataList_MouseDown);
             // 
+            // colName
+            // 
+            this.colName.HeaderText = "Name (notice)";
+            this.colName.Name = "colName";
+            this.colName.Width = 120;
+            // 
+            // colOffset
+            // 
+            this.colOffset.HeaderText = "Offset";
+            this.colOffset.Name = "colOffset";
+            this.colOffset.Width = 120;
+            // 
+            // colType
+            // 
+            this.colType.HeaderText = "Type (Args)";
+            this.colType.Name = "colType";
+            this.colType.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.colType.Width = 265;
+            // 
+            // colValue
+            // 
+            this.colValue.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.colValue.HeaderText = "Values (Args)";
+            this.colValue.Name = "colValue";
+            // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.label3);
+            this.groupBox1.Controls.Add(this.numMax);
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Controls.Add(this.radButton);
             this.groupBox1.Controls.Add(this.radInput);
@@ -142,9 +172,9 @@ namespace Tools_Injector_Mod_Menu
             this.groupBox1.Controls.Add(this.label16);
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.groupBox1.Font = new System.Drawing.Font("Roboto", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            this.groupBox1.Location = new System.Drawing.Point(0, 315);
+            this.groupBox1.Location = new System.Drawing.Point(0, 284);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(771, 73);
+            this.groupBox1.Size = new System.Drawing.Size(771, 104);
             this.groupBox1.TabIndex = 4;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Main Settings";
@@ -239,30 +269,39 @@ namespace Tools_Injector_Mod_Menu
             this.btnSave.UseVisualStyleBackColor = true;
             this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
-            // colName
+            // label3
             // 
-            this.colName.HeaderText = "Name (notice)";
-            this.colName.Name = "colName";
-            this.colName.Width = 120;
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(521, 74);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(40, 18);
+            this.label3.TabIndex = 28;
+            this.label3.Text = "Max:";
             // 
-            // colOffset
+            // numMax
             // 
-            this.colOffset.HeaderText = "Offset";
-            this.colOffset.Name = "colOffset";
-            this.colOffset.Width = 120;
-            // 
-            // colType
-            // 
-            this.colType.HeaderText = "Type";
-            this.colType.Name = "colType";
-            this.colType.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.colType.Width = 265;
-            // 
-            // colValue
-            // 
-            this.colValue.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.colValue.HeaderText = "Values";
-            this.colValue.Name = "colValue";
+            this.numMax.Enabled = false;
+            this.numMax.Font = new System.Drawing.Font("Roboto", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.numMax.Location = new System.Drawing.Point(572, 67);
+            this.numMax.Maximum = new decimal(new int[] {
+            1215752192,
+            23,
+            0,
+            0});
+            this.numMax.Minimum = new decimal(new int[] {
+            2,
+            0,
+            0,
+            0});
+            this.numMax.Name = "numMax";
+            this.numMax.Size = new System.Drawing.Size(193, 32);
+            this.numMax.TabIndex = 26;
+            this.numMax.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.numMax.Value = new decimal(new int[] {
+            100,
+            0,
+            0,
+            0});
             // 
             // CtrlHookButton
             // 
@@ -277,6 +316,7 @@ namespace Tools_Injector_Mod_Menu
             ((System.ComponentModel.ISupportInitialize)(this.dataList)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numMax)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -299,5 +339,7 @@ namespace Tools_Injector_Mod_Menu
         private System.Windows.Forms.DataGridViewTextBoxColumn colOffset;
         private System.Windows.Forms.DataGridViewTextBoxColumn colType;
         private System.Windows.Forms.DataGridViewTextBoxColumn colValue;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.NumericUpDown numMax;
     }
 }

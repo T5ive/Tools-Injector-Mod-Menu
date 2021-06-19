@@ -89,6 +89,12 @@ namespace Tools_Injector_Mod_Menu
                             return;
                         }
 
+                        if (!fieldOffset.StartsWith("0x"))
+                        {
+                            MyMessage.MsgShowWarning(@$"Field Offset At {i + 1}, does not start with ""0x"" Please check it again!!!");
+                            return;
+                        }
+
                         if (fieldType != "bool" && Utility.IsEmpty(value, i + 1, "Value"))
                         {
                             return;
@@ -96,7 +102,6 @@ namespace Tools_Injector_Mod_Menu
 
                         fieldInfo = new FieldInfo
                         {
-                            Field = true,
                             Type = Utility.StringToType(fieldType),
                             Offset = fieldOffset
                         };
@@ -130,18 +135,6 @@ namespace Tools_Injector_Mod_Menu
                         }
                     }
 
-                    if (type == "vector3")
-                    {
-                        if (Utility.IsEmpty(value, i + 1, "Value"))
-                        {
-                            return;
-                        }
-
-                        var result = value.Split(',');
-                        if (result.Length != 2)
-                            MyMessage.MsgShowWarning($"Value At {i + 1}, is invalid. Please check it again!!!");
-                    }
-
                     if (type != "bool" && type != "void" && type != "links" && Utility.IsEmpty(value, i + 1, "Value"))
                     {
                         return;
@@ -162,7 +155,7 @@ namespace Tools_Injector_Mod_Menu
                         Hex = null,
                         HookInfo = hookInfo,
                         Name = name,
-                        Method = (null, null)
+                        Method = new List<(string, string)> { (null, null) }
                     };
                     offsetList.Add(offsetInfo);
                 }
@@ -171,6 +164,10 @@ namespace Tools_Injector_Mod_Menu
 
                 if (_index == 1150)
                 {
+                    if (Utility.IsDuplicateName(txtNameCheat.Text, OffsetPatch.FunctionList))
+                    {
+                        return;
+                    }
                     OffsetPatch.OffsetList = offsetList;
                     OffsetPatch.AddFunction(txtNameCheat.Text, functionType);
                     OffsetPatch.OffsetList.Clear();
@@ -197,6 +194,7 @@ namespace Tools_Injector_Mod_Menu
                         CheatName = txtNameCheat.Text,
                         FunctionType = functionType,
                         OffsetList = offsetList,
+                        FunctionExtra = null,
                         MultipleValue = false
                     };
                 }

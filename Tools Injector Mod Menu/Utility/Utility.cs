@@ -1,5 +1,4 @@
-﻿using System;
-using MaterialSkin.Controls;
+﻿using MaterialSkin.Controls;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -96,6 +95,7 @@ namespace Tools_Injector_Mod_Menu
             }
             return false;
         }
+
         public static bool IsEmpty(object str, int line, string name = "", bool msg = true)
         {
             if (str == null || string.IsNullOrWhiteSpace(str.ToString()))
@@ -106,6 +106,7 @@ namespace Tools_Injector_Mod_Menu
             }
             return false;
         }
+
         public static bool IsEmpty(object str, int line)
         {
             if (str == null || string.IsNullOrWhiteSpace(str.ToString()))
@@ -236,7 +237,7 @@ namespace Tools_Injector_Mod_Menu
         public static string RemoveSpecialCharacters(this string str)
         {
             var sb = new StringBuilder();
-            foreach (var c in str.Where(c => c >= '0' && c <= '9' || c >= 'A' && c <= 'Z' || c >= 'a' && c <= 'z' || c == '.' || c == '_'))
+            foreach (var c in str.Where(c => c is >= '0' and <= '9' || c is >= 'A' and <= 'Z' || c is >= 'a' and <= 'z' || c == '.' || c == '_'))
             {
                 sb.Append(c);
             }
@@ -246,7 +247,7 @@ namespace Tools_Injector_Mod_Menu
         public static string RemoveMiniSpecialCharacters(this string str)
         {
             var sb = new StringBuilder();
-            foreach (var c in str.Where(c => c >= '0' && c <= '9' || c >= 'A' && c <= 'Z' || c >= 'a' && c <= 'z' || c == '.' || c == ',' || c == '_'))
+            foreach (var c in str.Where(c => c is >= '0' and <= '9' || c is >= 'A' and <= 'Z' || c is >= 'a' and <= 'z' || c == '.' || c == ',' || c == '_'))
             {
                 sb.Append(c);
             }
@@ -256,7 +257,7 @@ namespace Tools_Injector_Mod_Menu
         public static string RemoveSuperSpecialCharacters(this string str)
         {
             var sb = new StringBuilder();
-            foreach (var c in str.Where(c => c >= '0' && c <= '9' || c >= 'A' && c <= 'Z' || c >= 'a' && c <= 'z'))
+            foreach (var c in str.Where(c => c is >= '0' and <= '9' || c is >= 'A' and <= 'Z' || c is >= 'a' and <= 'z'))
             {
                 sb.Append(c);
             }
@@ -289,6 +290,7 @@ namespace Tools_Injector_Mod_Menu
                 _ => "Empty"
             };
         }
+
         public static Enums.FunctionType StringToFunctionType(string str)
         {
             return str switch
@@ -306,6 +308,26 @@ namespace Tools_Injector_Mod_Menu
                 "Patch: Label" => Enums.FunctionType.PatchLabel,
                 "Patch: Toggle" => Enums.FunctionType.PatchToggle,
                 _ => Enums.FunctionType.Empty
+            };
+        }
+
+        public static string FunctionTypeToStringFeatures(Enums.FunctionType type)
+        {
+            return type switch
+            {
+                Enums.FunctionType.Category => "Category",
+                Enums.FunctionType.HookButton => "Button",
+                Enums.FunctionType.HookButtonOnOf => "ButtonOnOff",
+                Enums.FunctionType.HookInputButton => "InputButton",
+                Enums.FunctionType.HookInputOnOff => "InputOnOff",
+                Enums.FunctionType.HookInputValue => "InputValue",
+                Enums.FunctionType.HookSeekBar => "SeekBar",
+                Enums.FunctionType.HookSeekBarToggle => "SeekBarSwitch",
+                Enums.FunctionType.HookToggle => "Toggle",
+                Enums.FunctionType.PatchButtonOnOff => "ButtonOnOff",
+                Enums.FunctionType.PatchLabel => "RichTextView",
+                Enums.FunctionType.PatchToggle => "Toggle",
+                _ => "Empty"
             };
         }
 
@@ -333,9 +355,23 @@ namespace Tools_Injector_Mod_Menu
                 Enums.Type.Float => "float",
                 Enums.Type.Int => "int",
                 Enums.Type.Long => "long",
-                Enums.Type.Vector3 => "vector3",
                 Enums.Type.Void => "void",
                 Enums.Type.Links => "links",
+                _ => null
+            };
+        }
+
+        public static string TypeToStringEnd(Enums.Type type)
+        {
+            return type switch
+            {
+                Enums.Type.Bool => ";",
+                Enums.Type.Double => "= 1;",
+                Enums.Type.Float => "= 1;",
+                Enums.Type.Int => "= 1;",
+                Enums.Type.Long => "= 1;",
+                Enums.Type.Void => ";",
+                Enums.Type.Links => "",
                 _ => null
             };
         }

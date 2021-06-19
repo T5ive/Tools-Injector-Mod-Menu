@@ -39,7 +39,17 @@ namespace Tools_Injector_Mod_Menu
             this.removeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.materialCard1 = new MaterialSkin.Controls.MaterialCard();
             this.dataList = new System.Windows.Forms.DataGridView();
+            this.colName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colOffset = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colType = new System.Windows.Forms.DataGridViewComboBoxColumn();
+            this.colFieldType = new System.Windows.Forms.DataGridViewComboBoxColumn();
+            this.colField = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colLinks = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.numMax = new System.Windows.Forms.NumericUpDown();
+            this.numMin = new System.Windows.Forms.NumericUpDown();
             this.chkMultiple = new MaterialSkin.Controls.MaterialCheckbox();
             this.radSeekBarToggle = new MaterialSkin.Controls.MaterialRadioButton();
             this.radInputOnOff = new MaterialSkin.Controls.MaterialRadioButton();
@@ -49,16 +59,12 @@ namespace Tools_Injector_Mod_Menu
             this.txtNameCheat = new MaterialSkin.Controls.MaterialTextBox();
             this.label16 = new System.Windows.Forms.Label();
             this.btnSave = new MaterialSkin.Controls.MaterialButton();
-            this.colName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colOffset = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colType = new System.Windows.Forms.DataGridViewComboBoxColumn();
-            this.colFieldType = new System.Windows.Forms.DataGridViewComboBoxColumn();
-            this.colField = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colLinks = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.contextMenuStrip1.SuspendLayout();
             this.materialCard1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataList)).BeginInit();
             this.groupBox1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numMax)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numMin)).BeginInit();
             this.SuspendLayout();
             // 
             // contextMenuStrip1
@@ -143,8 +149,71 @@ namespace Tools_Injector_Mod_Menu
             this.dataList.KeyDown += new System.Windows.Forms.KeyEventHandler(this.dataList_KeyDown);
             this.dataList.MouseDown += new System.Windows.Forms.MouseEventHandler(this.dataList_MouseDown);
             // 
+            // colName
+            // 
+            this.colName.HeaderText = "Name (notice)";
+            this.colName.Name = "colName";
+            this.colName.Width = 120;
+            // 
+            // colOffset
+            // 
+            this.colOffset.HeaderText = "Offset";
+            this.colOffset.Name = "colOffset";
+            this.colOffset.Width = 120;
+            // 
+            // colType
+            // 
+            this.colType.HeaderText = "Type";
+            this.colType.Items.AddRange(new object[] {
+            "double",
+            "float",
+            "int",
+            "long",
+            "void",
+            "links"});
+            this.colType.Name = "colType";
+            this.colType.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.colType.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            // 
+            // colFieldType
+            // 
+            this.colFieldType.HeaderText = "Field Type";
+            this.colFieldType.Items.AddRange(new object[] {
+            "bool",
+            "double",
+            "float",
+            "int",
+            "long"});
+            this.colFieldType.Name = "colFieldType";
+            this.colFieldType.ReadOnly = true;
+            this.colFieldType.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.colFieldType.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            // 
+            // colField
+            // 
+            this.colField.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            dataGridViewCellStyle2.BackColor = System.Drawing.Color.Silver;
+            this.colField.DefaultCellStyle = dataGridViewCellStyle2;
+            this.colField.HeaderText = "Field Offset";
+            this.colField.Name = "colField";
+            this.colField.ReadOnly = true;
+            // 
+            // colLinks
+            // 
+            dataGridViewCellStyle3.BackColor = System.Drawing.Color.Silver;
+            this.colLinks.DefaultCellStyle = dataGridViewCellStyle3;
+            this.colLinks.HeaderText = "Links";
+            this.colLinks.Name = "colLinks";
+            this.colLinks.ReadOnly = true;
+            this.colLinks.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.colLinks.Width = 60;
+            // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.label3);
+            this.groupBox1.Controls.Add(this.label2);
+            this.groupBox1.Controls.Add(this.numMax);
+            this.groupBox1.Controls.Add(this.numMin);
             this.groupBox1.Controls.Add(this.chkMultiple);
             this.groupBox1.Controls.Add(this.radSeekBarToggle);
             this.groupBox1.Controls.Add(this.radInputOnOff);
@@ -161,6 +230,74 @@ namespace Tools_Injector_Mod_Menu
             this.groupBox1.TabIndex = 4;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Main Settings";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(235, 74);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(40, 18);
+            this.label3.TabIndex = 24;
+            this.label3.Text = "Max:";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(64, 74);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(37, 18);
+            this.label2.TabIndex = 23;
+            this.label2.Text = "Min:";
+            // 
+            // numMax
+            // 
+            this.numMax.Font = new System.Drawing.Font("Roboto", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.numMax.Location = new System.Drawing.Point(281, 67);
+            this.numMax.Maximum = new decimal(new int[] {
+            1215752192,
+            23,
+            0,
+            0});
+            this.numMax.Minimum = new decimal(new int[] {
+            2,
+            0,
+            0,
+            0});
+            this.numMax.Name = "numMax";
+            this.numMax.Size = new System.Drawing.Size(118, 32);
+            this.numMax.TabIndex = 7;
+            this.numMax.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.numMax.Value = new decimal(new int[] {
+            100,
+            0,
+            0,
+            0});
+            this.numMax.ValueChanged += new System.EventHandler(this.NumValueChanged);
+            // 
+            // numMin
+            // 
+            this.numMin.Font = new System.Drawing.Font("Roboto", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.numMin.Location = new System.Drawing.Point(107, 67);
+            this.numMin.Maximum = new decimal(new int[] {
+            1215752192,
+            23,
+            0,
+            0});
+            this.numMin.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.numMin.Name = "numMin";
+            this.numMin.Size = new System.Drawing.Size(118, 32);
+            this.numMin.TabIndex = 6;
+            this.numMin.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.numMin.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.numMin.ValueChanged += new System.EventHandler(this.NumValueChanged);
             // 
             // chkMultiple
             // 
@@ -192,6 +329,7 @@ namespace Tools_Injector_Mod_Menu
             this.radSeekBarToggle.TabStop = true;
             this.radSeekBarToggle.Text = "SeekBar Toggle";
             this.radSeekBarToggle.UseVisualStyleBackColor = true;
+            this.radSeekBarToggle.CheckedChanged += new System.EventHandler(this.rad_CheckedChanged);
             // 
             // radInputOnOff
             // 
@@ -208,6 +346,7 @@ namespace Tools_Injector_Mod_Menu
             this.radInputOnOff.TabStop = true;
             this.radInputOnOff.Text = "Input On/Off";
             this.radInputOnOff.UseVisualStyleBackColor = true;
+            this.radInputOnOff.CheckedChanged += new System.EventHandler(this.rad_CheckedChanged);
             // 
             // label1
             // 
@@ -299,65 +438,6 @@ namespace Tools_Injector_Mod_Menu
             this.btnSave.UseVisualStyleBackColor = true;
             this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
-            // colName
-            // 
-            this.colName.HeaderText = "Name (notice)";
-            this.colName.Name = "colName";
-            this.colName.Width = 120;
-            // 
-            // colOffset
-            // 
-            this.colOffset.HeaderText = "Offset";
-            this.colOffset.Name = "colOffset";
-            this.colOffset.Width = 120;
-            // 
-            // colType
-            // 
-            this.colType.HeaderText = "Type";
-            this.colType.Items.AddRange(new object[] {
-            "double",
-            "float",
-            "int",
-            "long",
-            "void",
-            "links"});
-            this.colType.Name = "colType";
-            this.colType.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.colType.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            // 
-            // colFieldType
-            // 
-            this.colFieldType.HeaderText = "Field Type";
-            this.colFieldType.Items.AddRange(new object[] {
-            "bool",
-            "double",
-            "float",
-            "int",
-            "long"});
-            this.colFieldType.Name = "colFieldType";
-            this.colFieldType.ReadOnly = true;
-            this.colFieldType.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.colFieldType.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            // 
-            // colField
-            // 
-            this.colField.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            dataGridViewCellStyle2.BackColor = System.Drawing.Color.Silver;
-            this.colField.DefaultCellStyle = dataGridViewCellStyle2;
-            this.colField.HeaderText = "Field Offset";
-            this.colField.Name = "colField";
-            this.colField.ReadOnly = true;
-            // 
-            // colLinks
-            // 
-            dataGridViewCellStyle3.BackColor = System.Drawing.Color.Silver;
-            this.colLinks.DefaultCellStyle = dataGridViewCellStyle3;
-            this.colLinks.HeaderText = "Links";
-            this.colLinks.Name = "colLinks";
-            this.colLinks.ReadOnly = true;
-            this.colLinks.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.colLinks.Width = 60;
-            // 
             // CtrlHookInput
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -371,6 +451,8 @@ namespace Tools_Injector_Mod_Menu
             ((System.ComponentModel.ISupportInitialize)(this.dataList)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numMax)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numMin)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -398,5 +480,9 @@ namespace Tools_Injector_Mod_Menu
         private System.Windows.Forms.DataGridViewComboBoxColumn colFieldType;
         private System.Windows.Forms.DataGridViewTextBoxColumn colField;
         private System.Windows.Forms.DataGridViewTextBoxColumn colLinks;
+        private System.Windows.Forms.NumericUpDown numMax;
+        private System.Windows.Forms.NumericUpDown numMin;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label label2;
     }
 }

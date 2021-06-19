@@ -30,11 +30,20 @@ namespace Tools_Injector_Mod_Menu
 
         private void AddListValues()
         {
+            var num = OffsetPatch.FunctionList[_index].FunctionExtra;
+            decimal min = 1, max = 100;
+            if (num.Contains("_"))
+            {
+                var result = num.Split('_');
+                min = Convert.ToDecimal(result[0]);
+                max = Convert.ToDecimal(result[1]);
+            }
             _type = OffsetPatch.FunctionList[_index].FunctionType;
             switch (_type)
             {
                 case Enums.FunctionType.HookSeekBar:
                     radSeekBar.Checked = true;
+                    numMin.Value = min;
                     break;
 
                 case Enums.FunctionType.HookInputValue:
@@ -43,6 +52,7 @@ namespace Tools_Injector_Mod_Menu
 
                 case Enums.FunctionType.HookSeekBarToggle:
                     radSeekBarToggle.Checked = true;
+                    numMin.Value = min;
                     break;
 
                 case Enums.FunctionType.HookInputOnOff:
@@ -50,6 +60,7 @@ namespace Tools_Injector_Mod_Menu
                     break;
             }
 
+            numMax.Value = max;
             txtNameCheat.Text = OffsetPatch.FunctionList[_index].CheatName;
 
             foreach (var offset in OffsetPatch.FunctionList[_index].OffsetList)
@@ -96,9 +107,14 @@ namespace Tools_Injector_Mod_Menu
                             return;
                         }
 
+                        if (!fieldOffset.StartsWith("0x"))
+                        {
+                            MyMessage.MsgShowWarning(@$"Field Offset At {i + 1}, does not start with ""0x"" Please check it again!!!");
+                            return;
+                        }
+
                         fieldInfo = new FieldInfo
                         {
-                            Field = true,
                             Type = Utility.StringToType(fieldType),
                             Offset = fieldOffset
                         };
@@ -142,17 +158,30 @@ namespace Tools_Injector_Mod_Menu
                         Hex = null,
                         HookInfo = hookInfo,
                         Name = name,
-                        Method = (null, null)
+                        Method = new List<(string, string)> { (null, null) }
                     };
                     offsetList.Add(offsetInfo);
                 }
 
                 var functionType = GetFunctionType();
 
+                var functionExtra = "";
+                if (radSeekBarToggle.Checked || radSeekBar.Checked)
+                {
+                    functionExtra = $"{numMin.Value}_{numMax.Value}";
+                }
+                else if (radInputOnOff.Checked || radInput.Checked)
+                {
+                    functionExtra = $"{numMax.Value}";
+                }
                 if (_index == 1150)
                 {
+                    if (Utility.IsDuplicateName(txtNameCheat.Text, OffsetPatch.FunctionList))
+                    {
+                        return;
+                    }
                     OffsetPatch.OffsetList = offsetList;
-                    OffsetPatch.AddFunction(txtNameCheat.Text, functionType, chkMultiple.Checked);
+                    OffsetPatch.AddFunction(txtNameCheat.Text, functionType, functionExtra, chkMultiple.Checked);
                     OffsetPatch.OffsetList.Clear();
                 }
                 else
@@ -177,6 +206,7 @@ namespace Tools_Injector_Mod_Menu
                         CheatName = txtNameCheat.Text,
                         FunctionType = functionType,
                         OffsetList = offsetList,
+                        FunctionExtra = functionExtra,
                         MultipleValue = chkMultiple.Checked
                     };
                 }
@@ -244,6 +274,11 @@ namespace Tools_Injector_Mod_Menu
                             links.ReadOnly = true;
                         }
                     }
+                }
+                if (dataList.CurrentCell == fieldType && type.Value.ToString() == "void" && cb.Text == "bool")
+                {
+                    MyMessage.MsgShowWarning("Not allow Field Type bool on Type void");
+                    cb.SelectedIndex = 3;
                 }
             }
             catch
@@ -326,11 +361,6 @@ namespace Tools_Injector_Mod_Menu
 
         #endregion ToolStripMenuItem
 
-        private void rad_CheckedChanged(object sender, EventArgs e)
-        {
-            _frmAddFunction.Text = HookName();
-        }
-
         private string HookName()
         {
             return radSeekBar.Checked ? "Hook: SeekBar" :
@@ -347,6 +377,27 @@ namespace Tools_Injector_Mod_Menu
                 radSeekBarToggle.Checked ? Enums.FunctionType.HookSeekBarToggle :
                 radInputOnOff.Checked ? Enums.FunctionType.HookInputOnOff :
                 Enums.FunctionType.Empty;
+        }
+
+        private void NumValueChanged(object sender, EventArgs e)
+        {
+            if (numMax.Value <= numMin.Value)
+            {
+                numMax.Value = numMin.Value + 1;
+            }
+        }
+
+        private void rad_CheckedChanged(object sender, EventArgs e)
+        {
+            _frmAddFunction.Text = HookName();
+            if (radSeekBarToggle.Checked || radSeekBar.Checked)
+            {
+                numMin.Enabled = true;
+            }
+            else if (radInputOnOff.Checked || radInput.Checked)
+            {
+                numMin.Enabled = false;
+            }
         }
     }
 }

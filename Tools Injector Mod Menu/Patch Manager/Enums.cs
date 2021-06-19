@@ -5,9 +5,7 @@
         public enum TypeAbi
         {
             Arm,
-            Arm64,
-            X86,
-            All
+            Arm64
         }
 
         public enum Type
@@ -19,7 +17,6 @@
             Long,
             Void,
             Links,
-            Vector3,
             Empty
         }
 

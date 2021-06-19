@@ -79,6 +79,8 @@ namespace Tools_Injector_Mod_Menu
             this.materialCard13 = new MaterialSkin.Controls.MaterialCard();
             this.groupBox13 = new System.Windows.Forms.GroupBox();
             this.dataList = new System.Windows.Forms.DataGridView();
+            this.colNameCheat = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colType = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.addToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.removeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -134,9 +136,6 @@ namespace Tools_Injector_Mod_Menu
             this.btnOnCreate = new MaterialSkin.Controls.MaterialButton();
             this.menuIconList = new System.Windows.Forms.ImageList(this.components);
             this.compilerWorker = new System.ComponentModel.BackgroundWorker();
-            this.colNameCheat = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colType = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colMultiple = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.materialTabControl1.SuspendLayout();
             this.tabMain.SuspendLayout();
             this.materialCard5.SuspendLayout();
@@ -894,8 +893,7 @@ namespace Tools_Injector_Mod_Menu
             this.dataList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataList.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.colNameCheat,
-            this.colType,
-            this.colMultiple});
+            this.colType});
             this.dataList.ContextMenuStrip = this.contextMenuStrip1;
             this.dataList.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataList.Location = new System.Drawing.Point(3, 22);
@@ -909,6 +907,22 @@ namespace Tools_Injector_Mod_Menu
             this.dataList.KeyDown += new System.Windows.Forms.KeyEventHandler(this.dataList_KeyDown);
             this.dataList.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.dataList_MouseDoubleClick);
             this.dataList.MouseDown += new System.Windows.Forms.MouseEventHandler(this.dataList_MouseDown);
+            // 
+            // colNameCheat
+            // 
+            this.colNameCheat.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.colNameCheat.HeaderText = "Name Cheat";
+            this.colNameCheat.Name = "colNameCheat";
+            this.colNameCheat.ReadOnly = true;
+            this.colNameCheat.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            // 
+            // colType
+            // 
+            this.colType.HeaderText = "Function Type";
+            this.colType.Name = "colType";
+            this.colType.ReadOnly = true;
+            this.colType.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.colType.Width = 280;
             // 
             // contextMenuStrip1
             // 
@@ -1142,9 +1156,7 @@ namespace Tools_Injector_Mod_Menu
             this.comboType.ItemHeight = 29;
             this.comboType.Items.AddRange(new object[] {
             "armeabi-v7a",
-            "arm64-v8a",
-            "x86",
-            "All"});
+            "arm64-v8a"});
             this.comboType.Location = new System.Drawing.Point(384, 25);
             this.comboType.MaxDropDownItems = 4;
             this.comboType.MouseState = MaterialSkin.MouseState.OUT;
@@ -1783,29 +1795,6 @@ namespace Tools_Injector_Mod_Menu
             this.compilerWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.compilerWorker_DoWork);
             this.compilerWorker.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.compilerWorker_RunWorkerCompleted);
             // 
-            // colNameCheat
-            // 
-            this.colNameCheat.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.colNameCheat.HeaderText = "Name Cheat";
-            this.colNameCheat.Name = "colNameCheat";
-            this.colNameCheat.ReadOnly = true;
-            this.colNameCheat.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            // 
-            // colType
-            // 
-            this.colType.HeaderText = "Function Type";
-            this.colType.Name = "colType";
-            this.colType.ReadOnly = true;
-            this.colType.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.colType.Width = 280;
-            // 
-            // colMultiple
-            // 
-            this.colMultiple.HeaderText = "Multiple";
-            this.colMultiple.Name = "colMultiple";
-            this.colMultiple.ReadOnly = true;
-            this.colMultiple.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            // 
             // FrmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1974,6 +1963,5 @@ namespace Tools_Injector_Mod_Menu
         private System.Windows.Forms.ToolStripMenuItem removeToolStripMenuItem;
         private System.Windows.Forms.DataGridViewTextBoxColumn colNameCheat;
         private System.Windows.Forms.DataGridViewTextBoxColumn colType;
-        private System.Windows.Forms.DataGridViewTextBoxColumn colMultiple;
     }
 }

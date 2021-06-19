@@ -36,11 +36,12 @@ namespace Tools_Injector_Mod_Menu
             const Enums.FunctionType functionType = Enums.FunctionType.Category;
             try
             {
+                if (Utility.IsEmpty(txtNameCheat)) return;
                 if (Utility.IsEmpty(txtCagtegory)) return;
 
                 if (_index == 1150)
                 {
-                    OffsetPatch.AddFunction(txtCagtegory.Text, functionType);
+                    OffsetPatch.AddFunction(txtNameCheat.Text, functionType, txtCagtegory.Text);
                 }
                 else
                 {
@@ -51,6 +52,7 @@ namespace Tools_Injector_Mod_Menu
                     {
                         case DialogResult.Cancel:
                             return;
+
                         case DialogResult.No:
                             Values.Save = false;
                             Dispose();
@@ -60,9 +62,10 @@ namespace Tools_Injector_Mod_Menu
 
                     OffsetPatch.FunctionList[_index] = new FunctionList
                     {
-                        CheatName = txtCagtegory.Text,
+                        CheatName = txtNameCheat.Text,
                         FunctionType = functionType,
                         OffsetList = new List<OffsetInfo>(),
+                        FunctionExtra = txtCagtegory.Text,
                         MultipleValue = false
                     };
                 }

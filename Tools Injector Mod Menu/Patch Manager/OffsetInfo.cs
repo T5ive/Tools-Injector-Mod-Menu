@@ -16,13 +16,13 @@ namespace Tools_Injector_Mod_Menu.Patch_Manager
 
         [XmlElement(ElementName = "Name")] public string Name { get; set; }
 
-        [XmlElement(ElementName = "Method")] public (string, string) Method { get; set; }
+        [XmlElement(ElementName = "Method")] public List<(string, string)> Method { get; set; }
     }
 
     public class HookInfo
     {
         [XmlElement(ElementName = "Type")] public Enums.Type Type { get; set; }
-        
+
         [XmlElement(ElementName = "Value")] public string Value { get; set; }
 
         [XmlElement(ElementName = "Links")] public string Links { get; set; }
@@ -32,8 +32,6 @@ namespace Tools_Injector_Mod_Menu.Patch_Manager
 
     public class FieldInfo
     {
-        [XmlElement(ElementName = "Field")] public bool Field { get; set; }
-
         [XmlElement(ElementName = "Type")] public Enums.Type Type { get; set; }
 
         [XmlElement(ElementName = "Offset")] public string Offset { get; set; }
@@ -58,7 +56,9 @@ namespace Tools_Injector_Mod_Menu.Patch_Manager
         [XmlElement(ElementName = "CheatName")] public string CheatName { get; set; }
 
         [XmlElement(ElementName = "FunctionType")] public Enums.FunctionType FunctionType { get; set; }
-        
+
+        [XmlElement(ElementName = "FunctionExtra")] public string FunctionExtra { get; set; }
+
         [XmlElement(ElementName = "MultipleValue")] public bool MultipleValue { get; set; }
     }
 }
