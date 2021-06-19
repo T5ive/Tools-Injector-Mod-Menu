@@ -38,6 +38,10 @@ namespace Tools_Injector_Mod_Menu
                 min = Convert.ToDecimal(result[0]);
                 max = Convert.ToDecimal(result[1]);
             }
+            else
+            {
+                max = Convert.ToDecimal(num);
+            }
             _type = OffsetPatch.FunctionList[_index].FunctionType;
             switch (_type)
             {

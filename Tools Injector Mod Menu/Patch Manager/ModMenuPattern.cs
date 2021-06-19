@@ -11,7 +11,7 @@ namespace Tools_Injector_Mod_Menu.Patch_Manager
 
         public static string MemoryPatch()
         {
-            var result = "MemoryPatch ";
+            var result = "MemoryPatch   ";
             foreach (var function in FUNCTION_LIST)
             {
                 var cheatName = function.CheatName.RemoveSuperSpecialCharacters().ReplaceNumCharacters();
@@ -91,7 +91,7 @@ namespace Tools_Injector_Mod_Menu.Patch_Manager
                 var links = 0;
                 foreach (var info in function.OffsetList.Where(info => info.HookInfo.Type == Enums.Type.Links))
                 {
-                    links = int.Parse(info.HookInfo.Value);
+                    links = int.Parse(info.HookInfo.Links);
                 }
 
                 foreach (var offsetInfo in function.OffsetList)
@@ -108,7 +108,7 @@ namespace Tools_Injector_Mod_Menu.Patch_Manager
                     var resultMultiple = "";
 
                     var linkResult = "";
-                    var id = offsetInfo.OffsetId;
+                    var id = offsetInfo.OffsetId + 1;
                     if (id == links)
                     {
                         linkResult += $"&& _{cheatName}{id} ";
@@ -142,24 +142,24 @@ namespace Tools_Injector_Mod_Menu.Patch_Manager
                                                     : $"*({typeString} *) ((uint64_t) instance + {fieldOffset}) = {hookValue};";
                                             }
 
-                                            result += $@"void (*old_{cheatName})(void *instance);
-void Update{cheatName}(void *instance) {{
+                                            result += $@"void (*old_{cheatName}{id})(void *instance);
+void Update{cheatName}{id}(void *instance) {{
     if (instance != NULL && _{cheatName} {linkResult}) {{
         {resultField};
     }}
-    return old_{cheatName}(instance);
+    return old_{cheatName}{id}(instance);
 }}
 ";
                                             break;
                                         }
 
                                     case Enums.Type.Bool:
-                                        result += $@"{typeString} (*old_{cheatName})(void *instance);
-{typeString} Update{cheatName}(void *instance) {{
+                                        result += $@"{typeString} (*old_{cheatName}{id})(void *instance);
+{typeString} Update{cheatName}{id}(void *instance) {{
     if (instance != NULL && _{cheatName} {linkResult}) {{
         return _{cheatName};
     }}
-    return old_{cheatName}(instance);
+    return old_{cheatName}{id}(instance);
 }}
 ";
                                         break;
@@ -168,12 +168,12 @@ void Update{cheatName}(void *instance) {{
                                     case Enums.Type.Float:
                                     case Enums.Type.Int:
                                     case Enums.Type.Long:
-                                        result += $@"{typeString} (*old_{cheatName})(void *instance);
-{typeString} Update{cheatName}(void *instance) {{
+                                        result += $@"{typeString} (*old_{cheatName}{id})(void *instance);
+{typeString} Update{cheatName}{id}(void *instance) {{
     if (instance != NULL && _{cheatName} {linkResult}) {{
         return {hookValue};
     }}
-    return old_{cheatName}(instance);
+    return old_{cheatName}{id}(instance);
 }}
 ";
                                         break;
@@ -214,12 +214,12 @@ void Update{cheatName}(void *instance) {{
                                                 ? $"*({typeString} *) ((uint64_t) instance + {fieldOffset}) = _{cheatName}Value*old_{cheatName}(instance);"
                                                 : $"*({typeString} *) ((uint64_t) instance + {fieldOffset}) = _{cheatName}Value;";
                                             }
-                                            result += $@"void (*old_{cheatName})(void *instance);
-void Update{cheatName}(void *instance) {{
+                                            result += $@"void (*old_{cheatName}{id})(void *instance);
+void Update{cheatName}{id}(void *instance) {{
     if (instance != NULL && _{cheatName}Value > 1 {resultToggle}{linkResult}) {{
         {resultMultiple};
     }}
-    return old_{cheatName}(instance);
+    return old_{cheatName}{id}(instance);
 }}
 ";
                                             break;
@@ -233,12 +233,12 @@ void Update{cheatName}(void *instance) {{
                                                 ? $"return _{cheatName}Value*old_{cheatName}(instance);"
                                                 : $"return _{cheatName}Value;";
 
-                                            result += $@"{typeString} (*old_{cheatName})(void *instance);
-{typeString} Update{cheatName}(void *instance) {{
+                                            result += $@"{typeString} (*old_{cheatName}{id})(void *instance);
+{typeString} Update{cheatName}{id}(void *instance) {{
     if (instance != NULL && _{cheatName}Value > 1 {resultToggle}{linkResult}) {{
         {resultMultiple}
     }}
-    return old_{cheatName}(instance);
+    return old_{cheatName}{id}(instance);
 }}
 ";
                                             break;
@@ -250,7 +250,7 @@ void Update{cheatName}(void *instance) {{
                         case Enums.FunctionType.HookInputButton:
                             {
                                 var args = GetTypeArgs(offsetInfo.Method);
-                                result += $"void (*{cheatName}Method)(void *instance{args});{newLine}";
+                                result += $"void (*{cheatName}Method{id})(void *instance{args});{newLine}";
                                 btnResult += $"    btn{cheatName} = instance;{newLine}";
                                 break;
                             }
@@ -326,11 +326,13 @@ void Update(void *instance) {{
             var abiType = type == Enums.TypeAbi.Arm64 ? "A64HookFunction" : "MSHookFunction";
             var result = "";
             var newLine = Environment.NewLine;
+            
             foreach (var function in FUNCTION_LIST)
             {
                 var cheatName = function.CheatName.RemoveSuperSpecialCharacters().ReplaceNumCharacters();
                 foreach (var offsetInfo in function.OffsetList)
                 {
+                    var id = offsetInfo.OffsetId + 1;
                     switch (function.FunctionType)
                     {
                         case Enums.FunctionType.HookToggle:
@@ -342,7 +344,7 @@ void Update(void *instance) {{
                             {
                                 result +=
                                     $@"{abiType}((void *) getAbsoluteAddress(targetLibName, string2Offset(OBFUSCATE_KEY(""{offsetInfo.Offset}"", {RandomString(14)}))),
-                            (void *) Update{cheatName}, (void **) &old_{cheatName});{newLine}    ";
+                            (void *) Update{cheatName}{id}, (void **) &old_{cheatName}{id});{newLine}    ";
 
                                 break;
                             }
@@ -404,7 +406,7 @@ void Update(void *instance) {{
                     realCount++;
                 }
             }
-            return result.Remove(result.Length - 1);
+            return result;
         }
 
         public static string NewFeatures()
