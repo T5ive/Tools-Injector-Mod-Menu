@@ -31,16 +31,23 @@ namespace Tools_Injector_Mod_Menu
         private void AddListValues()
         {
             var num = OffsetPatch.FunctionList[_index].FunctionExtra;
-            decimal min = 1, max = 100;
-            if (num.Contains("_"))
+            decimal min = 1, max;
+            if(Utility.IsEmpty(num,false))
             {
-                var result = num.Split('_');
-                min = Convert.ToDecimal(result[0]);
-                max = Convert.ToDecimal(result[1]);
+                max = 0;
             }
             else
             {
-                max = Convert.ToDecimal(num);
+                if (num.Contains("_"))
+                {
+                    var result = num.Split('_');
+                    min = Convert.ToDecimal(result[0]);
+                    max = Convert.ToDecimal(result[1]);
+                }
+                else
+                {
+                    max = Convert.ToDecimal(num);
+                }
             }
             _type = OffsetPatch.FunctionList[_index].FunctionType;
             switch (_type)
@@ -176,7 +183,10 @@ namespace Tools_Injector_Mod_Menu
                 }
                 else if (radInputOnOff.Checked || radInput.Checked)
                 {
-                    functionExtra = $"{numMax.Value}";
+                    if (numMax.Value != 0)
+                    {
+                        functionExtra = $"{numMax.Value}";
+                    }
                 }
                 if (_index == 1150)
                 {
@@ -397,10 +407,14 @@ namespace Tools_Injector_Mod_Menu
             if (radSeekBarToggle.Checked || radSeekBar.Checked)
             {
                 numMin.Enabled = true;
+                numMax.Minimum = 2;
+                numMax.Value = 100;
             }
             else if (radInputOnOff.Checked || radInput.Checked)
             {
                 numMin.Enabled = false;
+                numMax.Minimum = 0;
+                numMax.Value = 0;
             }
         }
     }
