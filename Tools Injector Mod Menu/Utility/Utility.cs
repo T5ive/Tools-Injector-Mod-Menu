@@ -107,7 +107,7 @@ namespace Tools_Injector_Mod_Menu
             return false;
         }
 
-        public static bool IsEmpty(object str, int line)
+        public static bool IsEmpty(object str)
         {
             if (str == null || string.IsNullOrWhiteSpace(str.ToString()))
             {

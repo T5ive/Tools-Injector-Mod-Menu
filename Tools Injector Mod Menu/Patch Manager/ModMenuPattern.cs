@@ -39,23 +39,28 @@ namespace Tools_Injector_Mod_Menu.Patch_Manager
                 var cheatName = function.CheatName.RemoveSuperSpecialCharacters().ReplaceNumCharacters();
                 switch (function.FunctionType)
                 {
+                    case Enums.FunctionType.PatchButtonOnOff:
+                    case Enums.FunctionType.PatchToggle:
+                        result += $"bool _{cheatName};{newLine}";
+                        break;
                     case Enums.FunctionType.HookToggle:
                     case Enums.FunctionType.HookButtonOnOf:
                         result += $"bool _{cheatName};{newLine}";
-                        result = function.OffsetList.Where(info => info.HookInfo.Type == Enums.Type.Links).Aggregate(result, (current, info) => current + $"{info.HookInfo.FieldInfo.Type} _{cheatName}{info.OffsetId}{Utility.TypeToStringEnd(info.HookInfo.FieldInfo.Type)}{newLine}");
+                        result = function.OffsetList.Where(offsetInfo => offsetInfo.HookInfo.Type == Enums.Type.Links).Aggregate(result, (current, offsetInfo) => current + $"{Utility.TypeToString(offsetInfo.HookInfo.FieldInfo.Type)} _{cheatName}{offsetInfo.OffsetId}{Utility.TypeToStringEnd(offsetInfo.HookInfo.FieldInfo.Type)}{newLine}");
+
                         break;
 
                     case Enums.FunctionType.HookSeekBar:
                     case Enums.FunctionType.HookInputValue:
                         result += $"int _{cheatName}Value = 1;{newLine}";
-                        result = function.OffsetList.Where(info => info.HookInfo.Type == Enums.Type.Links).Aggregate(result, (current, info) => current + $"{info.HookInfo.FieldInfo.Type} _{cheatName}{info.OffsetId}{Utility.TypeToStringEnd(info.HookInfo.FieldInfo.Type)}{newLine}");
+                        result = function.OffsetList.Where(offsetInfo => offsetInfo.HookInfo.Type == Enums.Type.Links).Aggregate(result, (current, info) => current + $"{Utility.TypeToString(info.HookInfo.FieldInfo.Type)} _{cheatName}{info.OffsetId}{Utility.TypeToStringEnd(info.HookInfo.FieldInfo.Type)}{newLine}");
                         break;
 
                     case Enums.FunctionType.HookSeekBarToggle:
                     case Enums.FunctionType.HookInputOnOff:
                         result += $"bool _{cheatName};{newLine}";
                         result += $"int _{cheatName}Value = 1;{newLine}";
-                        result = function.OffsetList.Where(info => info.HookInfo.Type == Enums.Type.Links).Aggregate(result, (current, info) => current + $"{info.HookInfo.FieldInfo.Type} _{cheatName}{info.OffsetId}{Utility.TypeToStringEnd(info.HookInfo.FieldInfo.Type)}{newLine}");
+                        result = function.OffsetList.Where(offsetInfo => offsetInfo.HookInfo.Type == Enums.Type.Links).Aggregate(result, (current, info) => current + $"{Utility.TypeToString(info.HookInfo.FieldInfo.Type)} _{cheatName}{info.OffsetId}{Utility.TypeToStringEnd(info.HookInfo.FieldInfo.Type)}{newLine}");
                         break;
 
                     case Enums.FunctionType.HookButton:
@@ -99,6 +104,9 @@ namespace Tools_Injector_Mod_Menu.Patch_Manager
                     var type = offsetInfo.HookInfo.Type;
                     var typeString = Utility.TypeToString(type);
 
+                    var typeField = offsetInfo.HookInfo.FieldInfo.Type;
+                    var typeFieldString = Utility.TypeToString(typeField);
+
                     var hookValue = offsetInfo.HookInfo.Value;
 
                     var resultField = "";
@@ -131,21 +139,21 @@ namespace Tools_Injector_Mod_Menu.Patch_Manager
                                                 {
                                                     offset.RemoveSuperSpecialCharacters();
                                                     resultField += offsetInfo.HookInfo.FieldInfo.Type == Enums.Type.Bool
-                                                        ? $"*({typeString} *) ((uint64_t) instance + {offset}) = _{cheatName};{newLine}        "
-                                                        : $"*({typeString} *) ((uint64_t) instance + {offset}) = {hookValue};{newLine}        ";
+                                                        ? $"*({typeFieldString} *) ((uint64_t) instance + {offset}) = _{cheatName};{newLine}        "
+                                                        : $"*({typeFieldString} *) ((uint64_t) instance + {offset}) = {hookValue};{newLine}        ";
                                                 }
                                             }
                                             else
                                             {
                                                 resultField += offsetInfo.HookInfo.FieldInfo.Type == Enums.Type.Bool
-                                                    ? $"*({typeString} *) ((uint64_t) instance + {fieldOffset}) = _{cheatName};"
-                                                    : $"*({typeString} *) ((uint64_t) instance + {fieldOffset}) = {hookValue};";
+                                                    ? $"*({typeFieldString} *) ((uint64_t) instance + {fieldOffset}) = _{cheatName};"
+                                                    : $"*({typeFieldString} *) ((uint64_t) instance + {fieldOffset}) = {hookValue};";
                                             }
 
                                             result += $@"void (*old_{cheatName}{id})(void *instance);
 void Update{cheatName}{id}(void *instance) {{
     if (instance != NULL && _{cheatName} {linkResult}) {{
-        {resultField};
+        {resultField}
     }}
     return old_{cheatName}{id}(instance);
 }}
@@ -204,20 +212,20 @@ void Update{cheatName}{id}(void *instance) {{
                                                 {
                                                     offset.RemoveSuperSpecialCharacters();
                                                     resultMultiple += function.MultipleValue
-                                                        ? $"*({typeString} *) ((uint64_t) instance + {offset}) = _{cheatName}Value*old_{cheatName}(instance);{newLine}        "
-                                                        : $"*({typeString} *) ((uint64_t) instance + {offset}) = _{cheatName}Value;{newLine}        ";
+                                                        ? $"*({typeFieldString} *) ((uint64_t) instance + {offset}) = _{cheatName}Value*old_{cheatName}(instance);{newLine}        "
+                                                        : $"*({typeFieldString} *) ((uint64_t) instance + {offset}) = _{cheatName}Value;{newLine}        ";
                                                 }
                                             }
                                             else
                                             {
                                                 resultMultiple += function.MultipleValue
-                                                ? $"*({typeString} *) ((uint64_t) instance + {fieldOffset}) = _{cheatName}Value*old_{cheatName}(instance);"
-                                                : $"*({typeString} *) ((uint64_t) instance + {fieldOffset}) = _{cheatName}Value;";
+                                                ? $"*({typeFieldString} *) ((uint64_t) instance + {fieldOffset}) = _{cheatName}Value*old_{cheatName}(instance);"
+                                                : $"*({typeFieldString} *) ((uint64_t) instance + {fieldOffset}) = _{cheatName}Value;";
                                             }
                                             result += $@"void (*old_{cheatName}{id})(void *instance);
 void Update{cheatName}{id}(void *instance) {{
     if (instance != NULL && _{cheatName}Value > 1 {resultToggle}{linkResult}) {{
-        {resultMultiple};
+        {resultMultiple}
     }}
     return old_{cheatName}{id}(instance);
 }}
@@ -311,7 +319,7 @@ void Update(void *instance) {{
                                 }
                                 result += $@"hexPatches.{cheatName}_{offsetInfo.OffsetId} = MemoryPatch::createWithHex(targetLibName,
                                             string2Offset(OBFUSCATE_KEY(""{offsetInfo.Offset}"", {RandomString(12)})),
-                                            OBFUSCATE(""{offsetInfo.Hex}""));{instantValue}";
+                                            OBFUSCATE(""{offsetInfo.Hex}""));{instantValue}{newLine}";
                                 break;
                             }
                     }
@@ -326,7 +334,7 @@ void Update(void *instance) {{
             var abiType = type == Enums.TypeAbi.Arm64 ? "A64HookFunction" : "MSHookFunction";
             var result = "";
             var newLine = Environment.NewLine;
-            
+
             foreach (var function in FUNCTION_LIST)
             {
                 var cheatName = function.CheatName.RemoveSuperSpecialCharacters().ReplaceNumCharacters();
@@ -342,6 +350,7 @@ void Update(void *instance) {{
                         case Enums.FunctionType.HookSeekBarToggle:
                         case Enums.FunctionType.HookInputOnOff:
                             {
+                                if(offsetInfo.HookInfo.Type == Enums.Type.Links) break;
                                 result +=
                                     $@"{abiType}((void *) getAbsoluteAddress(targetLibName, string2Offset(OBFUSCATE_KEY(""{offsetInfo.Offset}"", {RandomString(12)}))),
                             (void *) Update{cheatName}{id}, (void **) &old_{cheatName}{id});{newLine}    ";
@@ -433,9 +442,9 @@ void Update(void *instance) {{
                         case {num}:
                             _{cheatName} = boolean;
                             if (_{cheatName}) {{
-                                {offsetListModify};
+                                {offsetListModify}
                             }} else {{
-                                {offsetListRestore};
+                                {offsetListRestore}
                             }}
                             break;{Environment.NewLine}";
                             break;
@@ -528,6 +537,7 @@ void Update(void *instance) {{
         }
 
         private static readonly Random RANDOM = new();
+
         private static string RandomString(int length)
         {
             const string chars = "123456789";

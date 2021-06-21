@@ -48,6 +48,8 @@ namespace Tools_Injector_Mod_Menu
             {
                 dataList.Rows.Add(offset.Name, offset.Offset, Utility.TypeToString(offset.HookInfo.Type), Utility.TypeToString(offset.HookInfo.FieldInfo.Type), offset.HookInfo.FieldInfo.Offset, offset.HookInfo.Value, offset.HookInfo.Links);
             }
+
+            LoadDataList();
         }
 
         private void btnSave_Click(object sender, EventArgs e)
@@ -61,13 +63,13 @@ namespace Tools_Injector_Mod_Menu
 
                 for (var i = 0; i < dataList.Rows.Count; i++)
                 {
-                    var name = Utility.IsEmpty(dataList.Rows[i].Cells[0].Value, 0) ? "" : dataList.Rows[i].Cells[0].Value.ToString();
-                    var offset = Utility.IsEmpty(dataList.Rows[i].Cells[1].Value, 1) ? "" : dataList.Rows[i].Cells[1].Value.ToString();
-                    var type = Utility.IsEmpty(dataList.Rows[i].Cells[2].Value, 2) ? "" : dataList.Rows[i].Cells[2].Value.ToString();
-                    var fieldType = Utility.IsEmpty(dataList.Rows[i].Cells[3].Value, 3) ? "" : dataList.Rows[i].Cells[3].Value.ToString();
-                    var fieldOffset = Utility.IsEmpty(dataList.Rows[i].Cells[4].Value, 4) ? "" : dataList.Rows[i].Cells[4].Value.ToString();
-                    var value = Utility.IsEmpty(dataList.Rows[i].Cells[5].Value, 5) ? "" : dataList.Rows[i].Cells[5].Value.ToString();
-                    var links = Utility.IsEmpty(dataList.Rows[i].Cells[6].Value, 6) ? "" : dataList.Rows[i].Cells[6].Value.ToString();
+                    var name = Utility.IsEmpty(dataList.Rows[i].Cells[0].Value) ? "" : dataList.Rows[i].Cells[0].Value.ToString();
+                    var offset = Utility.IsEmpty(dataList.Rows[i].Cells[1].Value) ? "" : dataList.Rows[i].Cells[1].Value.ToString();
+                    var type = Utility.IsEmpty(dataList.Rows[i].Cells[2].Value) ? "" : dataList.Rows[i].Cells[2].Value.ToString();
+                    var fieldType = Utility.IsEmpty(dataList.Rows[i].Cells[3].Value) ? "" : dataList.Rows[i].Cells[3].Value.ToString();
+                    var fieldOffset = Utility.IsEmpty(dataList.Rows[i].Cells[4].Value) ? "" : dataList.Rows[i].Cells[4].Value.ToString();
+                    var value = Utility.IsEmpty(dataList.Rows[i].Cells[5].Value) ? "" : dataList.Rows[i].Cells[5].Value.ToString();
+                    var links = Utility.IsEmpty(dataList.Rows[i].Cells[6].Value) ? "" : dataList.Rows[i].Cells[6].Value.ToString();
 
                     FieldInfo fieldInfo;
 
@@ -106,12 +108,7 @@ namespace Tools_Injector_Mod_Menu
                             Offset = fieldOffset
                         };
                     }
-                    else
-                    {
-                        fieldInfo = OffsetPatch.FieldValue();
-                    }
-
-                    if (type == "links")
+                    else if (type == "links")
                     {
                         if (Utility.IsEmpty(fieldType, i + 1, "Field Type"))
                         {
@@ -133,6 +130,16 @@ namespace Tools_Injector_Mod_Menu
                             MyMessage.MsgShowWarning($"Links At {i + 1}, is invalid. Please check it again!!!");
                             return;
                         }
+
+                        fieldInfo = new FieldInfo
+                        {
+                            Type = Utility.StringToType(fieldType),
+                            Offset = fieldOffset
+                        };
+                    }
+                    else
+                    {
+                        fieldInfo = OffsetPatch.FieldValue();
                     }
 
                     if (type != "bool" && type != "void" && type != "links" && Utility.IsEmpty(value, i + 1, "Value"))
@@ -210,6 +217,69 @@ namespace Tools_Injector_Mod_Menu
         }
 
         #region Data List
+
+        private void LoadDataList()
+        {
+            for (var i = 0; i < dataList.RowCount; i++)
+            {
+                var typeValue = Utility.IsEmpty(dataList.Rows[i].Cells[2].Value) ? "" : dataList.Rows[i].Cells[2].Value.ToString();
+                var fieldTypeValue = Utility.IsEmpty(dataList.Rows[i].Cells[3].Value) ? "" : dataList.Rows[i].Cells[3].Value.ToString();
+
+                var fieldType = dataList.Rows[i].Cells[3];
+                var fieldOffset = dataList.Rows[i].Cells[4];
+                var value = dataList.Rows[i].Cells[5];
+                var links = dataList.Rows[i].Cells[6];
+
+                if (typeValue == "bool")
+                {
+                    value.Style.BackColor = Color.Silver;
+                    value.ReadOnly = true;
+                }
+                else
+                {
+                    value.Style.BackColor = Color.White;
+                    value.ReadOnly = false;
+
+                    if (typeValue == "void")
+                    {
+                        fieldType.ReadOnly = false;
+                        fieldOffset.ReadOnly = false;
+                        fieldOffset.Style.BackColor = Color.White;
+                    }
+                    else
+                    {
+                        fieldType.ReadOnly = true;
+                        fieldOffset.Style.BackColor = Color.Silver;
+                        fieldOffset.ReadOnly = true;
+
+                        if (typeValue == "links")
+                        {
+                            fieldType.ReadOnly = false;
+                            links.Style.BackColor = Color.White;
+                            links.ReadOnly = false;
+                        }
+                        else
+                        {
+                            fieldType.ReadOnly = true;
+                            links.Style.BackColor = Color.Silver;
+                            links.ReadOnly = true;
+                        }
+                    }
+                }
+
+                if (fieldTypeValue == "bool")
+                {
+                    value.Value = "";
+                    value.Style.BackColor = Color.Silver;
+                    value.ReadOnly = true;
+                }
+                else
+                {
+                    value.Style.BackColor = Color.White;
+                    value.ReadOnly = false;
+                }
+            }
+        }
 
         private void dataList_EditingControlShowing(object sender, DataGridViewEditingControlShowingEventArgs e)
         {

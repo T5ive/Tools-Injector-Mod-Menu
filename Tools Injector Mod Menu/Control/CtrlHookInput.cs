@@ -32,7 +32,7 @@ namespace Tools_Injector_Mod_Menu
         {
             var num = OffsetPatch.FunctionList[_index].FunctionExtra;
             decimal min = 1, max;
-            if(Utility.IsEmpty(num,false))
+            if (Utility.IsEmpty(num, false))
             {
                 max = 0;
             }
@@ -78,6 +78,8 @@ namespace Tools_Injector_Mod_Menu
             {
                 dataList.Rows.Add(offset.Name, offset.Offset, Utility.TypeToString(offset.HookInfo.Type), Utility.TypeToString(offset.HookInfo.FieldInfo.Type), offset.HookInfo.FieldInfo.Offset, offset.HookInfo.Links);
             }
+
+            LoadDataList();
         }
 
         private void btnSave_Click(object sender, EventArgs e)
@@ -91,12 +93,12 @@ namespace Tools_Injector_Mod_Menu
 
                 for (var i = 0; i < dataList.Rows.Count; i++)
                 {
-                    var name = Utility.IsEmpty(dataList.Rows[i].Cells[0].Value, 0) ? "" : dataList.Rows[i].Cells[0].Value.ToString();
-                    var offset = Utility.IsEmpty(dataList.Rows[i].Cells[1].Value, 1) ? "" : dataList.Rows[i].Cells[1].Value.ToString();
-                    var type = Utility.IsEmpty(dataList.Rows[i].Cells[2].Value, 2) ? "" : dataList.Rows[i].Cells[2].Value.ToString();
-                    var fieldType = Utility.IsEmpty(dataList.Rows[i].Cells[3].Value, 3) ? "" : dataList.Rows[i].Cells[3].Value.ToString();
-                    var fieldOffset = Utility.IsEmpty(dataList.Rows[i].Cells[4].Value, 4) ? "" : dataList.Rows[i].Cells[4].Value.ToString();
-                    var links = Utility.IsEmpty(dataList.Rows[i].Cells[5].Value, 5) ? "" : dataList.Rows[i].Cells[5].Value.ToString();
+                    var name = Utility.IsEmpty(dataList.Rows[i].Cells[0].Value) ? "" : dataList.Rows[i].Cells[0].Value.ToString();
+                    var offset = Utility.IsEmpty(dataList.Rows[i].Cells[1].Value) ? "" : dataList.Rows[i].Cells[1].Value.ToString();
+                    var type = Utility.IsEmpty(dataList.Rows[i].Cells[2].Value)? "" : dataList.Rows[i].Cells[2].Value.ToString();
+                    var fieldType = Utility.IsEmpty(dataList.Rows[i].Cells[3].Value) ? "" : dataList.Rows[i].Cells[3].Value.ToString();
+                    var fieldOffset = Utility.IsEmpty(dataList.Rows[i].Cells[4].Value) ? "" : dataList.Rows[i].Cells[4].Value.ToString();
+                    var links = Utility.IsEmpty(dataList.Rows[i].Cells[5].Value) ? "" : dataList.Rows[i].Cells[5].Value.ToString();
 
                     FieldInfo fieldInfo;
 
@@ -130,12 +132,7 @@ namespace Tools_Injector_Mod_Menu
                             Offset = fieldOffset
                         };
                     }
-                    else
-                    {
-                        fieldInfo = OffsetPatch.FieldValue();
-                    }
-
-                    if (type == "links")
+                    else if (type == "links")
                     {
                         if (Utility.IsEmpty(fieldType, i + 1, "Field Type"))
                         {
@@ -152,6 +149,15 @@ namespace Tools_Injector_Mod_Menu
                             MyMessage.MsgShowWarning($"At {i + 1}, Links is invalid. Please check it again!!!");
                             return;
                         }
+                        fieldInfo = new FieldInfo
+                        {
+                            Type = Utility.StringToType(fieldType),
+                            Offset = fieldOffset
+                        };
+                    }
+                    else
+                    {
+                        fieldInfo = OffsetPatch.FieldValue();
                     }
 
                     var hookInfo = new HookInfo
@@ -236,6 +242,44 @@ namespace Tools_Injector_Mod_Menu
         }
 
         #region Data List
+
+        private void LoadDataList()
+        {
+            for (var i = 0; i < dataList.RowCount; i++)
+            {
+                var typeValue = Utility.IsEmpty(dataList.Rows[i].Cells[2].Value) ? "" : dataList.Rows[i].Cells[2].Value.ToString();
+
+                var fieldType = dataList.Rows[i].Cells[3];
+                var fieldOffset = dataList.Rows[i].Cells[4];
+                var links = dataList.Rows[i].Cells[5];
+
+                if (typeValue == "void")
+                {
+                    fieldType.ReadOnly = false;
+                    fieldOffset.ReadOnly = false;
+                    fieldOffset.Style.BackColor = Color.White;
+                }
+                else
+                {
+                    fieldType.ReadOnly = true;
+                    fieldOffset.Style.BackColor = Color.Silver;
+                    fieldOffset.ReadOnly = true;
+
+                    if (typeValue == "links")
+                    {
+                        fieldType.ReadOnly = false;
+                        links.Style.BackColor = Color.White;
+                        links.ReadOnly = false;
+                    }
+                    else
+                    {
+                        fieldType.ReadOnly = true;
+                        links.Style.BackColor = Color.Silver;
+                        links.ReadOnly = true;
+                    }
+                }
+            }
+        }
 
         private void dataList_EditingControlShowing(object sender, DataGridViewEditingControlShowingEventArgs e)
         {
@@ -404,16 +448,16 @@ namespace Tools_Injector_Mod_Menu
         private void rad_CheckedChanged(object sender, EventArgs e)
         {
             _frmAddFunction.Text = HookName();
-            if (radSeekBarToggle.Checked || radSeekBar.Checked)
+            if (radSeekBarToggle.Checked || (radSeekBar.Checked))
             {
                 numMin.Enabled = true;
-                numMax.Minimum = 2;
+                numMax.Maximum = 2;
                 numMax.Value = 100;
             }
-            else if (radInputOnOff.Checked || radInput.Checked)
+            if (radInputOnOff.Checked || (radInput.Checked))
             {
                 numMin.Enabled = false;
-                numMax.Minimum = 0;
+                numMax.Maximum = 0;
                 numMax.Value = 0;
             }
         }
