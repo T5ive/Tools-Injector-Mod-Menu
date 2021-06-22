@@ -42,14 +42,14 @@ namespace Tools_Injector_Mod_Menu
             this.colType = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colValue = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.numMax = new System.Windows.Forms.NumericUpDown();
             this.label1 = new System.Windows.Forms.Label();
             this.radButton = new MaterialSkin.Controls.MaterialRadioButton();
             this.radInput = new MaterialSkin.Controls.MaterialRadioButton();
             this.txtNameCheat = new MaterialSkin.Controls.MaterialTextBox();
             this.label16 = new System.Windows.Forms.Label();
             this.btnSave = new MaterialSkin.Controls.MaterialButton();
-            this.label3 = new System.Windows.Forms.Label();
-            this.numMax = new System.Windows.Forms.NumericUpDown();
             this.contextMenuStrip1.SuspendLayout();
             this.materialCard1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataList)).BeginInit();
@@ -179,6 +179,30 @@ namespace Tools_Injector_Mod_Menu
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Main Settings";
             // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(521, 74);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(40, 18);
+            this.label3.TabIndex = 28;
+            this.label3.Text = "Max:";
+            // 
+            // numMax
+            // 
+            this.numMax.Enabled = false;
+            this.numMax.Font = new System.Drawing.Font("Roboto", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.numMax.Location = new System.Drawing.Point(572, 67);
+            this.numMax.Maximum = new decimal(new int[] {
+            1215752192,
+            23,
+            0,
+            0});
+            this.numMax.Name = "numMax";
+            this.numMax.Size = new System.Drawing.Size(193, 32);
+            this.numMax.TabIndex = 26;
+            this.numMax.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
             // label1
             // 
             this.label1.AutoSize = true;
@@ -268,40 +292,6 @@ namespace Tools_Injector_Mod_Menu
             this.btnSave.UseAccentColor = false;
             this.btnSave.UseVisualStyleBackColor = true;
             this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(521, 74);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(40, 18);
-            this.label3.TabIndex = 28;
-            this.label3.Text = "Max:";
-            // 
-            // numMax
-            // 
-            this.numMax.Enabled = false;
-            this.numMax.Font = new System.Drawing.Font("Roboto", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            this.numMax.Location = new System.Drawing.Point(572, 67);
-            this.numMax.Maximum = new decimal(new int[] {
-            1215752192,
-            23,
-            0,
-            0});
-            this.numMax.Minimum = new decimal(new int[] {
-            2,
-            0,
-            0,
-            0});
-            this.numMax.Name = "numMax";
-            this.numMax.Size = new System.Drawing.Size(193, 32);
-            this.numMax.TabIndex = 26;
-            this.numMax.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.numMax.Value = new decimal(new int[] {
-            100,
-            0,
-            0,
-            0});
             // 
             // CtrlHookButton
             // 

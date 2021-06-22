@@ -439,6 +439,7 @@ namespace Tools_Injector_Mod_Menu
 
         private void NumValueChanged(object sender, EventArgs e)
         {
+            if (radInputOnOff.Checked || radInput.Checked) return;
             if (numMax.Value <= numMin.Value)
             {
                 numMax.Value = numMin.Value + 1;
@@ -448,16 +449,16 @@ namespace Tools_Injector_Mod_Menu
         private void rad_CheckedChanged(object sender, EventArgs e)
         {
             _frmAddFunction.Text = HookName();
-            if (radSeekBarToggle.Checked || (radSeekBar.Checked))
+            if (radSeekBarToggle.Checked || radSeekBar.Checked)
             {
                 numMin.Enabled = true;
-                numMax.Maximum = 2;
+                numMax.Minimum = 2;
                 numMax.Value = 100;
             }
-            if (radInputOnOff.Checked || (radInput.Checked))
+            if (radInputOnOff.Checked || radInput.Checked)
             {
                 numMin.Enabled = false;
-                numMax.Maximum = 0;
+                numMax.Minimum = 0;
                 numMax.Value = 0;
             }
         }

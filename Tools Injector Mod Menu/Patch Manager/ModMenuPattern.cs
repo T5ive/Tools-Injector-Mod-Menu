@@ -361,7 +361,7 @@ void Update(void *instance) {{
                         case Enums.FunctionType.HookInputButton:
                             {
                                 var args = GetTypeArgs(offsetInfo.Method);
-                                result += $"{cheatName}Method = (void(*)(void *{args}))getAbsoluteAddress(targetLibName, {offsetInfo.Offset});{newLine}";
+                                result += $"{cheatName}Method{id} = (void(*)(void *{args}))getAbsoluteAddress(targetLibName, {offsetInfo.Offset});{newLine}";
                                 break;
                             }
                     }
@@ -422,6 +422,7 @@ void Update(void *instance) {{
         {
             var result = "";
             var realCount = 0;
+            var newLine = Environment.NewLine;
             foreach (var function in FUNCTION_LIST)
             {
                 var num = function.FunctionType == Enums.FunctionType.Category ? "0" : (realCount + 1).ToString();
@@ -482,13 +483,19 @@ void Update(void *instance) {{
                             break;
                         }
                     case Enums.FunctionType.HookButton:
+                    case Enums.FunctionType.HookInputButton:
                         {
-                            var args = function.OffsetList.Aggregate("", (current, offsetInfo) => current + GetValuesArgs(offsetInfo.Method));
-
+                            var args = function.OffsetList.Aggregate("", (current, info) => current + GetValuesArgs(info.Method));
+                            var buttonValue = function.OffsetList.Aggregate("", (current, offsetInfo) => current + $"{cheatName}Method{offsetInfo.OffsetId + 1}(btn{cheatName}{args});{newLine}");
+                            var inputValue = "";
+                            if (type == Enums.FunctionType.HookInputButton)
+                            {
+                                inputValue += "&& value >= 1";
+                            }
                             result += $@"
                         case {num}:
-                            if (btn{cheatName} != NULL) {{
-                                {cheatName}Method(btn{cheatName}{args});
+                            if (btn{cheatName} != NULL {inputValue}) {{
+                               {buttonValue}
                             }}
                             break;{Environment.NewLine}";
                             break;
@@ -518,7 +525,7 @@ void Update(void *instance) {{
             var result = "";
             for (var i = 0; i < method.Count; i++)
             {
-                result += $", {method[i].Item2} _{method[i].Item2}{i}";
+                result += $", {method[i].Item2}";
             }
             return result;
         }

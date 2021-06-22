@@ -84,19 +84,15 @@ namespace Tools_Injector_Mod_Menu
                         return;
                     }
 
-                    if (Utility.IsEmpty(type, i + 1, "Type"))
+                    if (!Utility.IsEmpty(type, i + 1, "Type", false) && Utility.IsEmpty(values, i + 1, "Values"))
                     {
                         return;
                     }
 
-                    if (Utility.IsEmpty(values, i + 1, "Values"))
-                    {
-                        return;
-                    }
 
-                    if (radInput.Checked && !values.Contains("TFive"))
+                    if (radInput.Checked && !values.Contains("value"))
                     {
-                        MyMessage.MsgShowWarning(@$"Values At {i + 1}, does not contains ""TFive"" for input value. Please check it again!!!");
+                        MyMessage.MsgShowWarning(@$"Values At {i + 1}, does not contains ""value"" for input value. Please check it again!!!");
                         return;
                     }
 
@@ -108,7 +104,7 @@ namespace Tools_Injector_Mod_Menu
                         return;
                     }
 
-                    var method = typeList.Select(t => (typeList[i], valueList[i])).ToList();
+                    var method = typeList.Select((t, j) => (t, valueList[j])).ToList();
 
                     var offsetInfo = new OffsetInfo
                     {
