@@ -385,11 +385,15 @@ void Update(void *instance) {{
                 var type = function.FunctionType;
                 var cheatName = function.CheatName;
                 var functionExtra = function.FunctionExtra;
+                if (functionExtra == "0" || string.IsNullOrWhiteSpace(functionExtra))
+                    functionExtra = "";
+                else
+                    functionExtra = $"_{functionExtra}";
                 var featureType = Utility.FunctionTypeToStringFeatures(type);
                 switch (type)
                 {
                     case Enums.FunctionType.Category:
-                        result += $@"{Environment.NewLine}            OBFUSCATE(""{num}_{featureType}_{functionExtra}""),";
+                        result += $@"{Environment.NewLine}            OBFUSCATE(""{num}_{featureType}{functionExtra}""),";
                         break;
 
                     case Enums.FunctionType.HookButton:
@@ -406,7 +410,7 @@ void Update(void *instance) {{
                     case Enums.FunctionType.HookInputOnOff:
                     case Enums.FunctionType.HookInputValue:
                     case Enums.FunctionType.HookInputButton:
-                        result += $@"{Environment.NewLine}            OBFUSCATE(""{num}_{featureType}_{cheatName}_{functionExtra}""),";
+                        result += $@"{Environment.NewLine}            OBFUSCATE(""{num}_{featureType}_{cheatName}{functionExtra}""),";
                         break;
                 }
 
