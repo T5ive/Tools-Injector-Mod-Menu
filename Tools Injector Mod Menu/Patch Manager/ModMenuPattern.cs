@@ -11,7 +11,8 @@ namespace Tools_Injector_Mod_Menu.Patch_Manager
 
         public static string MemoryPatch()
         {
-            var result = "MemoryPatch   ";
+            var result = "MemoryPatch ";
+            var patchValues = "";
             foreach (var function in FUNCTION_LIST)
             {
                 var cheatName = function.CheatName.RemoveSuperSpecialCharacters().ReplaceNumCharacters();
@@ -22,12 +23,19 @@ namespace Tools_Injector_Mod_Menu.Patch_Manager
                         case Enums.FunctionType.PatchButtonOnOff:
                         case Enums.FunctionType.PatchLabel:
                         case Enums.FunctionType.PatchToggle:
-                            result += $"{cheatName}_{offsetInfo.OffsetId}, ";
+                            patchValues += $"{cheatName}_{offsetInfo.OffsetId}, ";
                             break;
                     }
                 }
             }
-            return result.Remove(result.Length - 2) + ";";
+            if(!string.IsNullOrWhiteSpace(patchValues))
+            {
+                return result + patchValues.Remove(patchValues.Length - 2) + ";";
+            }
+            else
+            {
+                return result + ";";
+            }
         }
 
         public static string NewVariable()
@@ -318,7 +326,7 @@ void Update(void *instance) {{
                                     instantValue = $"{newLine}hexPatches.{cheatName}_{offsetInfo.OffsetId}.Modify();{newLine}";
                                 }
                                 result += $@"hexPatches.{cheatName}_{offsetInfo.OffsetId} = MemoryPatch::createWithHex(targetLibName,
-                                            string2Offset(OBFUSCATE_KEY(""{offsetInfo.Offset}"", {RandomString(12)})),
+                                            string2Offset(OBFUSCATE(""{offsetInfo.Offset}"")),
                                             OBFUSCATE(""{offsetInfo.Hex}""));{instantValue}{newLine}";
                                 break;
                             }

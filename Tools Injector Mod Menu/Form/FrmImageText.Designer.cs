@@ -30,10 +30,11 @@
         {
             this.txtImg = new System.Windows.Forms.RichTextBox();
             this.materialCard1 = new MaterialSkin.Controls.MaterialCard();
+            this.lbImgCompress = new System.Windows.Forms.LinkLabel();
+            this.lbImageEncoder = new System.Windows.Forms.LinkLabel();
             this.btnClose = new MaterialSkin.Controls.MaterialButton();
             this.btnSave = new MaterialSkin.Controls.MaterialButton();
-            this.lbImageEncoder = new System.Windows.Forms.LinkLabel();
-            this.lbImgCompress = new System.Windows.Forms.LinkLabel();
+            this.label1 = new System.Windows.Forms.Label();
             this.materialCard1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -51,6 +52,7 @@
             // materialCard1
             // 
             this.materialCard1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.materialCard1.Controls.Add(this.label1);
             this.materialCard1.Controls.Add(this.lbImgCompress);
             this.materialCard1.Controls.Add(this.lbImageEncoder);
             this.materialCard1.Controls.Add(this.btnClose);
@@ -67,12 +69,34 @@
             this.materialCard1.Size = new System.Drawing.Size(534, 511);
             this.materialCard1.TabIndex = 19;
             // 
+            // lbImgCompress
+            // 
+            this.lbImgCompress.AutoSize = true;
+            this.lbImgCompress.Location = new System.Drawing.Point(69, 472);
+            this.lbImgCompress.Name = "lbImgCompress";
+            this.lbImgCompress.Size = new System.Drawing.Size(79, 13);
+            this.lbImgCompress.TabIndex = 22;
+            this.lbImgCompress.TabStop = true;
+            this.lbImgCompress.Text = "Compress PNG";
+            this.lbImgCompress.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lbImgCompress_LinkClicked);
+            // 
+            // lbImageEncoder
+            // 
+            this.lbImageEncoder.AutoSize = true;
+            this.lbImageEncoder.Location = new System.Drawing.Point(154, 472);
+            this.lbImageEncoder.Name = "lbImageEncoder";
+            this.lbImageEncoder.Size = new System.Drawing.Size(79, 13);
+            this.lbImageEncoder.TabIndex = 21;
+            this.lbImageEncoder.TabStop = true;
+            this.lbImageEncoder.Text = "Image Encoder";
+            this.lbImageEncoder.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lbImageEncoder_LinkClicked);
+            // 
             // btnClose
             // 
             this.btnClose.AutoSize = false;
             this.btnClose.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.btnClose.Density = MaterialSkin.Controls.MaterialButton.MaterialButtonDensity.Default;
             this.btnClose.Depth = 0;
-            this.btnClose.DrawShadows = true;
             this.btnClose.HighEmphasis = true;
             this.btnClose.Icon = null;
             this.btnClose.Location = new System.Drawing.Point(421, 461);
@@ -91,8 +115,8 @@
             // 
             this.btnSave.AutoSize = false;
             this.btnSave.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.btnSave.Density = MaterialSkin.Controls.MaterialButton.MaterialButtonDensity.Default;
             this.btnSave.Depth = 0;
-            this.btnSave.DrawShadows = true;
             this.btnSave.HighEmphasis = true;
             this.btnSave.Icon = null;
             this.btnSave.Location = new System.Drawing.Point(313, 461);
@@ -107,27 +131,14 @@
             this.btnSave.UseVisualStyleBackColor = true;
             this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
-            // lbImageEncoder
+            // label1
             // 
-            this.lbImageEncoder.AutoSize = true;
-            this.lbImageEncoder.Location = new System.Drawing.Point(154, 472);
-            this.lbImageEncoder.Name = "lbImageEncoder";
-            this.lbImageEncoder.Size = new System.Drawing.Size(79, 13);
-            this.lbImageEncoder.TabIndex = 21;
-            this.lbImageEncoder.TabStop = true;
-            this.lbImageEncoder.Text = "Image Encoder";
-            this.lbImageEncoder.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lbImageEncoder_LinkClicked);
-            // 
-            // lbImgCompress
-            // 
-            this.lbImgCompress.AutoSize = true;
-            this.lbImgCompress.Location = new System.Drawing.Point(69, 472);
-            this.lbImgCompress.Name = "lbImgCompress";
-            this.lbImgCompress.Size = new System.Drawing.Size(79, 13);
-            this.lbImgCompress.TabIndex = 22;
-            this.lbImgCompress.TabStop = true;
-            this.lbImgCompress.Text = "Compress PNG";
-            this.lbImgCompress.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lbImgCompress_LinkClicked);
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(58, 489);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(186, 13);
+            this.label1.TabIndex = 23;
+            this.label1.Text = "Leave it blank to not display the menu";
             // 
             // FrmImageText
             // 
@@ -155,5 +166,6 @@
         private MaterialSkin.Controls.MaterialButton btnSave;
         private System.Windows.Forms.LinkLabel lbImageEncoder;
         private System.Windows.Forms.LinkLabel lbImgCompress;
+        private System.Windows.Forms.Label label1;
     }
 }

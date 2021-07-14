@@ -21,7 +21,7 @@ namespace Tools_Injector_Mod_Menu
             if (!MyMessage.MsgOkCancel("Do you want to save?\n\n" +
                                        "Click \"OK\" to confirm.\n\n" +
                                        "Click \"Cancel\" to cancel.")) return;
-            FrmMain.ImageCode = $"{txtImg.Text}";
+            FrmMain.ImageCode = string.IsNullOrWhiteSpace(txtImg.Text) ? "Null" : $"{txtImg.Text}";
             Dispose();
         }
 

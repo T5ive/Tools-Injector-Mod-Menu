@@ -645,37 +645,37 @@ namespace Tools_Injector_Mod_Menu
         {
             if (Utility.IsEmpty(txtLibName, false))
             {
-                MyMessage.MsgShowWarning(@"Library Name is Empty, Please Check it again!!!");
+                MyMessage.MsgShowWarning("Library Name is Empty, Please Check it again!!!");
                 WriteOutput("[Warning] Library Name is Empty", Color.Orange);
                 return;
             }
             if (Utility.IsEmpty(txtNDK, false))
             {
-                MyMessage.MsgShowWarning(@"NDK Path is Empty, Please Check it again!!!");
+                MyMessage.MsgShowWarning("NDK Path is Empty, Please Check it again!!!");
                 WriteOutput("[Warning] NDK Path is Empty", Color.Orange);
                 return;
             }
-            if (Utility.IsEmpty(ImageCode, false))
-            {
-                MyMessage.MsgShowWarning(@"Image Code is Empty, Please Check it again!!!");
-                WriteOutput("[Warning] Image Code is Empty", Color.Orange);
-                return;
-            }
+            //if (Utility.IsEmpty(ImageCode, false))
+            //{
+            //    MyMessage.MsgShowWarning("Image Code is Empty, Please Check it again!!!");
+            //    WriteOutput("[Warning] Image Code is Empty", Color.Orange);
+            //    return;
+            //}
             if (Utility.IsEmpty(txtNameGame, false))
             {
-                MyMessage.MsgShowWarning(@"Name Game is Empty, Please Check it again!!!");
+                MyMessage.MsgShowWarning("Name Game is Empty, Please Check it again!!!");
                 WriteOutput("[Warning] Name Game is Empty", Color.Orange);
                 return;
             }
             if (Utility.IsEmpty(txtTargetLib, false))
             {
-                MyMessage.MsgShowWarning(@"Target Library Name is Empty, Please Check it again!!!");
+                MyMessage.MsgShowWarning("Target Library Name is Empty, Please Check it again!!!");
                 WriteOutput("[Warning] Target Library Name is Empty", Color.Orange);
                 return;
             }
             if (OffsetPatch.FunctionList.Count == 0)
             {
-                MyMessage.MsgShowWarning(@"Function list is Empty, Please Check it again!!!");
+                MyMessage.MsgShowWarning("Function list is Empty, Please Check it again!!!");
                 WriteOutput("[Warning] Function list is Empty", Color.Orange);
                 return;
             }
@@ -787,10 +787,12 @@ namespace Tools_Injector_Mod_Menu
             try
             {
                 var text = File.ReadAllText(_tempPathMenu + "\\jni\\Menu.h");
-                text = text.Replace("(yourName)", txtLibName.Text).
-                    Replace("(yourSite)", txtSite.Text).
-                    Replace("(yourText)", txtText.Text).
-                    Replace("(yourImage)", ImageCode);
+                text = text.Replace("(yourName)", txtLibName.Text)
+                    .Replace("(yourSite)", txtSite.Text)
+                    .Replace("(yourText)", txtText.Text);
+                text = ImageCode == "Null" ?
+                    text.Replace(@"return env->NewStringUTF(OBFUSCATE(""(yourImage)""));", "return NULL;")
+                    : text.Replace("(yourImage)", ImageCode);
                 text = chkTFiveCredit.Checked ? text.Replace("//(TFiveEndCredit)", @"OBFUSCATE(""0_RichWebView_<html><body><marquee style=\""color: white; font-weight:bold;\"" direction=\""left\"" scrollamount=\""5\"" behavior=\""scroll\"">TFive Tools</marquee></body></html>"")") : text;
                 File.WriteAllText(_tempPathMenu + "\\jni\\Menu.h", text);
                 WriteOutput("[Success] Replaced Menu.h (Credit)", Color.Green);

@@ -491,11 +491,11 @@ namespace Tools_Injector_Mod_Menu
             // 
             // groupBox4
             // 
+            this.groupBox4.Controls.Add(this.picImg);
             this.groupBox4.Controls.Add(this.label19);
             this.groupBox4.Controls.Add(this.label18);
             this.groupBox4.Controls.Add(this.label17);
             this.groupBox4.Controls.Add(this.btnImageCode);
-            this.groupBox4.Controls.Add(this.picImg);
             this.groupBox4.Controls.Add(this.btnImage);
             this.groupBox4.Controls.Add(this.label8);
             this.groupBox4.Controls.Add(this.txtEndCredit);

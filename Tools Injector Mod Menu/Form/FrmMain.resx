@@ -117,23 +117,6 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <metadata name="colNameCheat.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="colType.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="contextMenuStrip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>280, 17</value>
-  </metadata>
-  <data name="txtActionMain.Text" xml:space="preserve">
-    <value>&lt;activity android:configChanges="keyboardHidden|orientation|screenSize" android:name="com.tfivel.MainActivity"&gt;
-     &lt;intent-filter&gt;
-         &lt;action android:name="android.intent.action.MAIN"/&gt;
-         &lt;category android:name="android.intent.category.LAUNCHER"/&gt;
-     &lt;/intent-filter&gt;
-&lt;/activity&gt;</value>
-  </data>
   <metadata name="menuIconList.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
   </metadata>
@@ -142,7 +125,7 @@
         AAEAAAD/////AQAAAAAAAAAMAgAAAFdTeXN0ZW0uV2luZG93cy5Gb3JtcywgVmVyc2lvbj00LjAuMC4w
         LCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWI3N2E1YzU2MTkzNGUwODkFAQAAACZTeXN0
         ZW0uV2luZG93cy5Gb3Jtcy5JbWFnZUxpc3RTdHJlYW1lcgEAAAAERGF0YQcCAgAAAAkDAAAADwMAAABq
-        HAAAAk1TRnQBSQFMAgEBBgEAAfABAQHwAQEBGAEAARgBAAT/ASEBAAj/AUIBTQE2BwABNgMAASgDAAFg
+        HAAAAk1TRnQBSQFMAgEBBgEAAfgBAQH4AQEBGAEAARgBAAT/ASEBAAj/AUIBTQE2BwABNgMAASgDAAFg
         AwABMAMAAQEBAAEgBgABSDIAAwEBAgMmATgDUgGjA0YBfgM6AWIDVgGxAywBRAMDAQQgAAMsAUQDLgFI
         /wAxAAMGAQgDLQFGA1UBtQNtAfcE/wNKAYsDPgFqBP8DagH5A1sBwwM0AVQDCQEMGAADNgFYA10B7QMv
         AUr/ACUAAwQBBgM2AVgDWQHHA6gB/QP+Af8D/gX/A0oBiwM+AWoE/wP+Af8D/gH/A6gB/QNdAdMDPAFm
@@ -265,6 +248,23 @@
         AeABAAEHAfwBAAE/AR8B/wH4Af8BwwH/AfABAAEPAfwBAAE/AwAB/wHnAf8B+AEAAR8B/AFCAT8DAAP/
         Af4BAAF/Af0B4wG/AYABAAEBCw==
 </value>
+  </data>
+  <metadata name="colNameCheat.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="colType.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="contextMenuStrip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>280, 17</value>
+  </metadata>
+  <data name="txtActionMain.Text" xml:space="preserve">
+    <value>&lt;activity android:configChanges="keyboardHidden|orientation|screenSize" android:name="com.tfivel.MainActivity"&gt;
+     &lt;intent-filter&gt;
+         &lt;action android:name="android.intent.action.MAIN"/&gt;
+         &lt;category android:name="android.intent.category.LAUNCHER"/&gt;
+     &lt;/intent-filter&gt;
+&lt;/activity&gt;</value>
   </data>
   <metadata name="compilerWorker.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>141, 17</value>
