@@ -423,7 +423,7 @@ namespace Tools_Injector_Mod_Menu
             }
             catch (Exception ex)
             {
-               // WriteOutput("[Error:004] " + ex.Message, Color.Red);
+                WriteOutput("[Error:004] " + ex.Message, Color.Red);
             }
         }
 
@@ -691,9 +691,13 @@ namespace Tools_Injector_Mod_Menu
                 FormState(State.Idle);
                 return;
             }
+
+            // ReSharper disable once ConditionIsAlwaysTrueOrFalse
             if (Debug)
             {
+#pragma warning disable 162
                 FormState(State.Idle);
+#pragma warning restore 162
                 return;
             }
             if (!MoveDirectory(_tempPathMenu + "\\com", $"{AppPath}\\Output\\{txtNameGame.Text}\\smali\\com")) return;
