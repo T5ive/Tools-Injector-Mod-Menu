@@ -1,6 +1,6 @@
 # Tools Injector Mod Menu
 
-![](https://i.imgur.com/orvXLYp.gif)
+**Please read the wiki before you have any questions or concerns!!**
 
 # [Wiki](https://github.com/T5ive/Tools-Injector-Mod-Menu/wiki)
 

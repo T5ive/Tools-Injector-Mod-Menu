@@ -11,7 +11,7 @@ namespace Tools_Injector_Mod_Menu.Patch_Manager
 
         public static string MemoryPatch()
         {
-            var result = "MemoryPatch ";
+            const string result = "MemoryPatch ";
             var patchValues = "";
             foreach (var function in FUNCTION_LIST)
             {
@@ -32,10 +32,8 @@ namespace Tools_Injector_Mod_Menu.Patch_Manager
             {
                 return result + patchValues.Remove(patchValues.Length - 2) + ";";
             }
-            else
-            {
-                return result + ";";
-            }
+
+            return result + ";";
         }
 
         public static string NewVariable()
