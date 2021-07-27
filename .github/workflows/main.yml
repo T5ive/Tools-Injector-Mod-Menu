@@ -24,7 +24,7 @@ jobs:
         uses: NuGet/setup-nuget@v1.0.5
     
       - name: Restore NuGet packages
-        run: nuget Tools Injector Mod Menu.sln
+        run: nuget "Tools Injector Mod Menu.sln"
         
       - name: Build the Solution
-        run: msbuild Tools Injector Mod Menu.sln
+        run: msbuild "Tools Injector Mod Menu.sln"
