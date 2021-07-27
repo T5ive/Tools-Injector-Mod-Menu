@@ -827,7 +827,7 @@ namespace Tools_Injector_Mod_Menu
                     .Replace("(yourTargetLibName)", txtTargetLib.Text)
                     .Replace("//(hackThread64)", hackThread64)
                     .Replace("//(hackThread)", hackThread)
-                    .Replace("//ToastHere", toastHere)
+                    .Replace("//ToastHere", toastHere.Remove(toastHere.LastIndexOf(Environment.NewLine, StringComparison.Ordinal)))
                     .Replace("//(yourFeaturesList)", featuresList)
                     .Replace("(yourEndCredit)", txtEndCredit.Text)
                     .Replace("//(yourFeatures)", newFeatures);
