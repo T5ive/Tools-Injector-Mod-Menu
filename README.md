@@ -8,8 +8,6 @@
 
 New issue with title "[Request]..."
 
-Select Labels -> enhancement
-
 Write what features you want with examples and tutorials.
 
 # Bug Reports
