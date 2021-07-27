@@ -4,6 +4,12 @@
 
 # [Wiki](https://github.com/T5ive/Tools-Injector-Mod-Menu/wiki)
 
+# Requesting New Features
+
+New issue with title "[Request]..."
+
+Write what features you want with examples and tutorials.
+
 # Bug Reports
 
 **Only bug reports from Canary builds will be accepted.**
