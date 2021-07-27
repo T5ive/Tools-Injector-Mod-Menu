@@ -78,7 +78,7 @@ namespace Tools_Injector_Mod_Menu.Patch_Manager
                         for (var i = 0; i < function.OffsetList.Count; i++)
                         {
                             var offsetInfo = function.OffsetList[i];
-                            var buttonType = GetTFiveValues(offsetInfo.Method);
+                            var buttonType = GetInputValues(offsetInfo.Method);
                             if (buttonType == 1)
                             {
                                 result += $"int _{cheatName}Value{i} = 1;{newLine}";
@@ -89,13 +89,14 @@ namespace Tools_Injector_Mod_Menu.Patch_Manager
                 }
             }
 
-            return result;
+            return result.Remove(result.LastIndexOf(newLine, StringComparison.Ordinal));
         }
 
         public static string NewMethod()
         {
             var result = "";
             var btnResult = "";
+            var newLine = Environment.NewLine;
             foreach (var function in FUNCTION_LIST)
             {
                 var cheatName = function.CheatName.RemoveSuperSpecialCharacters().ReplaceNumCharacters();
@@ -128,7 +129,7 @@ namespace Tools_Injector_Mod_Menu.Patch_Manager
                         linkResult += $"&& _{cheatName}{id} ";
                     }
 
-                    var newLine = Environment.NewLine;
+                    
 
                     switch (function.FunctionType)
                     {
@@ -162,7 +163,7 @@ void Update{cheatName}{id}(void *instance) {{
         {resultField}
     }}
     return old_{cheatName}{id}(instance);
-}}
+}}{newLine}
 ";
                                             break;
                                         }
@@ -174,7 +175,7 @@ void Update{cheatName}{id}(void *instance) {{
         return _{cheatName};
     }}
     return old_{cheatName}{id}(instance);
-}}
+}}{newLine}
 ";
                                         break;
 
@@ -188,7 +189,7 @@ void Update{cheatName}{id}(void *instance) {{
         return ({typeString}) {hookValue};
     }}
     return old_{cheatName}{id}(instance);
-}}
+}}{newLine}
 ";
                                         break;
                                 }
@@ -234,7 +235,7 @@ void Update{cheatName}{id}(void *instance) {{
         {resultMultiple}
     }}
     return old_{cheatName}{id}(instance);
-}}
+}}{newLine}
 ";
                                             break;
                                         }
@@ -253,7 +254,7 @@ void Update{cheatName}{id}(void *instance) {{
         {resultMultiple}
     }}
     return old_{cheatName}{id}(instance);
-}}
+}}{newLine}
 ";
                                             break;
                                         }
@@ -263,9 +264,9 @@ void Update{cheatName}{id}(void *instance) {{
                         case Enums.FunctionType.HookButton:
                         case Enums.FunctionType.HookInputButton:
                             {
-                                var args = GetTypeArgs(offsetInfo.Method);
-                                result += $"void (*{cheatName}Method{id})(void *instance{args});{newLine}";
-                                btnResult += $"    btn{cheatName} = instance;{newLine}";
+                                var args = GetArgs(offsetInfo.Method);
+                                result += $"void (*{cheatName}Method{id})(void *instance{args});{newLine}{newLine}";
+                                btnResult += $"btn{cheatName} = instance;{newLine}    ";
                                 break;
                             }
                     }
@@ -276,13 +277,13 @@ void Update{cheatName}{id}(void *instance) {{
             {
                 result += $@"void (*old_Update)(void *instance);
 void Update(void *instance) {{
-    {btnResult}
+    {btnResult.Remove(btnResult.LastIndexOf(newLine, StringComparison.Ordinal))}
     return old_Update(instance);
 }}
 ";
             }
 
-            return result;
+            return result.Remove(result.LastIndexOf(newLine, StringComparison.Ordinal));
         }
 
         public static string HackThread64(Enums.TypeAbi type)
@@ -325,7 +326,7 @@ void Update(void *instance) {{
                                 }
                                 result += $@"hexPatches.{cheatName}_{offsetInfo.OffsetId} = MemoryPatch::createWithHex(targetLibName,
                                             string2Offset(OBFUSCATE(""{offsetInfo.Offset}"")),
-                                            OBFUSCATE(""{offsetInfo.Hex}""));{instantValue}{newLine}";
+                                            OBFUSCATE(""{offsetInfo.Hex}""));{instantValue}{newLine}    ";
                                 break;
                             }
                     }
@@ -337,7 +338,7 @@ void Update(void *instance) {{
 
         private static string Hook(Enums.TypeAbi type)
         {
-            var abiType = type == Enums.TypeAbi.Arm64 ? "A64HookFunction" : "MSHookFunction";
+            //var abiType = type == Enums.TypeAbi.Arm64 ? "A64HookFunction" : "MSHookFunction";
             var result = "";
             var newLine = Environment.NewLine;
 
@@ -357,17 +358,19 @@ void Update(void *instance) {{
                         case Enums.FunctionType.HookInputOnOff:
                             {
                                 if(offsetInfo.HookInfo.Type == Enums.Type.Links) break;
-                                result +=
-                                    $@"{abiType}((void *) getAbsoluteAddress(targetLibName, string2Offset(OBFUSCATE_KEY(""{offsetInfo.Offset}"", {RandomString(12)}))),
-                            (void *) Update{cheatName}{id}, (void **) &old_{cheatName}{id});{newLine}    ";
+                                //    result +=
+                                //        $@"{abiType}((void *) getAbsoluteAddress(targetLibName, string2Offset(OBFUSCATE_KEY(""{offsetInfo.Offset}"", {RandomString(12)}))),
+                                //(void *) Update{cheatName}{id}, (void **) &old_{cheatName}{id});{newLine}    "; // Old Hook
 
+                                // New Hook
+                                result += $@"HOOK(""{offsetInfo.Offset}"", {RandomString(12)}, Update{cheatName}{id}, old_{cheatName}{id});{newLine}    ";
                                 break;
                             }
                         case Enums.FunctionType.HookButton:
                         case Enums.FunctionType.HookInputButton:
                             {
                                 var args = GetTypeArgs(offsetInfo.Method);
-                                result += $"{cheatName}Method{id} = (void(*)(void *{args}))getAbsoluteAddress(targetLibName, {offsetInfo.Offset});{newLine}";
+                                result += $"{cheatName}Method{id} = (void(*)(void *{args}))getAbsoluteAddress(targetLibName, {offsetInfo.Offset});{newLine}    ";
                                 break;
                             }
                     }
@@ -378,7 +381,7 @@ void Update(void *instance) {{
 
         public static string ToastHere(ListBox listBox)
         {
-            return listBox.Items.Cast<object>().Aggregate("", (current, value) => current + ($@"MakeToast(env, context, OBFUSCATE(""{value}""), Toast::LENGTH_LONG);" + Environment.NewLine));
+            return listBox.Items.Cast<object>().Aggregate("", (current, value) => current + ($@"MakeToast(env, context, OBFUSCATE(""{value}""), Toast::LENGTH_LONG);" + Environment.NewLine+ "    "));
         }
 
         public static string FeaturesList()
@@ -453,9 +456,9 @@ void Update(void *instance) {{
                         case {num}:
                             _{cheatName} = boolean;
                             if (_{cheatName}) {{
-                                {offsetListModify}
+                                {offsetListModify.Remove(offsetListModify.LastIndexOf(newLine, StringComparison.Ordinal))}
                             }} else {{
-                                {offsetListRestore}
+                                {offsetListRestore.Remove(offsetListRestore.LastIndexOf(newLine, StringComparison.Ordinal))}
                             }}
                             break;{Environment.NewLine}";
                             break;
@@ -505,7 +508,7 @@ void Update(void *instance) {{
                             result += $@"
                         case {num}:
                             if (btn{cheatName} != NULL {inputValue}) {{
-                               {buttonValue}
+                               {buttonValue.Remove(buttonValue.LastIndexOf(newLine, StringComparison.Ordinal))}
                             }}
                             break;{Environment.NewLine}";
                             break;
@@ -520,12 +523,22 @@ void Update(void *instance) {{
             return result;
         }
 
-        private static string GetTypeArgs(IReadOnlyList<(string, string)> method)
+        private static string GetArgs(IReadOnlyList<(string, string)> method)
         {
             var result = "";
             for (var i = 0; i < method.Count; i++)
             {
                 result += $", {method[i].Item1} _{method[i].Item1}{i}";
+            }
+            return result;
+        }
+
+        private static string GetTypeArgs(IReadOnlyList<(string, string)> method)
+        {
+            var result = "";
+            for (var i = 0; i < method.Count; i++)
+            {
+                result += $", {method[i].Item1}";
             }
             return result;
         }
@@ -540,12 +553,12 @@ void Update(void *instance) {{
             return result;
         }
 
-        private static int GetTFiveValues(IReadOnlyList<(string, string)> method)
+        private static int GetInputValues(IReadOnlyList<(string, string)> method)
         {
             for (var i = 0; i < method.Count; i++)
             {
                 var value = method[i].Item2;
-                if (value == "TFive")
+                if (value == "value")
                 {
                     return 1;
                 }
