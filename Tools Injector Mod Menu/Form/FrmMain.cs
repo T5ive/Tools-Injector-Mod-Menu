@@ -6,14 +6,11 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Imaging;
-using System.Drawing.Printing;
 using System.IO;
 using System.IO.Compression;
 using System.Linq;
 using System.Management;
 using System.Reflection;
-using System.Runtime.InteropServices;
-using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -41,7 +38,7 @@ namespace Tools_Injector_Mod_Menu
         private MySettings _mySettings = new();
 
         private string[] _menuFiles;
-        
+
         private readonly string _tempPathMenu = Path.GetTempPath() + "TFiveMenu";
 
         public static string ImageCode;
@@ -95,7 +92,7 @@ namespace Tools_Injector_Mod_Menu
             var themeFiles = Directory.GetFiles(AppPath + "\\Theme", "*.zip");
             _menuFiles = Directory.GetFiles(AppPath + "\\Menu", "*.zip");
             var apktoolFiles = Directory.GetFiles(AppPath + "\\BuildTools", "Apktool_*.jar");
-            
+
             if (themeFiles.Length == 0)
             {
                 MyMessage.MsgShowError("Not found Theme files .zip!!");
@@ -182,7 +179,6 @@ namespace Tools_Injector_Mod_Menu
             chkCheckUpdate.Checked = _mySettings.chkCheckUpdate;
 
             txtNDK.Text = _mySettings.txtNDK;
-            
 
             txtService.Text = _mySettings.txtService;
             txtOnCreate.Text = _mySettings.txtOnCreate;
@@ -220,9 +216,8 @@ namespace Tools_Injector_Mod_Menu
                     await UpdateService.CheckGitHubNewerVersion(true).ConfigureAwait(false);
                 }
             }
-            catch 
+            catch
             {
-                
             }
         }
 
@@ -243,7 +238,6 @@ namespace Tools_Injector_Mod_Menu
             }
         }
 
-        
         #endregion Load
 
         #region Main Page
@@ -309,7 +303,7 @@ namespace Tools_Injector_Mod_Menu
             Show();
             LoadImg();
         }
-        
+
         private void btnSaveSettings_Click(object sender, EventArgs e)
         {
             try
@@ -447,7 +441,7 @@ namespace Tools_Injector_Mod_Menu
                         OffsetPatch.FunctionList.RemoveAt(row);
                         dataList.Rows.RemoveAt(row);
                     }
-                    
+
                     dataList.ClearSelection();
                 }
             }
@@ -739,8 +733,8 @@ namespace Tools_Injector_Mod_Menu
             }));
         }
 
-        #endregion
-        
+        #endregion Logs
+
         private void btnOutput_Click(object sender, EventArgs e)
         {
             Process.Start(AppPath + "\\Output");
@@ -766,7 +760,7 @@ namespace Tools_Injector_Mod_Menu
                     _apkTarget = openFile.FileName;
                     txtApkTarget.Text = _apkTarget;
                     WriteOutput("[Success] Set Apk Target: " + txtApkTarget.Text, Color.Green);
-                    File.Copy(_apkTarget,$"{_tempPathMenu}\\ApkTarget.apk",true);
+                    File.Copy(_apkTarget, $"{_tempPathMenu}\\ApkTarget.apk", true);
                     FormState(State.Running);
                     apkWorker.RunWorkerAsync();
                 }
@@ -776,7 +770,6 @@ namespace Tools_Injector_Mod_Menu
                     FormState(State.Idle);
                 }
             }
-            
         }
 
         private void btnCompileMenu_Click(object sender, EventArgs e)
@@ -1032,12 +1025,12 @@ namespace Tools_Injector_Mod_Menu
                 if (_type == 2)
                 {
                     text = text.Replace(txtFind.Text, "")
-                        .Replace("<action android:name=\"android.intent.action.MAIN\" />","")
+                        .Replace("<action android:name=\"android.intent.action.MAIN\" />", "")
 
                         .Replace("</application>", $"    {_mySettings.txtActionMain}\n    </application>");
                 }
                 text = text.Replace("</application>", $"    {_mySettings.txtService}\n    </application>");
-                File.WriteAllText(AppPath + "\\BuildTools\\ApkTarget\\AndroidManifest.xml",text);
+                File.WriteAllText(AppPath + "\\BuildTools\\ApkTarget\\AndroidManifest.xml", text);
                 WriteOutput("[Success] Replaced AndroidManifest.xml", Color.Green);
                 return true;
             }
@@ -1049,15 +1042,15 @@ namespace Tools_Injector_Mod_Menu
                 return false;
             }
         }
-        
+
         private bool OnCreate()
         {
             try
             {
                 var launch = $"{AppPath}\\BuildTools\\ApkTarget\\{Utility.SmaliCountToName(_smaliCount)}\\" + _launch.Replace(".", "\\") + ".smali";
-                
+
                 var text = File.ReadAllText(launch);
-                text = text.Replace(".method protected onCreate(Landroid/os/Bundle;)V", 
+                text = text.Replace(".method protected onCreate(Landroid/os/Bundle;)V",
                     ".method protected onCreate(Landroid/os/Bundle;)V" +
                     "\n    .locals 2" +
                     $"\n\n    {_mySettings.txtOnCreate}");
@@ -1197,10 +1190,10 @@ namespace Tools_Injector_Mod_Menu
             FormState(State.Idle);
         }
 
-        #endregion Worker
+        #endregion Menu Worker
 
         #region Apk Worker
-        
+
         private void apkWorker_DoWork(object sender, System.ComponentModel.DoWorkEventArgs e)
         {
             try
@@ -1318,9 +1311,10 @@ namespace Tools_Injector_Mod_Menu
                 }
             }
         }
-        #endregion
 
-        #endregion Compile
+        #endregion Apk Worker
+
+        #endregion Compile Page
 
         #region About Page
 
@@ -1372,7 +1366,7 @@ namespace Tools_Injector_Mod_Menu
         {
             await UpdateService.CheckGitHubNewerVersion().ConfigureAwait(false);
         }
-        
+
         #endregion About Page
 
         #region Dev Page
@@ -1502,6 +1496,7 @@ namespace Tools_Injector_Mod_Menu
             var encoders = ImageCodecInfo.GetImageEncoders();
             return Array.Find(encoders, ici => ici.MimeType == mimeType);
         }
+
         private bool DeleteAll(string path)
         {
             try
@@ -1533,6 +1528,7 @@ namespace Tools_Injector_Mod_Menu
             File.WriteAllText($"{_tempPathMenu}\\DelFolder.bat", $"@RD /S /Q \"{path}\"");
             Process.Start($"{_tempPathMenu}\\DelFolder.bat");
         }
+
         private bool ExtractZip(string sourceFileName, string destinationPath)
         {
             try
@@ -1713,11 +1709,8 @@ namespace Tools_Injector_Mod_Menu
 
         private static bool IsWindows7 => OS_Name().Contains("Windows 7");
 
-       
-
         private static bool IsWindows10 => OS_Name().Contains("Windows 10");
 
-        
         private static bool Is64Bit => Environment.Is64BitOperatingSystem;
 
         private static string OS_Name()
@@ -1727,11 +1720,6 @@ namespace Tools_Injector_Mod_Menu
                             select x.GetPropertyValue("Caption")).FirstOrDefault();
         }
 
-
-
-
         #endregion Utility
-
-        
     }
 }

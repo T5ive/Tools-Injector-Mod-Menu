@@ -1,5 +1,5 @@
-﻿using System;
-using MaterialSkin.Controls;
+﻿using MaterialSkin.Controls;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -285,8 +285,9 @@ namespace Tools_Injector_Mod_Menu
 
         public static string SmaliCountToName(int count)
         {
-            return $"smali_classes{count+1}";
+            return $"smali_classes{count + 1}";
         }
+
         public static string FunctionTypeToString(Enums.FunctionType type)
         {
             return type switch
