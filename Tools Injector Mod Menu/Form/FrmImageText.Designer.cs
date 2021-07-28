@@ -34,7 +34,6 @@
             this.lbImageEncoder = new System.Windows.Forms.LinkLabel();
             this.btnClose = new MaterialSkin.Controls.MaterialButton();
             this.btnSave = new MaterialSkin.Controls.MaterialButton();
-            this.label1 = new System.Windows.Forms.Label();
             this.materialCard1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -52,7 +51,6 @@
             // materialCard1
             // 
             this.materialCard1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            this.materialCard1.Controls.Add(this.label1);
             this.materialCard1.Controls.Add(this.lbImgCompress);
             this.materialCard1.Controls.Add(this.lbImageEncoder);
             this.materialCard1.Controls.Add(this.btnClose);
@@ -93,6 +91,7 @@
             // 
             // btnClose
             // 
+            this.btnClose.AccentTextColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(64)))), ((int)(((byte)(129)))));
             this.btnClose.AutoSize = false;
             this.btnClose.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.btnClose.Density = MaterialSkin.Controls.MaterialButton.MaterialButtonDensity.Default;
@@ -103,6 +102,7 @@
             this.btnClose.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
             this.btnClose.MouseState = MaterialSkin.MouseState.HOVER;
             this.btnClose.Name = "btnClose";
+            this.btnClose.NoAccentTextColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(81)))), ((int)(((byte)(181)))));
             this.btnClose.Size = new System.Drawing.Size(100, 35);
             this.btnClose.TabIndex = 20;
             this.btnClose.Text = "Cancel";
@@ -113,6 +113,7 @@
             // 
             // btnSave
             // 
+            this.btnSave.AccentTextColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(64)))), ((int)(((byte)(129)))));
             this.btnSave.AutoSize = false;
             this.btnSave.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.btnSave.Density = MaterialSkin.Controls.MaterialButton.MaterialButtonDensity.Default;
@@ -123,6 +124,7 @@
             this.btnSave.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
             this.btnSave.MouseState = MaterialSkin.MouseState.HOVER;
             this.btnSave.Name = "btnSave";
+            this.btnSave.NoAccentTextColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(81)))), ((int)(((byte)(181)))));
             this.btnSave.Size = new System.Drawing.Size(100, 35);
             this.btnSave.TabIndex = 19;
             this.btnSave.Text = "Save";
@@ -130,15 +132,6 @@
             this.btnSave.UseAccentColor = false;
             this.btnSave.UseVisualStyleBackColor = true;
             this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(58, 489);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(186, 13);
-            this.label1.TabIndex = 23;
-            this.label1.Text = "Leave it blank to not display the menu";
             // 
             // FrmImageText
             // 
@@ -166,6 +159,5 @@
         private MaterialSkin.Controls.MaterialButton btnSave;
         private System.Windows.Forms.LinkLabel lbImageEncoder;
         private System.Windows.Forms.LinkLabel lbImgCompress;
-        private System.Windows.Forms.Label label1;
     }
 }

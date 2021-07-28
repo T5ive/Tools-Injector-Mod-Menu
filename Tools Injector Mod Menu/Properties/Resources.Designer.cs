@@ -139,5 +139,15 @@ namespace Tools_Injector_Mod_Menu.Properties {
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap tool_box_24 {
+            get {
+                object obj = ResourceManager.GetObject("tool_box_24", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
     }
 }

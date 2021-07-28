@@ -16,9 +16,6 @@ namespace Tools_Injector_Mod_Menu
         public string txtText;
         public string txtEndCredit;
         public string ImageCode;
-        public string txtNDK;
-
-        public int menuStyle;
 
         public bool chkRemoveTemp = true;
         public bool chkTFiveCredit = true;
@@ -26,6 +23,13 @@ namespace Tools_Injector_Mod_Menu
         public bool chkLogsSuccess = true;
         public bool chkLogsError = true;
         public bool chkSound = true;
+        public bool chkNoMenu;
+        public bool chkCheckUpdate = true;
+
+        public string txtNDK;
+        public int menuStyle;
+        public int apkTools;
+
 
         public string txtService = @"<service android:enabled=""true"" android:exported=""false"" android:name=""com.tfive.modmenu.FloatingModMenuService"" android:stopWithTask=""true""/>";
         public string txtOnCreate = "invoke-static {p0}, Lcom/tfive/MainActivity;->Start(Landroid/content/Context;)V";

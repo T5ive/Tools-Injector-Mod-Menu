@@ -1,4 +1,5 @@
-﻿using MaterialSkin.Controls;
+﻿using System;
+using MaterialSkin.Controls;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -271,6 +272,21 @@ namespace Tools_Injector_Mod_Menu
                 .Replace("8", "Eight").Replace("9", "Nine").Replace("-", "Dash").Replace(".", "Dot").Replace(",", "Comma");
         }
 
+        public static string GetBetween(string strSource, string strStart, string strEnd)
+        {
+            if (strSource.Contains(strStart) && strSource.Contains(strEnd))
+            {
+                var start = strSource.IndexOf(strStart, 0, StringComparison.Ordinal) + strStart.Length;
+                var end = strSource.IndexOf(strEnd, start, StringComparison.Ordinal);
+                return strSource.Substring(start, end - start);
+            }
+            return null;
+        }
+
+        public static string SmaliCountToName(int count)
+        {
+            return $"smali_classes{count+1}";
+        }
         public static string FunctionTypeToString(Enums.FunctionType type)
         {
             return type switch

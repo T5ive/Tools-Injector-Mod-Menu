@@ -8,7 +8,7 @@ namespace Tools_Injector_Mod_Menu
 {
     public static class UpdateService
     {
-        public static async Task CheckGitHubNewerVersion()
+        public static async Task CheckGitHubNewerVersion(bool msg = false)
         {
             var client = new GitHubClient(new ProductHeaderValue("Tools-Injector-Mod-Menu"));
             var releases = await client.Repository.Release.GetAll("T5ive", "Tools-Injector-Mod-Menu").ConfigureAwait(false);
@@ -28,6 +28,7 @@ namespace Tools_Injector_Mod_Menu
             }
             else
             {
+                if(msg) return;
                 MyMessage.MsgShowInfo($"You are using version {localVersion}\n" +
                                       $"The latest version is {latestGitHubVersion }\n\n" +
                                       "You are using the latest version");

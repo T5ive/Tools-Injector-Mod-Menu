@@ -6,11 +6,16 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Imaging;
+using System.Drawing.Printing;
 using System.IO;
 using System.IO.Compression;
 using System.Linq;
 using System.Management;
 using System.Reflection;
+using System.Runtime.InteropServices;
+using System.Text.RegularExpressions;
+using System.Threading;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml;
 using System.Xml.Serialization;
@@ -33,17 +38,17 @@ namespace Tools_Injector_Mod_Menu
 
         public static readonly string AppPath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
 
-        private MySettings _mySettings = new MySettings();
+        private MySettings _mySettings = new();
 
         private string[] _menuFiles;
-
-        private readonly string _tempPath = Path.GetTempPath();
-
+        
         private readonly string _tempPathMenu = Path.GetTempPath() + "TFiveMenu";
 
         public static string ImageCode;
 
-        private int _compile;
+        private int _compile, _smaliCount, _type;
+
+        private string _launch, _apkTarget;
 
         public enum State
         {
@@ -82,13 +87,15 @@ namespace Tools_Injector_Mod_Menu
             Utility.CheckFolder("Output");
             Utility.CheckFolder("Save");
             Utility.CheckFolder("Logs");
+            Utility.CheckFolder("BuildTools");
         }
 
         private void LoadFiles()
         {
             var themeFiles = Directory.GetFiles(AppPath + "\\Theme", "*.zip");
             _menuFiles = Directory.GetFiles(AppPath + "\\Menu", "*.zip");
-
+            var apktoolFiles = Directory.GetFiles(AppPath + "\\BuildTools", "Apktool_*.jar");
+            
             if (themeFiles.Length == 0)
             {
                 MyMessage.MsgShowError("Not found Theme files .zip!!");
@@ -98,6 +105,12 @@ namespace Tools_Injector_Mod_Menu
             if (_menuFiles.Length == 0)
             {
                 MyMessage.MsgShowError("Not found Menu files .zip!!");
+                Application.Exit();
+            }
+
+            if (apktoolFiles.Length == 0)
+            {
+                MyMessage.MsgShowError("Not found Apktool files .jar!!");
                 Application.Exit();
             }
 
@@ -113,10 +126,11 @@ namespace Tools_Injector_Mod_Menu
                 Application.Exit();
             }
 
-            var themFile = themeFiles.Select(Path.GetFileName).ToList();
+            var themeFile = themeFiles.Select(Path.GetFileName).ToList();
             var menuFile = _menuFiles.Select(Path.GetFileName).ToList();
+            var apktoolFile = apktoolFiles.Select(Path.GetFileName).ToList();
 
-            if (!Utility.IsEqual(themFile, menuFile))
+            if (!Utility.IsEqual(themeFile, menuFile))
             {
                 MyMessage.MsgShowError("Theme files not equal Menu files");
                 Application.Exit();
@@ -126,6 +140,12 @@ namespace Tools_Injector_Mod_Menu
             {
                 WriteOutput("[Success] Loaded: " + t, Color.Green);
                 comboMenu.Items.Add(t.Replace(".zip", ""));
+            }
+
+            foreach (var t in apktoolFile)
+            {
+                WriteOutput("[Success] Loaded: " + t, Color.Green);
+                comboApktool.Items.Add(t.Replace(".jar", ""));
             }
         }
 
@@ -151,7 +171,7 @@ namespace Tools_Injector_Mod_Menu
             txtText.Text = _mySettings.txtText;
             txtEndCredit.Text = _mySettings.txtEndCredit;
             ImageCode = _mySettings.ImageCode;
-            txtNDK.Text = _mySettings.txtNDK;
+            chkNoMenu.Checked = _mySettings.chkNoMenu;
 
             chkRemoveTemp.Checked = _mySettings.chkRemoveTemp;
             chkTFiveCredit.Checked = _mySettings.chkTFiveCredit;
@@ -159,10 +179,15 @@ namespace Tools_Injector_Mod_Menu
             chkLogsSuccess.Checked = _mySettings.chkLogsSuccess;
             chkLogsError.Checked = _mySettings.chkLogsError;
             chkSound.Checked = _mySettings.chkSound;
+            chkCheckUpdate.Checked = _mySettings.chkCheckUpdate;
+
+            txtNDK.Text = _mySettings.txtNDK;
+            
 
             txtService.Text = _mySettings.txtService;
             txtOnCreate.Text = _mySettings.txtOnCreate;
             txtActionMain.Text = _mySettings.txtActionMain;
+
             LoadImg();
 
             try
@@ -172,6 +197,32 @@ namespace Tools_Injector_Mod_Menu
             catch
             {
                 comboMenu.SelectedIndex = 0;
+            }
+
+            try
+            {
+                comboApktool.SelectedIndex = _mySettings.apkTools;
+            }
+            catch
+            {
+                comboApktool.SelectedIndex = 0;
+            }
+
+            _ = CheckUpdateAsync();
+        }
+
+        private async Task CheckUpdateAsync()
+        {
+            try
+            {
+                if (chkCheckUpdate.Checked)
+                {
+                    await UpdateService.CheckGitHubNewerVersion(true).ConfigureAwait(false);
+                }
+            }
+            catch 
+            {
+                
             }
         }
 
@@ -192,6 +243,7 @@ namespace Tools_Injector_Mod_Menu
             }
         }
 
+        
         #endregion Load
 
         #region Main Page
@@ -257,23 +309,7 @@ namespace Tools_Injector_Mod_Menu
             Show();
             LoadImg();
         }
-
-        private void btnBrowseNDK_Click(object sender, EventArgs e)
-        {
-            var folderBrowser = new FolderBrowser();
-            if (folderBrowser.ShowDialog() == DialogResult.OK)
-            {
-                if (folderBrowser.SelectedPath.IsPathSpecialChar())
-                {
-                    MyMessage.MsgShowWarning("Ndk path must without any special character");
-                    WriteOutput("[Error:022] Ndk path must without any special character", Color.Red);
-                    return;
-                }
-                txtNDK.Text = folderBrowser.SelectedPath;
-                WriteOutput("[Success] Change NDK Path To: " + txtNDK.Text, Color.Green);
-            }
-        }
-
+        
         private void btnSaveSettings_Click(object sender, EventArgs e)
         {
             try
@@ -292,14 +328,8 @@ namespace Tools_Injector_Mod_Menu
                     _mySettings.txtText = txtText.Text;
                     _mySettings.txtEndCredit = txtEndCredit.Text;
                     _mySettings.ImageCode = ImageCode;
-                    _mySettings.txtNDK = txtNDK.Text;
+                    _mySettings.chkNoMenu = chkNoMenu.Checked;
                     _mySettings.menuStyle = comboMenu.SelectedIndex;
-                    _mySettings.chkRemoveTemp = chkRemoveTemp.Checked;
-                    _mySettings.chkTFiveCredit = chkTFiveCredit.Checked;
-                    _mySettings.chkLogsComplie = chkLogsComplie.Checked;
-                    _mySettings.chkLogsSuccess = chkLogsSuccess.Checked;
-                    _mySettings.chkLogsError = chkLogsError.Checked;
-                    _mySettings.chkSound = chkSound.Checked;
                     _mySettings.Save();
                     WriteOutput("[Success] Saved Settings", Color.Green);
                 }
@@ -639,10 +669,134 @@ namespace Tools_Injector_Mod_Menu
 
         #endregion Load/Save Group
 
-        #region Compile
+        #endregion Menu Page
+
+        #region Compile Page
+
+        #region Logs
+
+        private void btnClearLog_Click(object sender, EventArgs e)
+        {
+            rbLog.Clear();
+        }
+
+        private void btnSaveLog_Click(object sender, EventArgs e)
+        {
+            SaveLogs();
+        }
+
+        private void SaveLogs()
+        {
+            var date = DateTime.Now.ToString("yyyy-M-d HH-mm-ss");
+            var path = $"{AppPath}\\Logs\\{date}.txt";
+            File.WriteAllText(path, rbLog.Text);
+            WriteOutput($"[Logs] Log saved successfully. {path}", Color.Gold);
+        }
+
+        private static void AppendText(RichTextBox box, string text, Color color)
+        {
+            box.SelectionStart = box.TextLength;
+            box.SelectionLength = 0;
+            box.SelectionColor = color;
+            box.AppendText(text);
+            box.SelectionColor = box.ForeColor;
+            box.ScrollToCaret();
+        }
+
+        private void TextToLogs(string str, Color color)
+        {
+            Invoke(new MethodInvoker(delegate
+            {
+                AppendText(rbLog, str, color);
+            }));
+        }
+
+        private void WriteOutput(string str, Color color)
+        {
+            if (!chkLogsComplie.Checked && str.Contains("[Compile]"))
+            {
+                return;
+            }
+            if (!chkLogsSuccess.Checked && str.Contains("[Success]"))
+            {
+                return;
+            }
+            if (!chkLogsError.Checked && str.Contains("[Error:"))
+            {
+                return;
+            }
+            Invoke(new MethodInvoker(delegate
+            {
+                TextToLogs(DateTime.Now.ToString("HH:mm:ss tt") + " " + str + Environment.NewLine, color);
+            }));
+        }
+
+        private void WriteOutput(string str)
+        {
+            Invoke(new MethodInvoker(delegate
+            {
+                TextToLogs(DateTime.Now.ToString("HH:mm:ss tt") + " " + str + Environment.NewLine, Color.Black);
+            }));
+        }
+
+        #endregion
+        
+        private void btnOutput_Click(object sender, EventArgs e)
+        {
+            Process.Start(AppPath + "\\Output");
+        }
+
+        private void btnTempDir_Click(object sender, EventArgs e)
+        {
+            Process.Start(_tempPathMenu);
+        }
+
+        private void btnBrowseApk_Click(object sender, EventArgs e)
+        {
+            var openFile = new OpenFileDialog()
+            {
+                Filter = @"Apk|*.apk|All files|*.*",
+                Title = Text,
+                DefaultExt = ".apk"
+            };
+            if (openFile.ShowDialog() == DialogResult.OK)
+            {
+                try
+                {
+                    _apkTarget = openFile.FileName;
+                    txtApkTarget.Text = _apkTarget;
+                    WriteOutput("[Success] Set Apk Target: " + txtApkTarget.Text, Color.Green);
+                    File.Copy(_apkTarget,$"{_tempPathMenu}\\ApkTarget.apk",true);
+                    FormState(State.Running);
+                    apkWorker.RunWorkerAsync();
+                }
+                catch (Exception ex)
+                {
+                    WriteOutput("[Error:014] " + ex.Message, Color.Red);
+                    FormState(State.Idle);
+                }
+            }
+            
+        }
+
+        private void btnCompileMenu_Click(object sender, EventArgs e)
+        {
+            Compiler(0);
+        }
 
         private void btnCompile_Click(object sender, EventArgs e)
         {
+            Compiler(1);
+        }
+
+        private void btnCompile2_Click(object sender, EventArgs e)
+        {
+            Compiler(2);
+        }
+
+        private void Compiler(int type)
+        {
+            _type = type;
             if (Utility.IsEmpty(txtLibName, false))
             {
                 MyMessage.MsgShowWarning("Library Name is Empty, Please Check it again!!!");
@@ -655,12 +809,13 @@ namespace Tools_Injector_Mod_Menu
                 WriteOutput("[Warning] NDK Path is Empty", Color.Orange);
                 return;
             }
-            //if (Utility.IsEmpty(ImageCode, false))
-            //{
-            //    MyMessage.MsgShowWarning("Image Code is Empty, Please Check it again!!!");
-            //    WriteOutput("[Warning] Image Code is Empty", Color.Orange);
-            //    return;
-            //}
+
+            if (!chkNoMenu.Checked && Utility.IsEmpty(ImageCode, false))
+            {
+                MyMessage.MsgShowWarning("Image Code is Empty, Please Check it again!!!");
+                WriteOutput("[Warning] Image Code is Empty", Color.Orange);
+                return;
+            }
             if (Utility.IsEmpty(txtNameGame, false))
             {
                 MyMessage.MsgShowWarning("Name Game is Empty, Please Check it again!!!");
@@ -671,6 +826,12 @@ namespace Tools_Injector_Mod_Menu
             {
                 MyMessage.MsgShowWarning("Target Library Name is Empty, Please Check it again!!!");
                 WriteOutput("[Warning] Target Library Name is Empty", Color.Orange);
+                return;
+            }
+            if (type != 0 && Utility.IsEmpty(txtApkTarget, false))
+            {
+                MyMessage.MsgShowWarning("Apk Target is Empty, Please Check it again!!!");
+                WriteOutput("[Warning] Image Code is Empty", Color.Orange);
                 return;
             }
             if (OffsetPatch.FunctionList.Count == 0)
@@ -700,7 +861,15 @@ namespace Tools_Injector_Mod_Menu
 #pragma warning restore 162
                 return;
             }
-            if (!MoveDirectory(_tempPathMenu + "\\com", $"{AppPath}\\Output\\{txtNameGame.Text}\\smali\\com")) return;
+
+            if (type == 0)
+            {
+                if (!MoveDirectory(_tempPathMenu + "\\com", $"{AppPath}\\Output\\{txtNameGame.Text}\\smali\\com")) return;
+            }
+            else
+            {
+                if (!MoveDirectory(_tempPathMenu + "\\com", $"{AppPath}\\Output\\{txtNameGame.Text}\\{Utility.SmaliCountToName(_smaliCount)}\\com")) return;
+            }
 
             CompileNdk();
         }
@@ -713,6 +882,8 @@ namespace Tools_Injector_Mod_Menu
             if (!AndroidMk()) return false;
             if (!ApplicationMk()) return false;
             if (!MenuString()) return false;
+            if (_type != 0 && !ApkMainActivity()) return false;
+            if (_type == 1 && !OnCreate()) return false;
             return MainHack();
         }
 
@@ -722,6 +893,10 @@ namespace Tools_Injector_Mod_Menu
             {
                 var text = File.ReadAllText(_tempPathMenu + "\\com\\tfive\\MainActivity.smali");
                 text = text.Replace("MyLibName", txtLibName.Text);
+                if (_type == 2)
+                {
+                    text = text.Replace("com.unity3d.player.UnityPlayerActivity", _launch);
+                }
                 File.WriteAllText(_tempPathMenu + "\\com\\tfive\\MainActivity.smali", text);
                 WriteOutput("[Success] Replaced MainActivity.smali", Color.Green);
                 return true;
@@ -794,7 +969,7 @@ namespace Tools_Injector_Mod_Menu
                 text = text.Replace("(yourName)", txtLibName.Text)
                     .Replace("(yourSite)", txtSite.Text)
                     .Replace("(yourText)", txtText.Text);
-                text = ImageCode == "Null" ?
+                text = chkNoMenu.Checked ?
                     text.Replace(@"return env->NewStringUTF(OBFUSCATE(""(yourImage)""));", "return NULL;")
                     : text.Replace("(yourImage)", ImageCode);
                 text = chkTFiveCredit.Checked ? text.Replace("//(TFiveEndCredit)", @"OBFUSCATE(""0_RichWebView_<html><body><marquee style=\""color: white; font-weight:bold;\"" direction=\""left\"" scrollamount=\""5\"" behavior=\""scroll\"">TFive Tools</marquee></body></html>"")") : text;
@@ -848,9 +1023,61 @@ namespace Tools_Injector_Mod_Menu
             }
         }
 
+        private bool ApkMainActivity()
+        {
+            try
+            {
+                var text = File.ReadAllText(AppPath + "\\BuildTools\\ApkTarget\\AndroidManifest.xml");
+                text = text.Replace("<uses-permission", $"{txtPermission.Text}\n    <uses-permission");
+                if (_type == 2)
+                {
+                    text = text.Replace(txtFind.Text, "")
+                        .Replace("<action android:name=\"android.intent.action.MAIN\" />","")
+
+                        .Replace("</application>", $"    {_mySettings.txtActionMain}\n    </application>");
+                }
+                text = text.Replace("</application>", $"    {_mySettings.txtService}\n    </application>");
+                File.WriteAllText(AppPath + "\\BuildTools\\ApkTarget\\AndroidManifest.xml",text);
+                WriteOutput("[Success] Replaced AndroidManifest.xml", Color.Green);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                MyMessage.MsgShowError("Error " + ex.Message);
+                WriteOutput("[Error:024] " + ex.Message, Color.Red);
+                FormState(State.Idle);
+                return false;
+            }
+        }
+        
+        private bool OnCreate()
+        {
+            try
+            {
+                var launch = $"{AppPath}\\BuildTools\\ApkTarget\\{Utility.SmaliCountToName(_smaliCount)}\\" + _launch.Replace(".", "\\") + ".smali";
+                
+                var text = File.ReadAllText(launch);
+                text = text.Replace(".method protected onCreate(Landroid/os/Bundle;)V", 
+                    ".method protected onCreate(Landroid/os/Bundle;)V" +
+                    "\n    .locals 2" +
+                    $"\n\n    {_mySettings.txtOnCreate}");
+
+                File.WriteAllText(launch, text);
+                WriteOutput("[Success] Replaced OnCreate", Color.Green);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                MyMessage.MsgShowError("Error " + ex.Message);
+                WriteOutput("[Error:025] " + ex.Message, Color.Red);
+                FormState(State.Idle);
+                return false;
+            }
+        }
+
         #endregion Modify Files
 
-        #region Worker
+        #region Menu Worker
 
         private void CompileNdk()
         {
@@ -873,7 +1100,7 @@ namespace Tools_Injector_Mod_Menu
                         RedirectStandardError = true,
                         RedirectStandardOutput = true,
                         CreateNoWindow = true,
-                        WorkingDirectory = $"{_tempPath}TFiveMenu\\jni"
+                        WorkingDirectory = $"{_tempPathMenu}\\jni"
                     }
                 };
 
@@ -933,97 +1160,220 @@ namespace Tools_Injector_Mod_Menu
                 WriteOutput("[Error:021] Can not Move", Color.Red);
             }
 
+            if (_type != 0)
+            {
+                var apkTarget = $"{AppPath}\\BuildTools\\ApkTarget";
+                var smaliDir = $"{AppPath}\\Output\\{txtNameGame.Text}\\{Utility.SmaliCountToName(_smaliCount)}";
+                if (MoveDirectory(desDir, $"{apkTarget}", false))
+                {
+                    WriteOutput($"[Success] Move {desDir}{Environment.NewLine}To => {apkTarget}", Color.Green);
+                }
+                else
+                {
+                    WriteOutput("[Error:021] Can not Move", Color.Red);
+                    return;
+                }
+
+                if (MoveDirectory(smaliDir, $"{apkTarget}", false))
+                {
+                    WriteOutput($"[Success] Move {smaliDir}{Environment.NewLine}To => {apkTarget}", Color.Green);
+                }
+                else
+                {
+                    WriteOutput("[Error:021] Can not Move", Color.Red);
+                    return;
+                }
+
+                Apktool("b", "Compiled Apk Target");
+
+                var apkPath = $"{AppPath}\\BuildTools\\ApkTarget.apk";
+
+                if (File.Exists(apkPath))
+                {
+                    File.Copy(apkPath, $"{AppPath}\\Output\\{txtNameGame.Text}\\{txtNameGame.Text}.apk");
+                }
+            }
+
             FormState(State.Idle);
         }
 
         #endregion Worker
 
-        #endregion Compile
-
-        #endregion Menu Page
-
-        #region Log&About Page
-
-        private void btnOutput_Click(object sender, EventArgs e)
+        #region Apk Worker
+        
+        private void apkWorker_DoWork(object sender, System.ComponentModel.DoWorkEventArgs e)
         {
-            Process.Start(AppPath + "\\Output");
+            try
+            {
+                if (Directory.Exists($"{AppPath}\\BuildTools\\ApkTarget"))
+                {
+                    DeleteBat($"{AppPath}\\BuildTools\\ApkTarget");
+                    Thread.Sleep(500);
+                }
+
+                _compile = 0;
+                var process = new Process
+                {
+                    StartInfo =
+                        {
+                            FileName = "cmd.exe",
+                            Arguments = $"/c aapt dump badging {_tempPathMenu}\\ApkTarget.apk PAUSE > {_tempPathMenu}\\result.txt",
+                            WindowStyle = ProcessWindowStyle.Hidden,
+                            UseShellExecute = false,
+                            RedirectStandardError = true,
+                            RedirectStandardOutput = true,
+                            CreateNoWindow = true,
+                            WorkingDirectory = $"{AppPath}\\BuildTools\\"
+                        }
+                };
+
+                process.OutputDataReceived += OutputDataReceived;
+                process.ErrorDataReceived += ErrorDataReceived;
+                process.EnableRaisingEvents = true;
+                process.Start();
+                process.BeginOutputReadLine();
+                process.BeginErrorReadLine();
+                process.WaitForExit(50000);
+                process.Close();
+            }
+            catch (Exception exception)
+            {
+                WriteOutput("[Error:100] " + exception.Message, Color.Red);
+                FormState(State.Idle);
+            }
         }
 
-        private void btnTempDir_Click(object sender, EventArgs e)
+        private void apkWorker_RunWorkerCompleted(object sender, System.ComponentModel.RunWorkerCompletedEventArgs e)
         {
-            Process.Start(_tempPathMenu);
+            if (_compile > 0 && !_mySettings.debugMode)
+            {
+                MyMessage.MsgShowError("Failed to Compile");
+                WriteOutput("[Error:020] Failed to Compile", Color.Red);
+
+                SaveLogs();
+                FormState(State.Idle);
+                return;
+            }
+
+            var activity = File.ReadAllText($"{_tempPathMenu}\\result.txt");
+            _launch = Utility.GetBetween(activity, "launchable-activity: name='", "'  label='");
+
+            WriteOutput($"[Success] Launch Activity: {_launch}", Color.Green);
+            Apktool("d", "Decompiled Apk target");
+        }
+
+        private void Apktool(string type, string output)
+        {
+            try
+            {
+                _compile = 0;
+                var process = new Process
+                {
+                    StartInfo =
+                    {
+                        FileName = "cmd.exe",
+                        Arguments =
+                            $"/c {comboApktool.SelectedItem}.jar {type} {_tempPathMenu}\\ApkTarget.apk",
+                        WindowStyle = ProcessWindowStyle.Normal,
+                        UseShellExecute = false,
+                        RedirectStandardError = true,
+                        RedirectStandardOutput = true,
+                        CreateNoWindow = true,
+                        WorkingDirectory = $"{AppPath}\\BuildTools\\"
+                    },
+                    EnableRaisingEvents = true
+                };
+                process.OutputDataReceived += OutputDataReceived;
+                process.ErrorDataReceived += ErrorDataReceived;
+                process.Start();
+                process.BeginOutputReadLine();
+                process.BeginErrorReadLine();
+                process.WaitForExit(50000);
+                process.Close();
+
+                if (type == "d")
+                {
+                    GetSmailiCount();
+                }
+
+                FormState(State.Idle);
+                WriteOutput($"[Success] {output}", Color.Green);
+            }
+            catch (Exception exception)
+            {
+                WriteOutput("[Error:100] " + exception.Message, Color.Red);
+                FormState(State.Idle);
+            }
+        }
+
+        private void GetSmailiCount()
+        {
+            _smaliCount = 0;
+            var directory = new DirectoryInfo($"{AppPath}\\BuildTools\\ApkTarget");
+            foreach (var dir in directory.GetDirectories())
+            {
+                if (dir.Name.StartsWith("smali"))
+                {
+                    _smaliCount++;
+                }
+            }
+        }
+        #endregion
+
+        #endregion Compile
+
+        #region About Page
+
+        private void btnSaveSettings2_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (MyMessage.MsgOkCancel("Save Settings.\n\n" +
+                                          "Click \"OK\" to confirm.\n\n" +
+                                          "Click \"Cancel\" to cancel."))
+                {
+                    _mySettings.txtNDK = txtNDK.Text;
+                    _mySettings.apkTools = comboApktool.SelectedIndex;
+
+                    _mySettings.chkRemoveTemp = chkRemoveTemp.Checked;
+                    _mySettings.chkTFiveCredit = chkTFiveCredit.Checked;
+                    _mySettings.chkLogsComplie = chkLogsComplie.Checked;
+                    _mySettings.chkLogsSuccess = chkLogsSuccess.Checked;
+                    _mySettings.chkLogsError = chkLogsError.Checked;
+                    _mySettings.chkSound = chkSound.Checked;
+                    _mySettings.chkCheckUpdate = chkCheckUpdate.Checked;
+                    _mySettings.Save();
+                    WriteOutput("[Success] Saved Settings", Color.Green);
+                }
+            }
+            catch (Exception exception)
+            {
+                WriteOutput("[Error:003] " + exception.Message, Color.Red);
+            }
+        }
+
+        private void btnBrowseNDK_Click(object sender, EventArgs e)
+        {
+            var folderBrowser = new FolderBrowser();
+            if (folderBrowser.ShowDialog() == DialogResult.OK)
+            {
+                if (folderBrowser.SelectedPath.IsPathSpecialChar())
+                {
+                    MyMessage.MsgShowWarning("Ndk path must without any special character");
+                    WriteOutput("[Error:012] Ndk path must without any special character", Color.Red);
+                    return;
+                }
+                txtNDK.Text = folderBrowser.SelectedPath;
+                WriteOutput("[Success] Change NDK Path To: " + txtNDK.Text, Color.Green);
+            }
         }
 
         private async void btnUpdate_Click(object sender, EventArgs e)
         {
             await UpdateService.CheckGitHubNewerVersion().ConfigureAwait(false);
         }
-
-        private void btnClearLog_Click(object sender, EventArgs e)
-        {
-            rbLog.Clear();
-        }
-
-        private void btnSaveLog_Click(object sender, EventArgs e)
-        {
-            SaveLogs();
-        }
-
-        private void SaveLogs()
-        {
-            var date = DateTime.Now.ToString("yyyy-M-d HH-mm-ss");
-            var path = $"{AppPath}\\Logs\\{date}.txt";
-            File.WriteAllText(path, rbLog.Text);
-            WriteOutput($"[Logs] Log saved successfully. {path}", Color.Gold);
-        }
-
-        private static void AppendText(RichTextBox box, string text, Color color)
-        {
-            box.SelectionStart = box.TextLength;
-            box.SelectionLength = 0;
-            box.SelectionColor = color;
-            box.AppendText(text);
-            box.SelectionColor = box.ForeColor;
-            box.ScrollToCaret();
-        }
-
-        private void TextToLogs(string str, Color color)
-        {
-            Invoke(new MethodInvoker(delegate
-            {
-                AppendText(rbLog, str, color);
-            }));
-        }
-
-        private void WriteOutput(string str, Color color)
-        {
-            if (!chkLogsComplie.Checked && str.Contains("[Compile]"))
-            {
-                return;
-            }
-            if (!chkLogsSuccess.Checked && str.Contains("[Success]"))
-            {
-                return;
-            }
-            if (!chkLogsError.Checked && str.Contains("[Error:"))
-            {
-                return;
-            }
-            Invoke(new MethodInvoker(delegate
-            {
-                TextToLogs(DateTime.Now.ToString("HH:mm:ss tt") + " " + str + Environment.NewLine, color);
-            }));
-        }
-
-        private void WriteOutput(string str)
-        {
-            Invoke(new MethodInvoker(delegate
-            {
-                TextToLogs(DateTime.Now.ToString("HH:mm:ss tt") + " " + str + Environment.NewLine, Color.Black);
-            }));
-        }
-
-        #endregion Log&About Page
+        
+        #endregion About Page
 
         #region Dev Page
 
@@ -1152,11 +1502,11 @@ namespace Tools_Injector_Mod_Menu
             var encoders = ImageCodecInfo.GetImageEncoders();
             return Array.Find(encoders, ici => ici.MimeType == mimeType);
         }
-
         private bool DeleteAll(string path)
         {
             try
             {
+                if (!Directory.Exists(path)) return true;
                 var directory = new DirectoryInfo(path);
                 foreach (var file in directory.GetFiles())
                 {
@@ -1178,6 +1528,11 @@ namespace Tools_Injector_Mod_Menu
             }
         }
 
+        private void DeleteBat(string path)
+        {
+            File.WriteAllText($"{_tempPathMenu}\\DelFolder.bat", $"@RD /S /Q \"{path}\"");
+            Process.Start($"{_tempPathMenu}\\DelFolder.bat");
+        }
         private bool ExtractZip(string sourceFileName, string destinationPath)
         {
             try
@@ -1358,8 +1713,11 @@ namespace Tools_Injector_Mod_Menu
 
         private static bool IsWindows7 => OS_Name().Contains("Windows 7");
 
+       
+
         private static bool IsWindows10 => OS_Name().Contains("Windows 10");
 
+        
         private static bool Is64Bit => Environment.Is64BitOperatingSystem;
 
         private static string OS_Name()
@@ -1369,6 +1727,11 @@ namespace Tools_Injector_Mod_Menu
                             select x.GetPropertyValue("Caption")).FirstOrDefault();
         }
 
+
+
+
         #endregion Utility
+
+        
     }
 }
