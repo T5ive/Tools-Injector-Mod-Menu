@@ -35,6 +35,8 @@ namespace Tools_Injector_Mod_Menu
 
         public static readonly string AppPath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
 
+        private static readonly string _apkTargetPath = $"{AppPath}\\BuildTools\\ApkTarget";
+
         private MySettings _mySettings = new();
 
         private string[] _menuFiles;
@@ -749,7 +751,7 @@ namespace Tools_Injector_Mod_Menu
         {
             var openFile = new OpenFileDialog()
             {
-                Filter = @"Apk|*.apk|All files|*.*",
+                Filter = "Apk|*.apk|All files|*.*",
                 Title = Text,
                 DefaultExt = ".apk"
             };
@@ -1155,7 +1157,7 @@ namespace Tools_Injector_Mod_Menu
 
             if (_type != 0)
             {
-                var apkTarget = $"{AppPath}\\BuildTools\\ApkTarget";
+                var apkTarget = $"{_apkTargetPath}";
                 var smaliDir = $"{AppPath}\\Output\\{txtNameGame.Text}\\{Utility.SmaliCountToName(_smaliCount)}";
                 if (MoveDirectory(desDir, $"{apkTarget}", false))
                 {
@@ -1198,11 +1200,21 @@ namespace Tools_Injector_Mod_Menu
         {
             try
             {
-                if (!DeleteAll($"{AppPath}\\BuildTools\\ApkTarget",true))
+                if (Directory.Exists(_apkTargetPath))
                 {
-                    apkWorker.CancelAsync();
-                    WriteOutput("[Error:029] Can not delete ApkTarget Folder", Color.Red);
-                    return;
+                    var result = MyMessage.MsgYesNoCancel(_apkTargetPath + " Found.\n\n" +
+                                                          "Click \"Yes\" to Continue if you want to overwrite!" +
+                                                          "\n\nClick \"No\" to keep old files!"+
+                                                          "\n\nClick \"Cancel\" to cancel it if not!");
+                    switch (result)
+                    {
+                        case DialogResult.Yes:
+                            Directory.Delete(_apkTargetPath, true);
+                            break;
+                        case DialogResult.Cancel:
+                            apkWorker.CancelAsync();
+                            return;
+                    }
                 }
 
                 _compile = 0;
@@ -1304,7 +1316,7 @@ namespace Tools_Injector_Mod_Menu
         private void GetSmailiCount()
         {
             _smaliCount = 0;
-            var directory = new DirectoryInfo($"{AppPath}\\BuildTools\\ApkTarget");
+            var directory = new DirectoryInfo($"{_apkTargetPath}");
             foreach (var dir in directory.GetDirectories())
             {
                 if (dir.Name.StartsWith("smali"))
@@ -1499,7 +1511,7 @@ namespace Tools_Injector_Mod_Menu
             return Array.Find(encoders, ici => ici.MimeType == mimeType);
         }
 
-        private bool DeleteAll(string path, bool delDir = false)
+        private bool DeleteAll(string path)
         {
             try
             {
@@ -1512,11 +1524,6 @@ namespace Tools_Injector_Mod_Menu
                 foreach (var dir in directory.GetDirectories())
                 {
                     dir.Delete(true);
-                }
-
-                if (delDir)
-                {
-                    directory.Delete(true);
                 }
                 WriteOutput("[Success] Deleted " + path, Color.Green);
                 return true;
