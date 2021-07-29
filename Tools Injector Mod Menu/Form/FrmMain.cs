@@ -1198,10 +1198,11 @@ namespace Tools_Injector_Mod_Menu
         {
             try
             {
-                if (Directory.Exists($"{AppPath}\\BuildTools\\ApkTarget"))
+                if (!DeleteAll($"{AppPath}\\BuildTools\\ApkTarget",true))
                 {
-                    DeleteBat($"{AppPath}\\BuildTools\\ApkTarget");
-                    Thread.Sleep(500);
+                    apkWorker.CancelAsync();
+                    WriteOutput("[Error:029] Can not delete ApkTarget Folder", Color.Red);
+                    return;
                 }
 
                 _compile = 0;
@@ -1231,6 +1232,7 @@ namespace Tools_Injector_Mod_Menu
             }
             catch (Exception exception)
             {
+                apkWorker.CancelAsync();
                 WriteOutput("[Error:100] " + exception.Message, Color.Red);
                 FormState(State.Idle);
             }
@@ -1497,7 +1499,7 @@ namespace Tools_Injector_Mod_Menu
             return Array.Find(encoders, ici => ici.MimeType == mimeType);
         }
 
-        private bool DeleteAll(string path)
+        private bool DeleteAll(string path, bool delDir = false)
         {
             try
             {
@@ -1510,6 +1512,11 @@ namespace Tools_Injector_Mod_Menu
                 foreach (var dir in directory.GetDirectories())
                 {
                     dir.Delete(true);
+                }
+
+                if (delDir)
+                {
+                    directory.Delete(true);
                 }
                 WriteOutput("[Success] Deleted " + path, Color.Green);
                 return true;
