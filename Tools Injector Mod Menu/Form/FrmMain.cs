@@ -11,7 +11,6 @@ using System.IO.Compression;
 using System.Linq;
 using System.Management;
 using System.Reflection;
-using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml;
@@ -863,7 +862,7 @@ namespace Tools_Injector_Mod_Menu
             }
             else
             {
-                if (!MoveDirectory(_tempPathMenu + "\\com", $"{AppPath}\\Output\\{txtNameGame.Text}\\{Utility.SmaliCountToName(_smaliCount)}\\com")) return;
+                if (!MoveDirectory(_tempPathMenu + "\\com", $"{AppPath}\\Output\\{txtNameGame.Text}\\{Utility.SmaliCountToName(_smaliCount, true)}\\com")) return;
             }
 
             CompileNdk();
@@ -1141,14 +1140,14 @@ namespace Tools_Injector_Mod_Menu
                 return;
             }
 
-            var outputDir = $"{_tempPathMenu}\\libs";
+            var tempOutputDir = $"{_tempPathMenu}\\libs";
             var desDir = AppPath + "\\Output\\" + txtNameGame.Text + "\\lib";
 
             var deleteTemp = chkRemoveTemp.Checked;
 
-            if (MoveDirectory(outputDir, desDir, deleteTemp))
+            if (MoveDirectory(tempOutputDir, desDir, true, deleteTemp))
             {
-                WriteOutput($"[Success] Move {outputDir}{Environment.NewLine}To => {desDir}", Color.Green);
+                WriteOutput($"[Success] Move {tempOutputDir}{Environment.NewLine}To => {desDir}", Color.Green);
             }
             else
             {
@@ -1158,20 +1157,10 @@ namespace Tools_Injector_Mod_Menu
             if (_type != 0)
             {
                 var apkTarget = $"{_apkTargetPath}";
-                var smaliDir = $"{AppPath}\\Output\\{txtNameGame.Text}\\{Utility.SmaliCountToName(_smaliCount)}";
-                if (MoveDirectory(desDir, $"{apkTarget}", false))
+                var outputDir = $"{AppPath}\\Output\\{txtNameGame.Text}\\";
+                if (MoveDirectory(outputDir, $"{apkTarget}", false, deleteTemp))
                 {
                     WriteOutput($"[Success] Move {desDir}{Environment.NewLine}To => {apkTarget}", Color.Green);
-                }
-                else
-                {
-                    WriteOutput("[Error:021] Can not Move", Color.Red);
-                    return;
-                }
-
-                if (MoveDirectory(smaliDir, $"{apkTarget}", false))
-                {
-                    WriteOutput($"[Success] Move {smaliDir}{Environment.NewLine}To => {apkTarget}", Color.Green);
                 }
                 else
                 {
@@ -1204,13 +1193,14 @@ namespace Tools_Injector_Mod_Menu
                 {
                     var result = MyMessage.MsgYesNoCancel(_apkTargetPath + " Found.\n\n" +
                                                           "Click \"Yes\" to Continue if you want to overwrite!" +
-                                                          "\n\nClick \"No\" to keep old files!"+
+                                                          "\n\nClick \"No\" to keep old files!" +
                                                           "\n\nClick \"Cancel\" to cancel it if not!");
                     switch (result)
                     {
                         case DialogResult.Yes:
                             Directory.Delete(_apkTargetPath, true);
                             break;
+
                         case DialogResult.Cancel:
                             apkWorker.CancelAsync();
                             return;
@@ -1563,11 +1553,11 @@ namespace Tools_Injector_Mod_Menu
             }
         }
 
-        private bool MoveDirectory(string sourceDirectory, string destinationPath, bool deleteSource = true)
+        private bool MoveDirectory(string sourceDirectory, string destinationPath, bool overwrite = true, bool deleteSource = true)
         {
             try
             {
-                if (Directory.Exists(destinationPath) &&
+                if (Directory.Exists(destinationPath) && overwrite &&
                     MyMessage.MsgOkCancel(destinationPath + " Found.\n\n" +
                                                          "Click \"OK\" to Continue if you want to overwrite!" +
                                                          "\n\nClick \"Cancel\" to cancel it if not!"))
@@ -1618,7 +1608,7 @@ namespace Tools_Injector_Mod_Menu
                 foreach (var file in dir.GetFiles())
                 {
                     var tempPath = Path.Combine(destDirName, file.Name);
-                    file.CopyTo(tempPath, false);
+                    file.CopyTo(tempPath, true);
                 }
                 if (copySubDirs)
                 {

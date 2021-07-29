@@ -283,9 +283,14 @@ namespace Tools_Injector_Mod_Menu
             return null;
         }
 
-        public static string SmaliCountToName(int count)
+        public static string SmaliCountToName(int count, bool move = false)
         {
-            return $"smali_classes{count + 1}";
+            if (move)
+            {
+                return $"smali_classes{count + 1}";
+            }
+
+            return count == 1 ? "smali" : $"smali_classes{count}";
         }
 
         public static string FunctionTypeToString(Enums.FunctionType type)
