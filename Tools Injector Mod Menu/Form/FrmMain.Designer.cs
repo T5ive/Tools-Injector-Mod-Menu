@@ -88,11 +88,11 @@ namespace Tools_Injector_Mod_Menu
             this.materialCard12 = new MaterialSkin.Controls.MaterialCard();
             this.groupBox12 = new System.Windows.Forms.GroupBox();
             this.btnCompileMenu = new MaterialSkin.Controls.MaterialButton();
-            this.btnCompile2 = new MaterialSkin.Controls.MaterialButton();
+            this.btnCompileApk2 = new MaterialSkin.Controls.MaterialButton();
             this.label14 = new System.Windows.Forms.Label();
             this.btnBrowseApk = new MaterialSkin.Controls.MaterialButton();
             this.txtApkTarget = new MaterialSkin.Controls.MaterialTextBox();
-            this.btnCompile = new MaterialSkin.Controls.MaterialButton();
+            this.btnCompileApk1 = new MaterialSkin.Controls.MaterialButton();
             this.btnOutput = new MaterialSkin.Controls.MaterialButton();
             this.btnTempDir = new MaterialSkin.Controls.MaterialButton();
             this.materialCard9 = new MaterialSkin.Controls.MaterialCard();
@@ -151,6 +151,19 @@ namespace Tools_Injector_Mod_Menu
             this.tabLog = new System.Windows.Forms.TabPage();
             this.picImg = new System.Windows.Forms.PictureBox();
             this.chkLogsWarning = new MaterialSkin.Controls.MaterialCheckbox();
+            this.btnReplace1 = new MaterialSkin.Controls.MaterialButton();
+            this.btnReplace2 = new MaterialSkin.Controls.MaterialButton();
+            this.btnDecompileApk = new MaterialSkin.Controls.MaterialButton();
+            this.btnCompileApk = new MaterialSkin.Controls.MaterialButton();
+            this.materialCard16 = new MaterialSkin.Controls.MaterialCard();
+            this.groupBox17 = new System.Windows.Forms.GroupBox();
+            this.btnManualCompileApk1 = new MaterialSkin.Controls.MaterialButton();
+            this.btnManualCompileApk2 = new MaterialSkin.Controls.MaterialButton();
+            this.btnManualCompileMenu = new MaterialSkin.Controls.MaterialButton();
+            this.btnManualCode = new MaterialSkin.Controls.MaterialButton();
+            this.materialCard17 = new MaterialSkin.Controls.MaterialCard();
+            this.groupBox18 = new System.Windows.Forms.GroupBox();
+            this.lbApk = new System.Windows.Forms.Label();
             this.materialTabControl1.SuspendLayout();
             this.tabMain.SuspendLayout();
             this.materialCard4.SuspendLayout();
@@ -192,6 +205,10 @@ namespace Tools_Injector_Mod_Menu
             this.groupBox5.SuspendLayout();
             this.tabLog.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picImg)).BeginInit();
+            this.materialCard16.SuspendLayout();
+            this.groupBox17.SuspendLayout();
+            this.materialCard17.SuspendLayout();
+            this.groupBox18.SuspendLayout();
             this.SuspendLayout();
             // 
             // materialTabControl1
@@ -1011,10 +1028,9 @@ namespace Tools_Injector_Mod_Menu
             // 
             // tabCompile
             // 
-            this.tabCompile.Controls.Add(this.btnCompileMenu);
+            this.tabCompile.Controls.Add(this.materialCard17);
+            this.tabCompile.Controls.Add(this.materialCard16);
             this.tabCompile.Controls.Add(this.materialCard12);
-            this.tabCompile.Controls.Add(this.btnOutput);
-            this.tabCompile.Controls.Add(this.btnTempDir);
             this.tabCompile.ImageKey = "tool-box-24.png";
             this.tabCompile.Location = new System.Drawing.Point(4, 31);
             this.tabCompile.Name = "tabCompile";
@@ -1035,24 +1051,30 @@ namespace Tools_Injector_Mod_Menu
             this.materialCard12.MouseState = MaterialSkin.MouseState.HOVER;
             this.materialCard12.Name = "materialCard12";
             this.materialCard12.Padding = new System.Windows.Forms.Padding(14);
-            this.materialCard12.Size = new System.Drawing.Size(318, 328);
+            this.materialCard12.Size = new System.Drawing.Size(766, 209);
             this.materialCard12.TabIndex = 23;
             // 
             // groupBox12
             // 
-            this.groupBox12.Controls.Add(this.btnCompile2);
+            this.groupBox12.Controls.Add(this.btnManualCompileApk2);
+            this.groupBox12.Controls.Add(this.btnManualCompileApk1);
+            this.groupBox12.Controls.Add(this.btnCompileApk);
+            this.groupBox12.Controls.Add(this.btnDecompileApk);
+            this.groupBox12.Controls.Add(this.btnReplace2);
+            this.groupBox12.Controls.Add(this.btnReplace1);
+            this.groupBox12.Controls.Add(this.btnCompileApk2);
             this.groupBox12.Controls.Add(this.label14);
             this.groupBox12.Controls.Add(this.btnBrowseApk);
             this.groupBox12.Controls.Add(this.txtApkTarget);
-            this.groupBox12.Controls.Add(this.btnCompile);
+            this.groupBox12.Controls.Add(this.btnCompileApk1);
             this.groupBox12.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox12.Font = new System.Drawing.Font("Roboto", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
             this.groupBox12.Location = new System.Drawing.Point(14, 14);
             this.groupBox12.Name = "groupBox12";
-            this.groupBox12.Size = new System.Drawing.Size(290, 300);
+            this.groupBox12.Size = new System.Drawing.Size(738, 181);
             this.groupBox12.TabIndex = 4;
             this.groupBox12.TabStop = false;
-            this.groupBox12.Text = "Compiler";
+            this.groupBox12.Text = "Compile Android Package (APK)";
             // 
             // btnCompileMenu
             // 
@@ -1063,45 +1085,45 @@ namespace Tools_Injector_Mod_Menu
             this.btnCompileMenu.Depth = 0;
             this.btnCompileMenu.HighEmphasis = true;
             this.btnCompileMenu.Icon = null;
-            this.btnCompileMenu.Location = new System.Drawing.Point(487, 289);
+            this.btnCompileMenu.Location = new System.Drawing.Point(7, 136);
             this.btnCompileMenu.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
             this.btnCompileMenu.MouseState = MaterialSkin.MouseState.HOVER;
             this.btnCompileMenu.Name = "btnCompileMenu";
             this.btnCompileMenu.NoAccentTextColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(81)))), ((int)(((byte)(181)))));
-            this.btnCompileMenu.Size = new System.Drawing.Size(276, 42);
+            this.btnCompileMenu.Size = new System.Drawing.Size(388, 68);
             this.btnCompileMenu.TabIndex = 19;
-            this.btnCompileMenu.Text = "Compile Menu";
+            this.btnCompileMenu.Text = "Full Compile Menu";
             this.btnCompileMenu.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
             this.btnCompileMenu.UseAccentColor = false;
             this.btnCompileMenu.UseVisualStyleBackColor = true;
             this.btnCompileMenu.Click += new System.EventHandler(this.btnCompileMenu_Click);
             // 
-            // btnCompile2
+            // btnCompileApk2
             // 
-            this.btnCompile2.AccentTextColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(64)))), ((int)(((byte)(129)))));
-            this.btnCompile2.AutoSize = false;
-            this.btnCompile2.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.btnCompile2.Density = MaterialSkin.Controls.MaterialButton.MaterialButtonDensity.Default;
-            this.btnCompile2.Depth = 0;
-            this.btnCompile2.HighEmphasis = true;
-            this.btnCompile2.Icon = null;
-            this.btnCompile2.Location = new System.Drawing.Point(7, 169);
-            this.btnCompile2.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
-            this.btnCompile2.MouseState = MaterialSkin.MouseState.HOVER;
-            this.btnCompile2.Name = "btnCompile2";
-            this.btnCompile2.NoAccentTextColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(81)))), ((int)(((byte)(181)))));
-            this.btnCompile2.Size = new System.Drawing.Size(276, 42);
-            this.btnCompile2.TabIndex = 17;
-            this.btnCompile2.Text = "Compile Method 2";
-            this.btnCompile2.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
-            this.btnCompile2.UseAccentColor = false;
-            this.btnCompile2.UseVisualStyleBackColor = true;
-            this.btnCompile2.Click += new System.EventHandler(this.btnCompile2_Click);
+            this.btnCompileApk2.AccentTextColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(64)))), ((int)(((byte)(129)))));
+            this.btnCompileApk2.AutoSize = false;
+            this.btnCompileApk2.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.btnCompileApk2.Density = MaterialSkin.Controls.MaterialButton.MaterialButtonDensity.Default;
+            this.btnCompileApk2.Depth = 0;
+            this.btnCompileApk2.HighEmphasis = true;
+            this.btnCompileApk2.Icon = null;
+            this.btnCompileApk2.Location = new System.Drawing.Point(521, 127);
+            this.btnCompileApk2.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
+            this.btnCompileApk2.MouseState = MaterialSkin.MouseState.HOVER;
+            this.btnCompileApk2.Name = "btnCompileApk2";
+            this.btnCompileApk2.NoAccentTextColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(81)))), ((int)(((byte)(181)))));
+            this.btnCompileApk2.Size = new System.Drawing.Size(210, 42);
+            this.btnCompileApk2.TabIndex = 17;
+            this.btnCompileApk2.Text = "Full Compile Method 2";
+            this.btnCompileApk2.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
+            this.btnCompileApk2.UseAccentColor = false;
+            this.btnCompileApk2.UseVisualStyleBackColor = true;
+            this.btnCompileApk2.Click += new System.EventHandler(this.btnCompileApk2_Click);
             // 
             // label14
             // 
             this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(4, 34);
+            this.label14.Location = new System.Drawing.Point(6, 34);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(88, 18);
             this.label14.TabIndex = 16;
@@ -1116,12 +1138,12 @@ namespace Tools_Injector_Mod_Menu
             this.btnBrowseApk.Depth = 0;
             this.btnBrowseApk.HighEmphasis = true;
             this.btnBrowseApk.Icon = null;
-            this.btnBrowseApk.Location = new System.Drawing.Point(99, 25);
+            this.btnBrowseApk.Location = new System.Drawing.Point(638, 25);
             this.btnBrowseApk.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
             this.btnBrowseApk.MouseState = MaterialSkin.MouseState.HOVER;
             this.btnBrowseApk.Name = "btnBrowseApk";
             this.btnBrowseApk.NoAccentTextColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(81)))), ((int)(((byte)(181)))));
-            this.btnBrowseApk.Size = new System.Drawing.Size(184, 36);
+            this.btnBrowseApk.Size = new System.Drawing.Size(93, 36);
             this.btnBrowseApk.TabIndex = 5;
             this.btnBrowseApk.Text = "Browse";
             this.btnBrowseApk.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
@@ -1136,39 +1158,39 @@ namespace Tools_Injector_Mod_Menu
             this.txtApkTarget.Font = new System.Drawing.Font("Roboto", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
             this.txtApkTarget.Hint = "C:\\Apks\\AmongUs.apk";
             this.txtApkTarget.LeadingIcon = null;
-            this.txtApkTarget.Location = new System.Drawing.Point(7, 70);
+            this.txtApkTarget.Location = new System.Drawing.Point(100, 25);
             this.txtApkTarget.MaxLength = 32767;
             this.txtApkTarget.MouseState = MaterialSkin.MouseState.OUT;
             this.txtApkTarget.Multiline = false;
             this.txtApkTarget.Name = "txtApkTarget";
             this.txtApkTarget.ReadOnly = true;
-            this.txtApkTarget.Size = new System.Drawing.Size(276, 36);
+            this.txtApkTarget.Size = new System.Drawing.Size(531, 36);
             this.txtApkTarget.TabIndex = 4;
             this.txtApkTarget.Text = "";
             this.txtApkTarget.TrailingIcon = null;
             this.txtApkTarget.UseTallSize = false;
             // 
-            // btnCompile
+            // btnCompileApk1
             // 
-            this.btnCompile.AccentTextColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(64)))), ((int)(((byte)(129)))));
-            this.btnCompile.AutoSize = false;
-            this.btnCompile.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.btnCompile.Density = MaterialSkin.Controls.MaterialButton.MaterialButtonDensity.Default;
-            this.btnCompile.Depth = 0;
-            this.btnCompile.HighEmphasis = true;
-            this.btnCompile.Icon = null;
-            this.btnCompile.Location = new System.Drawing.Point(7, 115);
-            this.btnCompile.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
-            this.btnCompile.MouseState = MaterialSkin.MouseState.HOVER;
-            this.btnCompile.Name = "btnCompile";
-            this.btnCompile.NoAccentTextColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(81)))), ((int)(((byte)(181)))));
-            this.btnCompile.Size = new System.Drawing.Size(276, 42);
-            this.btnCompile.TabIndex = 15;
-            this.btnCompile.Text = "Compile Method 1";
-            this.btnCompile.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
-            this.btnCompile.UseAccentColor = false;
-            this.btnCompile.UseVisualStyleBackColor = true;
-            this.btnCompile.Click += new System.EventHandler(this.btnCompile_Click);
+            this.btnCompileApk1.AccentTextColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(64)))), ((int)(((byte)(129)))));
+            this.btnCompileApk1.AutoSize = false;
+            this.btnCompileApk1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.btnCompileApk1.Density = MaterialSkin.Controls.MaterialButton.MaterialButtonDensity.Default;
+            this.btnCompileApk1.Depth = 0;
+            this.btnCompileApk1.HighEmphasis = true;
+            this.btnCompileApk1.Icon = null;
+            this.btnCompileApk1.Location = new System.Drawing.Point(521, 73);
+            this.btnCompileApk1.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
+            this.btnCompileApk1.MouseState = MaterialSkin.MouseState.HOVER;
+            this.btnCompileApk1.Name = "btnCompileApk1";
+            this.btnCompileApk1.NoAccentTextColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(81)))), ((int)(((byte)(181)))));
+            this.btnCompileApk1.Size = new System.Drawing.Size(210, 42);
+            this.btnCompileApk1.TabIndex = 15;
+            this.btnCompileApk1.Text = "Full Compile Method 1";
+            this.btnCompileApk1.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
+            this.btnCompileApk1.UseAccentColor = false;
+            this.btnCompileApk1.UseVisualStyleBackColor = true;
+            this.btnCompileApk1.Click += new System.EventHandler(this.btnCompileApk1_Click);
             // 
             // btnOutput
             // 
@@ -1179,12 +1201,12 @@ namespace Tools_Injector_Mod_Menu
             this.btnOutput.Depth = 0;
             this.btnOutput.HighEmphasis = true;
             this.btnOutput.Icon = null;
-            this.btnOutput.Location = new System.Drawing.Point(465, 410);
+            this.btnOutput.Location = new System.Drawing.Point(7, 164);
             this.btnOutput.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
             this.btnOutput.MouseState = MaterialSkin.MouseState.HOVER;
             this.btnOutput.Name = "btnOutput";
             this.btnOutput.NoAccentTextColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(81)))), ((int)(((byte)(181)))));
-            this.btnOutput.Size = new System.Drawing.Size(325, 56);
+            this.btnOutput.Size = new System.Drawing.Size(291, 40);
             this.btnOutput.TabIndex = 5;
             this.btnOutput.Text = "Output Directory";
             this.btnOutput.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
@@ -1201,12 +1223,12 @@ namespace Tools_Injector_Mod_Menu
             this.btnTempDir.Depth = 0;
             this.btnTempDir.HighEmphasis = true;
             this.btnTempDir.Icon = null;
-            this.btnTempDir.Location = new System.Drawing.Point(465, 362);
+            this.btnTempDir.Location = new System.Drawing.Point(7, 116);
             this.btnTempDir.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
             this.btnTempDir.MouseState = MaterialSkin.MouseState.HOVER;
             this.btnTempDir.Name = "btnTempDir";
             this.btnTempDir.NoAccentTextColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(81)))), ((int)(((byte)(181)))));
-            this.btnTempDir.Size = new System.Drawing.Size(325, 36);
+            this.btnTempDir.Size = new System.Drawing.Size(291, 36);
             this.btnTempDir.TabIndex = 6;
             this.btnTempDir.Text = "Temp Modify Directory";
             this.btnTempDir.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
@@ -2127,6 +2149,238 @@ namespace Tools_Injector_Mod_Menu
             this.chkLogsWarning.Text = "Warning Logs";
             this.chkLogsWarning.UseVisualStyleBackColor = true;
             // 
+            // btnReplace1
+            // 
+            this.btnReplace1.AccentTextColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(64)))), ((int)(((byte)(129)))));
+            this.btnReplace1.AutoSize = false;
+            this.btnReplace1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.btnReplace1.Density = MaterialSkin.Controls.MaterialButton.MaterialButtonDensity.Default;
+            this.btnReplace1.Depth = 0;
+            this.btnReplace1.HighEmphasis = true;
+            this.btnReplace1.Icon = null;
+            this.btnReplace1.Location = new System.Drawing.Point(157, 73);
+            this.btnReplace1.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
+            this.btnReplace1.MouseState = MaterialSkin.MouseState.HOVER;
+            this.btnReplace1.Name = "btnReplace1";
+            this.btnReplace1.NoAccentTextColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(81)))), ((int)(((byte)(181)))));
+            this.btnReplace1.Size = new System.Drawing.Size(145, 42);
+            this.btnReplace1.TabIndex = 18;
+            this.btnReplace1.Text = "Replace Method 1";
+            this.btnReplace1.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
+            this.btnReplace1.UseAccentColor = false;
+            this.btnReplace1.UseVisualStyleBackColor = true;
+            // 
+            // btnReplace2
+            // 
+            this.btnReplace2.AccentTextColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(64)))), ((int)(((byte)(129)))));
+            this.btnReplace2.AutoSize = false;
+            this.btnReplace2.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.btnReplace2.Density = MaterialSkin.Controls.MaterialButton.MaterialButtonDensity.Default;
+            this.btnReplace2.Depth = 0;
+            this.btnReplace2.HighEmphasis = true;
+            this.btnReplace2.Icon = null;
+            this.btnReplace2.Location = new System.Drawing.Point(157, 127);
+            this.btnReplace2.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
+            this.btnReplace2.MouseState = MaterialSkin.MouseState.HOVER;
+            this.btnReplace2.Name = "btnReplace2";
+            this.btnReplace2.NoAccentTextColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(81)))), ((int)(((byte)(181)))));
+            this.btnReplace2.Size = new System.Drawing.Size(145, 42);
+            this.btnReplace2.TabIndex = 19;
+            this.btnReplace2.Text = "Replace Method 2";
+            this.btnReplace2.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
+            this.btnReplace2.UseAccentColor = false;
+            this.btnReplace2.UseVisualStyleBackColor = true;
+            // 
+            // btnDecompileApk
+            // 
+            this.btnDecompileApk.AccentTextColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(64)))), ((int)(((byte)(129)))));
+            this.btnDecompileApk.AutoSize = false;
+            this.btnDecompileApk.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.btnDecompileApk.Density = MaterialSkin.Controls.MaterialButton.MaterialButtonDensity.Default;
+            this.btnDecompileApk.Depth = 0;
+            this.btnDecompileApk.HighEmphasis = true;
+            this.btnDecompileApk.Icon = null;
+            this.btnDecompileApk.Location = new System.Drawing.Point(9, 73);
+            this.btnDecompileApk.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
+            this.btnDecompileApk.MouseState = MaterialSkin.MouseState.HOVER;
+            this.btnDecompileApk.Name = "btnDecompileApk";
+            this.btnDecompileApk.NoAccentTextColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(81)))), ((int)(((byte)(181)))));
+            this.btnDecompileApk.Size = new System.Drawing.Size(140, 42);
+            this.btnDecompileApk.TabIndex = 20;
+            this.btnDecompileApk.Text = "Re-Decompile";
+            this.btnDecompileApk.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
+            this.btnDecompileApk.UseAccentColor = false;
+            this.btnDecompileApk.UseVisualStyleBackColor = true;
+            // 
+            // btnCompileApk
+            // 
+            this.btnCompileApk.AccentTextColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(64)))), ((int)(((byte)(129)))));
+            this.btnCompileApk.AutoSize = false;
+            this.btnCompileApk.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.btnCompileApk.Density = MaterialSkin.Controls.MaterialButton.MaterialButtonDensity.Default;
+            this.btnCompileApk.Depth = 0;
+            this.btnCompileApk.HighEmphasis = true;
+            this.btnCompileApk.Icon = null;
+            this.btnCompileApk.Location = new System.Drawing.Point(9, 127);
+            this.btnCompileApk.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
+            this.btnCompileApk.MouseState = MaterialSkin.MouseState.HOVER;
+            this.btnCompileApk.Name = "btnCompileApk";
+            this.btnCompileApk.NoAccentTextColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(81)))), ((int)(((byte)(181)))));
+            this.btnCompileApk.Size = new System.Drawing.Size(140, 42);
+            this.btnCompileApk.TabIndex = 21;
+            this.btnCompileApk.Text = "Compile Apk";
+            this.btnCompileApk.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
+            this.btnCompileApk.UseAccentColor = false;
+            this.btnCompileApk.UseVisualStyleBackColor = true;
+            // 
+            // materialCard16
+            // 
+            this.materialCard16.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.materialCard16.Controls.Add(this.groupBox17);
+            this.materialCard16.Depth = 0;
+            this.materialCard16.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.materialCard16.Location = new System.Drawing.Point(17, 229);
+            this.materialCard16.Margin = new System.Windows.Forms.Padding(14);
+            this.materialCard16.MouseState = MaterialSkin.MouseState.HOVER;
+            this.materialCard16.Name = "materialCard16";
+            this.materialCard16.Padding = new System.Windows.Forms.Padding(14);
+            this.materialCard16.Size = new System.Drawing.Size(430, 241);
+            this.materialCard16.TabIndex = 24;
+            // 
+            // groupBox17
+            // 
+            this.groupBox17.Controls.Add(this.btnManualCode);
+            this.groupBox17.Controls.Add(this.btnManualCompileMenu);
+            this.groupBox17.Controls.Add(this.btnCompileMenu);
+            this.groupBox17.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.groupBox17.Font = new System.Drawing.Font("Roboto", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.groupBox17.Location = new System.Drawing.Point(14, 14);
+            this.groupBox17.Name = "groupBox17";
+            this.groupBox17.Size = new System.Drawing.Size(402, 213);
+            this.groupBox17.TabIndex = 4;
+            this.groupBox17.TabStop = false;
+            this.groupBox17.Text = "Compile Menu";
+            // 
+            // btnManualCompileApk1
+            // 
+            this.btnManualCompileApk1.AccentTextColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(64)))), ((int)(((byte)(129)))));
+            this.btnManualCompileApk1.AutoSize = false;
+            this.btnManualCompileApk1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.btnManualCompileApk1.Density = MaterialSkin.Controls.MaterialButton.MaterialButtonDensity.Default;
+            this.btnManualCompileApk1.Depth = 0;
+            this.btnManualCompileApk1.HighEmphasis = true;
+            this.btnManualCompileApk1.Icon = null;
+            this.btnManualCompileApk1.Location = new System.Drawing.Point(310, 73);
+            this.btnManualCompileApk1.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
+            this.btnManualCompileApk1.MouseState = MaterialSkin.MouseState.HOVER;
+            this.btnManualCompileApk1.Name = "btnManualCompileApk1";
+            this.btnManualCompileApk1.NoAccentTextColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(81)))), ((int)(((byte)(181)))));
+            this.btnManualCompileApk1.Size = new System.Drawing.Size(203, 42);
+            this.btnManualCompileApk1.TabIndex = 22;
+            this.btnManualCompileApk1.Text = "Manual Compile Method 1";
+            this.btnManualCompileApk1.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
+            this.btnManualCompileApk1.UseAccentColor = false;
+            this.btnManualCompileApk1.UseVisualStyleBackColor = true;
+            // 
+            // btnManualCompileApk2
+            // 
+            this.btnManualCompileApk2.AccentTextColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(64)))), ((int)(((byte)(129)))));
+            this.btnManualCompileApk2.AutoSize = false;
+            this.btnManualCompileApk2.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.btnManualCompileApk2.Density = MaterialSkin.Controls.MaterialButton.MaterialButtonDensity.Default;
+            this.btnManualCompileApk2.Depth = 0;
+            this.btnManualCompileApk2.HighEmphasis = true;
+            this.btnManualCompileApk2.Icon = null;
+            this.btnManualCompileApk2.Location = new System.Drawing.Point(310, 127);
+            this.btnManualCompileApk2.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
+            this.btnManualCompileApk2.MouseState = MaterialSkin.MouseState.HOVER;
+            this.btnManualCompileApk2.Name = "btnManualCompileApk2";
+            this.btnManualCompileApk2.NoAccentTextColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(81)))), ((int)(((byte)(181)))));
+            this.btnManualCompileApk2.Size = new System.Drawing.Size(203, 42);
+            this.btnManualCompileApk2.TabIndex = 23;
+            this.btnManualCompileApk2.Text = "Manual Compile Method 2";
+            this.btnManualCompileApk2.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
+            this.btnManualCompileApk2.UseAccentColor = false;
+            this.btnManualCompileApk2.UseVisualStyleBackColor = true;
+            // 
+            // btnManualCompileMenu
+            // 
+            this.btnManualCompileMenu.AccentTextColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(64)))), ((int)(((byte)(129)))));
+            this.btnManualCompileMenu.AutoSize = false;
+            this.btnManualCompileMenu.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.btnManualCompileMenu.Density = MaterialSkin.Controls.MaterialButton.MaterialButtonDensity.Default;
+            this.btnManualCompileMenu.Depth = 0;
+            this.btnManualCompileMenu.HighEmphasis = true;
+            this.btnManualCompileMenu.Icon = null;
+            this.btnManualCompileMenu.Location = new System.Drawing.Point(7, 82);
+            this.btnManualCompileMenu.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
+            this.btnManualCompileMenu.MouseState = MaterialSkin.MouseState.HOVER;
+            this.btnManualCompileMenu.Name = "btnManualCompileMenu";
+            this.btnManualCompileMenu.NoAccentTextColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(81)))), ((int)(((byte)(181)))));
+            this.btnManualCompileMenu.Size = new System.Drawing.Size(388, 42);
+            this.btnManualCompileMenu.TabIndex = 20;
+            this.btnManualCompileMenu.Text = "Manual Compile Menu";
+            this.btnManualCompileMenu.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
+            this.btnManualCompileMenu.UseAccentColor = false;
+            this.btnManualCompileMenu.UseVisualStyleBackColor = true;
+            // 
+            // btnManualCode
+            // 
+            this.btnManualCode.AccentTextColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(64)))), ((int)(((byte)(129)))));
+            this.btnManualCode.AutoSize = false;
+            this.btnManualCode.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.btnManualCode.Density = MaterialSkin.Controls.MaterialButton.MaterialButtonDensity.Default;
+            this.btnManualCode.Depth = 0;
+            this.btnManualCode.HighEmphasis = true;
+            this.btnManualCode.Icon = null;
+            this.btnManualCode.Location = new System.Drawing.Point(7, 28);
+            this.btnManualCode.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
+            this.btnManualCode.MouseState = MaterialSkin.MouseState.HOVER;
+            this.btnManualCode.Name = "btnManualCode";
+            this.btnManualCode.NoAccentTextColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(81)))), ((int)(((byte)(181)))));
+            this.btnManualCode.Size = new System.Drawing.Size(388, 42);
+            this.btnManualCode.TabIndex = 21;
+            this.btnManualCode.Text = "Manual Menu Coding";
+            this.btnManualCode.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
+            this.btnManualCode.UseAccentColor = false;
+            this.btnManualCode.UseVisualStyleBackColor = true;
+            // 
+            // materialCard17
+            // 
+            this.materialCard17.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.materialCard17.Controls.Add(this.groupBox18);
+            this.materialCard17.Depth = 0;
+            this.materialCard17.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.materialCard17.Location = new System.Drawing.Point(450, 229);
+            this.materialCard17.Margin = new System.Windows.Forms.Padding(14);
+            this.materialCard17.MouseState = MaterialSkin.MouseState.HOVER;
+            this.materialCard17.Name = "materialCard17";
+            this.materialCard17.Padding = new System.Windows.Forms.Padding(14);
+            this.materialCard17.Size = new System.Drawing.Size(333, 241);
+            this.materialCard17.TabIndex = 25;
+            // 
+            // groupBox18
+            // 
+            this.groupBox18.Controls.Add(this.lbApk);
+            this.groupBox18.Controls.Add(this.btnTempDir);
+            this.groupBox18.Controls.Add(this.btnOutput);
+            this.groupBox18.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.groupBox18.Font = new System.Drawing.Font("Roboto", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.groupBox18.Location = new System.Drawing.Point(14, 14);
+            this.groupBox18.Name = "groupBox18";
+            this.groupBox18.Size = new System.Drawing.Size(305, 213);
+            this.groupBox18.TabIndex = 4;
+            this.groupBox18.TabStop = false;
+            this.groupBox18.Text = "Output";
+            // 
+            // lbApk
+            // 
+            this.lbApk.Location = new System.Drawing.Point(6, 22);
+            this.lbApk.Name = "lbApk";
+            this.lbApk.Size = new System.Drawing.Size(292, 88);
+            this.lbApk.TabIndex = 7;
+            this.lbApk.Text = "App Name: \r\nVersion: \r\nLaunch: ";
+            // 
             // FrmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -2191,6 +2445,10 @@ namespace Tools_Injector_Mod_Menu
             this.groupBox5.ResumeLayout(false);
             this.tabLog.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.picImg)).EndInit();
+            this.materialCard16.ResumeLayout(false);
+            this.groupBox17.ResumeLayout(false);
+            this.materialCard17.ResumeLayout(false);
+            this.groupBox18.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -2241,7 +2499,7 @@ namespace Tools_Injector_Mod_Menu
         private System.Windows.Forms.GroupBox groupBox14;
         private MaterialSkin.Controls.MaterialButton btnClear;
         private MaterialSkin.Controls.MaterialButton btnRemove;
-        private MaterialSkin.Controls.MaterialButton btnCompile;
+        private MaterialSkin.Controls.MaterialButton btnCompileApk1;
         private MaterialSkin.Controls.MaterialButton btnSaveCheat;
         private MaterialSkin.Controls.MaterialButton btnLoadCheat;
         private MaterialSkin.Controls.MaterialComboBox comboMenu;
@@ -2311,11 +2569,24 @@ namespace Tools_Injector_Mod_Menu
         private System.Windows.Forms.Label label14;
         private MaterialSkin.Controls.MaterialButton btnBrowseApk;
         private MaterialSkin.Controls.MaterialTextBox txtApkTarget;
-        private MaterialSkin.Controls.MaterialButton btnCompile2;
+        private MaterialSkin.Controls.MaterialButton btnCompileApk2;
         private MaterialSkin.Controls.MaterialButton btnCompileMenu;
         private System.ComponentModel.BackgroundWorker apkWorker;
         private MaterialSkin.Controls.MaterialComboBox comboApktool;
         private System.Windows.Forms.TabPage tabLog;
         private MaterialSkin.Controls.MaterialCheckbox chkLogsWarning;
+        private MaterialSkin.Controls.MaterialButton btnCompileApk;
+        private MaterialSkin.Controls.MaterialButton btnDecompileApk;
+        private MaterialSkin.Controls.MaterialButton btnReplace2;
+        private MaterialSkin.Controls.MaterialButton btnReplace1;
+        private MaterialSkin.Controls.MaterialCard materialCard16;
+        private System.Windows.Forms.GroupBox groupBox17;
+        private MaterialSkin.Controls.MaterialButton btnManualCompileApk2;
+        private MaterialSkin.Controls.MaterialButton btnManualCompileApk1;
+        private MaterialSkin.Controls.MaterialButton btnManualCompileMenu;
+        private MaterialSkin.Controls.MaterialButton btnManualCode;
+        private MaterialSkin.Controls.MaterialCard materialCard17;
+        private System.Windows.Forms.GroupBox groupBox18;
+        private System.Windows.Forms.Label lbApk;
     }
 }

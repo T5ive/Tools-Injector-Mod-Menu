@@ -712,12 +712,12 @@ namespace Tools_Injector_Mod_Menu
             Compiler(0);
         }
 
-        private void btnCompile_Click(object sender, EventArgs e)
+        private void btnCompileApk1_Click(object sender, EventArgs e)
         {
             Compiler(1);
         }
 
-        private void btnCompile2_Click(object sender, EventArgs e)
+        private void btnCompileApk2_Click(object sender, EventArgs e)
         {
             Compiler(2);
         }
@@ -1748,5 +1748,6 @@ namespace Tools_Injector_Mod_Menu
         }
 
         #endregion Utility
+
     }
 }
