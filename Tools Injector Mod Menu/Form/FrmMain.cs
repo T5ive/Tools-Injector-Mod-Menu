@@ -772,7 +772,6 @@ namespace Tools_Injector_Mod_Menu
             //
         }
 
-       
         #endregion Buttons Event
 
         private void FullCompile()
@@ -1217,7 +1216,6 @@ namespace Tools_Injector_Mod_Menu
 
         private void CompileApk(bool move = true)
         {
-           
             if (move)
             {
                 var desDir = AppPath + "\\Output\\" + txtNameGame.Text + "\\lib";
@@ -1250,7 +1248,7 @@ namespace Tools_Injector_Mod_Menu
 
             if (!File.Exists(apkPath))
             {
-                WriteOutput($"Not found {apkPath}", Enums.LogsType.Error,"000");
+                WriteOutput($"Not found {apkPath}", Enums.LogsType.Error, "000");
                 return;
             }
             if (File.Exists(apkPath) && File.Exists(outputFile) &&
@@ -1327,7 +1325,7 @@ namespace Tools_Injector_Mod_Menu
                 FormState(State.Idle);
                 return;
             }
-            
+
             ApkWorker.RunWorkerAsync();
         }
 
