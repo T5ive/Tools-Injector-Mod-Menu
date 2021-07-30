@@ -38,6 +38,7 @@ namespace Tools_Injector_Mod_Menu
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.chkNoMenu = new MaterialSkin.Controls.MaterialCheckbox();
             this.label12 = new System.Windows.Forms.Label();
+            this.picImg = new System.Windows.Forms.PictureBox();
             this.btnImageCode = new MaterialSkin.Controls.MaterialButton();
             this.btnImage = new MaterialSkin.Controls.MaterialButton();
             this.label8 = new System.Windows.Forms.Label();
@@ -85,25 +86,60 @@ namespace Tools_Injector_Mod_Menu
             this.txtNameGame = new MaterialSkin.Controls.MaterialTextBox();
             this.label10 = new System.Windows.Forms.Label();
             this.tabCompile = new System.Windows.Forms.TabPage();
+            this.materialCard17 = new MaterialSkin.Controls.MaterialCard();
+            this.groupBox18 = new System.Windows.Forms.GroupBox();
+            this.lbApk = new System.Windows.Forms.Label();
+            this.btnTempDir = new MaterialSkin.Controls.MaterialButton();
+            this.btnOutput = new MaterialSkin.Controls.MaterialButton();
+            this.materialCard16 = new MaterialSkin.Controls.MaterialCard();
+            this.groupBox17 = new System.Windows.Forms.GroupBox();
+            this.btnManualCode = new MaterialSkin.Controls.MaterialButton();
+            this.btnManualCompileMenu = new MaterialSkin.Controls.MaterialButton();
+            this.btnCompileMenu = new MaterialSkin.Controls.MaterialButton();
             this.materialCard12 = new MaterialSkin.Controls.MaterialCard();
             this.groupBox12 = new System.Windows.Forms.GroupBox();
-            this.btnCompileMenu = new MaterialSkin.Controls.MaterialButton();
+            this.btnManualCompileApk2 = new MaterialSkin.Controls.MaterialButton();
+            this.btnManualCompileApk1 = new MaterialSkin.Controls.MaterialButton();
+            this.btnCompileApk = new MaterialSkin.Controls.MaterialButton();
+            this.btnDecompileApk = new MaterialSkin.Controls.MaterialButton();
+            this.btnReplace2 = new MaterialSkin.Controls.MaterialButton();
+            this.btnReplace1 = new MaterialSkin.Controls.MaterialButton();
             this.btnCompileApk2 = new MaterialSkin.Controls.MaterialButton();
             this.label14 = new System.Windows.Forms.Label();
             this.btnBrowseApk = new MaterialSkin.Controls.MaterialButton();
             this.txtApkTarget = new MaterialSkin.Controls.MaterialTextBox();
             this.btnCompileApk1 = new MaterialSkin.Controls.MaterialButton();
-            this.btnOutput = new MaterialSkin.Controls.MaterialButton();
-            this.btnTempDir = new MaterialSkin.Controls.MaterialButton();
+            this.tabLog = new System.Windows.Forms.TabPage();
             this.materialCard9 = new MaterialSkin.Controls.MaterialCard();
             this.btnClearLog = new MaterialSkin.Controls.MaterialButton();
             this.btnSaveLog = new MaterialSkin.Controls.MaterialButton();
             this.groupBox9 = new System.Windows.Forms.GroupBox();
             this.rbLog = new System.Windows.Forms.RichTextBox();
+            this.tabDev = new System.Windows.Forms.TabPage();
+            this.materialCard15 = new MaterialSkin.Controls.MaterialCard();
+            this.groupBox16 = new System.Windows.Forms.GroupBox();
+            this.btnSavePermission = new MaterialSkin.Controls.MaterialButton();
+            this.txtPermission = new MaterialSkin.Controls.MaterialTextBox();
+            this.btnCopyPermission = new MaterialSkin.Controls.MaterialButton();
+            this.btnCopyService = new MaterialSkin.Controls.MaterialButton();
+            this.txtService = new MaterialSkin.Controls.MaterialTextBox();
+            this.materialCard14 = new MaterialSkin.Controls.MaterialCard();
+            this.groupBox15 = new System.Windows.Forms.GroupBox();
+            this.btnSaveMethod2 = new MaterialSkin.Controls.MaterialButton();
+            this.txtActionMain = new System.Windows.Forms.TextBox();
+            this.btnCopyActionMain = new MaterialSkin.Controls.MaterialButton();
+            this.txtFind = new MaterialSkin.Controls.MaterialTextBox();
+            this.btnCopyFind = new MaterialSkin.Controls.MaterialButton();
+            this.materialCard8 = new MaterialSkin.Controls.MaterialCard();
+            this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.btnSaveMethod1 = new MaterialSkin.Controls.MaterialButton();
+            this.txtOnCreate = new MaterialSkin.Controls.MaterialTextBox();
+            this.btnOnCreate = new MaterialSkin.Controls.MaterialButton();
             this.tabAbout = new System.Windows.Forms.TabPage();
             this.btnSaveSettings2 = new MaterialSkin.Controls.MaterialButton();
             this.materialCard5 = new MaterialSkin.Controls.MaterialCard();
             this.groupBox8 = new System.Windows.Forms.GroupBox();
+            this.chkLogsWarning = new MaterialSkin.Controls.MaterialCheckbox();
             this.chkCheckUpdate = new MaterialSkin.Controls.MaterialCheckbox();
             this.chkSound = new MaterialSkin.Controls.MaterialCheckbox();
             this.chkRemoveTemp = new MaterialSkin.Controls.MaterialCheckbox();
@@ -125,49 +161,14 @@ namespace Tools_Injector_Mod_Menu
             this.materialCard1 = new MaterialSkin.Controls.MaterialCard();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.tabDev = new System.Windows.Forms.TabPage();
-            this.materialCard15 = new MaterialSkin.Controls.MaterialCard();
-            this.groupBox16 = new System.Windows.Forms.GroupBox();
-            this.btnSavePermission = new MaterialSkin.Controls.MaterialButton();
-            this.txtPermission = new MaterialSkin.Controls.MaterialTextBox();
-            this.btnCopyPermission = new MaterialSkin.Controls.MaterialButton();
-            this.btnCopyService = new MaterialSkin.Controls.MaterialButton();
-            this.txtService = new MaterialSkin.Controls.MaterialTextBox();
-            this.materialCard14 = new MaterialSkin.Controls.MaterialCard();
-            this.groupBox15 = new System.Windows.Forms.GroupBox();
-            this.btnSaveMethod2 = new MaterialSkin.Controls.MaterialButton();
-            this.txtActionMain = new System.Windows.Forms.TextBox();
-            this.btnCopyActionMain = new MaterialSkin.Controls.MaterialButton();
-            this.txtFind = new MaterialSkin.Controls.MaterialTextBox();
-            this.btnCopyFind = new MaterialSkin.Controls.MaterialButton();
-            this.materialCard8 = new MaterialSkin.Controls.MaterialCard();
-            this.groupBox5 = new System.Windows.Forms.GroupBox();
-            this.btnSaveMethod1 = new MaterialSkin.Controls.MaterialButton();
-            this.txtOnCreate = new MaterialSkin.Controls.MaterialTextBox();
-            this.btnOnCreate = new MaterialSkin.Controls.MaterialButton();
             this.menuIconList = new System.Windows.Forms.ImageList(this.components);
             this.compilerWorker = new System.ComponentModel.BackgroundWorker();
             this.apkWorker = new System.ComponentModel.BackgroundWorker();
-            this.tabLog = new System.Windows.Forms.TabPage();
-            this.picImg = new System.Windows.Forms.PictureBox();
-            this.chkLogsWarning = new MaterialSkin.Controls.MaterialCheckbox();
-            this.btnReplace1 = new MaterialSkin.Controls.MaterialButton();
-            this.btnReplace2 = new MaterialSkin.Controls.MaterialButton();
-            this.btnDecompileApk = new MaterialSkin.Controls.MaterialButton();
-            this.btnCompileApk = new MaterialSkin.Controls.MaterialButton();
-            this.materialCard16 = new MaterialSkin.Controls.MaterialCard();
-            this.groupBox17 = new System.Windows.Forms.GroupBox();
-            this.btnManualCompileApk1 = new MaterialSkin.Controls.MaterialButton();
-            this.btnManualCompileApk2 = new MaterialSkin.Controls.MaterialButton();
-            this.btnManualCompileMenu = new MaterialSkin.Controls.MaterialButton();
-            this.btnManualCode = new MaterialSkin.Controls.MaterialButton();
-            this.materialCard17 = new MaterialSkin.Controls.MaterialCard();
-            this.groupBox18 = new System.Windows.Forms.GroupBox();
-            this.lbApk = new System.Windows.Forms.Label();
             this.materialTabControl1.SuspendLayout();
             this.tabMain.SuspendLayout();
             this.materialCard4.SuspendLayout();
             this.groupBox4.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.picImg)).BeginInit();
             this.materialCard6.SuspendLayout();
             this.groupBox6.SuspendLayout();
             this.materialCard3.SuspendLayout();
@@ -181,10 +182,22 @@ namespace Tools_Injector_Mod_Menu
             this.materialCard10.SuspendLayout();
             this.groupBox10.SuspendLayout();
             this.tabCompile.SuspendLayout();
+            this.materialCard17.SuspendLayout();
+            this.groupBox18.SuspendLayout();
+            this.materialCard16.SuspendLayout();
+            this.groupBox17.SuspendLayout();
             this.materialCard12.SuspendLayout();
             this.groupBox12.SuspendLayout();
+            this.tabLog.SuspendLayout();
             this.materialCard9.SuspendLayout();
             this.groupBox9.SuspendLayout();
+            this.tabDev.SuspendLayout();
+            this.materialCard15.SuspendLayout();
+            this.groupBox16.SuspendLayout();
+            this.materialCard14.SuspendLayout();
+            this.groupBox15.SuspendLayout();
+            this.materialCard8.SuspendLayout();
+            this.groupBox5.SuspendLayout();
             this.tabAbout.SuspendLayout();
             this.materialCard5.SuspendLayout();
             this.groupBox8.SuspendLayout();
@@ -196,19 +209,6 @@ namespace Tools_Injector_Mod_Menu
             this.groupBox2.SuspendLayout();
             this.materialCard1.SuspendLayout();
             this.groupBox1.SuspendLayout();
-            this.tabDev.SuspendLayout();
-            this.materialCard15.SuspendLayout();
-            this.groupBox16.SuspendLayout();
-            this.materialCard14.SuspendLayout();
-            this.groupBox15.SuspendLayout();
-            this.materialCard8.SuspendLayout();
-            this.groupBox5.SuspendLayout();
-            this.tabLog.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.picImg)).BeginInit();
-            this.materialCard16.SuspendLayout();
-            this.groupBox17.SuspendLayout();
-            this.materialCard17.SuspendLayout();
-            this.groupBox18.SuspendLayout();
             this.SuspendLayout();
             // 
             // materialTabControl1
@@ -254,12 +254,12 @@ namespace Tools_Injector_Mod_Menu
             this.btnSaveSettings.Depth = 0;
             this.btnSaveSettings.HighEmphasis = true;
             this.btnSaveSettings.Icon = null;
-            this.btnSaveSettings.Location = new System.Drawing.Point(399, 369);
+            this.btnSaveSettings.Location = new System.Drawing.Point(397, 374);
             this.btnSaveSettings.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
             this.btnSaveSettings.MouseState = MaterialSkin.MouseState.HOVER;
             this.btnSaveSettings.Name = "btnSaveSettings";
             this.btnSaveSettings.NoAccentTextColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(81)))), ((int)(((byte)(181)))));
-            this.btnSaveSettings.Size = new System.Drawing.Size(384, 102);
+            this.btnSaveSettings.Size = new System.Drawing.Size(386, 106);
             this.btnSaveSettings.TabIndex = 21;
             this.btnSaveSettings.Text = "Save Settings";
             this.btnSaveSettings.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
@@ -273,12 +273,12 @@ namespace Tools_Injector_Mod_Menu
             this.materialCard4.Controls.Add(this.groupBox4);
             this.materialCard4.Depth = 0;
             this.materialCard4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.materialCard4.Location = new System.Drawing.Point(399, 14);
+            this.materialCard4.Location = new System.Drawing.Point(397, 10);
             this.materialCard4.Margin = new System.Windows.Forms.Padding(14);
             this.materialCard4.MouseState = MaterialSkin.MouseState.HOVER;
             this.materialCard4.Name = "materialCard4";
             this.materialCard4.Padding = new System.Windows.Forms.Padding(14);
-            this.materialCard4.Size = new System.Drawing.Size(384, 352);
+            this.materialCard4.Size = new System.Drawing.Size(386, 361);
             this.materialCard4.TabIndex = 12;
             // 
             // groupBox4
@@ -301,7 +301,7 @@ namespace Tools_Injector_Mod_Menu
             this.groupBox4.Font = new System.Drawing.Font("Roboto", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
             this.groupBox4.Location = new System.Drawing.Point(14, 14);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(356, 324);
+            this.groupBox4.Size = new System.Drawing.Size(358, 333);
             this.groupBox4.TabIndex = 4;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Mod Settings";
@@ -325,11 +325,21 @@ namespace Tools_Injector_Mod_Menu
             // 
             this.label12.AutoSize = true;
             this.label12.BackColor = System.Drawing.Color.Transparent;
-            this.label12.Location = new System.Drawing.Point(208, 265);
+            this.label12.Location = new System.Drawing.Point(208, 272);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(23, 18);
             this.label12.TabIndex = 22;
             this.label12.Text = "Or";
+            // 
+            // picImg
+            // 
+            this.picImg.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.picImg.Location = new System.Drawing.Point(15, 243);
+            this.picImg.Name = "picImg";
+            this.picImg.Size = new System.Drawing.Size(75, 75);
+            this.picImg.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.picImg.TabIndex = 20;
+            this.picImg.TabStop = false;
             // 
             // btnImageCode
             // 
@@ -340,7 +350,7 @@ namespace Tools_Injector_Mod_Menu
             this.btnImageCode.Depth = 0;
             this.btnImageCode.HighEmphasis = true;
             this.btnImageCode.Icon = null;
-            this.btnImageCode.Location = new System.Drawing.Point(99, 284);
+            this.btnImageCode.Location = new System.Drawing.Point(99, 297);
             this.btnImageCode.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
             this.btnImageCode.MouseState = MaterialSkin.MouseState.HOVER;
             this.btnImageCode.Name = "btnImageCode";
@@ -498,12 +508,12 @@ namespace Tools_Injector_Mod_Menu
             this.materialCard6.Controls.Add(this.groupBox6);
             this.materialCard6.Depth = 0;
             this.materialCard6.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.materialCard6.Location = new System.Drawing.Point(10, 369);
+            this.materialCard6.Location = new System.Drawing.Point(10, 374);
             this.materialCard6.Margin = new System.Windows.Forms.Padding(14);
             this.materialCard6.MouseState = MaterialSkin.MouseState.HOVER;
             this.materialCard6.Name = "materialCard6";
             this.materialCard6.Padding = new System.Windows.Forms.Padding(14);
-            this.materialCard6.Size = new System.Drawing.Size(384, 102);
+            this.materialCard6.Size = new System.Drawing.Size(384, 106);
             this.materialCard6.TabIndex = 14;
             // 
             // groupBox6
@@ -513,7 +523,7 @@ namespace Tools_Injector_Mod_Menu
             this.groupBox6.Font = new System.Drawing.Font("Roboto", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
             this.groupBox6.Location = new System.Drawing.Point(14, 14);
             this.groupBox6.Name = "groupBox6";
-            this.groupBox6.Size = new System.Drawing.Size(356, 74);
+            this.groupBox6.Size = new System.Drawing.Size(356, 78);
             this.groupBox6.TabIndex = 4;
             this.groupBox6.TabStop = false;
             this.groupBox6.Text = "Template Menu";
@@ -547,12 +557,12 @@ namespace Tools_Injector_Mod_Menu
             this.materialCard3.Controls.Add(this.groupBox3);
             this.materialCard3.Depth = 0;
             this.materialCard3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.materialCard3.Location = new System.Drawing.Point(10, 14);
+            this.materialCard3.Location = new System.Drawing.Point(10, 10);
             this.materialCard3.Margin = new System.Windows.Forms.Padding(14);
             this.materialCard3.MouseState = MaterialSkin.MouseState.HOVER;
             this.materialCard3.Name = "materialCard3";
             this.materialCard3.Padding = new System.Windows.Forms.Padding(14);
-            this.materialCard3.Size = new System.Drawing.Size(384, 352);
+            this.materialCard3.Size = new System.Drawing.Size(384, 361);
             this.materialCard3.TabIndex = 0;
             // 
             // groupBox3
@@ -568,7 +578,7 @@ namespace Tools_Injector_Mod_Menu
             this.groupBox3.Font = new System.Drawing.Font("Roboto", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
             this.groupBox3.Location = new System.Drawing.Point(14, 14);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(356, 324);
+            this.groupBox3.Size = new System.Drawing.Size(356, 333);
             this.groupBox3.TabIndex = 4;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Main Menu Settings";
@@ -622,7 +632,7 @@ namespace Tools_Injector_Mod_Menu
             this.listToast.ItemHeight = 18;
             this.listToast.Location = new System.Drawing.Point(162, 108);
             this.listToast.Name = "listToast";
-            this.listToast.Size = new System.Drawing.Size(188, 202);
+            this.listToast.Size = new System.Drawing.Size(188, 220);
             this.listToast.TabIndex = 4;
             // 
             // txtToast
@@ -697,12 +707,12 @@ namespace Tools_Injector_Mod_Menu
             this.materialCard13.Controls.Add(this.groupBox13);
             this.materialCard13.Depth = 0;
             this.materialCard13.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.materialCard13.Location = new System.Drawing.Point(10, 121);
+            this.materialCard13.Location = new System.Drawing.Point(10, 117);
             this.materialCard13.Margin = new System.Windows.Forms.Padding(14);
             this.materialCard13.MouseState = MaterialSkin.MouseState.HOVER;
             this.materialCard13.Name = "materialCard13";
             this.materialCard13.Padding = new System.Windows.Forms.Padding(14);
-            this.materialCard13.Size = new System.Drawing.Size(773, 345);
+            this.materialCard13.Size = new System.Drawing.Size(773, 363);
             this.materialCard13.TabIndex = 4;
             // 
             // groupBox13
@@ -713,7 +723,7 @@ namespace Tools_Injector_Mod_Menu
             this.groupBox13.Font = new System.Drawing.Font("Roboto", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
             this.groupBox13.Location = new System.Drawing.Point(14, 14);
             this.groupBox13.Name = "groupBox13";
-            this.groupBox13.Size = new System.Drawing.Size(745, 317);
+            this.groupBox13.Size = new System.Drawing.Size(745, 335);
             this.groupBox13.TabIndex = 4;
             this.groupBox13.TabStop = false;
             this.groupBox13.Text = "Function List";
@@ -736,7 +746,7 @@ namespace Tools_Injector_Mod_Menu
             this.dataList.Name = "dataList";
             this.dataList.RowHeadersVisible = false;
             this.dataList.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataList.Size = new System.Drawing.Size(739, 185);
+            this.dataList.Size = new System.Drawing.Size(739, 203);
             this.dataList.TabIndex = 47;
             this.dataList.SelectionChanged += new System.EventHandler(this.dataList_SelectionChanged);
             this.dataList.KeyDown += new System.Windows.Forms.KeyEventHandler(this.dataList_KeyDown);
@@ -790,7 +800,7 @@ namespace Tools_Injector_Mod_Menu
             this.groupBox14.Controls.Add(this.btnRemove);
             this.groupBox14.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.groupBox14.Font = new System.Drawing.Font("Roboto", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            this.groupBox14.Location = new System.Drawing.Point(3, 207);
+            this.groupBox14.Location = new System.Drawing.Point(3, 225);
             this.groupBox14.Name = "groupBox14";
             this.groupBox14.Size = new System.Drawing.Size(739, 107);
             this.groupBox14.TabIndex = 5;
@@ -912,7 +922,7 @@ namespace Tools_Injector_Mod_Menu
             this.materialCard10.Controls.Add(this.groupBox10);
             this.materialCard10.Depth = 0;
             this.materialCard10.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.materialCard10.Location = new System.Drawing.Point(10, 14);
+            this.materialCard10.Location = new System.Drawing.Point(10, 10);
             this.materialCard10.Margin = new System.Windows.Forms.Padding(14);
             this.materialCard10.MouseState = MaterialSkin.MouseState.HOVER;
             this.materialCard10.Name = "materialCard10";
@@ -941,7 +951,7 @@ namespace Tools_Injector_Mod_Menu
             // 
             this.txtTargetLib.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.txtTargetLib.Depth = 0;
-            this.txtTargetLib.Font = new System.Drawing.Font("Roboto", 12F);
+            this.txtTargetLib.Font = new System.Drawing.Font("Roboto", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
             this.txtTargetLib.Hint = "libil2cpp.so";
             this.txtTargetLib.LeadingIcon = null;
             this.txtTargetLib.Location = new System.Drawing.Point(582, 25);
@@ -1040,18 +1050,190 @@ namespace Tools_Injector_Mod_Menu
             this.tabCompile.Text = "Compile";
             this.tabCompile.UseVisualStyleBackColor = true;
             // 
+            // materialCard17
+            // 
+            this.materialCard17.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.materialCard17.Controls.Add(this.groupBox18);
+            this.materialCard17.Depth = 0;
+            this.materialCard17.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.materialCard17.Location = new System.Drawing.Point(443, 222);
+            this.materialCard17.Margin = new System.Windows.Forms.Padding(14);
+            this.materialCard17.MouseState = MaterialSkin.MouseState.HOVER;
+            this.materialCard17.Name = "materialCard17";
+            this.materialCard17.Padding = new System.Windows.Forms.Padding(14);
+            this.materialCard17.Size = new System.Drawing.Size(340, 258);
+            this.materialCard17.TabIndex = 25;
+            // 
+            // groupBox18
+            // 
+            this.groupBox18.Controls.Add(this.lbApk);
+            this.groupBox18.Controls.Add(this.btnTempDir);
+            this.groupBox18.Controls.Add(this.btnOutput);
+            this.groupBox18.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.groupBox18.Font = new System.Drawing.Font("Roboto", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.groupBox18.Location = new System.Drawing.Point(14, 14);
+            this.groupBox18.Name = "groupBox18";
+            this.groupBox18.Size = new System.Drawing.Size(312, 230);
+            this.groupBox18.TabIndex = 4;
+            this.groupBox18.TabStop = false;
+            this.groupBox18.Text = "Output";
+            // 
+            // lbApk
+            // 
+            this.lbApk.Location = new System.Drawing.Point(6, 22);
+            this.lbApk.Name = "lbApk";
+            this.lbApk.Size = new System.Drawing.Size(299, 105);
+            this.lbApk.TabIndex = 7;
+            this.lbApk.Text = "App Name: \r\nVersion: \r\nLaunch: ";
+            // 
+            // btnTempDir
+            // 
+            this.btnTempDir.AccentTextColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(64)))), ((int)(((byte)(129)))));
+            this.btnTempDir.AutoSize = false;
+            this.btnTempDir.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.btnTempDir.Density = MaterialSkin.Controls.MaterialButton.MaterialButtonDensity.Default;
+            this.btnTempDir.Depth = 0;
+            this.btnTempDir.HighEmphasis = true;
+            this.btnTempDir.Icon = null;
+            this.btnTempDir.Location = new System.Drawing.Point(9, 133);
+            this.btnTempDir.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
+            this.btnTempDir.MouseState = MaterialSkin.MouseState.HOVER;
+            this.btnTempDir.Name = "btnTempDir";
+            this.btnTempDir.NoAccentTextColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(81)))), ((int)(((byte)(181)))));
+            this.btnTempDir.Size = new System.Drawing.Size(296, 36);
+            this.btnTempDir.TabIndex = 6;
+            this.btnTempDir.Text = "Temp Modify Directory";
+            this.btnTempDir.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
+            this.btnTempDir.UseAccentColor = false;
+            this.btnTempDir.UseVisualStyleBackColor = true;
+            this.btnTempDir.Click += new System.EventHandler(this.btnTempDir_Click);
+            // 
+            // btnOutput
+            // 
+            this.btnOutput.AccentTextColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(64)))), ((int)(((byte)(129)))));
+            this.btnOutput.AutoSize = false;
+            this.btnOutput.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.btnOutput.Density = MaterialSkin.Controls.MaterialButton.MaterialButtonDensity.Default;
+            this.btnOutput.Depth = 0;
+            this.btnOutput.HighEmphasis = true;
+            this.btnOutput.Icon = null;
+            this.btnOutput.Location = new System.Drawing.Point(9, 181);
+            this.btnOutput.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
+            this.btnOutput.MouseState = MaterialSkin.MouseState.HOVER;
+            this.btnOutput.Name = "btnOutput";
+            this.btnOutput.NoAccentTextColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(81)))), ((int)(((byte)(181)))));
+            this.btnOutput.Size = new System.Drawing.Size(296, 40);
+            this.btnOutput.TabIndex = 5;
+            this.btnOutput.Text = "Output Directory";
+            this.btnOutput.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
+            this.btnOutput.UseAccentColor = false;
+            this.btnOutput.UseVisualStyleBackColor = true;
+            this.btnOutput.Click += new System.EventHandler(this.btnOutput_Click);
+            // 
+            // materialCard16
+            // 
+            this.materialCard16.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.materialCard16.Controls.Add(this.groupBox17);
+            this.materialCard16.Depth = 0;
+            this.materialCard16.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.materialCard16.Location = new System.Drawing.Point(10, 222);
+            this.materialCard16.Margin = new System.Windows.Forms.Padding(14);
+            this.materialCard16.MouseState = MaterialSkin.MouseState.HOVER;
+            this.materialCard16.Name = "materialCard16";
+            this.materialCard16.Padding = new System.Windows.Forms.Padding(14);
+            this.materialCard16.Size = new System.Drawing.Size(430, 258);
+            this.materialCard16.TabIndex = 24;
+            // 
+            // groupBox17
+            // 
+            this.groupBox17.Controls.Add(this.btnManualCode);
+            this.groupBox17.Controls.Add(this.btnManualCompileMenu);
+            this.groupBox17.Controls.Add(this.btnCompileMenu);
+            this.groupBox17.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.groupBox17.Font = new System.Drawing.Font("Roboto", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.groupBox17.Location = new System.Drawing.Point(14, 14);
+            this.groupBox17.Name = "groupBox17";
+            this.groupBox17.Size = new System.Drawing.Size(402, 230);
+            this.groupBox17.TabIndex = 4;
+            this.groupBox17.TabStop = false;
+            this.groupBox17.Text = "Compile Menu";
+            // 
+            // btnManualCode
+            // 
+            this.btnManualCode.AccentTextColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(64)))), ((int)(((byte)(129)))));
+            this.btnManualCode.AutoSize = false;
+            this.btnManualCode.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.btnManualCode.Density = MaterialSkin.Controls.MaterialButton.MaterialButtonDensity.Default;
+            this.btnManualCode.Depth = 0;
+            this.btnManualCode.HighEmphasis = true;
+            this.btnManualCode.Icon = null;
+            this.btnManualCode.Location = new System.Drawing.Point(7, 28);
+            this.btnManualCode.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
+            this.btnManualCode.MouseState = MaterialSkin.MouseState.HOVER;
+            this.btnManualCode.Name = "btnManualCode";
+            this.btnManualCode.NoAccentTextColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(81)))), ((int)(((byte)(181)))));
+            this.btnManualCode.Size = new System.Drawing.Size(388, 42);
+            this.btnManualCode.TabIndex = 21;
+            this.btnManualCode.Text = "Manual Menu Coding";
+            this.btnManualCode.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
+            this.btnManualCode.UseAccentColor = false;
+            this.btnManualCode.UseVisualStyleBackColor = true;
+            // 
+            // btnManualCompileMenu
+            // 
+            this.btnManualCompileMenu.AccentTextColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(64)))), ((int)(((byte)(129)))));
+            this.btnManualCompileMenu.AutoSize = false;
+            this.btnManualCompileMenu.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.btnManualCompileMenu.Density = MaterialSkin.Controls.MaterialButton.MaterialButtonDensity.Default;
+            this.btnManualCompileMenu.Depth = 0;
+            this.btnManualCompileMenu.HighEmphasis = true;
+            this.btnManualCompileMenu.Icon = null;
+            this.btnManualCompileMenu.Location = new System.Drawing.Point(7, 82);
+            this.btnManualCompileMenu.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
+            this.btnManualCompileMenu.MouseState = MaterialSkin.MouseState.HOVER;
+            this.btnManualCompileMenu.Name = "btnManualCompileMenu";
+            this.btnManualCompileMenu.NoAccentTextColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(81)))), ((int)(((byte)(181)))));
+            this.btnManualCompileMenu.Size = new System.Drawing.Size(388, 42);
+            this.btnManualCompileMenu.TabIndex = 20;
+            this.btnManualCompileMenu.Text = "Manual Compile Menu";
+            this.btnManualCompileMenu.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
+            this.btnManualCompileMenu.UseAccentColor = false;
+            this.btnManualCompileMenu.UseVisualStyleBackColor = true;
+            // 
+            // btnCompileMenu
+            // 
+            this.btnCompileMenu.AccentTextColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(64)))), ((int)(((byte)(129)))));
+            this.btnCompileMenu.AutoSize = false;
+            this.btnCompileMenu.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.btnCompileMenu.Density = MaterialSkin.Controls.MaterialButton.MaterialButtonDensity.Default;
+            this.btnCompileMenu.Depth = 0;
+            this.btnCompileMenu.HighEmphasis = true;
+            this.btnCompileMenu.Icon = null;
+            this.btnCompileMenu.Location = new System.Drawing.Point(7, 136);
+            this.btnCompileMenu.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
+            this.btnCompileMenu.MouseState = MaterialSkin.MouseState.HOVER;
+            this.btnCompileMenu.Name = "btnCompileMenu";
+            this.btnCompileMenu.NoAccentTextColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(81)))), ((int)(((byte)(181)))));
+            this.btnCompileMenu.Size = new System.Drawing.Size(388, 85);
+            this.btnCompileMenu.TabIndex = 19;
+            this.btnCompileMenu.Text = "Full Compile Menu";
+            this.btnCompileMenu.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
+            this.btnCompileMenu.UseAccentColor = false;
+            this.btnCompileMenu.UseVisualStyleBackColor = true;
+            this.btnCompileMenu.Click += new System.EventHandler(this.btnCompileMenu_Click);
+            // 
             // materialCard12
             // 
             this.materialCard12.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
             this.materialCard12.Controls.Add(this.groupBox12);
             this.materialCard12.Depth = 0;
             this.materialCard12.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.materialCard12.Location = new System.Drawing.Point(17, 17);
+            this.materialCard12.Location = new System.Drawing.Point(10, 10);
             this.materialCard12.Margin = new System.Windows.Forms.Padding(14);
             this.materialCard12.MouseState = MaterialSkin.MouseState.HOVER;
             this.materialCard12.Name = "materialCard12";
             this.materialCard12.Padding = new System.Windows.Forms.Padding(14);
-            this.materialCard12.Size = new System.Drawing.Size(766, 209);
+            this.materialCard12.Size = new System.Drawing.Size(773, 209);
             this.materialCard12.TabIndex = 23;
             // 
             // groupBox12
@@ -1071,32 +1253,136 @@ namespace Tools_Injector_Mod_Menu
             this.groupBox12.Font = new System.Drawing.Font("Roboto", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
             this.groupBox12.Location = new System.Drawing.Point(14, 14);
             this.groupBox12.Name = "groupBox12";
-            this.groupBox12.Size = new System.Drawing.Size(738, 181);
+            this.groupBox12.Size = new System.Drawing.Size(745, 181);
             this.groupBox12.TabIndex = 4;
             this.groupBox12.TabStop = false;
             this.groupBox12.Text = "Compile Android Package (APK)";
             // 
-            // btnCompileMenu
+            // btnManualCompileApk2
             // 
-            this.btnCompileMenu.AccentTextColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(64)))), ((int)(((byte)(129)))));
-            this.btnCompileMenu.AutoSize = false;
-            this.btnCompileMenu.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.btnCompileMenu.Density = MaterialSkin.Controls.MaterialButton.MaterialButtonDensity.Default;
-            this.btnCompileMenu.Depth = 0;
-            this.btnCompileMenu.HighEmphasis = true;
-            this.btnCompileMenu.Icon = null;
-            this.btnCompileMenu.Location = new System.Drawing.Point(7, 136);
-            this.btnCompileMenu.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
-            this.btnCompileMenu.MouseState = MaterialSkin.MouseState.HOVER;
-            this.btnCompileMenu.Name = "btnCompileMenu";
-            this.btnCompileMenu.NoAccentTextColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(81)))), ((int)(((byte)(181)))));
-            this.btnCompileMenu.Size = new System.Drawing.Size(388, 68);
-            this.btnCompileMenu.TabIndex = 19;
-            this.btnCompileMenu.Text = "Full Compile Menu";
-            this.btnCompileMenu.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
-            this.btnCompileMenu.UseAccentColor = false;
-            this.btnCompileMenu.UseVisualStyleBackColor = true;
-            this.btnCompileMenu.Click += new System.EventHandler(this.btnCompileMenu_Click);
+            this.btnManualCompileApk2.AccentTextColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(64)))), ((int)(((byte)(129)))));
+            this.btnManualCompileApk2.AutoSize = false;
+            this.btnManualCompileApk2.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.btnManualCompileApk2.Density = MaterialSkin.Controls.MaterialButton.MaterialButtonDensity.Default;
+            this.btnManualCompileApk2.Depth = 0;
+            this.btnManualCompileApk2.HighEmphasis = true;
+            this.btnManualCompileApk2.Icon = null;
+            this.btnManualCompileApk2.Location = new System.Drawing.Point(310, 127);
+            this.btnManualCompileApk2.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
+            this.btnManualCompileApk2.MouseState = MaterialSkin.MouseState.HOVER;
+            this.btnManualCompileApk2.Name = "btnManualCompileApk2";
+            this.btnManualCompileApk2.NoAccentTextColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(81)))), ((int)(((byte)(181)))));
+            this.btnManualCompileApk2.Size = new System.Drawing.Size(203, 42);
+            this.btnManualCompileApk2.TabIndex = 23;
+            this.btnManualCompileApk2.Text = "Manual Compile Method 2";
+            this.btnManualCompileApk2.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
+            this.btnManualCompileApk2.UseAccentColor = false;
+            this.btnManualCompileApk2.UseVisualStyleBackColor = true;
+            // 
+            // btnManualCompileApk1
+            // 
+            this.btnManualCompileApk1.AccentTextColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(64)))), ((int)(((byte)(129)))));
+            this.btnManualCompileApk1.AutoSize = false;
+            this.btnManualCompileApk1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.btnManualCompileApk1.Density = MaterialSkin.Controls.MaterialButton.MaterialButtonDensity.Default;
+            this.btnManualCompileApk1.Depth = 0;
+            this.btnManualCompileApk1.HighEmphasis = true;
+            this.btnManualCompileApk1.Icon = null;
+            this.btnManualCompileApk1.Location = new System.Drawing.Point(310, 73);
+            this.btnManualCompileApk1.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
+            this.btnManualCompileApk1.MouseState = MaterialSkin.MouseState.HOVER;
+            this.btnManualCompileApk1.Name = "btnManualCompileApk1";
+            this.btnManualCompileApk1.NoAccentTextColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(81)))), ((int)(((byte)(181)))));
+            this.btnManualCompileApk1.Size = new System.Drawing.Size(203, 42);
+            this.btnManualCompileApk1.TabIndex = 22;
+            this.btnManualCompileApk1.Text = "Manual Compile Method 1";
+            this.btnManualCompileApk1.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
+            this.btnManualCompileApk1.UseAccentColor = false;
+            this.btnManualCompileApk1.UseVisualStyleBackColor = true;
+            // 
+            // btnCompileApk
+            // 
+            this.btnCompileApk.AccentTextColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(64)))), ((int)(((byte)(129)))));
+            this.btnCompileApk.AutoSize = false;
+            this.btnCompileApk.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.btnCompileApk.Density = MaterialSkin.Controls.MaterialButton.MaterialButtonDensity.Default;
+            this.btnCompileApk.Depth = 0;
+            this.btnCompileApk.HighEmphasis = true;
+            this.btnCompileApk.Icon = null;
+            this.btnCompileApk.Location = new System.Drawing.Point(9, 127);
+            this.btnCompileApk.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
+            this.btnCompileApk.MouseState = MaterialSkin.MouseState.HOVER;
+            this.btnCompileApk.Name = "btnCompileApk";
+            this.btnCompileApk.NoAccentTextColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(81)))), ((int)(((byte)(181)))));
+            this.btnCompileApk.Size = new System.Drawing.Size(140, 42);
+            this.btnCompileApk.TabIndex = 21;
+            this.btnCompileApk.Text = "Compile Apk";
+            this.btnCompileApk.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
+            this.btnCompileApk.UseAccentColor = false;
+            this.btnCompileApk.UseVisualStyleBackColor = true;
+            // 
+            // btnDecompileApk
+            // 
+            this.btnDecompileApk.AccentTextColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(64)))), ((int)(((byte)(129)))));
+            this.btnDecompileApk.AutoSize = false;
+            this.btnDecompileApk.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.btnDecompileApk.Density = MaterialSkin.Controls.MaterialButton.MaterialButtonDensity.Default;
+            this.btnDecompileApk.Depth = 0;
+            this.btnDecompileApk.HighEmphasis = true;
+            this.btnDecompileApk.Icon = null;
+            this.btnDecompileApk.Location = new System.Drawing.Point(9, 73);
+            this.btnDecompileApk.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
+            this.btnDecompileApk.MouseState = MaterialSkin.MouseState.HOVER;
+            this.btnDecompileApk.Name = "btnDecompileApk";
+            this.btnDecompileApk.NoAccentTextColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(81)))), ((int)(((byte)(181)))));
+            this.btnDecompileApk.Size = new System.Drawing.Size(140, 42);
+            this.btnDecompileApk.TabIndex = 20;
+            this.btnDecompileApk.Text = "Re-Decompile";
+            this.btnDecompileApk.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
+            this.btnDecompileApk.UseAccentColor = false;
+            this.btnDecompileApk.UseVisualStyleBackColor = true;
+            // 
+            // btnReplace2
+            // 
+            this.btnReplace2.AccentTextColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(64)))), ((int)(((byte)(129)))));
+            this.btnReplace2.AutoSize = false;
+            this.btnReplace2.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.btnReplace2.Density = MaterialSkin.Controls.MaterialButton.MaterialButtonDensity.Default;
+            this.btnReplace2.Depth = 0;
+            this.btnReplace2.HighEmphasis = true;
+            this.btnReplace2.Icon = null;
+            this.btnReplace2.Location = new System.Drawing.Point(157, 127);
+            this.btnReplace2.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
+            this.btnReplace2.MouseState = MaterialSkin.MouseState.HOVER;
+            this.btnReplace2.Name = "btnReplace2";
+            this.btnReplace2.NoAccentTextColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(81)))), ((int)(((byte)(181)))));
+            this.btnReplace2.Size = new System.Drawing.Size(145, 42);
+            this.btnReplace2.TabIndex = 19;
+            this.btnReplace2.Text = "Replace Method 2";
+            this.btnReplace2.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
+            this.btnReplace2.UseAccentColor = false;
+            this.btnReplace2.UseVisualStyleBackColor = true;
+            // 
+            // btnReplace1
+            // 
+            this.btnReplace1.AccentTextColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(64)))), ((int)(((byte)(129)))));
+            this.btnReplace1.AutoSize = false;
+            this.btnReplace1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.btnReplace1.Density = MaterialSkin.Controls.MaterialButton.MaterialButtonDensity.Default;
+            this.btnReplace1.Depth = 0;
+            this.btnReplace1.HighEmphasis = true;
+            this.btnReplace1.Icon = null;
+            this.btnReplace1.Location = new System.Drawing.Point(157, 73);
+            this.btnReplace1.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
+            this.btnReplace1.MouseState = MaterialSkin.MouseState.HOVER;
+            this.btnReplace1.Name = "btnReplace1";
+            this.btnReplace1.NoAccentTextColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(81)))), ((int)(((byte)(181)))));
+            this.btnReplace1.Size = new System.Drawing.Size(145, 42);
+            this.btnReplace1.TabIndex = 18;
+            this.btnReplace1.Text = "Replace Method 1";
+            this.btnReplace1.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
+            this.btnReplace1.UseAccentColor = false;
+            this.btnReplace1.UseVisualStyleBackColor = true;
             // 
             // btnCompileApk2
             // 
@@ -1192,49 +1478,16 @@ namespace Tools_Injector_Mod_Menu
             this.btnCompileApk1.UseVisualStyleBackColor = true;
             this.btnCompileApk1.Click += new System.EventHandler(this.btnCompileApk1_Click);
             // 
-            // btnOutput
+            // tabLog
             // 
-            this.btnOutput.AccentTextColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(64)))), ((int)(((byte)(129)))));
-            this.btnOutput.AutoSize = false;
-            this.btnOutput.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.btnOutput.Density = MaterialSkin.Controls.MaterialButton.MaterialButtonDensity.Default;
-            this.btnOutput.Depth = 0;
-            this.btnOutput.HighEmphasis = true;
-            this.btnOutput.Icon = null;
-            this.btnOutput.Location = new System.Drawing.Point(7, 164);
-            this.btnOutput.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
-            this.btnOutput.MouseState = MaterialSkin.MouseState.HOVER;
-            this.btnOutput.Name = "btnOutput";
-            this.btnOutput.NoAccentTextColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(81)))), ((int)(((byte)(181)))));
-            this.btnOutput.Size = new System.Drawing.Size(291, 40);
-            this.btnOutput.TabIndex = 5;
-            this.btnOutput.Text = "Output Directory";
-            this.btnOutput.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
-            this.btnOutput.UseAccentColor = false;
-            this.btnOutput.UseVisualStyleBackColor = true;
-            this.btnOutput.Click += new System.EventHandler(this.btnOutput_Click);
-            // 
-            // btnTempDir
-            // 
-            this.btnTempDir.AccentTextColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(64)))), ((int)(((byte)(129)))));
-            this.btnTempDir.AutoSize = false;
-            this.btnTempDir.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.btnTempDir.Density = MaterialSkin.Controls.MaterialButton.MaterialButtonDensity.Default;
-            this.btnTempDir.Depth = 0;
-            this.btnTempDir.HighEmphasis = true;
-            this.btnTempDir.Icon = null;
-            this.btnTempDir.Location = new System.Drawing.Point(7, 116);
-            this.btnTempDir.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
-            this.btnTempDir.MouseState = MaterialSkin.MouseState.HOVER;
-            this.btnTempDir.Name = "btnTempDir";
-            this.btnTempDir.NoAccentTextColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(81)))), ((int)(((byte)(181)))));
-            this.btnTempDir.Size = new System.Drawing.Size(291, 36);
-            this.btnTempDir.TabIndex = 6;
-            this.btnTempDir.Text = "Temp Modify Directory";
-            this.btnTempDir.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
-            this.btnTempDir.UseAccentColor = false;
-            this.btnTempDir.UseVisualStyleBackColor = true;
-            this.btnTempDir.Click += new System.EventHandler(this.btnTempDir_Click);
+            this.tabLog.Controls.Add(this.materialCard9);
+            this.tabLog.ImageKey = "note-2-24.png";
+            this.tabLog.Location = new System.Drawing.Point(4, 31);
+            this.tabLog.Name = "tabLog";
+            this.tabLog.Size = new System.Drawing.Size(797, 480);
+            this.tabLog.TabIndex = 7;
+            this.tabLog.Text = "Log";
+            this.tabLog.UseVisualStyleBackColor = true;
             // 
             // materialCard9
             // 
@@ -1244,12 +1497,12 @@ namespace Tools_Injector_Mod_Menu
             this.materialCard9.Controls.Add(this.groupBox9);
             this.materialCard9.Depth = 0;
             this.materialCard9.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.materialCard9.Location = new System.Drawing.Point(14, 14);
+            this.materialCard9.Location = new System.Drawing.Point(10, 10);
             this.materialCard9.Margin = new System.Windows.Forms.Padding(14);
             this.materialCard9.MouseState = MaterialSkin.MouseState.HOVER;
             this.materialCard9.Name = "materialCard9";
             this.materialCard9.Padding = new System.Windows.Forms.Padding(14);
-            this.materialCard9.Size = new System.Drawing.Size(769, 452);
+            this.materialCard9.Size = new System.Drawing.Size(777, 470);
             this.materialCard9.TabIndex = 4;
             // 
             // btnClearLog
@@ -1261,7 +1514,7 @@ namespace Tools_Injector_Mod_Menu
             this.btnClearLog.Depth = 0;
             this.btnClearLog.HighEmphasis = true;
             this.btnClearLog.Icon = null;
-            this.btnClearLog.Location = new System.Drawing.Point(18, 396);
+            this.btnClearLog.Location = new System.Drawing.Point(18, 424);
             this.btnClearLog.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
             this.btnClearLog.MouseState = MaterialSkin.MouseState.HOVER;
             this.btnClearLog.Name = "btnClearLog";
@@ -1283,7 +1536,7 @@ namespace Tools_Injector_Mod_Menu
             this.btnSaveLog.Depth = 0;
             this.btnSaveLog.HighEmphasis = true;
             this.btnSaveLog.Icon = null;
-            this.btnSaveLog.Location = new System.Drawing.Point(275, 396);
+            this.btnSaveLog.Location = new System.Drawing.Point(275, 424);
             this.btnSaveLog.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
             this.btnSaveLog.MouseState = MaterialSkin.MouseState.HOVER;
             this.btnSaveLog.Name = "btnSaveLog";
@@ -1303,7 +1556,7 @@ namespace Tools_Injector_Mod_Menu
             this.groupBox9.Font = new System.Drawing.Font("Roboto", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
             this.groupBox9.Location = new System.Drawing.Point(14, 14);
             this.groupBox9.Name = "groupBox9";
-            this.groupBox9.Size = new System.Drawing.Size(741, 373);
+            this.groupBox9.Size = new System.Drawing.Size(749, 401);
             this.groupBox9.TabIndex = 3;
             this.groupBox9.TabStop = false;
             this.groupBox9.Text = "LOGS";
@@ -1318,413 +1571,9 @@ namespace Tools_Injector_Mod_Menu
             this.rbLog.Name = "rbLog";
             this.rbLog.ReadOnly = true;
             this.rbLog.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.ForcedVertical;
-            this.rbLog.Size = new System.Drawing.Size(735, 348);
+            this.rbLog.Size = new System.Drawing.Size(743, 376);
             this.rbLog.TabIndex = 0;
             this.rbLog.Text = "";
-            // 
-            // tabAbout
-            // 
-            this.tabAbout.Controls.Add(this.btnSaveSettings2);
-            this.tabAbout.Controls.Add(this.materialCard5);
-            this.tabAbout.Controls.Add(this.btnUpdate);
-            this.tabAbout.Controls.Add(this.materialCard7);
-            this.tabAbout.Controls.Add(this.materialCard11);
-            this.tabAbout.Controls.Add(this.materialCard2);
-            this.tabAbout.Controls.Add(this.materialCard1);
-            this.tabAbout.ImageKey = "info-24.png";
-            this.tabAbout.Location = new System.Drawing.Point(4, 31);
-            this.tabAbout.Name = "tabAbout";
-            this.tabAbout.Size = new System.Drawing.Size(797, 480);
-            this.tabAbout.TabIndex = 2;
-            this.tabAbout.Text = "About";
-            this.tabAbout.UseVisualStyleBackColor = true;
-            // 
-            // btnSaveSettings2
-            // 
-            this.btnSaveSettings2.AccentTextColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(64)))), ((int)(((byte)(129)))));
-            this.btnSaveSettings2.AutoSize = false;
-            this.btnSaveSettings2.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.btnSaveSettings2.Density = MaterialSkin.Controls.MaterialButton.MaterialButtonDensity.Default;
-            this.btnSaveSettings2.Depth = 0;
-            this.btnSaveSettings2.HighEmphasis = true;
-            this.btnSaveSettings2.Icon = null;
-            this.btnSaveSettings2.Location = new System.Drawing.Point(399, 368);
-            this.btnSaveSettings2.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
-            this.btnSaveSettings2.MouseState = MaterialSkin.MouseState.HOVER;
-            this.btnSaveSettings2.Name = "btnSaveSettings2";
-            this.btnSaveSettings2.NoAccentTextColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(81)))), ((int)(((byte)(181)))));
-            this.btnSaveSettings2.Size = new System.Drawing.Size(384, 102);
-            this.btnSaveSettings2.TabIndex = 22;
-            this.btnSaveSettings2.Text = "Save Settings";
-            this.btnSaveSettings2.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
-            this.btnSaveSettings2.UseAccentColor = false;
-            this.btnSaveSettings2.UseVisualStyleBackColor = true;
-            this.btnSaveSettings2.Click += new System.EventHandler(this.btnSaveSettings2_Click);
-            // 
-            // materialCard5
-            // 
-            this.materialCard5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            this.materialCard5.Controls.Add(this.groupBox8);
-            this.materialCard5.Depth = 0;
-            this.materialCard5.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.materialCard5.Location = new System.Drawing.Point(10, 254);
-            this.materialCard5.Margin = new System.Windows.Forms.Padding(14);
-            this.materialCard5.MouseState = MaterialSkin.MouseState.HOVER;
-            this.materialCard5.Name = "materialCard5";
-            this.materialCard5.Padding = new System.Windows.Forms.Padding(14);
-            this.materialCard5.Size = new System.Drawing.Size(384, 216);
-            this.materialCard5.TabIndex = 22;
-            // 
-            // groupBox8
-            // 
-            this.groupBox8.Controls.Add(this.chkLogsWarning);
-            this.groupBox8.Controls.Add(this.chkCheckUpdate);
-            this.groupBox8.Controls.Add(this.chkSound);
-            this.groupBox8.Controls.Add(this.chkRemoveTemp);
-            this.groupBox8.Controls.Add(this.chkTFiveCredit);
-            this.groupBox8.Controls.Add(this.chkLogsError);
-            this.groupBox8.Controls.Add(this.chkLogsComplie);
-            this.groupBox8.Controls.Add(this.chkLogsSuccess);
-            this.groupBox8.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox8.Font = new System.Drawing.Font("Roboto", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            this.groupBox8.Location = new System.Drawing.Point(14, 14);
-            this.groupBox8.Name = "groupBox8";
-            this.groupBox8.Size = new System.Drawing.Size(356, 188);
-            this.groupBox8.TabIndex = 4;
-            this.groupBox8.TabStop = false;
-            this.groupBox8.Text = "Tools Settings";
-            // 
-            // chkCheckUpdate
-            // 
-            this.chkCheckUpdate.AutoSize = true;
-            this.chkCheckUpdate.Depth = 0;
-            this.chkCheckUpdate.Location = new System.Drawing.Point(139, 96);
-            this.chkCheckUpdate.Margin = new System.Windows.Forms.Padding(0);
-            this.chkCheckUpdate.MouseLocation = new System.Drawing.Point(-1, -1);
-            this.chkCheckUpdate.MouseState = MaterialSkin.MouseState.HOVER;
-            this.chkCheckUpdate.Name = "chkCheckUpdate";
-            this.chkCheckUpdate.Ripple = true;
-            this.chkCheckUpdate.Size = new System.Drawing.Size(166, 37);
-            this.chkCheckUpdate.TabIndex = 18;
-            this.chkCheckUpdate.Text = "Check new version";
-            this.chkCheckUpdate.UseVisualStyleBackColor = true;
-            // 
-            // chkSound
-            // 
-            this.chkSound.AutoSize = true;
-            this.chkSound.Checked = true;
-            this.chkSound.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkSound.Depth = 0;
-            this.chkSound.Location = new System.Drawing.Point(264, 59);
-            this.chkSound.Margin = new System.Windows.Forms.Padding(0);
-            this.chkSound.MouseLocation = new System.Drawing.Point(-1, -1);
-            this.chkSound.MouseState = MaterialSkin.MouseState.HOVER;
-            this.chkSound.Name = "chkSound";
-            this.chkSound.Ripple = true;
-            this.chkSound.Size = new System.Drawing.Size(81, 37);
-            this.chkSound.TabIndex = 17;
-            this.chkSound.Text = "Sound";
-            this.chkSound.UseVisualStyleBackColor = true;
-            // 
-            // chkRemoveTemp
-            // 
-            this.chkRemoveTemp.AutoSize = true;
-            this.chkRemoveTemp.Checked = true;
-            this.chkRemoveTemp.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkRemoveTemp.Depth = 0;
-            this.chkRemoveTemp.Location = new System.Drawing.Point(3, 96);
-            this.chkRemoveTemp.Margin = new System.Windows.Forms.Padding(0);
-            this.chkRemoveTemp.MouseLocation = new System.Drawing.Point(-1, -1);
-            this.chkRemoveTemp.MouseState = MaterialSkin.MouseState.HOVER;
-            this.chkRemoveTemp.Name = "chkRemoveTemp";
-            this.chkRemoveTemp.Ripple = true;
-            this.chkRemoveTemp.Size = new System.Drawing.Size(132, 37);
-            this.chkRemoveTemp.TabIndex = 16;
-            this.chkRemoveTemp.Text = "Remove temp";
-            this.chkRemoveTemp.UseVisualStyleBackColor = true;
-            // 
-            // chkTFiveCredit
-            // 
-            this.chkTFiveCredit.AutoSize = true;
-            this.chkTFiveCredit.Checked = true;
-            this.chkTFiveCredit.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkTFiveCredit.Depth = 0;
-            this.chkTFiveCredit.Location = new System.Drawing.Point(3, 133);
-            this.chkTFiveCredit.Margin = new System.Windows.Forms.Padding(0);
-            this.chkTFiveCredit.MouseLocation = new System.Drawing.Point(-1, -1);
-            this.chkTFiveCredit.MouseState = MaterialSkin.MouseState.HOVER;
-            this.chkTFiveCredit.Name = "chkTFiveCredit";
-            this.chkTFiveCredit.Ripple = true;
-            this.chkTFiveCredit.Size = new System.Drawing.Size(327, 37);
-            this.chkTFiveCredit.TabIndex = 15;
-            this.chkTFiveCredit.Text = "Add TFive credit at the end settings menu";
-            this.chkTFiveCredit.UseVisualStyleBackColor = true;
-            // 
-            // chkLogsError
-            // 
-            this.chkLogsError.AutoSize = true;
-            this.chkLogsError.Checked = true;
-            this.chkLogsError.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkLogsError.Depth = 0;
-            this.chkLogsError.Location = new System.Drawing.Point(139, 59);
-            this.chkLogsError.Margin = new System.Windows.Forms.Padding(0);
-            this.chkLogsError.MouseLocation = new System.Drawing.Point(-1, -1);
-            this.chkLogsError.MouseState = MaterialSkin.MouseState.HOVER;
-            this.chkLogsError.Name = "chkLogsError";
-            this.chkLogsError.Ripple = true;
-            this.chkLogsError.Size = new System.Drawing.Size(107, 37);
-            this.chkLogsError.TabIndex = 14;
-            this.chkLogsError.Text = "Error Logs";
-            this.chkLogsError.UseVisualStyleBackColor = true;
-            // 
-            // chkLogsComplie
-            // 
-            this.chkLogsComplie.AutoSize = true;
-            this.chkLogsComplie.Checked = true;
-            this.chkLogsComplie.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkLogsComplie.Depth = 0;
-            this.chkLogsComplie.Location = new System.Drawing.Point(3, 22);
-            this.chkLogsComplie.Margin = new System.Windows.Forms.Padding(0);
-            this.chkLogsComplie.MouseLocation = new System.Drawing.Point(-1, -1);
-            this.chkLogsComplie.MouseState = MaterialSkin.MouseState.HOVER;
-            this.chkLogsComplie.Name = "chkLogsComplie";
-            this.chkLogsComplie.Ripple = true;
-            this.chkLogsComplie.Size = new System.Drawing.Size(132, 37);
-            this.chkLogsComplie.TabIndex = 13;
-            this.chkLogsComplie.Text = "Compile Logs";
-            this.chkLogsComplie.UseVisualStyleBackColor = true;
-            // 
-            // chkLogsSuccess
-            // 
-            this.chkLogsSuccess.AutoSize = true;
-            this.chkLogsSuccess.Checked = true;
-            this.chkLogsSuccess.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkLogsSuccess.Depth = 0;
-            this.chkLogsSuccess.Location = new System.Drawing.Point(139, 22);
-            this.chkLogsSuccess.Margin = new System.Windows.Forms.Padding(0);
-            this.chkLogsSuccess.MouseLocation = new System.Drawing.Point(-1, -1);
-            this.chkLogsSuccess.MouseState = MaterialSkin.MouseState.HOVER;
-            this.chkLogsSuccess.Name = "chkLogsSuccess";
-            this.chkLogsSuccess.Ripple = true;
-            this.chkLogsSuccess.Size = new System.Drawing.Size(133, 37);
-            this.chkLogsSuccess.TabIndex = 12;
-            this.chkLogsSuccess.Text = "Success Logs";
-            this.chkLogsSuccess.UseVisualStyleBackColor = true;
-            // 
-            // btnUpdate
-            // 
-            this.btnUpdate.AccentTextColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(64)))), ((int)(((byte)(129)))));
-            this.btnUpdate.AutoSize = false;
-            this.btnUpdate.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.btnUpdate.Density = MaterialSkin.Controls.MaterialButton.MaterialButtonDensity.Default;
-            this.btnUpdate.Depth = 0;
-            this.btnUpdate.HighEmphasis = true;
-            this.btnUpdate.Icon = null;
-            this.btnUpdate.Location = new System.Drawing.Point(399, 314);
-            this.btnUpdate.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
-            this.btnUpdate.MouseState = MaterialSkin.MouseState.HOVER;
-            this.btnUpdate.Name = "btnUpdate";
-            this.btnUpdate.NoAccentTextColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(81)))), ((int)(((byte)(181)))));
-            this.btnUpdate.Size = new System.Drawing.Size(384, 42);
-            this.btnUpdate.TabIndex = 7;
-            this.btnUpdate.Text = "Check for update";
-            this.btnUpdate.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
-            this.btnUpdate.UseAccentColor = false;
-            this.btnUpdate.UseVisualStyleBackColor = true;
-            this.btnUpdate.Click += new System.EventHandler(this.btnUpdate_Click);
-            // 
-            // materialCard7
-            // 
-            this.materialCard7.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            this.materialCard7.Controls.Add(this.groupBox7);
-            this.materialCard7.Depth = 0;
-            this.materialCard7.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.materialCard7.Location = new System.Drawing.Point(10, 14);
-            this.materialCard7.Margin = new System.Windows.Forms.Padding(14);
-            this.materialCard7.MouseState = MaterialSkin.MouseState.HOVER;
-            this.materialCard7.Name = "materialCard7";
-            this.materialCard7.Padding = new System.Windows.Forms.Padding(14);
-            this.materialCard7.Size = new System.Drawing.Size(384, 138);
-            this.materialCard7.TabIndex = 15;
-            // 
-            // groupBox7
-            // 
-            this.groupBox7.Controls.Add(this.btnBrowseNDK);
-            this.groupBox7.Controls.Add(this.txtNDK);
-            this.groupBox7.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox7.Font = new System.Drawing.Font("Roboto", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            this.groupBox7.Location = new System.Drawing.Point(14, 14);
-            this.groupBox7.Name = "groupBox7";
-            this.groupBox7.Size = new System.Drawing.Size(356, 110);
-            this.groupBox7.TabIndex = 4;
-            this.groupBox7.TabStop = false;
-            this.groupBox7.Text = "NDK Path";
-            // 
-            // btnBrowseNDK
-            // 
-            this.btnBrowseNDK.AccentTextColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(64)))), ((int)(((byte)(129)))));
-            this.btnBrowseNDK.AutoSize = false;
-            this.btnBrowseNDK.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.btnBrowseNDK.Density = MaterialSkin.Controls.MaterialButton.MaterialButtonDensity.Default;
-            this.btnBrowseNDK.Depth = 0;
-            this.btnBrowseNDK.HighEmphasis = true;
-            this.btnBrowseNDK.Icon = null;
-            this.btnBrowseNDK.Location = new System.Drawing.Point(6, 65);
-            this.btnBrowseNDK.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
-            this.btnBrowseNDK.MouseState = MaterialSkin.MouseState.HOVER;
-            this.btnBrowseNDK.Name = "btnBrowseNDK";
-            this.btnBrowseNDK.NoAccentTextColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(81)))), ((int)(((byte)(181)))));
-            this.btnBrowseNDK.Size = new System.Drawing.Size(342, 36);
-            this.btnBrowseNDK.TabIndex = 5;
-            this.btnBrowseNDK.Text = "Browse";
-            this.btnBrowseNDK.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
-            this.btnBrowseNDK.UseAccentColor = false;
-            this.btnBrowseNDK.UseVisualStyleBackColor = true;
-            this.btnBrowseNDK.Click += new System.EventHandler(this.btnBrowseNDK_Click);
-            // 
-            // txtNDK
-            // 
-            this.txtNDK.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.txtNDK.Depth = 0;
-            this.txtNDK.Font = new System.Drawing.Font("Roboto", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            this.txtNDK.Hint = "C:\\Android\\Sdk\\ndk\\22.0.7026061";
-            this.txtNDK.LeadingIcon = null;
-            this.txtNDK.Location = new System.Drawing.Point(6, 25);
-            this.txtNDK.MaxLength = 32767;
-            this.txtNDK.MouseState = MaterialSkin.MouseState.OUT;
-            this.txtNDK.Multiline = false;
-            this.txtNDK.Name = "txtNDK";
-            this.txtNDK.ReadOnly = true;
-            this.txtNDK.Size = new System.Drawing.Size(344, 36);
-            this.txtNDK.TabIndex = 4;
-            this.txtNDK.Text = "";
-            this.txtNDK.TrailingIcon = null;
-            this.txtNDK.UseTallSize = false;
-            // 
-            // materialCard11
-            // 
-            this.materialCard11.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            this.materialCard11.Controls.Add(this.groupBox11);
-            this.materialCard11.Depth = 0;
-            this.materialCard11.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.materialCard11.Location = new System.Drawing.Point(10, 155);
-            this.materialCard11.Margin = new System.Windows.Forms.Padding(14);
-            this.materialCard11.MouseState = MaterialSkin.MouseState.HOVER;
-            this.materialCard11.Name = "materialCard11";
-            this.materialCard11.Padding = new System.Windows.Forms.Padding(14);
-            this.materialCard11.Size = new System.Drawing.Size(384, 96);
-            this.materialCard11.TabIndex = 16;
-            // 
-            // groupBox11
-            // 
-            this.groupBox11.Controls.Add(this.comboApktool);
-            this.groupBox11.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox11.Font = new System.Drawing.Font("Roboto", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            this.groupBox11.Location = new System.Drawing.Point(14, 14);
-            this.groupBox11.Name = "groupBox11";
-            this.groupBox11.Size = new System.Drawing.Size(356, 68);
-            this.groupBox11.TabIndex = 4;
-            this.groupBox11.TabStop = false;
-            this.groupBox11.Text = "Apktool";
-            // 
-            // comboApktool
-            // 
-            this.comboApktool.AutoResize = false;
-            this.comboApktool.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            this.comboApktool.Depth = 0;
-            this.comboApktool.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.comboApktool.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
-            this.comboApktool.DropDownHeight = 118;
-            this.comboApktool.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboApktool.DropDownWidth = 121;
-            this.comboApktool.Font = new System.Drawing.Font("Roboto Medium", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
-            this.comboApktool.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.comboApktool.FormattingEnabled = true;
-            this.comboApktool.IntegralHeight = false;
-            this.comboApktool.ItemHeight = 29;
-            this.comboApktool.Location = new System.Drawing.Point(3, 22);
-            this.comboApktool.MaxDropDownItems = 4;
-            this.comboApktool.MouseState = MaterialSkin.MouseState.OUT;
-            this.comboApktool.Name = "comboApktool";
-            this.comboApktool.Size = new System.Drawing.Size(350, 35);
-            this.comboApktool.StartIndex = 0;
-            this.comboApktool.TabIndex = 1;
-            this.comboApktool.UseTallSize = false;
-            // 
-            // materialCard2
-            // 
-            this.materialCard2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            this.materialCard2.Controls.Add(this.groupBox2);
-            this.materialCard2.Depth = 0;
-            this.materialCard2.Font = new System.Drawing.Font("Roboto", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            this.materialCard2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.materialCard2.Location = new System.Drawing.Point(399, 156);
-            this.materialCard2.Margin = new System.Windows.Forms.Padding(14);
-            this.materialCard2.MouseState = MaterialSkin.MouseState.HOVER;
-            this.materialCard2.Name = "materialCard2";
-            this.materialCard2.Padding = new System.Windows.Forms.Padding(14);
-            this.materialCard2.Size = new System.Drawing.Size(384, 138);
-            this.materialCard2.TabIndex = 1;
-            // 
-            // groupBox2
-            // 
-            this.groupBox2.Controls.Add(this.label2);
-            this.groupBox2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox2.Font = new System.Drawing.Font("Roboto", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            this.groupBox2.Location = new System.Drawing.Point(14, 14);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(356, 110);
-            this.groupBox2.TabIndex = 3;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "CREDIT";
-            // 
-            // label2
-            // 
-            this.label2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label2.Font = new System.Drawing.Font("Roboto", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            this.label2.Location = new System.Drawing.Point(3, 22);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(350, 85);
-            this.label2.TabIndex = 1;
-            this.label2.Text = "TFive (Coding)\r\nMJx0 A.K.A Ruit (KittyMemory)\r\nLGLTeam (Android Mod Menu)";
-            // 
-            // materialCard1
-            // 
-            this.materialCard1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            this.materialCard1.Controls.Add(this.groupBox1);
-            this.materialCard1.Depth = 0;
-            this.materialCard1.Font = new System.Drawing.Font("Roboto", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            this.materialCard1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.materialCard1.Location = new System.Drawing.Point(399, 14);
-            this.materialCard1.Margin = new System.Windows.Forms.Padding(14);
-            this.materialCard1.MouseState = MaterialSkin.MouseState.HOVER;
-            this.materialCard1.Name = "materialCard1";
-            this.materialCard1.Padding = new System.Windows.Forms.Padding(14);
-            this.materialCard1.Size = new System.Drawing.Size(384, 138);
-            this.materialCard1.TabIndex = 0;
-            // 
-            // groupBox1
-            // 
-            this.groupBox1.Controls.Add(this.label1);
-            this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox1.Font = new System.Drawing.Font("Roboto", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            this.groupBox1.Location = new System.Drawing.Point(14, 14);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(356, 110);
-            this.groupBox1.TabIndex = 2;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "INFO";
-            // 
-            // label1
-            // 
-            this.label1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label1.Font = new System.Drawing.Font("Roboto", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            this.label1.Location = new System.Drawing.Point(3, 22);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(350, 85);
-            this.label1.TabIndex = 1;
-            this.label1.Text = "Injection Mod-Menu by hex offset patch.\r\nArchitectures Support:\r\n- armeabi-v7a\r\n-" +
-    " arm64-v8a";
             // 
             // tabDev
             // 
@@ -1745,12 +1594,12 @@ namespace Tools_Injector_Mod_Menu
             this.materialCard15.Controls.Add(this.groupBox16);
             this.materialCard15.Depth = 0;
             this.materialCard15.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.materialCard15.Location = new System.Drawing.Point(14, 0);
+            this.materialCard15.Location = new System.Drawing.Point(10, 10);
             this.materialCard15.Margin = new System.Windows.Forms.Padding(14);
             this.materialCard15.MouseState = MaterialSkin.MouseState.HOVER;
             this.materialCard15.Name = "materialCard15";
             this.materialCard15.Padding = new System.Windows.Forms.Padding(14);
-            this.materialCard15.Size = new System.Drawing.Size(769, 155);
+            this.materialCard15.Size = new System.Drawing.Size(773, 151);
             this.materialCard15.TabIndex = 7;
             // 
             // groupBox16
@@ -1764,7 +1613,7 @@ namespace Tools_Injector_Mod_Menu
             this.groupBox16.Font = new System.Drawing.Font("Roboto", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
             this.groupBox16.Location = new System.Drawing.Point(14, 14);
             this.groupBox16.Name = "groupBox16";
-            this.groupBox16.Size = new System.Drawing.Size(741, 127);
+            this.groupBox16.Size = new System.Drawing.Size(745, 123);
             this.groupBox16.TabIndex = 2;
             this.groupBox16.TabStop = false;
             this.groupBox16.Text = "Permission";
@@ -1795,7 +1644,7 @@ namespace Tools_Injector_Mod_Menu
             // 
             this.txtPermission.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.txtPermission.Depth = 0;
-            this.txtPermission.Font = new System.Drawing.Font("Roboto", 12F);
+            this.txtPermission.Font = new System.Drawing.Font("Roboto", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
             this.txtPermission.LeadingIcon = null;
             this.txtPermission.Location = new System.Drawing.Point(6, 33);
             this.txtPermission.MaxLength = 3000;
@@ -1857,7 +1706,7 @@ namespace Tools_Injector_Mod_Menu
             // 
             this.txtService.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.txtService.Depth = 0;
-            this.txtService.Font = new System.Drawing.Font("Roboto", 12F);
+            this.txtService.Font = new System.Drawing.Font("Roboto", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
             this.txtService.LeadingIcon = null;
             this.txtService.Location = new System.Drawing.Point(6, 81);
             this.txtService.MaxLength = 3000;
@@ -1877,12 +1726,12 @@ namespace Tools_Injector_Mod_Menu
             this.materialCard14.Controls.Add(this.groupBox15);
             this.materialCard14.Depth = 0;
             this.materialCard14.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.materialCard14.Location = new System.Drawing.Point(14, 264);
+            this.materialCard14.Location = new System.Drawing.Point(10, 270);
             this.materialCard14.Margin = new System.Windows.Forms.Padding(14);
             this.materialCard14.MouseState = MaterialSkin.MouseState.HOVER;
             this.materialCard14.Name = "materialCard14";
             this.materialCard14.Padding = new System.Windows.Forms.Padding(14);
-            this.materialCard14.Size = new System.Drawing.Size(769, 210);
+            this.materialCard14.Size = new System.Drawing.Size(773, 210);
             this.materialCard14.TabIndex = 3;
             // 
             // groupBox15
@@ -1896,7 +1745,7 @@ namespace Tools_Injector_Mod_Menu
             this.groupBox15.Font = new System.Drawing.Font("Roboto", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
             this.groupBox15.Location = new System.Drawing.Point(14, 14);
             this.groupBox15.Name = "groupBox15";
-            this.groupBox15.Size = new System.Drawing.Size(741, 182);
+            this.groupBox15.Size = new System.Drawing.Size(745, 182);
             this.groupBox15.TabIndex = 2;
             this.groupBox15.TabStop = false;
             this.groupBox15.Text = "METHOD 2";
@@ -1960,7 +1809,7 @@ namespace Tools_Injector_Mod_Menu
             // 
             this.txtFind.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.txtFind.Depth = 0;
-            this.txtFind.Font = new System.Drawing.Font("Roboto", 12F);
+            this.txtFind.Font = new System.Drawing.Font("Roboto", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
             this.txtFind.LeadingIcon = null;
             this.txtFind.Location = new System.Drawing.Point(6, 22);
             this.txtFind.MaxLength = 3000;
@@ -2002,12 +1851,12 @@ namespace Tools_Injector_Mod_Menu
             this.materialCard8.Controls.Add(this.groupBox5);
             this.materialCard8.Depth = 0;
             this.materialCard8.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.materialCard8.Location = new System.Drawing.Point(14, 158);
+            this.materialCard8.Location = new System.Drawing.Point(10, 164);
             this.materialCard8.Margin = new System.Windows.Forms.Padding(14);
             this.materialCard8.MouseState = MaterialSkin.MouseState.HOVER;
             this.materialCard8.Name = "materialCard8";
             this.materialCard8.Padding = new System.Windows.Forms.Padding(14);
-            this.materialCard8.Size = new System.Drawing.Size(769, 103);
+            this.materialCard8.Size = new System.Drawing.Size(773, 103);
             this.materialCard8.TabIndex = 2;
             // 
             // groupBox5
@@ -2019,7 +1868,7 @@ namespace Tools_Injector_Mod_Menu
             this.groupBox5.Font = new System.Drawing.Font("Roboto", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
             this.groupBox5.Location = new System.Drawing.Point(14, 14);
             this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Size = new System.Drawing.Size(741, 75);
+            this.groupBox5.Size = new System.Drawing.Size(745, 75);
             this.groupBox5.TabIndex = 2;
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "METHOD 1";
@@ -2050,7 +1899,7 @@ namespace Tools_Injector_Mod_Menu
             // 
             this.txtOnCreate.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.txtOnCreate.Depth = 0;
-            this.txtOnCreate.Font = new System.Drawing.Font("Roboto", 12F);
+            this.txtOnCreate.Font = new System.Drawing.Font("Roboto", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
             this.txtOnCreate.LeadingIcon = null;
             this.txtOnCreate.Location = new System.Drawing.Point(6, 25);
             this.txtOnCreate.MaxLength = 3000;
@@ -2085,6 +1934,428 @@ namespace Tools_Injector_Mod_Menu
             this.btnOnCreate.UseVisualStyleBackColor = true;
             this.btnOnCreate.Click += new System.EventHandler(this.btnOnCreate_Click);
             // 
+            // tabAbout
+            // 
+            this.tabAbout.Controls.Add(this.btnSaveSettings2);
+            this.tabAbout.Controls.Add(this.materialCard5);
+            this.tabAbout.Controls.Add(this.btnUpdate);
+            this.tabAbout.Controls.Add(this.materialCard7);
+            this.tabAbout.Controls.Add(this.materialCard11);
+            this.tabAbout.Controls.Add(this.materialCard2);
+            this.tabAbout.Controls.Add(this.materialCard1);
+            this.tabAbout.ImageKey = "info-24.png";
+            this.tabAbout.Location = new System.Drawing.Point(4, 31);
+            this.tabAbout.Name = "tabAbout";
+            this.tabAbout.Size = new System.Drawing.Size(797, 480);
+            this.tabAbout.TabIndex = 2;
+            this.tabAbout.Text = "About";
+            this.tabAbout.UseVisualStyleBackColor = true;
+            // 
+            // btnSaveSettings2
+            // 
+            this.btnSaveSettings2.AccentTextColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(64)))), ((int)(((byte)(129)))));
+            this.btnSaveSettings2.AutoSize = false;
+            this.btnSaveSettings2.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.btnSaveSettings2.Density = MaterialSkin.Controls.MaterialButton.MaterialButtonDensity.Default;
+            this.btnSaveSettings2.Depth = 0;
+            this.btnSaveSettings2.HighEmphasis = true;
+            this.btnSaveSettings2.Icon = null;
+            this.btnSaveSettings2.Location = new System.Drawing.Point(397, 378);
+            this.btnSaveSettings2.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
+            this.btnSaveSettings2.MouseState = MaterialSkin.MouseState.HOVER;
+            this.btnSaveSettings2.Name = "btnSaveSettings2";
+            this.btnSaveSettings2.NoAccentTextColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(81)))), ((int)(((byte)(181)))));
+            this.btnSaveSettings2.Size = new System.Drawing.Size(386, 102);
+            this.btnSaveSettings2.TabIndex = 22;
+            this.btnSaveSettings2.Text = "Save Settings";
+            this.btnSaveSettings2.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
+            this.btnSaveSettings2.UseAccentColor = false;
+            this.btnSaveSettings2.UseVisualStyleBackColor = true;
+            this.btnSaveSettings2.Click += new System.EventHandler(this.btnSaveSettings2_Click);
+            // 
+            // materialCard5
+            // 
+            this.materialCard5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.materialCard5.Controls.Add(this.groupBox8);
+            this.materialCard5.Depth = 0;
+            this.materialCard5.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.materialCard5.Location = new System.Drawing.Point(10, 240);
+            this.materialCard5.Margin = new System.Windows.Forms.Padding(14);
+            this.materialCard5.MouseState = MaterialSkin.MouseState.HOVER;
+            this.materialCard5.Name = "materialCard5";
+            this.materialCard5.Padding = new System.Windows.Forms.Padding(14);
+            this.materialCard5.Size = new System.Drawing.Size(384, 240);
+            this.materialCard5.TabIndex = 22;
+            // 
+            // groupBox8
+            // 
+            this.groupBox8.Controls.Add(this.chkLogsWarning);
+            this.groupBox8.Controls.Add(this.chkCheckUpdate);
+            this.groupBox8.Controls.Add(this.chkSound);
+            this.groupBox8.Controls.Add(this.chkRemoveTemp);
+            this.groupBox8.Controls.Add(this.chkTFiveCredit);
+            this.groupBox8.Controls.Add(this.chkLogsError);
+            this.groupBox8.Controls.Add(this.chkLogsComplie);
+            this.groupBox8.Controls.Add(this.chkLogsSuccess);
+            this.groupBox8.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.groupBox8.Font = new System.Drawing.Font("Roboto", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.groupBox8.Location = new System.Drawing.Point(14, 14);
+            this.groupBox8.Name = "groupBox8";
+            this.groupBox8.Size = new System.Drawing.Size(356, 212);
+            this.groupBox8.TabIndex = 4;
+            this.groupBox8.TabStop = false;
+            this.groupBox8.Text = "Tools Settings";
+            // 
+            // chkLogsWarning
+            // 
+            this.chkLogsWarning.AutoSize = true;
+            this.chkLogsWarning.Checked = true;
+            this.chkLogsWarning.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkLogsWarning.Depth = 0;
+            this.chkLogsWarning.Location = new System.Drawing.Point(3, 61);
+            this.chkLogsWarning.Margin = new System.Windows.Forms.Padding(0);
+            this.chkLogsWarning.MouseLocation = new System.Drawing.Point(-1, -1);
+            this.chkLogsWarning.MouseState = MaterialSkin.MouseState.HOVER;
+            this.chkLogsWarning.Name = "chkLogsWarning";
+            this.chkLogsWarning.Ripple = true;
+            this.chkLogsWarning.Size = new System.Drawing.Size(133, 37);
+            this.chkLogsWarning.TabIndex = 19;
+            this.chkLogsWarning.Text = "Warning Logs";
+            this.chkLogsWarning.UseVisualStyleBackColor = true;
+            // 
+            // chkCheckUpdate
+            // 
+            this.chkCheckUpdate.AutoSize = true;
+            this.chkCheckUpdate.Depth = 0;
+            this.chkCheckUpdate.Location = new System.Drawing.Point(3, 135);
+            this.chkCheckUpdate.Margin = new System.Windows.Forms.Padding(0);
+            this.chkCheckUpdate.MouseLocation = new System.Drawing.Point(-1, -1);
+            this.chkCheckUpdate.MouseState = MaterialSkin.MouseState.HOVER;
+            this.chkCheckUpdate.Name = "chkCheckUpdate";
+            this.chkCheckUpdate.Ripple = true;
+            this.chkCheckUpdate.Size = new System.Drawing.Size(166, 37);
+            this.chkCheckUpdate.TabIndex = 18;
+            this.chkCheckUpdate.Text = "Check new version";
+            this.chkCheckUpdate.UseVisualStyleBackColor = true;
+            // 
+            // chkSound
+            // 
+            this.chkSound.AutoSize = true;
+            this.chkSound.Checked = true;
+            this.chkSound.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkSound.Depth = 0;
+            this.chkSound.Location = new System.Drawing.Point(191, 98);
+            this.chkSound.Margin = new System.Windows.Forms.Padding(0);
+            this.chkSound.MouseLocation = new System.Drawing.Point(-1, -1);
+            this.chkSound.MouseState = MaterialSkin.MouseState.HOVER;
+            this.chkSound.Name = "chkSound";
+            this.chkSound.Ripple = true;
+            this.chkSound.Size = new System.Drawing.Size(81, 37);
+            this.chkSound.TabIndex = 17;
+            this.chkSound.Text = "Sound";
+            this.chkSound.UseVisualStyleBackColor = true;
+            // 
+            // chkRemoveTemp
+            // 
+            this.chkRemoveTemp.AutoSize = true;
+            this.chkRemoveTemp.Checked = true;
+            this.chkRemoveTemp.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkRemoveTemp.Depth = 0;
+            this.chkRemoveTemp.Location = new System.Drawing.Point(3, 98);
+            this.chkRemoveTemp.Margin = new System.Windows.Forms.Padding(0);
+            this.chkRemoveTemp.MouseLocation = new System.Drawing.Point(-1, -1);
+            this.chkRemoveTemp.MouseState = MaterialSkin.MouseState.HOVER;
+            this.chkRemoveTemp.Name = "chkRemoveTemp";
+            this.chkRemoveTemp.Ripple = true;
+            this.chkRemoveTemp.Size = new System.Drawing.Size(132, 37);
+            this.chkRemoveTemp.TabIndex = 16;
+            this.chkRemoveTemp.Text = "Remove temp";
+            this.chkRemoveTemp.UseVisualStyleBackColor = true;
+            // 
+            // chkTFiveCredit
+            // 
+            this.chkTFiveCredit.AutoSize = true;
+            this.chkTFiveCredit.Checked = true;
+            this.chkTFiveCredit.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkTFiveCredit.Depth = 0;
+            this.chkTFiveCredit.Location = new System.Drawing.Point(3, 172);
+            this.chkTFiveCredit.Margin = new System.Windows.Forms.Padding(0);
+            this.chkTFiveCredit.MouseLocation = new System.Drawing.Point(-1, -1);
+            this.chkTFiveCredit.MouseState = MaterialSkin.MouseState.HOVER;
+            this.chkTFiveCredit.Name = "chkTFiveCredit";
+            this.chkTFiveCredit.Ripple = true;
+            this.chkTFiveCredit.Size = new System.Drawing.Size(327, 37);
+            this.chkTFiveCredit.TabIndex = 15;
+            this.chkTFiveCredit.Text = "Add TFive credit at the end settings menu";
+            this.chkTFiveCredit.UseVisualStyleBackColor = true;
+            // 
+            // chkLogsError
+            // 
+            this.chkLogsError.AutoSize = true;
+            this.chkLogsError.Checked = true;
+            this.chkLogsError.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkLogsError.Depth = 0;
+            this.chkLogsError.Location = new System.Drawing.Point(191, 61);
+            this.chkLogsError.Margin = new System.Windows.Forms.Padding(0);
+            this.chkLogsError.MouseLocation = new System.Drawing.Point(-1, -1);
+            this.chkLogsError.MouseState = MaterialSkin.MouseState.HOVER;
+            this.chkLogsError.Name = "chkLogsError";
+            this.chkLogsError.Ripple = true;
+            this.chkLogsError.Size = new System.Drawing.Size(107, 37);
+            this.chkLogsError.TabIndex = 14;
+            this.chkLogsError.Text = "Error Logs";
+            this.chkLogsError.UseVisualStyleBackColor = true;
+            // 
+            // chkLogsComplie
+            // 
+            this.chkLogsComplie.AutoSize = true;
+            this.chkLogsComplie.Checked = true;
+            this.chkLogsComplie.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkLogsComplie.Depth = 0;
+            this.chkLogsComplie.Location = new System.Drawing.Point(3, 24);
+            this.chkLogsComplie.Margin = new System.Windows.Forms.Padding(0);
+            this.chkLogsComplie.MouseLocation = new System.Drawing.Point(-1, -1);
+            this.chkLogsComplie.MouseState = MaterialSkin.MouseState.HOVER;
+            this.chkLogsComplie.Name = "chkLogsComplie";
+            this.chkLogsComplie.Ripple = true;
+            this.chkLogsComplie.Size = new System.Drawing.Size(132, 37);
+            this.chkLogsComplie.TabIndex = 13;
+            this.chkLogsComplie.Text = "Compile Logs";
+            this.chkLogsComplie.UseVisualStyleBackColor = true;
+            // 
+            // chkLogsSuccess
+            // 
+            this.chkLogsSuccess.AutoSize = true;
+            this.chkLogsSuccess.Checked = true;
+            this.chkLogsSuccess.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkLogsSuccess.Depth = 0;
+            this.chkLogsSuccess.Location = new System.Drawing.Point(191, 24);
+            this.chkLogsSuccess.Margin = new System.Windows.Forms.Padding(0);
+            this.chkLogsSuccess.MouseLocation = new System.Drawing.Point(-1, -1);
+            this.chkLogsSuccess.MouseState = MaterialSkin.MouseState.HOVER;
+            this.chkLogsSuccess.Name = "chkLogsSuccess";
+            this.chkLogsSuccess.Ripple = true;
+            this.chkLogsSuccess.Size = new System.Drawing.Size(133, 37);
+            this.chkLogsSuccess.TabIndex = 12;
+            this.chkLogsSuccess.Text = "Success Logs";
+            this.chkLogsSuccess.UseVisualStyleBackColor = true;
+            // 
+            // btnUpdate
+            // 
+            this.btnUpdate.AccentTextColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(64)))), ((int)(((byte)(129)))));
+            this.btnUpdate.AutoSize = false;
+            this.btnUpdate.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.btnUpdate.Density = MaterialSkin.Controls.MaterialButton.MaterialButtonDensity.Default;
+            this.btnUpdate.Depth = 0;
+            this.btnUpdate.HighEmphasis = true;
+            this.btnUpdate.Icon = null;
+            this.btnUpdate.Location = new System.Drawing.Point(397, 324);
+            this.btnUpdate.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
+            this.btnUpdate.MouseState = MaterialSkin.MouseState.HOVER;
+            this.btnUpdate.Name = "btnUpdate";
+            this.btnUpdate.NoAccentTextColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(81)))), ((int)(((byte)(181)))));
+            this.btnUpdate.Size = new System.Drawing.Size(386, 42);
+            this.btnUpdate.TabIndex = 7;
+            this.btnUpdate.Text = "Check for update";
+            this.btnUpdate.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
+            this.btnUpdate.UseAccentColor = false;
+            this.btnUpdate.UseVisualStyleBackColor = true;
+            this.btnUpdate.Click += new System.EventHandler(this.btnUpdate_Click);
+            // 
+            // materialCard7
+            // 
+            this.materialCard7.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.materialCard7.Controls.Add(this.groupBox7);
+            this.materialCard7.Depth = 0;
+            this.materialCard7.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.materialCard7.Location = new System.Drawing.Point(10, 10);
+            this.materialCard7.Margin = new System.Windows.Forms.Padding(14);
+            this.materialCard7.MouseState = MaterialSkin.MouseState.HOVER;
+            this.materialCard7.Name = "materialCard7";
+            this.materialCard7.Padding = new System.Windows.Forms.Padding(14);
+            this.materialCard7.Size = new System.Drawing.Size(384, 138);
+            this.materialCard7.TabIndex = 15;
+            // 
+            // groupBox7
+            // 
+            this.groupBox7.Controls.Add(this.btnBrowseNDK);
+            this.groupBox7.Controls.Add(this.txtNDK);
+            this.groupBox7.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.groupBox7.Font = new System.Drawing.Font("Roboto", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.groupBox7.Location = new System.Drawing.Point(14, 14);
+            this.groupBox7.Name = "groupBox7";
+            this.groupBox7.Size = new System.Drawing.Size(356, 110);
+            this.groupBox7.TabIndex = 4;
+            this.groupBox7.TabStop = false;
+            this.groupBox7.Text = "NDK Path";
+            // 
+            // btnBrowseNDK
+            // 
+            this.btnBrowseNDK.AccentTextColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(64)))), ((int)(((byte)(129)))));
+            this.btnBrowseNDK.AutoSize = false;
+            this.btnBrowseNDK.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.btnBrowseNDK.Density = MaterialSkin.Controls.MaterialButton.MaterialButtonDensity.Default;
+            this.btnBrowseNDK.Depth = 0;
+            this.btnBrowseNDK.HighEmphasis = true;
+            this.btnBrowseNDK.Icon = null;
+            this.btnBrowseNDK.Location = new System.Drawing.Point(7, 70);
+            this.btnBrowseNDK.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
+            this.btnBrowseNDK.MouseState = MaterialSkin.MouseState.HOVER;
+            this.btnBrowseNDK.Name = "btnBrowseNDK";
+            this.btnBrowseNDK.NoAccentTextColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(81)))), ((int)(((byte)(181)))));
+            this.btnBrowseNDK.Size = new System.Drawing.Size(342, 36);
+            this.btnBrowseNDK.TabIndex = 5;
+            this.btnBrowseNDK.Text = "Browse";
+            this.btnBrowseNDK.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
+            this.btnBrowseNDK.UseAccentColor = false;
+            this.btnBrowseNDK.UseVisualStyleBackColor = true;
+            this.btnBrowseNDK.Click += new System.EventHandler(this.btnBrowseNDK_Click);
+            // 
+            // txtNDK
+            // 
+            this.txtNDK.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.txtNDK.Depth = 0;
+            this.txtNDK.Font = new System.Drawing.Font("Roboto", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.txtNDK.Hint = "C:\\Android\\Sdk\\ndk\\22.0.7026061";
+            this.txtNDK.LeadingIcon = null;
+            this.txtNDK.Location = new System.Drawing.Point(6, 25);
+            this.txtNDK.MaxLength = 32767;
+            this.txtNDK.MouseState = MaterialSkin.MouseState.OUT;
+            this.txtNDK.Multiline = false;
+            this.txtNDK.Name = "txtNDK";
+            this.txtNDK.ReadOnly = true;
+            this.txtNDK.Size = new System.Drawing.Size(344, 36);
+            this.txtNDK.TabIndex = 4;
+            this.txtNDK.Text = "";
+            this.txtNDK.TrailingIcon = null;
+            this.txtNDK.UseTallSize = false;
+            // 
+            // materialCard11
+            // 
+            this.materialCard11.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.materialCard11.Controls.Add(this.groupBox11);
+            this.materialCard11.Depth = 0;
+            this.materialCard11.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.materialCard11.Location = new System.Drawing.Point(10, 151);
+            this.materialCard11.Margin = new System.Windows.Forms.Padding(14);
+            this.materialCard11.MouseState = MaterialSkin.MouseState.HOVER;
+            this.materialCard11.Name = "materialCard11";
+            this.materialCard11.Padding = new System.Windows.Forms.Padding(14);
+            this.materialCard11.Size = new System.Drawing.Size(384, 86);
+            this.materialCard11.TabIndex = 16;
+            // 
+            // groupBox11
+            // 
+            this.groupBox11.Controls.Add(this.comboApktool);
+            this.groupBox11.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.groupBox11.Font = new System.Drawing.Font("Roboto", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.groupBox11.Location = new System.Drawing.Point(14, 14);
+            this.groupBox11.Name = "groupBox11";
+            this.groupBox11.Size = new System.Drawing.Size(356, 58);
+            this.groupBox11.TabIndex = 4;
+            this.groupBox11.TabStop = false;
+            this.groupBox11.Text = "Apktool";
+            // 
+            // comboApktool
+            // 
+            this.comboApktool.AutoResize = false;
+            this.comboApktool.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.comboApktool.Depth = 0;
+            this.comboApktool.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.comboApktool.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
+            this.comboApktool.DropDownHeight = 118;
+            this.comboApktool.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboApktool.DropDownWidth = 121;
+            this.comboApktool.Font = new System.Drawing.Font("Roboto Medium", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
+            this.comboApktool.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.comboApktool.FormattingEnabled = true;
+            this.comboApktool.IntegralHeight = false;
+            this.comboApktool.ItemHeight = 29;
+            this.comboApktool.Location = new System.Drawing.Point(3, 22);
+            this.comboApktool.MaxDropDownItems = 4;
+            this.comboApktool.MouseState = MaterialSkin.MouseState.OUT;
+            this.comboApktool.Name = "comboApktool";
+            this.comboApktool.Size = new System.Drawing.Size(350, 35);
+            this.comboApktool.StartIndex = 0;
+            this.comboApktool.TabIndex = 1;
+            this.comboApktool.UseTallSize = false;
+            // 
+            // materialCard2
+            // 
+            this.materialCard2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.materialCard2.Controls.Add(this.groupBox2);
+            this.materialCard2.Depth = 0;
+            this.materialCard2.Font = new System.Drawing.Font("Roboto", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.materialCard2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.materialCard2.Location = new System.Drawing.Point(397, 151);
+            this.materialCard2.Margin = new System.Windows.Forms.Padding(14);
+            this.materialCard2.MouseState = MaterialSkin.MouseState.HOVER;
+            this.materialCard2.Name = "materialCard2";
+            this.materialCard2.Padding = new System.Windows.Forms.Padding(14);
+            this.materialCard2.Size = new System.Drawing.Size(386, 159);
+            this.materialCard2.TabIndex = 1;
+            // 
+            // groupBox2
+            // 
+            this.groupBox2.Controls.Add(this.label2);
+            this.groupBox2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.groupBox2.Font = new System.Drawing.Font("Roboto", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.groupBox2.Location = new System.Drawing.Point(14, 14);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(358, 131);
+            this.groupBox2.TabIndex = 3;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "CREDIT";
+            // 
+            // label2
+            // 
+            this.label2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label2.Font = new System.Drawing.Font("Roboto", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.label2.Location = new System.Drawing.Point(3, 22);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(352, 106);
+            this.label2.TabIndex = 1;
+            this.label2.Text = "TFive (Coding)\r\nMJx0 A.K.A Ruit (KittyMemory)\r\nLGLTeam (Android Mod Menu)\r\n7Hacke" +
+    "rs (Big Idea ♥)";
+            // 
+            // materialCard1
+            // 
+            this.materialCard1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.materialCard1.Controls.Add(this.groupBox1);
+            this.materialCard1.Depth = 0;
+            this.materialCard1.Font = new System.Drawing.Font("Roboto", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.materialCard1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.materialCard1.Location = new System.Drawing.Point(397, 10);
+            this.materialCard1.Margin = new System.Windows.Forms.Padding(14);
+            this.materialCard1.MouseState = MaterialSkin.MouseState.HOVER;
+            this.materialCard1.Name = "materialCard1";
+            this.materialCard1.Padding = new System.Windows.Forms.Padding(14);
+            this.materialCard1.Size = new System.Drawing.Size(386, 138);
+            this.materialCard1.TabIndex = 0;
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.label1);
+            this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.groupBox1.Font = new System.Drawing.Font("Roboto", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.groupBox1.Location = new System.Drawing.Point(14, 14);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(358, 110);
+            this.groupBox1.TabIndex = 2;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "INFO";
+            // 
+            // label1
+            // 
+            this.label1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label1.Font = new System.Drawing.Font("Roboto", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.label1.Location = new System.Drawing.Point(3, 22);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(352, 85);
+            this.label1.TabIndex = 1;
+            this.label1.Text = "Injection Mod-Menu by hex offset patch.\r\nArchitectures Support:\r\n- armeabi-v7a\r\n-" +
+    " arm64-v8a";
+            // 
             // menuIconList
             // 
             this.menuIconList.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("menuIconList.ImageStream")));
@@ -2111,276 +2382,6 @@ namespace Tools_Injector_Mod_Menu
             this.apkWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.apkWorker_DoWork);
             this.apkWorker.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.apkWorker_RunWorkerCompleted);
             // 
-            // tabLog
-            // 
-            this.tabLog.Controls.Add(this.materialCard9);
-            this.tabLog.ImageKey = "note-2-24.png";
-            this.tabLog.Location = new System.Drawing.Point(4, 31);
-            this.tabLog.Name = "tabLog";
-            this.tabLog.Size = new System.Drawing.Size(797, 480);
-            this.tabLog.TabIndex = 7;
-            this.tabLog.Text = "Log";
-            this.tabLog.UseVisualStyleBackColor = true;
-            // 
-            // picImg
-            // 
-            this.picImg.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.picImg.Location = new System.Drawing.Point(12, 239);
-            this.picImg.Name = "picImg";
-            this.picImg.Size = new System.Drawing.Size(75, 75);
-            this.picImg.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.picImg.TabIndex = 20;
-            this.picImg.TabStop = false;
-            // 
-            // chkLogsWarning
-            // 
-            this.chkLogsWarning.AutoSize = true;
-            this.chkLogsWarning.Checked = true;
-            this.chkLogsWarning.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkLogsWarning.Depth = 0;
-            this.chkLogsWarning.Location = new System.Drawing.Point(3, 59);
-            this.chkLogsWarning.Margin = new System.Windows.Forms.Padding(0);
-            this.chkLogsWarning.MouseLocation = new System.Drawing.Point(-1, -1);
-            this.chkLogsWarning.MouseState = MaterialSkin.MouseState.HOVER;
-            this.chkLogsWarning.Name = "chkLogsWarning";
-            this.chkLogsWarning.Ripple = true;
-            this.chkLogsWarning.Size = new System.Drawing.Size(133, 37);
-            this.chkLogsWarning.TabIndex = 19;
-            this.chkLogsWarning.Text = "Warning Logs";
-            this.chkLogsWarning.UseVisualStyleBackColor = true;
-            // 
-            // btnReplace1
-            // 
-            this.btnReplace1.AccentTextColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(64)))), ((int)(((byte)(129)))));
-            this.btnReplace1.AutoSize = false;
-            this.btnReplace1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.btnReplace1.Density = MaterialSkin.Controls.MaterialButton.MaterialButtonDensity.Default;
-            this.btnReplace1.Depth = 0;
-            this.btnReplace1.HighEmphasis = true;
-            this.btnReplace1.Icon = null;
-            this.btnReplace1.Location = new System.Drawing.Point(157, 73);
-            this.btnReplace1.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
-            this.btnReplace1.MouseState = MaterialSkin.MouseState.HOVER;
-            this.btnReplace1.Name = "btnReplace1";
-            this.btnReplace1.NoAccentTextColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(81)))), ((int)(((byte)(181)))));
-            this.btnReplace1.Size = new System.Drawing.Size(145, 42);
-            this.btnReplace1.TabIndex = 18;
-            this.btnReplace1.Text = "Replace Method 1";
-            this.btnReplace1.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
-            this.btnReplace1.UseAccentColor = false;
-            this.btnReplace1.UseVisualStyleBackColor = true;
-            // 
-            // btnReplace2
-            // 
-            this.btnReplace2.AccentTextColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(64)))), ((int)(((byte)(129)))));
-            this.btnReplace2.AutoSize = false;
-            this.btnReplace2.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.btnReplace2.Density = MaterialSkin.Controls.MaterialButton.MaterialButtonDensity.Default;
-            this.btnReplace2.Depth = 0;
-            this.btnReplace2.HighEmphasis = true;
-            this.btnReplace2.Icon = null;
-            this.btnReplace2.Location = new System.Drawing.Point(157, 127);
-            this.btnReplace2.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
-            this.btnReplace2.MouseState = MaterialSkin.MouseState.HOVER;
-            this.btnReplace2.Name = "btnReplace2";
-            this.btnReplace2.NoAccentTextColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(81)))), ((int)(((byte)(181)))));
-            this.btnReplace2.Size = new System.Drawing.Size(145, 42);
-            this.btnReplace2.TabIndex = 19;
-            this.btnReplace2.Text = "Replace Method 2";
-            this.btnReplace2.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
-            this.btnReplace2.UseAccentColor = false;
-            this.btnReplace2.UseVisualStyleBackColor = true;
-            // 
-            // btnDecompileApk
-            // 
-            this.btnDecompileApk.AccentTextColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(64)))), ((int)(((byte)(129)))));
-            this.btnDecompileApk.AutoSize = false;
-            this.btnDecompileApk.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.btnDecompileApk.Density = MaterialSkin.Controls.MaterialButton.MaterialButtonDensity.Default;
-            this.btnDecompileApk.Depth = 0;
-            this.btnDecompileApk.HighEmphasis = true;
-            this.btnDecompileApk.Icon = null;
-            this.btnDecompileApk.Location = new System.Drawing.Point(9, 73);
-            this.btnDecompileApk.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
-            this.btnDecompileApk.MouseState = MaterialSkin.MouseState.HOVER;
-            this.btnDecompileApk.Name = "btnDecompileApk";
-            this.btnDecompileApk.NoAccentTextColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(81)))), ((int)(((byte)(181)))));
-            this.btnDecompileApk.Size = new System.Drawing.Size(140, 42);
-            this.btnDecompileApk.TabIndex = 20;
-            this.btnDecompileApk.Text = "Re-Decompile";
-            this.btnDecompileApk.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
-            this.btnDecompileApk.UseAccentColor = false;
-            this.btnDecompileApk.UseVisualStyleBackColor = true;
-            // 
-            // btnCompileApk
-            // 
-            this.btnCompileApk.AccentTextColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(64)))), ((int)(((byte)(129)))));
-            this.btnCompileApk.AutoSize = false;
-            this.btnCompileApk.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.btnCompileApk.Density = MaterialSkin.Controls.MaterialButton.MaterialButtonDensity.Default;
-            this.btnCompileApk.Depth = 0;
-            this.btnCompileApk.HighEmphasis = true;
-            this.btnCompileApk.Icon = null;
-            this.btnCompileApk.Location = new System.Drawing.Point(9, 127);
-            this.btnCompileApk.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
-            this.btnCompileApk.MouseState = MaterialSkin.MouseState.HOVER;
-            this.btnCompileApk.Name = "btnCompileApk";
-            this.btnCompileApk.NoAccentTextColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(81)))), ((int)(((byte)(181)))));
-            this.btnCompileApk.Size = new System.Drawing.Size(140, 42);
-            this.btnCompileApk.TabIndex = 21;
-            this.btnCompileApk.Text = "Compile Apk";
-            this.btnCompileApk.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
-            this.btnCompileApk.UseAccentColor = false;
-            this.btnCompileApk.UseVisualStyleBackColor = true;
-            // 
-            // materialCard16
-            // 
-            this.materialCard16.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            this.materialCard16.Controls.Add(this.groupBox17);
-            this.materialCard16.Depth = 0;
-            this.materialCard16.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.materialCard16.Location = new System.Drawing.Point(17, 229);
-            this.materialCard16.Margin = new System.Windows.Forms.Padding(14);
-            this.materialCard16.MouseState = MaterialSkin.MouseState.HOVER;
-            this.materialCard16.Name = "materialCard16";
-            this.materialCard16.Padding = new System.Windows.Forms.Padding(14);
-            this.materialCard16.Size = new System.Drawing.Size(430, 241);
-            this.materialCard16.TabIndex = 24;
-            // 
-            // groupBox17
-            // 
-            this.groupBox17.Controls.Add(this.btnManualCode);
-            this.groupBox17.Controls.Add(this.btnManualCompileMenu);
-            this.groupBox17.Controls.Add(this.btnCompileMenu);
-            this.groupBox17.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox17.Font = new System.Drawing.Font("Roboto", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            this.groupBox17.Location = new System.Drawing.Point(14, 14);
-            this.groupBox17.Name = "groupBox17";
-            this.groupBox17.Size = new System.Drawing.Size(402, 213);
-            this.groupBox17.TabIndex = 4;
-            this.groupBox17.TabStop = false;
-            this.groupBox17.Text = "Compile Menu";
-            // 
-            // btnManualCompileApk1
-            // 
-            this.btnManualCompileApk1.AccentTextColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(64)))), ((int)(((byte)(129)))));
-            this.btnManualCompileApk1.AutoSize = false;
-            this.btnManualCompileApk1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.btnManualCompileApk1.Density = MaterialSkin.Controls.MaterialButton.MaterialButtonDensity.Default;
-            this.btnManualCompileApk1.Depth = 0;
-            this.btnManualCompileApk1.HighEmphasis = true;
-            this.btnManualCompileApk1.Icon = null;
-            this.btnManualCompileApk1.Location = new System.Drawing.Point(310, 73);
-            this.btnManualCompileApk1.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
-            this.btnManualCompileApk1.MouseState = MaterialSkin.MouseState.HOVER;
-            this.btnManualCompileApk1.Name = "btnManualCompileApk1";
-            this.btnManualCompileApk1.NoAccentTextColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(81)))), ((int)(((byte)(181)))));
-            this.btnManualCompileApk1.Size = new System.Drawing.Size(203, 42);
-            this.btnManualCompileApk1.TabIndex = 22;
-            this.btnManualCompileApk1.Text = "Manual Compile Method 1";
-            this.btnManualCompileApk1.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
-            this.btnManualCompileApk1.UseAccentColor = false;
-            this.btnManualCompileApk1.UseVisualStyleBackColor = true;
-            // 
-            // btnManualCompileApk2
-            // 
-            this.btnManualCompileApk2.AccentTextColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(64)))), ((int)(((byte)(129)))));
-            this.btnManualCompileApk2.AutoSize = false;
-            this.btnManualCompileApk2.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.btnManualCompileApk2.Density = MaterialSkin.Controls.MaterialButton.MaterialButtonDensity.Default;
-            this.btnManualCompileApk2.Depth = 0;
-            this.btnManualCompileApk2.HighEmphasis = true;
-            this.btnManualCompileApk2.Icon = null;
-            this.btnManualCompileApk2.Location = new System.Drawing.Point(310, 127);
-            this.btnManualCompileApk2.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
-            this.btnManualCompileApk2.MouseState = MaterialSkin.MouseState.HOVER;
-            this.btnManualCompileApk2.Name = "btnManualCompileApk2";
-            this.btnManualCompileApk2.NoAccentTextColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(81)))), ((int)(((byte)(181)))));
-            this.btnManualCompileApk2.Size = new System.Drawing.Size(203, 42);
-            this.btnManualCompileApk2.TabIndex = 23;
-            this.btnManualCompileApk2.Text = "Manual Compile Method 2";
-            this.btnManualCompileApk2.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
-            this.btnManualCompileApk2.UseAccentColor = false;
-            this.btnManualCompileApk2.UseVisualStyleBackColor = true;
-            // 
-            // btnManualCompileMenu
-            // 
-            this.btnManualCompileMenu.AccentTextColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(64)))), ((int)(((byte)(129)))));
-            this.btnManualCompileMenu.AutoSize = false;
-            this.btnManualCompileMenu.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.btnManualCompileMenu.Density = MaterialSkin.Controls.MaterialButton.MaterialButtonDensity.Default;
-            this.btnManualCompileMenu.Depth = 0;
-            this.btnManualCompileMenu.HighEmphasis = true;
-            this.btnManualCompileMenu.Icon = null;
-            this.btnManualCompileMenu.Location = new System.Drawing.Point(7, 82);
-            this.btnManualCompileMenu.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
-            this.btnManualCompileMenu.MouseState = MaterialSkin.MouseState.HOVER;
-            this.btnManualCompileMenu.Name = "btnManualCompileMenu";
-            this.btnManualCompileMenu.NoAccentTextColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(81)))), ((int)(((byte)(181)))));
-            this.btnManualCompileMenu.Size = new System.Drawing.Size(388, 42);
-            this.btnManualCompileMenu.TabIndex = 20;
-            this.btnManualCompileMenu.Text = "Manual Compile Menu";
-            this.btnManualCompileMenu.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
-            this.btnManualCompileMenu.UseAccentColor = false;
-            this.btnManualCompileMenu.UseVisualStyleBackColor = true;
-            // 
-            // btnManualCode
-            // 
-            this.btnManualCode.AccentTextColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(64)))), ((int)(((byte)(129)))));
-            this.btnManualCode.AutoSize = false;
-            this.btnManualCode.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.btnManualCode.Density = MaterialSkin.Controls.MaterialButton.MaterialButtonDensity.Default;
-            this.btnManualCode.Depth = 0;
-            this.btnManualCode.HighEmphasis = true;
-            this.btnManualCode.Icon = null;
-            this.btnManualCode.Location = new System.Drawing.Point(7, 28);
-            this.btnManualCode.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
-            this.btnManualCode.MouseState = MaterialSkin.MouseState.HOVER;
-            this.btnManualCode.Name = "btnManualCode";
-            this.btnManualCode.NoAccentTextColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(81)))), ((int)(((byte)(181)))));
-            this.btnManualCode.Size = new System.Drawing.Size(388, 42);
-            this.btnManualCode.TabIndex = 21;
-            this.btnManualCode.Text = "Manual Menu Coding";
-            this.btnManualCode.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
-            this.btnManualCode.UseAccentColor = false;
-            this.btnManualCode.UseVisualStyleBackColor = true;
-            // 
-            // materialCard17
-            // 
-            this.materialCard17.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            this.materialCard17.Controls.Add(this.groupBox18);
-            this.materialCard17.Depth = 0;
-            this.materialCard17.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.materialCard17.Location = new System.Drawing.Point(450, 229);
-            this.materialCard17.Margin = new System.Windows.Forms.Padding(14);
-            this.materialCard17.MouseState = MaterialSkin.MouseState.HOVER;
-            this.materialCard17.Name = "materialCard17";
-            this.materialCard17.Padding = new System.Windows.Forms.Padding(14);
-            this.materialCard17.Size = new System.Drawing.Size(333, 241);
-            this.materialCard17.TabIndex = 25;
-            // 
-            // groupBox18
-            // 
-            this.groupBox18.Controls.Add(this.lbApk);
-            this.groupBox18.Controls.Add(this.btnTempDir);
-            this.groupBox18.Controls.Add(this.btnOutput);
-            this.groupBox18.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox18.Font = new System.Drawing.Font("Roboto", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            this.groupBox18.Location = new System.Drawing.Point(14, 14);
-            this.groupBox18.Name = "groupBox18";
-            this.groupBox18.Size = new System.Drawing.Size(305, 213);
-            this.groupBox18.TabIndex = 4;
-            this.groupBox18.TabStop = false;
-            this.groupBox18.Text = "Output";
-            // 
-            // lbApk
-            // 
-            this.lbApk.Location = new System.Drawing.Point(6, 22);
-            this.lbApk.Name = "lbApk";
-            this.lbApk.Size = new System.Drawing.Size(292, 88);
-            this.lbApk.TabIndex = 7;
-            this.lbApk.Text = "App Name: \r\nVersion: \r\nLaunch: ";
-            // 
             // FrmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -2403,6 +2404,7 @@ namespace Tools_Injector_Mod_Menu
             this.materialCard4.ResumeLayout(false);
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.picImg)).EndInit();
             this.materialCard6.ResumeLayout(false);
             this.groupBox6.ResumeLayout(false);
             this.materialCard3.ResumeLayout(false);
@@ -2418,11 +2420,24 @@ namespace Tools_Injector_Mod_Menu
             this.groupBox10.ResumeLayout(false);
             this.groupBox10.PerformLayout();
             this.tabCompile.ResumeLayout(false);
+            this.materialCard17.ResumeLayout(false);
+            this.groupBox18.ResumeLayout(false);
+            this.materialCard16.ResumeLayout(false);
+            this.groupBox17.ResumeLayout(false);
             this.materialCard12.ResumeLayout(false);
             this.groupBox12.ResumeLayout(false);
             this.groupBox12.PerformLayout();
+            this.tabLog.ResumeLayout(false);
             this.materialCard9.ResumeLayout(false);
             this.groupBox9.ResumeLayout(false);
+            this.tabDev.ResumeLayout(false);
+            this.materialCard15.ResumeLayout(false);
+            this.groupBox16.ResumeLayout(false);
+            this.materialCard14.ResumeLayout(false);
+            this.groupBox15.ResumeLayout(false);
+            this.groupBox15.PerformLayout();
+            this.materialCard8.ResumeLayout(false);
+            this.groupBox5.ResumeLayout(false);
             this.tabAbout.ResumeLayout(false);
             this.materialCard5.ResumeLayout(false);
             this.groupBox8.ResumeLayout(false);
@@ -2435,20 +2450,6 @@ namespace Tools_Injector_Mod_Menu
             this.groupBox2.ResumeLayout(false);
             this.materialCard1.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
-            this.tabDev.ResumeLayout(false);
-            this.materialCard15.ResumeLayout(false);
-            this.groupBox16.ResumeLayout(false);
-            this.materialCard14.ResumeLayout(false);
-            this.groupBox15.ResumeLayout(false);
-            this.groupBox15.PerformLayout();
-            this.materialCard8.ResumeLayout(false);
-            this.groupBox5.ResumeLayout(false);
-            this.tabLog.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.picImg)).EndInit();
-            this.materialCard16.ResumeLayout(false);
-            this.groupBox17.ResumeLayout(false);
-            this.materialCard17.ResumeLayout(false);
-            this.groupBox18.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
