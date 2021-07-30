@@ -174,7 +174,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\syringe-24.png" />
-    <None Include="Resources\note-2-24.png" />
     <None Include="Resources\info-24.png" />
     <None Include="Resources\home-7-24.png" />
     <None Include="Resources\package-2-24.png" />
@@ -182,6 +181,7 @@
     <None Include="Resources\save-24.png" />
     <None Include="Resources\folder-7-24.png" />
     <None Include="Resources\tool-box-24.png" />
+    <None Include="Resources\note-2-24.png" />
     <Content Include="T5 - 32.ico" />
   </ItemGroup>
   <ItemGroup>

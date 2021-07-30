@@ -22,6 +22,7 @@ namespace Tools_Injector_Mod_Menu
         public bool chkLogsComplie = true;
         public bool chkLogsSuccess = true;
         public bool chkLogsError = true;
+        public bool chkLogsWarning = true;
         public bool chkSound = true;
         public bool chkNoMenu;
         public bool chkCheckUpdate = true;

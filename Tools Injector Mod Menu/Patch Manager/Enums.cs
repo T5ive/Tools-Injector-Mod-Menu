@@ -36,5 +36,13 @@
             PatchToggle,
             Empty
         }
+        public enum LogsType
+        {
+            Compile,
+            Success,
+            Warning,
+            Error,
+            Logs
+        }
     }
 }

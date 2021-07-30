@@ -38,7 +38,6 @@ namespace Tools_Injector_Mod_Menu
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.chkNoMenu = new MaterialSkin.Controls.MaterialCheckbox();
             this.label12 = new System.Windows.Forms.Label();
-            this.picImg = new System.Windows.Forms.PictureBox();
             this.btnImageCode = new MaterialSkin.Controls.MaterialButton();
             this.btnImage = new MaterialSkin.Controls.MaterialButton();
             this.label8 = new System.Windows.Forms.Label();
@@ -89,7 +88,6 @@ namespace Tools_Injector_Mod_Menu
             this.materialCard12 = new MaterialSkin.Controls.MaterialCard();
             this.groupBox12 = new System.Windows.Forms.GroupBox();
             this.btnCompileMenu = new MaterialSkin.Controls.MaterialButton();
-            this.label15 = new System.Windows.Forms.Label();
             this.btnCompile2 = new MaterialSkin.Controls.MaterialButton();
             this.label14 = new System.Windows.Forms.Label();
             this.btnBrowseApk = new MaterialSkin.Controls.MaterialButton();
@@ -150,11 +148,13 @@ namespace Tools_Injector_Mod_Menu
             this.menuIconList = new System.Windows.Forms.ImageList(this.components);
             this.compilerWorker = new System.ComponentModel.BackgroundWorker();
             this.apkWorker = new System.ComponentModel.BackgroundWorker();
+            this.tabLog = new System.Windows.Forms.TabPage();
+            this.picImg = new System.Windows.Forms.PictureBox();
+            this.chkLogsWarning = new MaterialSkin.Controls.MaterialCheckbox();
             this.materialTabControl1.SuspendLayout();
             this.tabMain.SuspendLayout();
             this.materialCard4.SuspendLayout();
             this.groupBox4.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.picImg)).BeginInit();
             this.materialCard6.SuspendLayout();
             this.groupBox6.SuspendLayout();
             this.materialCard3.SuspendLayout();
@@ -190,6 +190,8 @@ namespace Tools_Injector_Mod_Menu
             this.groupBox15.SuspendLayout();
             this.materialCard8.SuspendLayout();
             this.groupBox5.SuspendLayout();
+            this.tabLog.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.picImg)).BeginInit();
             this.SuspendLayout();
             // 
             // materialTabControl1
@@ -197,8 +199,9 @@ namespace Tools_Injector_Mod_Menu
             this.materialTabControl1.Controls.Add(this.tabMain);
             this.materialTabControl1.Controls.Add(this.tabMenuPatch);
             this.materialTabControl1.Controls.Add(this.tabCompile);
-            this.materialTabControl1.Controls.Add(this.tabAbout);
+            this.materialTabControl1.Controls.Add(this.tabLog);
             this.materialTabControl1.Controls.Add(this.tabDev);
+            this.materialTabControl1.Controls.Add(this.tabAbout);
             this.materialTabControl1.Depth = 0;
             this.materialTabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.materialTabControl1.ImageList = this.menuIconList;
@@ -310,16 +313,6 @@ namespace Tools_Injector_Mod_Menu
             this.label12.Size = new System.Drawing.Size(23, 18);
             this.label12.TabIndex = 22;
             this.label12.Text = "Or";
-            // 
-            // picImg
-            // 
-            this.picImg.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.picImg.Location = new System.Drawing.Point(12, 239);
-            this.picImg.Name = "picImg";
-            this.picImg.Size = new System.Drawing.Size(75, 75);
-            this.picImg.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.picImg.TabIndex = 20;
-            this.picImg.TabStop = false;
             // 
             // btnImageCode
             // 
@@ -931,7 +924,7 @@ namespace Tools_Injector_Mod_Menu
             // 
             this.txtTargetLib.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.txtTargetLib.Depth = 0;
-            this.txtTargetLib.Font = new System.Drawing.Font("Roboto", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.txtTargetLib.Font = new System.Drawing.Font("Roboto", 12F);
             this.txtTargetLib.Hint = "libil2cpp.so";
             this.txtTargetLib.LeadingIcon = null;
             this.txtTargetLib.Location = new System.Drawing.Point(582, 25);
@@ -1018,10 +1011,10 @@ namespace Tools_Injector_Mod_Menu
             // 
             // tabCompile
             // 
+            this.tabCompile.Controls.Add(this.btnCompileMenu);
             this.tabCompile.Controls.Add(this.materialCard12);
             this.tabCompile.Controls.Add(this.btnOutput);
             this.tabCompile.Controls.Add(this.btnTempDir);
-            this.tabCompile.Controls.Add(this.materialCard9);
             this.tabCompile.ImageKey = "tool-box-24.png";
             this.tabCompile.Location = new System.Drawing.Point(4, 31);
             this.tabCompile.Name = "tabCompile";
@@ -1037,7 +1030,7 @@ namespace Tools_Injector_Mod_Menu
             this.materialCard12.Controls.Add(this.groupBox12);
             this.materialCard12.Depth = 0;
             this.materialCard12.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.materialCard12.Location = new System.Drawing.Point(465, 14);
+            this.materialCard12.Location = new System.Drawing.Point(17, 17);
             this.materialCard12.Margin = new System.Windows.Forms.Padding(14);
             this.materialCard12.MouseState = MaterialSkin.MouseState.HOVER;
             this.materialCard12.Name = "materialCard12";
@@ -1047,8 +1040,6 @@ namespace Tools_Injector_Mod_Menu
             // 
             // groupBox12
             // 
-            this.groupBox12.Controls.Add(this.btnCompileMenu);
-            this.groupBox12.Controls.Add(this.label15);
             this.groupBox12.Controls.Add(this.btnCompile2);
             this.groupBox12.Controls.Add(this.label14);
             this.groupBox12.Controls.Add(this.btnBrowseApk);
@@ -1072,7 +1063,7 @@ namespace Tools_Injector_Mod_Menu
             this.btnCompileMenu.Depth = 0;
             this.btnCompileMenu.HighEmphasis = true;
             this.btnCompileMenu.Icon = null;
-            this.btnCompileMenu.Location = new System.Drawing.Point(7, 245);
+            this.btnCompileMenu.Location = new System.Drawing.Point(487, 289);
             this.btnCompileMenu.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
             this.btnCompileMenu.MouseState = MaterialSkin.MouseState.HOVER;
             this.btnCompileMenu.Name = "btnCompileMenu";
@@ -1084,15 +1075,6 @@ namespace Tools_Injector_Mod_Menu
             this.btnCompileMenu.UseAccentColor = false;
             this.btnCompileMenu.UseVisualStyleBackColor = true;
             this.btnCompileMenu.Click += new System.EventHandler(this.btnCompileMenu_Click);
-            // 
-            // label15
-            // 
-            this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(6, 217);
-            this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(281, 18);
-            this.label15.TabIndex = 18;
-            this.label15.Text = "_______________________________________";
             // 
             // btnCompile2
             // 
@@ -1240,12 +1222,12 @@ namespace Tools_Injector_Mod_Menu
             this.materialCard9.Controls.Add(this.groupBox9);
             this.materialCard9.Depth = 0;
             this.materialCard9.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.materialCard9.Location = new System.Drawing.Point(10, 14);
+            this.materialCard9.Location = new System.Drawing.Point(14, 14);
             this.materialCard9.Margin = new System.Windows.Forms.Padding(14);
             this.materialCard9.MouseState = MaterialSkin.MouseState.HOVER;
             this.materialCard9.Name = "materialCard9";
             this.materialCard9.Padding = new System.Windows.Forms.Padding(14);
-            this.materialCard9.Size = new System.Drawing.Size(449, 452);
+            this.materialCard9.Size = new System.Drawing.Size(769, 452);
             this.materialCard9.TabIndex = 4;
             // 
             // btnClearLog
@@ -1262,7 +1244,7 @@ namespace Tools_Injector_Mod_Menu
             this.btnClearLog.MouseState = MaterialSkin.MouseState.HOVER;
             this.btnClearLog.Name = "btnClearLog";
             this.btnClearLog.NoAccentTextColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(81)))), ((int)(((byte)(181)))));
-            this.btnClearLog.Size = new System.Drawing.Size(98, 36);
+            this.btnClearLog.Size = new System.Drawing.Size(249, 36);
             this.btnClearLog.TabIndex = 5;
             this.btnClearLog.Text = "Clear";
             this.btnClearLog.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
@@ -1279,12 +1261,12 @@ namespace Tools_Injector_Mod_Menu
             this.btnSaveLog.Depth = 0;
             this.btnSaveLog.HighEmphasis = true;
             this.btnSaveLog.Icon = null;
-            this.btnSaveLog.Location = new System.Drawing.Point(124, 396);
+            this.btnSaveLog.Location = new System.Drawing.Point(275, 396);
             this.btnSaveLog.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
             this.btnSaveLog.MouseState = MaterialSkin.MouseState.HOVER;
             this.btnSaveLog.Name = "btnSaveLog";
             this.btnSaveLog.NoAccentTextColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(81)))), ((int)(((byte)(181)))));
-            this.btnSaveLog.Size = new System.Drawing.Size(307, 36);
+            this.btnSaveLog.Size = new System.Drawing.Size(480, 36);
             this.btnSaveLog.TabIndex = 4;
             this.btnSaveLog.Text = "Save";
             this.btnSaveLog.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
@@ -1299,7 +1281,7 @@ namespace Tools_Injector_Mod_Menu
             this.groupBox9.Font = new System.Drawing.Font("Roboto", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
             this.groupBox9.Location = new System.Drawing.Point(14, 14);
             this.groupBox9.Name = "groupBox9";
-            this.groupBox9.Size = new System.Drawing.Size(421, 373);
+            this.groupBox9.Size = new System.Drawing.Size(741, 373);
             this.groupBox9.TabIndex = 3;
             this.groupBox9.TabStop = false;
             this.groupBox9.Text = "LOGS";
@@ -1313,7 +1295,8 @@ namespace Tools_Injector_Mod_Menu
             this.rbLog.Location = new System.Drawing.Point(3, 22);
             this.rbLog.Name = "rbLog";
             this.rbLog.ReadOnly = true;
-            this.rbLog.Size = new System.Drawing.Size(415, 348);
+            this.rbLog.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.ForcedVertical;
+            this.rbLog.Size = new System.Drawing.Size(735, 348);
             this.rbLog.TabIndex = 0;
             this.rbLog.Text = "";
             // 
@@ -1372,6 +1355,7 @@ namespace Tools_Injector_Mod_Menu
             // 
             // groupBox8
             // 
+            this.groupBox8.Controls.Add(this.chkLogsWarning);
             this.groupBox8.Controls.Add(this.chkCheckUpdate);
             this.groupBox8.Controls.Add(this.chkSound);
             this.groupBox8.Controls.Add(this.chkRemoveTemp);
@@ -1392,7 +1376,7 @@ namespace Tools_Injector_Mod_Menu
             // 
             this.chkCheckUpdate.AutoSize = true;
             this.chkCheckUpdate.Depth = 0;
-            this.chkCheckUpdate.Location = new System.Drawing.Point(157, 96);
+            this.chkCheckUpdate.Location = new System.Drawing.Point(139, 96);
             this.chkCheckUpdate.Margin = new System.Windows.Forms.Padding(0);
             this.chkCheckUpdate.MouseLocation = new System.Drawing.Point(-1, -1);
             this.chkCheckUpdate.MouseState = MaterialSkin.MouseState.HOVER;
@@ -1409,7 +1393,7 @@ namespace Tools_Injector_Mod_Menu
             this.chkSound.Checked = true;
             this.chkSound.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkSound.Depth = 0;
-            this.chkSound.Location = new System.Drawing.Point(157, 59);
+            this.chkSound.Location = new System.Drawing.Point(264, 59);
             this.chkSound.Margin = new System.Windows.Forms.Padding(0);
             this.chkSound.MouseLocation = new System.Drawing.Point(-1, -1);
             this.chkSound.MouseState = MaterialSkin.MouseState.HOVER;
@@ -1460,7 +1444,7 @@ namespace Tools_Injector_Mod_Menu
             this.chkLogsError.Checked = true;
             this.chkLogsError.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkLogsError.Depth = 0;
-            this.chkLogsError.Location = new System.Drawing.Point(3, 59);
+            this.chkLogsError.Location = new System.Drawing.Point(139, 59);
             this.chkLogsError.Margin = new System.Windows.Forms.Padding(0);
             this.chkLogsError.MouseLocation = new System.Drawing.Point(-1, -1);
             this.chkLogsError.MouseState = MaterialSkin.MouseState.HOVER;
@@ -1494,15 +1478,15 @@ namespace Tools_Injector_Mod_Menu
             this.chkLogsSuccess.Checked = true;
             this.chkLogsSuccess.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkLogsSuccess.Depth = 0;
-            this.chkLogsSuccess.Location = new System.Drawing.Point(157, 22);
+            this.chkLogsSuccess.Location = new System.Drawing.Point(139, 22);
             this.chkLogsSuccess.Margin = new System.Windows.Forms.Padding(0);
             this.chkLogsSuccess.MouseLocation = new System.Drawing.Point(-1, -1);
             this.chkLogsSuccess.MouseState = MaterialSkin.MouseState.HOVER;
             this.chkLogsSuccess.Name = "chkLogsSuccess";
             this.chkLogsSuccess.Ripple = true;
-            this.chkLogsSuccess.Size = new System.Drawing.Size(137, 37);
+            this.chkLogsSuccess.Size = new System.Drawing.Size(133, 37);
             this.chkLogsSuccess.TabIndex = 12;
-            this.chkLogsSuccess.Text = "Success  Logs";
+            this.chkLogsSuccess.Text = "Success Logs";
             this.chkLogsSuccess.UseVisualStyleBackColor = true;
             // 
             // btnUpdate
@@ -1789,7 +1773,7 @@ namespace Tools_Injector_Mod_Menu
             // 
             this.txtPermission.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.txtPermission.Depth = 0;
-            this.txtPermission.Font = new System.Drawing.Font("Roboto", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.txtPermission.Font = new System.Drawing.Font("Roboto", 12F);
             this.txtPermission.LeadingIcon = null;
             this.txtPermission.Location = new System.Drawing.Point(6, 33);
             this.txtPermission.MaxLength = 3000;
@@ -1851,7 +1835,7 @@ namespace Tools_Injector_Mod_Menu
             // 
             this.txtService.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.txtService.Depth = 0;
-            this.txtService.Font = new System.Drawing.Font("Roboto", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.txtService.Font = new System.Drawing.Font("Roboto", 12F);
             this.txtService.LeadingIcon = null;
             this.txtService.Location = new System.Drawing.Point(6, 81);
             this.txtService.MaxLength = 3000;
@@ -1954,7 +1938,7 @@ namespace Tools_Injector_Mod_Menu
             // 
             this.txtFind.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.txtFind.Depth = 0;
-            this.txtFind.Font = new System.Drawing.Font("Roboto", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.txtFind.Font = new System.Drawing.Font("Roboto", 12F);
             this.txtFind.LeadingIcon = null;
             this.txtFind.Location = new System.Drawing.Point(6, 22);
             this.txtFind.MaxLength = 3000;
@@ -2044,7 +2028,7 @@ namespace Tools_Injector_Mod_Menu
             // 
             this.txtOnCreate.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.txtOnCreate.Depth = 0;
-            this.txtOnCreate.Font = new System.Drawing.Font("Roboto", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.txtOnCreate.Font = new System.Drawing.Font("Roboto", 12F);
             this.txtOnCreate.LeadingIcon = null;
             this.txtOnCreate.Location = new System.Drawing.Point(6, 25);
             this.txtOnCreate.MaxLength = 3000;
@@ -2105,6 +2089,44 @@ namespace Tools_Injector_Mod_Menu
             this.apkWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.apkWorker_DoWork);
             this.apkWorker.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.apkWorker_RunWorkerCompleted);
             // 
+            // tabLog
+            // 
+            this.tabLog.Controls.Add(this.materialCard9);
+            this.tabLog.ImageKey = "note-2-24.png";
+            this.tabLog.Location = new System.Drawing.Point(4, 31);
+            this.tabLog.Name = "tabLog";
+            this.tabLog.Size = new System.Drawing.Size(797, 480);
+            this.tabLog.TabIndex = 7;
+            this.tabLog.Text = "Log";
+            this.tabLog.UseVisualStyleBackColor = true;
+            // 
+            // picImg
+            // 
+            this.picImg.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.picImg.Location = new System.Drawing.Point(12, 239);
+            this.picImg.Name = "picImg";
+            this.picImg.Size = new System.Drawing.Size(75, 75);
+            this.picImg.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.picImg.TabIndex = 20;
+            this.picImg.TabStop = false;
+            // 
+            // chkLogsWarning
+            // 
+            this.chkLogsWarning.AutoSize = true;
+            this.chkLogsWarning.Checked = true;
+            this.chkLogsWarning.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkLogsWarning.Depth = 0;
+            this.chkLogsWarning.Location = new System.Drawing.Point(3, 59);
+            this.chkLogsWarning.Margin = new System.Windows.Forms.Padding(0);
+            this.chkLogsWarning.MouseLocation = new System.Drawing.Point(-1, -1);
+            this.chkLogsWarning.MouseState = MaterialSkin.MouseState.HOVER;
+            this.chkLogsWarning.Name = "chkLogsWarning";
+            this.chkLogsWarning.Ripple = true;
+            this.chkLogsWarning.Size = new System.Drawing.Size(133, 37);
+            this.chkLogsWarning.TabIndex = 19;
+            this.chkLogsWarning.Text = "Warning Logs";
+            this.chkLogsWarning.UseVisualStyleBackColor = true;
+            // 
             // FrmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -2127,7 +2149,6 @@ namespace Tools_Injector_Mod_Menu
             this.materialCard4.ResumeLayout(false);
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.picImg)).EndInit();
             this.materialCard6.ResumeLayout(false);
             this.groupBox6.ResumeLayout(false);
             this.materialCard3.ResumeLayout(false);
@@ -2168,6 +2189,8 @@ namespace Tools_Injector_Mod_Menu
             this.groupBox15.PerformLayout();
             this.materialCard8.ResumeLayout(false);
             this.groupBox5.ResumeLayout(false);
+            this.tabLog.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.picImg)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -2290,8 +2313,9 @@ namespace Tools_Injector_Mod_Menu
         private MaterialSkin.Controls.MaterialTextBox txtApkTarget;
         private MaterialSkin.Controls.MaterialButton btnCompile2;
         private MaterialSkin.Controls.MaterialButton btnCompileMenu;
-        private System.Windows.Forms.Label label15;
         private System.ComponentModel.BackgroundWorker apkWorker;
         private MaterialSkin.Controls.MaterialComboBox comboApktool;
+        private System.Windows.Forms.TabPage tabLog;
+        private MaterialSkin.Controls.MaterialCheckbox chkLogsWarning;
     }
 }
