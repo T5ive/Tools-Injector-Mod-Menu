@@ -36,6 +36,7 @@
             PatchToggle,
             Empty
         }
+
         public enum LogsType
         {
             Compile,
@@ -43,6 +44,17 @@
             Warning,
             Error,
             Logs
+        }
+
+        public enum ProcessType
+        {
+            DecompileApk,
+            CompileApk,
+            MenuManual,
+            MenuFull,
+            ApkFull1,
+            ApkFull2,
+            None
         }
     }
 }

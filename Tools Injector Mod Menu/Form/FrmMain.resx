@@ -117,6 +117,23 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <metadata name="colNameCheat.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="colType.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="contextMenuStrip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>280, 17</value>
+  </metadata>
+  <data name="txtActionMain.Text" xml:space="preserve">
+    <value>&lt;activity android:configChanges="keyboardHidden|orientation|screenSize" android:name="com.tfivel.MainActivity"&gt;
+            &lt;intent-filter&gt;
+                &lt;action android:name="android.intent.action.MAIN"/&gt;
+                &lt;category android:name="android.intent.category.LAUNCHER"/&gt;
+            &lt;/intent-filter&gt;
+        &lt;/activity&gt;</value>
+  </data>
   <metadata name="menuIconList.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
   </metadata>
@@ -125,49 +142,49 @@
         AAEAAAD/////AQAAAAAAAAAMAgAAAFdTeXN0ZW0uV2luZG93cy5Gb3JtcywgVmVyc2lvbj00LjAuMC4w
         LCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWI3N2E1YzU2MTkzNGUwODkFAQAAACZTeXN0
         ZW0uV2luZG93cy5Gb3Jtcy5JbWFnZUxpc3RTdHJlYW1lcgEAAAAERGF0YQcCAgAAAAkDAAAADwMAAABU
-        IQAAAk1TRnQBSQFMAgEBBwEAAWgBAgFoAQIBGAEAARgBAAT/ASEBAAj/AUIBTQE2BwABNgMAASgDAAFg
+        IQAAAk1TRnQBSQFMAgEBBwEAAYABAgGAAQIBGAEAARgBAAT/ASEBAAj/AUIBTQE2BwABNgMAASgDAAFg
         AwABMAMAAQEBAAEgBgABSDIAAwEBAgMmATgDUgGjA0YBfgM6AWIDVgGxAywBRAMDAQQgAAMsAUQDLgFI
         /wAxAAMGAQgDLQFGA1UBtQNtAfcE/wNKAYsDPgFqBP8DagH5A1sBwwM0AVQDCQEMGAADNgFYA10B7QMv
         AUpYAAMEAQYDEwEaAxQBHAMUARwDFAEcAxQBHAMUARwDFAEcAxQBHAMUARwDFAEcAxQBHAMUARwDFAEc
         AxQBHAMUARwDFAEcAxQBHAMUARwDFAEcAxMBGgMEAQZ0AAMEAQYDNgFYA1kBxwOoAf0D/gH/A/4F/wNK
         AYsDPgFqBP8D/gH/A/4B/wOoAf0DXQHTAzwBZgMHAQoQAAMrAUIDagH5A2QB8QMrAUIQAAMQARYDIwE0
-        AwMBBDQAAxMBGgNXAbcDnAHzA7UB9wO1AfcDtQH3A7UB9wO1AfcDtQH3A7UB9wO1AfcDtQH3A7UB9wO1
-        AfcDtQH3A7UB9wO1AfcDtQH3A7UB9wO1AfcDtQH3A5sB8wNXAbcDFAEcaAADDwEUA0ABcANcAd8Y/wNK
+        AwMBBDQAAxMBGgNXAbcDjgHzA6cB9wOnAfcDpwH3A6cB9wOnAfcDpwH3A6cB9wOnAfcDpwH3A6cB9wOn
+        AfcDpwH3A6cB9wOnAfcDpwH3A6cB9wOnAfcDpwH3A40B8wNXAbcDFAEcaAADDwEUA0ABcANcAd8Y/wNK
         AYsDPgFqCP8D/gn/A/4B/wNiAekDRwGBAxQBHAwAAzsBZANtAfcDZAHxAzYBWAMzAVIDTgGVA14B1QOo
         Af0E/wNWAbMDDAEQMAADVQGtCP8D/iH/A/4J/wP+Cf8D/gn/A/4F/wNVAa1gAAMWAR4DSAGFA18B4yD/
-        A0oBiwM+AWog/wNgAesDTgGVAxwBKAQAAwEBAgM7AWQDagH5A18B+xj/A1gBuwMKAQ4sAAN5AelY/wOC
+        A0oBiwM+AWog/wNgAesDTgGVAxwBKAQAAwEBAgM7AWQDagH5A18B+xj/A1gBuwMKAQ4sAANuAelY/wN3
         AetgAANZAb8E/wP+Af8D/gX/A/4B/wP+Bf8D/gH/A/4F/wNKAYsDPgFqBP8D/gH/A/4F/wP+Af8D/gX/
-        A/4B/wP+Bf8DXgHVDAADWwHDBP8D/gH/A/4F/wP+Af8D/gX/A/4B/wNXAbcDDAEQKAADjAHvBP8D/gH/
-        A/4F/wP+Af8D/gX/A/4B/wP+Bf8D/gH/A/4F/wP+Af8D/gX/A/4B/wP+Bf8D/gH/A/4F/wOVAfFgAANZ
+        A/4B/wP+Bf8DXgHVDAADWwHDBP8D/gH/A/4F/wP+Af8D/gX/A/4B/wNXAbcDDAEQKAADfgHvBP8D/gH/
+        A/4F/wP+Af8D/gX/A/4B/wP+Bf8D/gH/A/4F/wP+Af8D/gX/A/4B/wP+Bf8D/gH/A/4F/wOGAfFgAANZ
         AccI/wP+Hf8DSgGLAz4Bagj/A/4J/wP+Cf8D/gX/A18B2wgAAwYBCANfAfMI/wNiAe8DbQH3EP8D/gH/
-        A1oBvQMNARIkAAOVAfEI/wP+If8D/gn/A/4J/wP+Cf8D/gX/A5wB82AAA1kBxyj/A0oBiwM+AWoo/wNf
-        AdsIAAMpAT4I/wNiAekDJgE4AzsBZAOoAf0U/wNaAb0DDAEQCAADFAEcA0QBegMqAUAMAAOcAfNY/wOc
+        A1oBvQMNARIkAAOGAfEI/wP+If8D/gn/A/4J/wP+Cf8D/gX/A44B82AAA1kBxyj/A0oBiwM+AWoo/wNf
+        AdsIAAMpAT4I/wNiAekDJgE4AzsBZAOoAf0U/wNaAb0DDAEQCAADFAEcA0QBegMqAUAMAAOOAfNY/wOO
         AfNgAANZAccE/wP+Af8D/gX/A/4B/wP+Bf8D/gH/A/4F/wNKAYsDPgFqBP8D/gH/A/4F/wP+Af8D/gX/
         A/4B/wP+Bf8DXwHbCAADRwGBA/4B/wNQAZ0DJgE4AwMBBANNAZEDqAH9A/4F/wP+Af8D/gX/A/4B/wNY
-        AbkDDAEQAxQBHANeAdUE/wNkAfEDBAEGCAADnAHzBP8D/gH/A/4F/wP+Af8D/gX/A/4B/wP+Bf8D/gH/
-        A/4F/wP+Af8D/gX/A/4B/wP+Bf8D/gH/A/4F/wObAfNgAANZAccI/wP+Bf8DZAHxA08BlwNUAa8M/wNK
+        AbkDDAEQAxQBHANeAdUE/wNkAfEDBAEGCAADjgHzBP8D/gH/A/4F/wP+Af8D/gX/A/4B/wP+Bf8D/gH/
+        A/4F/wP+Af8D/gX/A/4B/wP+Bf8D/gH/A/4F/wONAfNgAANZAccI/wP+Bf8DZAHxA08BlwNUAa8M/wNK
         AYsDPgFqCP8D/gn/A/4J/wP+Bf8DXwHbBAADAQECA1kBvwOoAf0DIAEuBAADSgGLA6gB/QNfAfsDUgGj
-        A1kB9QT/A/4J/wP+Af8DWQHHA10B1wP+Bf8DXAHNAwEBAggAA5wB8wj/A/4h/wP+Cf8D/gn/A/4J/wP+
-        Bf8DnAHzYAADWQHHCP8DYgHpA0oBjQMaASQEAANKAYsM/wNKAYsDPgFqKP8DXwHbBAADAQECA1MBpQT/
-        A1IBqQMJAQwDKgFAA18B4wNBAXIDAwEEA04BmSD/A1wB0QMXASAMAAOcAfMM/wNZAb8DHAEoAxwBKANV
-        AbUg/wNXAbcDHAEoAxwBKANZAb8M/wOcAfNgAANZAccE/wNqAfkDEwEaDAADSgGNA/4B/wP+Bf8DSgGL
+        A1kB9QT/A/4J/wP+Af8DWQHHA10B1wP+Bf8DXAHNAwEBAggAA44B8wj/A/4h/wP+Cf8D/gn/A/4J/wP+
+        Bf8DjgHzYAADWQHHCP8DYgHpA0oBjQMaASQEAANKAYsM/wNKAYsDPgFqKP8DXwHbBAADAQECA1MBpQT/
+        A1IBqQMJAQwDKgFAA18B4wNBAXIDAwEEA04BmSD/A1wB0QMXASAMAAOOAfMM/wNZAb8DHAEoAxwBKANV
+        AbUg/wNXAbcDHAEoAxwBKANZAb8M/wOOAfNgAANZAccE/wNqAfkDEwEaDAADSgGNA/4B/wP+Bf8DSgGL
         Az4BagT/A/4B/wP+Bf8D/gH/A/4F/wP+Af8D/gX/A18B2wgAAw8BFANcAc0E/wNVAa0DBAEGAxQBHAMB
-        AQIDNQFWA18B8wP+Af8D/gX/A/4B/wP+Bf8D/gH/A10B1wMaASQQAAOCAesDtQH3A7UB9wO1AfcDUAGd
-        CAADTAGPA7UB9wO1AfcDtQH3A7UB9wO1AfcDtQH3A7UB9wO1AfcDTQGRCAADUAGbA7UB9wO1AfcDtQH3
-        A4IB62AAA1kBxwT/A20B9xAAA0oBjQT/A/4F/wNKAYsDPQFoCP8D/gn/A/4J/wP+Bf8DXwHbDAADEAEW
+        AQIDNQFWA18B8wP+Af8D/gX/A/4B/wP+Bf8D/gH/A10B1wMaASQQAAN3AesDpwH3A6cB9wOnAfcDUAGd
+        CAADTAGPA6cB9wOnAfcDpwH3A6cB9wOnAfcDpwH3A6cB9wOnAfcDTQGRCAADUAGbA6cB9wOnAfcDpwH3
+        A3cB62AAA1kBxwT/A20B9xAAA0oBjQT/A/4F/wNKAYsDPQFoCP8D/gn/A/4J/wP+Bf8DXwHbDAADEAEW
         A1kBxwT/A1UBrQMJAQwDCgEOA2QB5wT/A1cBtwM7AWQDWQH1BP8D/gX/A14B2QMWAR4UAAMaASQDGwEm
         AxsBJgMbASYDEgEYCAADEAEWAxsBJgMbASYDGwEmAxsBJgMbASYDGwEmAxsBJgMbASYDEAEWCAADEgEY
         AxsBJgMbASYDGwEmAxoBJGAAA1kBxwT/A1kB9RAAA0oBjQT/A2IB6QNMAY8DGgEkAxQBHANGAX4DYQHh
         IP8DXwHbEAADFAEcA1wByQT/A1IBqQMJAQwDKgFAA1IBowMMARADGwEmA18B4wj/A10B1wMbASYDEwEa
-        AwYBCAQAAwkBDAMJAQwEAANvAeMDnAHzA5wB8wOcAfMDWAG5AyABLgMfASwDVgGxA5wB8wObAfMDmwHz
-        A5wB8wObAfMDnAHzA5wB8wObAfMDVgGxAx8BLAMgAS4DWAG5A5wB8wObAfMDnAHzA3YB5WAAA1kBxwT/
+        AwYBCAQAAwkBDAMJAQwEAANmAeMDjgHzA44B8wOOAfMDWAG5AyABLgMfASwDVgGxA44B8wONAfMDjQHz
+        A44B8wONAfMDjgHzA44B8wONAfMDVgGxAx8BLAMgAS4DWAG5A44B8wONAfMDjgHzA2wB5WAAA1kBxwT/
         A20B9xAAA0IBdANGAX4DFAEcAy0BRgNYAbkDWQHHAzgBXAMSARgDPwFsA14B2QP+Af8D/gH/A/4B/wP+
         Af8D/gH/A/4B/wNfAdsUAAMSARgDXAHRA/4B/wNVAa0DBAEGAwEBAgMUARwDXQHXA/4B/wP+Af8DXwHb
-        AxwBKAMYASIDXgHdA08BlwMhATADXQHTA1wB0QMbASYDYwHXBP8D/gH/A/4F/wP+Af8D/gX/A/4B/wP+
-        Bf8D/gH/A/4B/wP+Af8D/gH/A/4B/wP+Af8D/gH/A/4B/wP+Af8D/gH/A/4B/wP+Af8DYwHXYAADWQHH
+        AxwBKAMYASIDXgHdA08BlwMhATADXQHTA1wB0QMbASYDXwHXBP8D/gH/A/4F/wP+Af8D/gX/A/4B/wP+
+        Bf8D/gH/A/4B/wP+Af8D/gH/A/4B/wP+Af8D/gH/A/4B/wP+Af8D/gH/A/4B/wP+Af8DXwHXYAADWQHH
         BP8DbQH3FAADJAE2A1sBywj/A/4F/wNfAeMDQAFwAxQBHAMzAVIDWwHDA18B+wT/A/4F/wNfAdsYAAMS
         ARgDXAHJBP8DVQGtAyIBMgNdAdcD/gX/A18B2wMXASAEAAMYASIDXgHdBP8DXwH7A/4F/wMzAVIDNgFY
-        A6QB9RD/A/4J/wP+Cf8D/gn/A/4J/wP+Cf8D/gH/A7UB9wM2AVhgAANZAccE/wNiAe8UAAMKAQ4DPQFo
+        A5cB9RD/A/4J/wP+Cf8D/gn/A/4J/wP+Cf8D/gH/A6cB9wM2AVhgAANZAccE/wNiAe8UAAMKAQ4DPQFo
         A14B1QOoAf0Q/wNlAeUDSgGLAxwBKAMrAUIDVgGxA1kB9QT/A18B2xwAAxQBHANcAckD/gH/A2QB8Qj/
         A10B1wMcASgMAAM2AVgDXwH7CP8DWAG5AwwBEAMBAQIDKAE8A0gBgwNKAY0DTAGPA00BkQNMAZMDTgGV
         A04BlQNOAZUDTwGXA08BlwNPAZcDTwGXA08BlwNOAZUDTgGVA0wBkwNNAZEDTQGRA0oBjQNIAYUDKAE8
@@ -178,12 +195,12 @@
         A10B1wj/A14B2QMWAR4DHQEqA1QBrwMSARgDJAE2A2UB5QP+Bf8DWwHDAwoBDiAAA0YBfgT/AzgBXBgA
         AzcBWgT/A0cBgXwAAycBOgNWAbMDWQH1BP8DqAH9A1wBzQM4AVwDCgEOFAADBAEGAy4BSANYAbsDbQH3
         CP8DagH5A1kBvwMvAUocAAMJAQwDWQHHCP8DXAHRAxoBJAQAA0wBjwT/A10B0wNlAeUI/wNZAb8DEAEW
-        JAADNAFUA+IB/QNVAbUDCgEOAwEBAggAAwEBAgMKAQ4DVgGzA+IB/QM1AVaEAAMiATIDTgGZA18B8wP+
+        JAADNAFUA9kB/QNVAbUDCgEOAwEBAggAAwEBAgMKAQ4DVgGzA9kB/QM1AVaEAAMiATIDTgGZA18B8wP+
         Af8D/gH/A10B1wM9AWgDBwEKFAADAwEEAykBPgNWAbEDUwGlAykBPgMBAQIgAAMUARwDXQHtA/4B/wNc
-        AdEDFwEgCAADCQEMA1UBtQP+Bf8D/gH/A1sBwwMQARYoAAMJAQwDXAHJA/4B/wNjAdkDWAHBA1kBvwNZ
-        Ab8DWAHBA2MB2QP+Af8DXAHJAwkBDIwAAw8BFANFAXwDXwHbA/4B/wP+Af8DZQHlA0MBeAMQARZIAAM1
-        AVYDTAGPAw8BFAwAAx8BLANlAeUI/wNbAcMDCgEOMAADEgEYA1MBpQOGAe0DtQH3A7UB9wOkAfUDpAH1
-        A4IB6wNSAacDEgEYmAADDAEQAzgBXANbAcsDXwH7BP8DZQHlA0cBgQMGAQhYAANJAYcI/wNYAbsDEAEW
+        AdEDFwEgCAADCQEMA1UBtQP+Bf8D/gH/A1sBwwMQARYoAAMJAQwDXAHJA/4B/wNeAdkDWAHBA1kBvwNZ
+        Ab8DWAHBA14B2QP+Af8DXAHJAwkBDIwAAw8BFANFAXwDXwHbA/4B/wP+Af8DZQHlA0MBeAMQARZIAAM1
+        AVYDTAGPAw8BFAwAAx8BLANlAeUI/wNbAcMDCgEOMAADEgEYA1MBpQN6Ae0DpwH3A6cB9wOXAfUDlwH1
+        A3cB6wNSAacDEgEYmAADDAEQAzgBXANbAcsDXwH7BP8DZQHlA0cBgQMGAQhYAANJAYcI/wNYAbsDEAEW
         OAADAQECAxABFgMUARwDFAEcAxQBHAMTARoDEAEWAwEBAqQAAwQBBgMtAUYDVgGxA1kBvwMzAVIDBAEG
         WAADKAE8A1wB3wNVAa0DDwEU/wBZAAMXASADPAFmA1YBqwNdAdcDYgHvA2IB7wNfAdsDVgGzA0ABbgMa
         ASQoAAMGAQgDKAE8A0MBeANSAacDWgHFA14B2QNiAekDZAHxA18B8wNfAfMDXQHtA18B2wNYAbsDTwGX
@@ -270,27 +287,10 @@
         AQABfwH9AeMBvwGAAQABAQs=
 </value>
   </data>
-  <metadata name="colNameCheat.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="colType.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="contextMenuStrip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>280, 17</value>
-  </metadata>
-  <data name="txtActionMain.Text" xml:space="preserve">
-    <value>&lt;activity android:configChanges="keyboardHidden|orientation|screenSize" android:name="com.tfivel.MainActivity"&gt;
-            &lt;intent-filter&gt;
-                &lt;action android:name="android.intent.action.MAIN"/&gt;
-                &lt;category android:name="android.intent.category.LAUNCHER"/&gt;
-            &lt;/intent-filter&gt;
-        &lt;/activity&gt;</value>
-  </data>
-  <metadata name="compilerWorker.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+  <metadata name="Worker.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>141, 17</value>
   </metadata>
-  <metadata name="apkWorker.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+  <metadata name="ApkWorker.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>435, 17</value>
   </metadata>
   <metadata name="$this.TrayHeight" type="System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
