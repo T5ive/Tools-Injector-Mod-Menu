@@ -22,6 +22,7 @@ namespace Tools_Injector_Mod_Menu
 {
     //TODO Sign & Zip
     //TODO Support apks, xapk
+    //Error Num
     public partial class FrmMain : MaterialForm
     {
         private const bool Debug = false;
@@ -758,13 +759,13 @@ namespace Tools_Injector_Mod_Menu
 
         private void btnSignApk_Click(object sender, EventArgs e)
         {
-            //var outputFile = $"{AppPath}\\Output\\{txtNameGame.Text}\\{txtNameGame.Text}";
-            //if (!File.Exists(outputFile+".apk"))
-            //{
-            //    MyMessage.MsgShowWarning($"{outputFile} Not found, Please Check it again!!!");
-            //    return;
-            //}
-            //ProcessRun($"java.exe -jar ApkSigner.jar sign --key tfive.pk8 --cert tfive.pem --v4-signing-enabled false --out \"{outputFile}-Signed.apk\" \"{outputFile}.apk\"", $"{AppPath}\\BuildTools\\", "026");
+            var outputFile = $"{AppPath}\\Output\\{txtNameGame.Text}\\{txtNameGame.Text}";
+            if (!File.Exists(outputFile + ".apk"))
+            {
+                MyMessage.MsgShowWarning($"{outputFile} Not found, Please Check it again!!!");
+                return;
+            }
+            ProcessRun($"/c java -jar ApkSigner.jar sign --key tfive.pk8 --cert tfive.pem --v4-signing-enabled false --out \"{outputFile}-Signed.apk\" \"{outputFile}.apk\"", $"{AppPath}\\BuildTools\\", "026");
         }
 
         private void btnZipApk_Click(object sender, EventArgs e)
