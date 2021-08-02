@@ -22,7 +22,7 @@ namespace Tools_Injector_Mod_Menu
                 }
                 else
                 {
-                    MessageBox.Show(@"[Detected] - There is same tools that still running on your windows!", @"TFive", MessageBoxButtons.OK, MessageBoxIcon.Hand);
+                    MessageBox.Show(@"[Detected] - There is same tools that still running on your windows!", "TFive", MessageBoxButtons.OK, MessageBoxIcon.Hand);
                     Application.Exit();
                 }
             }

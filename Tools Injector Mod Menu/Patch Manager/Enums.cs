@@ -50,7 +50,6 @@
         {
             DecompileApk,
             CompileApk,
-            MenuManual,
             MenuFull,
             ApkFull1,
             ApkFull2,

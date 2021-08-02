@@ -293,6 +293,19 @@ namespace Tools_Injector_Mod_Menu
             return count == 1 ? "smali" : $"smali_classes{count}";
         }
 
+        public static string GetApkName(string apk)
+        {
+            try
+            {
+                var split = apk.Split('\\');
+                return split[split.Length - 1];
+            }
+            catch
+            {
+                return null;
+            }
+        }
+
         public static string FunctionTypeToString(Enums.FunctionType type)
         {
             return type switch

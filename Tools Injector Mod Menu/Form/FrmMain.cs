@@ -20,8 +20,8 @@ using Application = System.Windows.Forms.Application;
 
 namespace Tools_Injector_Mod_Menu
 {
-    //TODO Sign & Zip
     //TODO Support apks, xapk
+    //Vector
     //Error Num
     public partial class FrmMain : MaterialForm
     {
@@ -49,7 +49,7 @@ namespace Tools_Injector_Mod_Menu
 
         private static readonly string _tempPathMenu = Path.GetTempPath() + "TFiveMenu";
 
-        private static string _launch, _apkTarget, _apkTool;
+        private static string _launch, _apkTarget, _apkTool, _apkName, _apkType;
 
         private static string[] _menuFiles;
 
@@ -580,7 +580,7 @@ namespace Tools_Injector_Mod_Menu
         {
             var openFile = new OpenFileDialog()
             {
-                Filter = @"XML|*.xml|All files|*.*",
+                Filter = "XML|*.xml|All files|*.*",
                 Title = Text,
                 DefaultExt = ".xml"
             };
@@ -679,7 +679,20 @@ namespace Tools_Injector_Mod_Menu
 
         #region Compile Page
 
-        #region Buttons Event
+        #region Events
+
+        private void SetApkPath(string apkTarget)
+        {
+            _apkTarget = apkTarget;
+            txtApkTarget.Text = _apkTarget;
+            WriteOutput($"Set Apk Target: {_apkTarget}", Enums.LogsType.Success);
+            _apkName = Utility.GetApkName(_apkTarget);
+            _apkType = Path.GetExtension(_apkTarget);
+            lbApk.Text = $"Apk Name: {_apkName}\n\n" +
+                         "App Name: \n" +
+                         "Version: \n" +
+                         "Launch: ";
+        }
 
         private void btnOutput_Click(object sender, EventArgs e)
         {
@@ -695,22 +708,15 @@ namespace Tools_Injector_Mod_Menu
         {
             var openFile = new OpenFileDialog()
             {
-                Filter = "Apk|*.apk|All files|*.*",
-                Title = Text,
-                DefaultExt = ".apk"
+                Filter = "APK File(*.apk;*apks;*xapk)|*.apk;*apks;*xapk|All files(*.*)|*.*",
+                Title = Text
             };
 
             if (openFile.ShowDialog() == DialogResult.OK)
             {
                 try
                 {
-                    _apkTarget = openFile.FileName;
-                    txtApkTarget.Text = _apkTarget;
-                    WriteOutput("Set Apk Target: " + txtApkTarget.Text, Enums.LogsType.Success);
-                    File.Copy(_apkTarget, $"{_tempPathMenu}\\ApkTarget.apk", true);
-                    CompileType(Enums.ProcessType.DecompileApk);
-                    FormState(State.Running);
-                    DumpApk();
+                    SetApkPath(openFile.FileName);
                 }
                 catch (Exception ex)
                 {
@@ -739,6 +745,18 @@ namespace Tools_Injector_Mod_Menu
 
         private void btnDecompileApk_Click(object sender, EventArgs e)
         {
+            if (string.IsNullOrWhiteSpace(_apkTarget))
+            {
+                MyMessage.MsgShowWarning("Apk Target is Empty, Please Check it again!!!");
+                WriteOutput("Apk Target is Empty", Enums.LogsType.Warning);
+                return;
+            }
+            if (_apkType is "apks")
+            {
+
+            }
+
+            File.Copy(_apkTarget, $"{_tempPathMenu}\\ApkTarget.apk", true);
             CompileType(Enums.ProcessType.DecompileApk);
             FormState(State.Running);
             DumpApk();
@@ -752,27 +770,19 @@ namespace Tools_Injector_Mod_Menu
                 WriteOutput("Name Game is Empty", Enums.LogsType.Warning);
                 return;
             }
+
+            if (!Directory.Exists(_apkTargetPath))
+            {
+                MyMessage.MsgShowWarning($"Not Found {_apkTargetPath}, Please Check it again!!!");
+                WriteOutput($"Not Found {_apkTargetPath}", Enums.LogsType.Warning);
+                return;
+            }
+
             CompileType(Enums.ProcessType.CompileApk);
             FormState(State.Running);
             CompileApk(false);
         }
-
-        private void btnSignApk_Click(object sender, EventArgs e)
-        {
-            var outputFile = $"{AppPath}\\Output\\{txtNameGame.Text}\\{txtNameGame.Text}";
-            if (!File.Exists(outputFile + ".apk"))
-            {
-                MyMessage.MsgShowWarning($"{outputFile} Not found, Please Check it again!!!");
-                return;
-            }
-            ProcessRun($"/c java -jar ApkSigner.jar sign --key tfive.pk8 --cert tfive.pem --v4-signing-enabled false --out \"{outputFile}-Signed.apk\" \"{outputFile}.apk\"", $"{AppPath}\\BuildTools\\", "026");
-        }
-
-        private void btnZipApk_Click(object sender, EventArgs e)
-        {
-            //
-        }
-
+        
         #endregion Buttons Event
 
         private void FullCompile()
@@ -1076,8 +1086,7 @@ namespace Tools_Injector_Mod_Menu
 
         private void compilerWorker_DoWork(object sender, System.ComponentModel.DoWorkEventArgs e)
         {
-            if (_type is Enums.ProcessType.MenuFull or Enums.ProcessType.MenuManual
-                or Enums.ProcessType.ApkFull1 or Enums.ProcessType.ApkFull2)
+            if (_type is Enums.ProcessType.MenuFull or Enums.ProcessType.ApkFull1 or Enums.ProcessType.ApkFull2)
             {
                 WorkerMenu();
             }
@@ -1090,8 +1099,7 @@ namespace Tools_Injector_Mod_Menu
 
         private void compilerWorker_RunWorkerCompleted(object sender, System.ComponentModel.RunWorkerCompletedEventArgs e)
         {
-            if (_type is Enums.ProcessType.MenuFull or Enums.ProcessType.MenuManual
-                or Enums.ProcessType.ApkFull1 or Enums.ProcessType.ApkFull2)
+            if (_type is Enums.ProcessType.MenuFull or Enums.ProcessType.ApkFull1 or Enums.ProcessType.ApkFull2)
             {
                 CompileMenuDone();
 
@@ -1262,7 +1270,8 @@ namespace Tools_Injector_Mod_Menu
 
             Directory.CreateDirectory($"{AppPath}\\Output\\{txtNameGame.Text}");
             File.Copy(apkPath, outputFile, true);
-            WriteOutput("Compiled Apk Target (Un-Signed)", Enums.LogsType.Success);
+            WriteOutput($"Compiled {outputFile}", Enums.LogsType.Success);
+            SignApk();
         }
 
         private void DumpApk()
@@ -1313,8 +1322,9 @@ namespace Tools_Injector_Mod_Menu
             var appName = Utility.GetBetween(activity, "application-label:'", "'");
             var appVersion = Utility.GetBetween(activity, "versionName='", "'");
 
-            lbApk.Text = $"App Name: {appName}\n\n" +
-                         $"Version: {appVersion}\n\n" +
+            lbApk.Text = $"Apk Name: {_apkName}\n\n" +
+                         $"App Name: {appName}\n" +
+                         $"Version: {appVersion}\n" +
                          $"Launch: {_launch}";
 
             if (_compile > 0 && !_mySettings.debugMode)
@@ -1338,7 +1348,19 @@ namespace Tools_Injector_Mod_Menu
         private void DecompileApkDone()
         {
             GetSmailiCount();
-            WriteOutput($"Decompiled APK file", Enums.LogsType.Success);
+            WriteOutput("Decompiled APK file", Enums.LogsType.Success);
+        }
+
+        private void SignApk()
+        {
+            var outputFile = $"{AppPath}\\Output\\{txtNameGame.Text}\\{txtNameGame.Text}";
+            if (!File.Exists(outputFile + ".apk"))
+            {
+                MyMessage.MsgShowWarning($"{outputFile} Not found, Please Check it again!!!");
+                return;
+            }
+            ProcessRun($"/c java -jar ApkSigner.jar sign --key tfive.pk8 --cert tfive.pem --v4-signing-enabled false --out \"{outputFile}-Signed.apk\" \"{outputFile}.apk\"", $"{AppPath}\\BuildTools\\", "026");
+            WriteOutput($"Signed {outputFile}-Signed.apk", Enums.LogsType.Success);
         }
 
         private void GetSmailiCount()
@@ -1594,7 +1616,62 @@ namespace Tools_Injector_Mod_Menu
 
         #endregion About Page
 
+        #region Form Drag
+
+        private void FrmMain_DragDrop(object sender, DragEventArgs e)
+        {
+            try
+            {
+                FormState(State.Running);
+
+                if (!e.Data.GetDataPresent(DataFormats.FileDrop)) return;
+
+                foreach (var file in (string[])e.Data.GetData(DataFormats.FileDrop))
+                {
+                    switch (Path.GetExtension(file))
+                    {
+                        case ".apk":
+                        case ".apks":
+                        case ".xapk":
+                            SetApkPath(file);
+                            materialTabControl1.SelectedTab = materialTabControl1.TabPages[2];
+                            break;
+                        case ".xml":
+
+                            break;
+                    }
+                    
+                }
+            }
+            catch (Exception ex)
+            {
+                WriteOutput($"{ex.Message}",Enums.LogsType.Error,"000");
+            }
+            FormState(State.Idle);
+        }
+
+        private void FrmMain_DragEnter(object sender, DragEventArgs e)
+        {
+            if (!e.Data.GetDataPresent(DataFormats.FileDrop)) return;
+            foreach (var file in (string[])e.Data.GetData(DataFormats.FileDrop))
+            {
+                switch (Path.GetExtension(file))
+                {
+                    case ".apk":
+                    case ".apks":
+                    case ".xapk":
+                    case ".xml":
+                        e.Effect = DragDropEffects.Copy;
+                        break;
+                }
+            }
+        }
+
+        #endregion
+
         #region Utility
+
+        #region Image Encoder
 
         //https://stackoverflow.com/a/45673201/8902883
         private static string ImageToBase64(Image image, ImageFormat imageFormat)
@@ -1650,6 +1727,8 @@ namespace Tools_Injector_Mod_Menu
             return Array.Find(encoders, ici => ici.MimeType == mimeType);
         }
 
+        #endregion
+
         private bool DeleteAll(string path)
         {
             try
@@ -1696,7 +1775,7 @@ namespace Tools_Injector_Mod_Menu
             }
         }
 
-        private bool MoveDirectory(string sourceDirectory, string destinationPath, bool overwrite = true, bool deleteSource = true)
+       private bool MoveDirectory(string sourceDirectory, string destinationPath, bool overwrite = true, bool deleteSource = true)
         {
             try
             {
@@ -1853,19 +1932,90 @@ namespace Tools_Injector_Mod_Menu
             }
         }
 
-        private static bool IsWindows7 => OS_Name().Contains("Windows 7");
+        #endregion Utility
 
-        private static bool IsWindows10 => OS_Name().Contains("Windows 10");
-
-        private static bool Is64Bit => Environment.Is64BitOperatingSystem;
-
-        private static string OS_Name()
+        private async void button1_Click(object sender, EventArgs e)
         {
-            return (string)(from x in new ManagementObjectSearcher(
-                    "SELECT Caption FROM Win32_OperatingSystem").Get().Cast<ManagementObject>()
-                            select x.GetPropertyValue("Caption")).FirstOrDefault();
+            if (_apkType is ".apks")
+            {
+                await APKsDump().ConfigureAwait(false);
+            }
+            if (_apkType is ".xapk")
+            {
+                await XAPKDump().ConfigureAwait(false);
+            }
         }
 
-        #endregion Utility
+        private async Task APKsDump()
+        {
+            await Task.Factory.StartNew(() =>
+            {
+                using var archive = ZipFile.OpenRead(_apkTarget);
+                var type = comboType.SelectedIndex;
+                foreach (var entryApks in archive.Entries)
+                {
+                    if (entryApks.FullName == "base.apk")
+                    {
+                       _apkTarget = Path.Combine(Path.GetTempPath(), entryApks.FullName);
+                    }
+
+                    if (type == (int) Enums.TypeAbi.Arm)
+                    {
+                        if (entryApks.FullName == "split_config.armeabi_v7a.apk")
+                        {
+                            //TODO
+                            //Merge apk or split
+                        }
+                    }
+                    else
+                    {
+                        if (entryApks.FullName == "split_config.arm64_v8a.apk")
+                        {
+                            //TODO
+                        }
+                    }
+                    
+                }
+                archive.Dispose();
+            }).ConfigureAwait(false);
+        }
+
+        private async Task XAPKDump()
+        {
+            await Task.Factory.StartNew(() =>
+            {
+                var type = comboType.SelectedIndex;
+                using var archive = ZipFile.OpenRead(_apkTarget);
+                foreach (var entryApks in archive.Entries)
+                {
+                    if (type == (int)Enums.TypeAbi.Arm)
+                    {
+                        if (entryApks.FullName == "config.armeabi_v7a.apk")
+                        {
+                            //TODO
+                            //Merge apk or split
+                            return;
+                        }
+                    }
+                    else
+                    {
+                        if (entryApks.FullName == "config.arm64_v8a.apk")
+                        {
+                            //TODO
+                            return;
+                        }
+                    }
+
+                    var apkFile = Path.Combine(Path.GetTempPath(), entryApks.FullName);
+                    using var entryBase = ZipFile.OpenRead(apkFile);
+                    var manifest = entryBase.Entries.FirstOrDefault(f => f.Name.Contains("AndroidManifest.xml"));
+                    if (manifest != null)
+                    {
+                        _apkTarget = Path.Combine(Path.GetTempPath(), entryApks.FullName);
+                    }
+                }
+                archive.Dispose();
+            }).ConfigureAwait(false);
+        }
     }
 }
