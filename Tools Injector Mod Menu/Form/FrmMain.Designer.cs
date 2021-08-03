@@ -156,7 +156,6 @@ namespace Tools_Injector_Mod_Menu
             this.menuIconList = new System.Windows.Forms.ImageList(this.components);
             this.Worker = new System.ComponentModel.BackgroundWorker();
             this.ApkWorker = new System.ComponentModel.BackgroundWorker();
-            this.button1 = new System.Windows.Forms.Button();
             this.materialTabControl1.SuspendLayout();
             this.tabMain.SuspendLayout();
             this.materialCard4.SuspendLayout();
@@ -945,12 +944,12 @@ namespace Tools_Injector_Mod_Menu
             this.txtTargetLib.Font = new System.Drawing.Font("Roboto", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
             this.txtTargetLib.Hint = "libil2cpp.so";
             this.txtTargetLib.LeadingIcon = null;
-            this.txtTargetLib.Location = new System.Drawing.Point(582, 25);
+            this.txtTargetLib.Location = new System.Drawing.Point(615, 25);
             this.txtTargetLib.MaxLength = 50;
             this.txtTargetLib.MouseState = MaterialSkin.MouseState.OUT;
             this.txtTargetLib.Multiline = false;
             this.txtTargetLib.Name = "txtTargetLib";
-            this.txtTargetLib.Size = new System.Drawing.Size(153, 36);
+            this.txtTargetLib.Size = new System.Drawing.Size(120, 36);
             this.txtTargetLib.TabIndex = 20;
             this.txtTargetLib.Text = "libil2cpp.so";
             this.txtTargetLib.TrailingIcon = null;
@@ -959,11 +958,11 @@ namespace Tools_Injector_Mod_Menu
             // label13
             // 
             this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(473, 32);
+            this.label13.Location = new System.Drawing.Point(552, 32);
             this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(103, 18);
+            this.label13.Size = new System.Drawing.Size(57, 18);
             this.label13.TabIndex = 19;
-            this.label13.Text = "Target Library:";
+            this.label13.Text = "Library:";
             // 
             // comboType
             // 
@@ -982,11 +981,11 @@ namespace Tools_Injector_Mod_Menu
             this.comboType.Items.AddRange(new object[] {
             "armeabi-v7a",
             "arm64-v8a"});
-            this.comboType.Location = new System.Drawing.Point(384, 25);
+            this.comboType.Location = new System.Drawing.Point(388, 25);
             this.comboType.MaxDropDownItems = 4;
             this.comboType.MouseState = MaterialSkin.MouseState.OUT;
             this.comboType.Name = "comboType";
-            this.comboType.Size = new System.Drawing.Size(83, 35);
+            this.comboType.Size = new System.Drawing.Size(158, 35);
             this.comboType.StartIndex = 0;
             this.comboType.TabIndex = 18;
             this.comboType.UseTallSize = false;
@@ -994,7 +993,7 @@ namespace Tools_Injector_Mod_Menu
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(308, 32);
+            this.label11.Location = new System.Drawing.Point(312, 32);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(70, 18);
             this.label11.TabIndex = 17;
@@ -1012,7 +1011,7 @@ namespace Tools_Injector_Mod_Menu
             this.txtNameGame.MouseState = MaterialSkin.MouseState.OUT;
             this.txtNameGame.Multiline = false;
             this.txtNameGame.Name = "txtNameGame";
-            this.txtNameGame.Size = new System.Drawing.Size(195, 36);
+            this.txtNameGame.Size = new System.Drawing.Size(199, 36);
             this.txtNameGame.TabIndex = 3;
             this.txtNameGame.Text = "";
             this.txtNameGame.TrailingIcon = null;
@@ -1081,7 +1080,6 @@ namespace Tools_Injector_Mod_Menu
             // 
             // groupBox17
             // 
-            this.groupBox17.Controls.Add(this.button1);
             this.groupBox17.Controls.Add(this.btnCompileMenu);
             this.groupBox17.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox17.Font = new System.Drawing.Font("Roboto", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
@@ -2221,16 +2219,6 @@ namespace Tools_Injector_Mod_Menu
             this.ApkWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.ApkWorker_DoWork);
             this.ApkWorker.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.ApkWorker_RunWorkerCompleted);
             // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(252, 56);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(170, 48);
-            this.button1.TabIndex = 20;
-            this.button1.Text = "button1";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
             // FrmMain
             // 
             this.AllowDrop = true;
@@ -2431,6 +2419,5 @@ namespace Tools_Injector_Mod_Menu
         private System.Windows.Forms.GroupBox groupBox17;
         private System.Windows.Forms.Label lbApk;
         private System.ComponentModel.BackgroundWorker ApkWorker;
-        private System.Windows.Forms.Button button1;
     }
 }

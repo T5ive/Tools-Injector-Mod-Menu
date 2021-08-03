@@ -53,6 +53,7 @@
             MenuFull,
             ApkFull1,
             ApkFull2,
+            DumpApk,
             None
         }
     }
