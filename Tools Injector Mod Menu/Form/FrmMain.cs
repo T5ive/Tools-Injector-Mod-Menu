@@ -713,27 +713,53 @@ namespace Tools_Injector_Mod_Menu
 
         private void btnCompileMenu_Click(object sender, EventArgs e)
         {
-            CompileType(Enums.ProcessType.MenuFull);
+            ProcessType(Enums.ProcessType.MenuFull);
             FullCompile();
         }
 
         private void btnCompileApk1_Click(object sender, EventArgs e)
         {
             SetDumpApk();
-            CompileType(Enums.ProcessType.ApkFull1);
+            ProcessType(Enums.ProcessType.ApkFull1);
             FullCompile();
         }
 
         private void btnCompileApk2_Click(object sender, EventArgs e)
         {
             SetDumpApk();
-            CompileType(Enums.ProcessType.ApkFull2);
+            ProcessType(Enums.ProcessType.ApkFull2);
             FullCompile();
         }
 
         private void btnDecompileApk_Click(object sender, EventArgs e)
         {
-            CompileType(Enums.ProcessType.DecompileApk);
+            if (Utility.IsEmpty(_apkName, false))
+            {
+                MyMessage.MsgShowWarning("Apk Target is Empty, Please Check it again!!!");
+                WriteOutput("Apk Target is Empty", Enums.LogsType.Warning);
+                return;
+            }
+
+            SetDecompileApk();
+        }
+
+        private void SetDecompileApk()
+        {
+            if (Directory.Exists(_apkTargetPath))
+            {
+                if (MyMessage.MsgOkCancel(_apkTargetPath + " Found.\n\n" +
+                                          "Click \"OK\" to Continue if you want to overwrite!" +
+                                          "\n\nClick \"Cancel\" to cancel it if not!"))
+                {
+                    Directory.Delete(_apkTargetPath, true);
+                }
+                else
+                {
+                    return;
+                }
+            }
+
+            ProcessType(Enums.ProcessType.DecompileApk);
             FormState(State.Running);
             Worker.RunWorkerAsync();
         }
@@ -754,9 +780,33 @@ namespace Tools_Injector_Mod_Menu
                 return;
             }
 
-            CompileType(Enums.ProcessType.CompileApk);
+            SetCompileApk(false);
+        }
+
+        private void SetCompileApk(bool move = true)
+        {
+            ProcessType(Enums.ProcessType.CompileApk);
             FormState(State.Running);
-            CompileApk(false);
+
+            if (move)
+            {
+                var desDir = AppPath + "\\Output\\" + txtNameGame.Text + "\\lib";
+                var deleteTemp = chkRemoveTemp.Checked;
+
+                var apkTarget = $"{_apkTargetPath}";
+                var outputDir = $"{AppPath}\\Output\\{txtNameGame.Text}\\";
+                if (MoveDirectory(outputDir, $"{apkTarget}", false, deleteTemp))
+                {
+                    WriteOutput($"Move {desDir}{Environment.NewLine}To => {apkTarget}", Enums.LogsType.Success);
+                }
+                else
+                {
+                    WriteOutput("Can not Move", Enums.LogsType.Error, "023");
+                    return;
+                }
+            }
+
+            Worker.RunWorkerAsync();
         }
 
         #endregion Events
@@ -766,32 +816,39 @@ namespace Tools_Injector_Mod_Menu
         private void SetApkPath(string apkTarget)
         {
             _apkTarget = apkTarget;
+            _apkName = apkTarget;
+            _apkType = Path.GetExtension(_apkName);
             txtApkTarget.Text = _apkTarget;
             WriteOutput($"Set Apk Target: {_apkTarget}", Enums.LogsType.Success);
-            _apkName = Utility.GetApkName(_apkTarget);
-            _apkType = Path.GetExtension(_apkTarget);
             SetDumpApk();
-            //lbApk.Text = $"Apk Name: {_apkName}\n\n" +
-            //             "App Name: \n" +
-            //             "Version: \n" +
-            //             "Launch: ";
         }
 
         private void SetDumpApk()
         {
-            if (string.IsNullOrWhiteSpace(_apkTarget))
+            if (string.IsNullOrWhiteSpace(_apkName))
             {
                 MyMessage.MsgShowWarning("Apk Target is Empty, Please Check it again!!!");
                 WriteOutput("Apk Target is Empty", Enums.LogsType.Warning);
                 return;
             }
-            File.Copy(_apkTarget, $"{_tempPathMenu}\\ApkTarget{_apkType}", true);
+            File.Copy(_apkName, $"{_tempPathMenu}\\ApkTarget{_apkType}", true);
+
             _apkTarget = $"{_tempPathMenu}\\ApkTarget{_apkType}";
 
             FormState(State.Running);
-            SplitApk().GetAwaiter();
-            CompileType(Enums.ProcessType.DumpApk);
-            DumpApk();
+            SplitApk();
+            ProcessType(Enums.ProcessType.DumpApk);
+            if (_apkType is ".apk")
+            {
+                DumpApk();
+            }
+            else
+            {
+                while (_apkTarget == $"{_tempPathMenu}\\ApkTarget{_apkType}")
+                {
+                }
+                DumpApk();
+            }
         }
 
         private void DumpApk()
@@ -802,33 +859,13 @@ namespace Tools_Injector_Mod_Menu
                                        "\nPlease select the Apk again");
                 WriteOutput($"{_tempPathMenu}\\ApkTarget.apk Not found", Enums.LogsType.Error, "000");
                 FormState(State.Idle);
-                Worker.CancelAsync();
                 return;
-            }
-
-            if (Directory.Exists(_apkTargetPath))
-            {
-                var result = MyMessage.MsgYesNoCancel(_apkTargetPath + " Found.\n\n" +
-                                                      "Click \"Yes\" to Continue if you want to overwrite!" +
-                                                      "\n\nClick \"No\" to keep old files!" +
-                                                      "\n\nClick \"Cancel\" to cancel it if not!");
-                switch (result)
-                {
-                    case DialogResult.Yes:
-                        Directory.Delete(_apkTargetPath, true);
-                        break;
-
-                    case DialogResult.Cancel:
-                        FormState(State.Idle);
-                        Worker.CancelAsync();
-                        return;
-                }
             }
 
             Worker.RunWorkerAsync();
         }
 
-        private async Task SplitApk()
+        private async void SplitApk()
         {
             var type = 0;
             Invoke(new MethodInvoker(delegate
@@ -1000,11 +1037,6 @@ namespace Tools_Injector_Mod_Menu
             }
 
             Worker.RunWorkerAsync();
-        }
-
-        private static void CompileType(Enums.ProcessType type)
-        {
-            _type = type;
         }
 
         #region Modify Files
@@ -1230,6 +1262,11 @@ namespace Tools_Injector_Mod_Menu
             {
                 ProcessRun($"/c {_apkTool}.jar d {_apkTarget}", $"{AppPath}\\BuildTools\\", "026");
             }
+
+            if (_type is Enums.ProcessType.CompileApk)
+            {
+                ProcessRun($"/c {_apkTool}.jar b ApkTarget", $"{AppPath}\\BuildTools\\", "026");
+            }
         }
 
         private void compilerWorker_RunWorkerCompleted(object sender, System.ComponentModel.RunWorkerCompletedEventArgs e)
@@ -1241,7 +1278,7 @@ namespace Tools_Injector_Mod_Menu
                 if (_type is Enums.ProcessType.MenuFull)
                 {
                     FormState(State.Idle);
-                    CompileType(Enums.ProcessType.None);
+                    ProcessType(Enums.ProcessType.None);
                 }
             }
 
@@ -1249,24 +1286,27 @@ namespace Tools_Injector_Mod_Menu
             {
                 if (_type is Enums.ProcessType.CompileApk)
                 {
-                    CompileApk(false);
+                    SetCompileApk(false);
                 }
                 else
                 {
-                    CompileApk();
+                    SetCompileApk();
                 }
             }
 
             if (_type is Enums.ProcessType.DumpApk)
             {
                 DumpApkDone();
-                FormState(State.Idle);
-                CompileType(Enums.ProcessType.None);
             }
 
             if (_type is Enums.ProcessType.DecompileApk)
             {
                 DecompileApkDone();
+            }
+
+            if (_type is Enums.ProcessType.CompileApk)
+            {
+                CompileApkDone();
             }
         }
 
@@ -1332,28 +1372,6 @@ namespace Tools_Injector_Mod_Menu
             }
         }
 
-        private void CompileApk(bool move = true)
-        {
-            if (move)
-            {
-                var desDir = AppPath + "\\Output\\" + txtNameGame.Text + "\\lib";
-                var deleteTemp = chkRemoveTemp.Checked;
-
-                var apkTarget = $"{_apkTargetPath}";
-                var outputDir = $"{AppPath}\\Output\\{txtNameGame.Text}\\";
-                if (MoveDirectory(outputDir, $"{apkTarget}", false, deleteTemp))
-                {
-                    WriteOutput($"Move {desDir}{Environment.NewLine}To => {apkTarget}", Enums.LogsType.Success);
-                }
-                else
-                {
-                    WriteOutput("Can not Move", Enums.LogsType.Error, "023");
-                    return;
-                }
-            }
-            ApkWorker.RunWorkerAsync();
-        }
-
         private void DumpApkDone()
         {
             var activity = File.ReadAllText($"{_tempPathMenu}\\result.txt");
@@ -1362,44 +1380,26 @@ namespace Tools_Injector_Mod_Menu
             var appName = Utility.GetBetween(activity, "application-label:'", "'");
             var appVersion = Utility.GetBetween(activity, "versionName='", "'");
 
-            lbApk.Text = $"Apk Name: {_apkName}\n\n" +
-                         $"App Name: {appName}\n" +
-                         $"Version: {appVersion}\n" +
+            lbApk.Text = $"App Name: {appName}\n\n" +
+                         $"Version: {appVersion}\n\n" +
                          $"Launch: {_launch}";
 
             if (_compile > 0 && !_mySettings.debugMode)
             {
-                MyMessage.MsgShowError("Failed to Compile");
-                WriteOutput("Failed to Compile", Enums.LogsType.Error, "025");
-
+                MyMessage.MsgShowError("Failed to Dump");
+                WriteOutput("Failed to Dump", Enums.LogsType.Error, "025");
                 SaveLogs();
-                FormState(State.Idle);
             }
+            FormState(State.Idle);
+            ProcessType(Enums.ProcessType.None);
         }
 
         private void DecompileApkDone()
         {
             GetSmailiCount();
             WriteOutput("Decompiled APK file", Enums.LogsType.Success);
-        }
-
-        private void ApkWorker_DoWork(object sender, System.ComponentModel.DoWorkEventArgs e)
-        {
-            if (_type is Enums.ProcessType.ApkFull1 or Enums.ProcessType.ApkFull2 or Enums.ProcessType.CompileApk)
-            {
-                ProcessRun($"/c {_apkTool}.jar b ApkTarget", $"{AppPath}\\BuildTools\\", "026");
-            }
-        }
-
-        private void ApkWorker_RunWorkerCompleted(object sender, System.ComponentModel.RunWorkerCompletedEventArgs e)
-        {
-            if (_type is Enums.ProcessType.ApkFull1 or Enums.ProcessType.ApkFull2 or Enums.ProcessType.CompileApk)
-            {
-                CompileApkDone();
-            }
-
             FormState(State.Idle);
-            CompileType(Enums.ProcessType.None);
+            ProcessType(Enums.ProcessType.None);
         }
 
         private void CompileApkDone()
@@ -1423,12 +1423,22 @@ namespace Tools_Injector_Mod_Menu
             Directory.CreateDirectory($"{AppPath}\\Output\\{txtNameGame.Text}");
             File.Copy(apkPath, outputFile, true);
             WriteOutput($"Compiled {outputFile}", Enums.LogsType.Success);
+            ApkWorker.RunWorkerAsync();
+        }
+
+        private void ApkWorker_DoWork(object sender, System.ComponentModel.DoWorkEventArgs e)
+        {
             SignApk();
         }
 
         private void SignApk()
         {
-            var outputFile = $"{AppPath}\\Output\\{txtNameGame.Text}\\{txtNameGame.Text}";
+            var outputFile = "";
+            Invoke(new MethodInvoker(delegate
+            {
+                outputFile = $"{AppPath}\\Output\\{txtNameGame.Text}\\{txtNameGame.Text}";
+            }));
+            
             if (!File.Exists(outputFile + ".apk"))
             {
                 MyMessage.MsgShowWarning($"{outputFile} Not found, Please Check it again!!!");
@@ -1436,6 +1446,12 @@ namespace Tools_Injector_Mod_Menu
             }
             ProcessRun($"/c java -jar ApkSigner.jar sign --key tfive.pk8 --cert tfive.pem --v4-signing-enabled false --out \"{outputFile}-Signed.apk\" \"{outputFile}.apk\"", $"{AppPath}\\BuildTools\\", "026");
             WriteOutput($"Signed {outputFile}-Signed.apk", Enums.LogsType.Success);
+        }
+
+        private void ApkWorker_RunWorkerCompleted(object sender, System.ComponentModel.RunWorkerCompletedEventArgs e)
+        {
+            FormState(State.Idle);
+            ProcessType(Enums.ProcessType.None);
         }
 
         private void GetSmailiCount()
@@ -1466,6 +1482,11 @@ namespace Tools_Injector_Mod_Menu
         }
 
         #endregion Worker
+
+        private static void ProcessType(Enums.ProcessType type)
+        {
+            _type = type;
+        }
 
         #endregion Compile Page
 

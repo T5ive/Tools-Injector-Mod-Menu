@@ -1174,7 +1174,7 @@ namespace Tools_Injector_Mod_Menu
             this.lbApk.Name = "lbApk";
             this.lbApk.Size = new System.Drawing.Size(732, 105);
             this.lbApk.TabIndex = 7;
-            this.lbApk.Text = "Apk Name: \r\n\r\nApp Name: \r\nVersion: \r\nLaunch: ";
+            this.lbApk.Text = "App Name: \r\n\r\nVersion: \r\n\r\nLaunch: ";
             // 
             // btnCompileApk
             // 
