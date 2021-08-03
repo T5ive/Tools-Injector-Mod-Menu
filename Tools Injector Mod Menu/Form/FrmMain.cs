@@ -10,12 +10,14 @@ using System.IO;
 using System.IO.Compression;
 using System.Linq;
 using System.Reflection;
+using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml;
 using System.Xml.Serialization;
 using Tools_Injector_Mod_Menu.Patch_Manager;
 using Application = System.Windows.Forms.Application;
+using Encoder = System.Drawing.Imaging.Encoder;
 
 namespace Tools_Injector_Mod_Menu
 {
@@ -48,7 +50,7 @@ namespace Tools_Injector_Mod_Menu
 
         private static readonly string _tempPathMenu = Path.GetTempPath() + "TFiveMenu";
 
-        private static string _launch, _apkTarget, _apkTool, _apkName, _apkType;
+        private static string _launch, _apkTarget, _apkTool, _apkName, _apkType, _baseName;
 
         private static string[] _menuFiles;
 
@@ -785,6 +787,14 @@ namespace Tools_Injector_Mod_Menu
 
         private void SetCompileApk(bool move = true)
         {
+            var outputFile = $"{AppPath}\\Output\\{txtNameGame.Text}\\{txtNameGame.Text}.apk";
+            if (File.Exists(outputFile) && !MyMessage.MsgOkCancel(outputFile + " Found.\n\n" +
+                                                                  "Click \"OK\" to Continue if you want to overwrite!" +
+                                                                  "\n\nClick \"Cancel\" to cancel it if not!"))
+            {
+                return;
+            }
+
             ProcessType(Enums.ProcessType.CompileApk);
             FormState(State.Running);
 
@@ -943,6 +953,7 @@ namespace Tools_Injector_Mod_Menu
                     {
                         entryApks.ExtractToFile($"{_tempPathMenu}\\ApkTarget.apk", true);
                         _apkTarget = $"{_tempPathMenu}\\ApkTarget.apk";
+                        _baseName = entryApks.FullName;
                     }
                 }
                 archive.Dispose();
@@ -1030,8 +1041,7 @@ namespace Tools_Injector_Mod_Menu
             {
                 if (!MoveDirectory(_tempPathMenu + "\\com", $"{destinationPath}\\smali\\com")) return;
             }
-            else if (!MoveDirectory(_tempPathMenu + "\\com",
-                $"{destinationPath}\\{Utility.SmaliCountToName(_smaliCount, true)}\\com"))
+            else if (!MoveDirectory(_tempPathMenu + "\\com", $"{destinationPath}\\{Utility.SmaliCountToName(_smaliCount, true)}\\com"))
             {
                 return;
             }
@@ -1412,18 +1422,12 @@ namespace Tools_Injector_Mod_Menu
                 WriteOutput($"Not found {apkPath}", Enums.LogsType.Error, "000");
                 return;
             }
-            if (File.Exists(apkPath) && File.Exists(outputFile) &&
-                !MyMessage.MsgOkCancel(outputFile + " Found.\n\n" +
-                                       "Click \"OK\" to Continue if you want to overwrite!" +
-                                       "\n\nClick \"Cancel\" to cancel it if not!"))
-            {
-                return;
-            }
-
+            
             Directory.CreateDirectory($"{AppPath}\\Output\\{txtNameGame.Text}");
             File.Copy(apkPath, outputFile, true);
             WriteOutput($"Compiled {outputFile}", Enums.LogsType.Success);
             ApkWorker.RunWorkerAsync();
+            ProcessType(Enums.ProcessType.None);
         }
 
         private void ApkWorker_DoWork(object sender, System.ComponentModel.DoWorkEventArgs e)
@@ -1450,8 +1454,83 @@ namespace Tools_Injector_Mod_Menu
 
         private void ApkWorker_RunWorkerCompleted(object sender, System.ComponentModel.RunWorkerCompletedEventArgs e)
         {
+            if (_apkType != ".apk")
+            {
+                if (_type is Enums.ProcessType.ApkFull1 or Enums.ProcessType.ApkFull2)
+                {
+                    MergeApk();
+                }
+            }
+
             FormState(State.Idle);
             ProcessType(Enums.ProcessType.None);
+        }
+        private void MergeApk()
+        {
+            Lib2Config();
+            Apk2Apks();
+        }
+        private void Lib2Config()
+        {
+            var outputDir = $"{AppPath}\\Output\\{txtNameGame.Text}\\";
+            var sourceDir = $"{_tempPathMenu}\\";
+            var outputFile = $"{AppPath}\\Output\\{txtNameGame.Text}\\{txtNameGame.Text}{_apkType}";
+            var outputSignedFile = $"{AppPath}\\Output\\{txtNameGame.Text}\\{txtNameGame.Text}-signed{_apkType}";
+            var fileName = _apkType switch
+            {
+                ".apks" => comboType.SelectedIndex == (int)Enums.TypeAbi.Arm
+                    ? "split_config.armeabi_v7a.apk"
+                    : "split_config.arm64_v8a.apk",
+                ".xapk" => comboType.SelectedIndex == (int)Enums.TypeAbi.Arm
+                    ? "config.armeabi_v7a.apk"
+                    : "config.arm64_v8a.apk",
+                _ => ""
+            };
+
+            File.Copy(_apkName, $"{outputFile}", true);
+            File.Copy(_apkName, $"{outputSignedFile}", true);
+            File.Copy(sourceDir + fileName, outputDir + fileName, true);
+
+            var folderName = comboType.SelectedIndex == (int)Enums.TypeAbi.Arm ? "armeabi-v7a\\" : "arm64-v8a\\";
+
+            DirectoryInfo dir = new(outputDir + "lib\\" + folderName);
+
+            using var zipToOpen = new FileStream(outputDir + fileName, FileMode.Open);
+            using var archive = new ZipArchive(zipToOpen, ZipArchiveMode.Update);
+            foreach (var file in dir.GetFiles("*"))
+            {
+                archive.CreateEntryFromFile(file.FullName, "lib\\" + folderName + file.Name);
+            }
+            archive.Dispose();
+            zipToOpen.Dispose();
+        }
+
+        private void Apk2Apks()
+        {
+            var mainFile = $"{AppPath}\\Output\\{txtNameGame.Text}\\{txtNameGame.Text}{_apkType}";
+            var mainSignedFile = $"{AppPath}\\Output\\{txtNameGame.Text}\\{txtNameGame.Text}-signed{_apkType}";
+            var apkFile = $"{AppPath}\\Output\\{txtNameGame.Text}\\{txtNameGame.Text}.apk";
+            var apkSignedFile = $"{AppPath}\\Output\\{txtNameGame.Text}\\{txtNameGame.Text}-signed.apk";
+            var outputDir = $"{AppPath}\\Output\\{txtNameGame.Text}\\";
+            
+            var baseName = _apkType is ".apks" ? "base.apk" : _baseName;
+            var configName = _apkType switch
+            {
+                ".apks" => comboType.SelectedIndex == (int)Enums.TypeAbi.Arm
+                    ? "split_config.armeabi_v7a.apk"
+                    : "split_config.arm64_v8a.apk",
+                ".xapk" => comboType.SelectedIndex == (int)Enums.TypeAbi.Arm
+                    ? "config.armeabi_v7a.apk"
+                    : "config.arm64_v8a.apk",
+                _ => ""
+            };
+            var unsignList = new List<(string, string)> {(apkFile, baseName), (outputDir + configName, configName)};
+            var signedList = new List<(string, string)> { (apkSignedFile, baseName), (outputDir + configName, configName) };
+            mainFile.AddFiles(unsignList);
+            mainSignedFile.AddFiles(signedList);
+            File.Delete(outputDir + configName);
+            File.Delete(apkFile);
+            File.Delete(apkSignedFile);
         }
 
         private void GetSmailiCount()
@@ -1871,6 +1950,8 @@ namespace Tools_Injector_Mod_Menu
             }
         }
 
+        
+
         private bool MoveDirectory(string sourceDirectory, string destinationPath, bool overwrite = true, bool deleteSource = true)
         {
             try
@@ -1881,6 +1962,10 @@ namespace Tools_Injector_Mod_Menu
                                                          "\n\nClick \"Cancel\" to cancel it if not!"))
                 {
                     Directory.Delete(destinationPath, true);
+                }
+                else
+                {
+                    return false;
                 }
 
                 Utility.CheckFolder("Output\\" + txtNameGame.Text);

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.IO.Compression;
 
@@ -26,6 +27,22 @@ namespace Tools_Injector_Mod_Menu
                     zipArchiveEntry.ExtractToFile(text, true);
                 }
             }
+        }
+        public static void AddFiles(this string filePath, List<(string, string)> list, bool overwrite = true)
+        {
+            using var file = new FileStream(filePath, FileMode.Open);
+            using var archive = new ZipArchive(file, ZipArchiveMode.Update);
+            for (var i = 0; i < list.Count; i++)
+            {
+                if (overwrite)
+                {
+                    var oldEntry = archive.GetEntry(list[i].Item2);
+                    oldEntry?.Delete();
+                }
+                archive.CreateEntryFromFile(list[i].Item1, list[i].Item2);
+            }
+            archive.Dispose();
+            file.Dispose();
         }
     }
 }
