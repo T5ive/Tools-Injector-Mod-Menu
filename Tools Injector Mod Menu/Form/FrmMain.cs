@@ -20,9 +20,10 @@ using Encoder = System.Drawing.Imaging.Encoder;
 
 namespace Tools_Injector_Mod_Menu
 {
-    //TODO Support apks, xapk
+    //TODO Full Compile APK Method 1 2
     //Vector
     //Error Num
+    //Check crash & some bug & clear memory
     public partial class FrmMain : MaterialForm
     {
         private const bool Debug = false;
@@ -586,28 +587,33 @@ namespace Tools_Injector_Mod_Menu
             };
             if (openFile.ShowDialog() == DialogResult.OK)
             {
-                try
-                {
-                    FormState(State.Running);
-                    OffsetPatch.T5Menu = LoadXml<TFiveMenu>(openFile.FileName);
+                LoadXml(openFile.FileName);
+            }
+        }
 
-                    OffsetPatch.FunctionList = OffsetPatch.T5Menu.FunctionList;
-                    txtNameGame.Text = OffsetPatch.T5Menu.GameName;
-                    txtTargetLib.Text = OffsetPatch.T5Menu.Target;
-                    comboType.SelectedIndex = (int)OffsetPatch.T5Menu.TypeAbi;
+        private void LoadXml(string fileName)
+        {
+            try
+            {
+                FormState(State.Running);
+                OffsetPatch.T5Menu = LoadXml<TFiveMenu>(fileName);
 
-                    FormState(State.Idle);
-                }
-                catch (Exception ex)
-                {
-                    FormState(State.Idle);
-                    WriteOutput(ex.Message, Enums.LogsType.Error, "008");
-                }
-                finally
-                {
-                    AddAllDataList();
-                    txtNameGame.Text = Path.GetFileNameWithoutExtension(openFile.FileName);
-                }
+                OffsetPatch.FunctionList = OffsetPatch.T5Menu.FunctionList;
+                txtNameGame.Text = OffsetPatch.T5Menu.GameName;
+                txtTargetLib.Text = OffsetPatch.T5Menu.Target;
+                comboType.SelectedIndex = (int)OffsetPatch.T5Menu.TypeAbi;
+
+                FormState(State.Idle);
+            }
+            catch (Exception ex)
+            {
+                FormState(State.Idle);
+                WriteOutput(ex.Message, Enums.LogsType.Error, "008");
+            }
+            finally
+            {
+                AddAllDataList();
+                txtNameGame.Text = Path.GetFileNameWithoutExtension(fileName);
             }
         }
 
@@ -1814,7 +1820,8 @@ namespace Tools_Injector_Mod_Menu
                             break;
 
                         case ".xml":
-
+                            LoadXml(file);
+                            materialTabControl1.SelectedTab = materialTabControl1.TabPages[1];
                             break;
                     }
                 }
