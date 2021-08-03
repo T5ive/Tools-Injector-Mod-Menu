@@ -10,7 +10,6 @@ using System.IO;
 using System.IO.Compression;
 using System.Linq;
 using System.Reflection;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml;
@@ -1422,7 +1421,7 @@ namespace Tools_Injector_Mod_Menu
                 WriteOutput($"Not found {apkPath}", Enums.LogsType.Error, "000");
                 return;
             }
-            
+
             Directory.CreateDirectory($"{AppPath}\\Output\\{txtNameGame.Text}");
             File.Copy(apkPath, outputFile, true);
             WriteOutput($"Compiled {outputFile}", Enums.LogsType.Success);
@@ -1442,7 +1441,7 @@ namespace Tools_Injector_Mod_Menu
             {
                 outputFile = $"{AppPath}\\Output\\{txtNameGame.Text}\\{txtNameGame.Text}";
             }));
-            
+
             if (!File.Exists(outputFile + ".apk"))
             {
                 MyMessage.MsgShowWarning($"{outputFile} Not found, Please Check it again!!!");
@@ -1465,11 +1464,13 @@ namespace Tools_Injector_Mod_Menu
             FormState(State.Idle);
             ProcessType(Enums.ProcessType.None);
         }
+
         private void MergeApk()
         {
             Lib2Config();
             Apk2Apks();
         }
+
         private void Lib2Config()
         {
             var outputDir = $"{AppPath}\\Output\\{txtNameGame.Text}\\";
@@ -1512,7 +1513,7 @@ namespace Tools_Injector_Mod_Menu
             var apkFile = $"{AppPath}\\Output\\{txtNameGame.Text}\\{txtNameGame.Text}.apk";
             var apkSignedFile = $"{AppPath}\\Output\\{txtNameGame.Text}\\{txtNameGame.Text}-signed.apk";
             var outputDir = $"{AppPath}\\Output\\{txtNameGame.Text}\\";
-            
+
             var baseName = _apkType is ".apks" ? "base.apk" : _baseName;
             var configName = _apkType switch
             {
@@ -1524,7 +1525,7 @@ namespace Tools_Injector_Mod_Menu
                     : "config.arm64_v8a.apk",
                 _ => ""
             };
-            var unsignList = new List<(string, string)> {(apkFile, baseName), (outputDir + configName, configName)};
+            var unsignList = new List<(string, string)> { (apkFile, baseName), (outputDir + configName, configName) };
             var signedList = new List<(string, string)> { (apkSignedFile, baseName), (outputDir + configName, configName) };
             mainFile.AddFiles(unsignList);
             mainSignedFile.AddFiles(signedList);
@@ -1949,8 +1950,6 @@ namespace Tools_Injector_Mod_Menu
                 return false;
             }
         }
-
-        
 
         private bool MoveDirectory(string sourceDirectory, string destinationPath, bool overwrite = true, bool deleteSource = true)
         {
