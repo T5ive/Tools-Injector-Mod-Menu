@@ -20,9 +20,8 @@ using Encoder = System.Drawing.Imaging.Encoder;
 
 namespace Tools_Injector_Mod_Menu
 {
-    //Vector
-    //Error Num
-    //Check crash & some bug & clear memory
+    //Wire Frame & Color Chams
+    //Telekill?
     public partial class FrmMain : MaterialForm
     {
         public FrmMain()
@@ -1318,13 +1317,12 @@ namespace Tools_Injector_Mod_Menu
         {
             try
             {
-                var type = (Enums.TypeAbi) comboType.SelectedIndex;
                 var text = File.ReadAllText(_tempPathMenu + "\\jni\\Main.cpp");
                 var memoryPatch = ModMenuPattern.MemoryPatch();
                 var newVariable = ModMenuPattern.NewVariable();
                 var newMethod = ModMenuPattern.NewMethod();
-                var hackThread64 = ModMenuPattern.HackThread64(type);
-                var hackThread = ModMenuPattern.HackThread(type);
+                var hackThread64 = ModMenuPattern.HackThread();
+                var hackThread = ModMenuPattern.HackThread();
                 var toastHere = ModMenuPattern.ToastHere(listToast);
                 var featuresList = ModMenuPattern.FeaturesList();
                 var newFeatures = ModMenuPattern.NewFeatures();

@@ -284,22 +284,12 @@ void Update(void *instance) {{
 
             return result.Remove(result.LastIndexOf(newLine, StringComparison.Ordinal));
         }
-
-        public static string HackThread64(Enums.TypeAbi type)
+        
+        public static string HackThread()
         {
-            if (type != Enums.TypeAbi.Arm64) return "";
             var result = "";
             result += Patch();
-            result += Hook(type);
-            return result;
-        }
-
-        public static string HackThread(Enums.TypeAbi type)
-        {
-            if (type != Enums.TypeAbi.Arm) return "";
-            var result = "";
-            result += Patch();
-            result += Hook(type);
+            result += Hook();
             return result;
         }
 
@@ -335,9 +325,8 @@ void Update(void *instance) {{
             return result;
         }
 
-        private static string Hook(Enums.TypeAbi type)
+        private static string Hook()
         {
-            //var abiType = type == Enums.TypeAbi.Arm64 ? "A64HookFunction" : "MSHookFunction";
             var result = "";
             var newLine = Environment.NewLine;
 
@@ -357,11 +346,6 @@ void Update(void *instance) {{
                         case Enums.FunctionType.HookInputOnOff:
                             {
                                 if (offsetInfo.HookInfo.Type == Enums.Type.Links) break;
-                                //    result +=
-                                //        $@"{abiType}((void *) getAbsoluteAddress(targetLibName, string2Offset(OBFUSCATE_KEY(""{offsetInfo.Offset}"", {RandomString(12)}))),
-                                //(void *) Update{cheatName}{id}, (void **) &old_{cheatName}{id});{newLine}    "; // Old Hook
-
-                                // New Hook
                                 result += $@"HOOK(""{offsetInfo.Offset}"", {RandomString(12)}, Update{cheatName}{id}, old_{cheatName}{id});{newLine}    ";
                                 break;
                             }
