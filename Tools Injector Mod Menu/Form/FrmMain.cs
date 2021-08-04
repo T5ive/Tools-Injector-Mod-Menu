@@ -76,7 +76,7 @@ namespace Tools_Injector_Mod_Menu
             materialSkinManager.ColorScheme = new ColorScheme(Primary.Indigo500, Primary.Indigo700, Primary.Indigo100, Accent.Blue700, TextShade.WHITE);
         }
 
-        private void CheckFolder()
+        private static void CheckFolder()
         {
             if (!Directory.Exists(_tempPathMenu))
             {
@@ -222,8 +222,9 @@ namespace Tools_Injector_Mod_Menu
                     await UpdateService.CheckGitHubNewerVersion(true).ConfigureAwait(false);
                 }
             }
-            catch
+            catch (Exception exception)
             {
+                WriteOutput(exception.Message, Enums.LogsType.Error, "001");
             }
         }
 
@@ -240,7 +241,7 @@ namespace Tools_Injector_Mod_Menu
             {
                 picImg.Image = null;
                 ImageCode = "";
-                WriteOutput(exception.Message, Enums.LogsType.Error, "001");
+                WriteOutput(exception.Message, Enums.LogsType.Error, "002");
             }
         }
 
@@ -252,13 +253,13 @@ namespace Tools_Injector_Mod_Menu
         {
             try
             {
-                if (Utility.IsEmpty(txtToast.Text)) return;
+                if (Utility.IsEmpty(txtToast.Text, "Toast")) return;
                 listToast.Items.Add(txtToast.Text);
                 WriteOutput("Add Toast " + txtToast.Text, Enums.LogsType.Success);
             }
             catch (Exception exception)
             {
-                WriteOutput(exception.Message, Enums.LogsType.Error, "002");
+                WriteOutput(exception.Message, Enums.LogsType.Error, "003");
             }
         }
 
@@ -274,7 +275,7 @@ namespace Tools_Injector_Mod_Menu
             }
             catch (Exception exception)
             {
-                WriteOutput(exception.Message, Enums.LogsType.Error, "003");
+                WriteOutput(exception.Message, Enums.LogsType.Error, "004");
             }
         }
 
@@ -294,8 +295,9 @@ namespace Tools_Injector_Mod_Menu
                     ImageCode = ImageToBase64(CompressImage(openFile.FileName, 1), imgFormat);
                     LoadImg();
                 }
-                catch
+                catch (Exception exception)
                 {
+                    WriteOutput(exception.Message, Enums.LogsType.Error, "005");
                 }
             }
         }
@@ -336,7 +338,7 @@ namespace Tools_Injector_Mod_Menu
             }
             catch (Exception exception)
             {
-                WriteOutput(exception.Message, Enums.LogsType.Error, "004");
+                WriteOutput(exception.Message, Enums.LogsType.Error, "006");
             }
         }
 
@@ -453,7 +455,7 @@ namespace Tools_Injector_Mod_Menu
             }
             catch (Exception ex)
             {
-                WriteOutput(ex.Message, Enums.LogsType.Error, "005");
+                WriteOutput(ex.Message, Enums.LogsType.Error, "007");
             }
         }
 
@@ -505,7 +507,7 @@ namespace Tools_Injector_Mod_Menu
             }
             catch (Exception ex)
             {
-                WriteOutput(ex.Message, Enums.LogsType.Error, "006");
+                WriteOutput(ex.Message, Enums.LogsType.Error, "008");
             }
         }
 
@@ -523,7 +525,7 @@ namespace Tools_Injector_Mod_Menu
             }
             catch (Exception ex)
             {
-                WriteOutput(ex.Message, Enums.LogsType.Error, "007");
+                WriteOutput(ex.Message, Enums.LogsType.Error, "009");
             }
         }
 
@@ -606,7 +608,7 @@ namespace Tools_Injector_Mod_Menu
             catch (Exception ex)
             {
                 FormState(State.Idle);
-                WriteOutput(ex.Message, Enums.LogsType.Error, "008");
+                WriteOutput(ex.Message, Enums.LogsType.Error, "010");
             }
             finally
             {
@@ -636,7 +638,7 @@ namespace Tools_Injector_Mod_Menu
             }
             catch (Exception ex)
             {
-                WriteOutput(ex.Message, Enums.LogsType.Error, "009");
+                WriteOutput(ex.Message, Enums.LogsType.Error, "011");
             }
         }
 
@@ -657,16 +659,14 @@ namespace Tools_Injector_Mod_Menu
                     var outType = typeof(T);
 
                     var serializer = new XmlSerializer(outType);
-                    using (XmlReader reader = new XmlTextReader(read))
-                    {
-                        objectOut = (T)serializer.Deserialize(reader);
-                    }
+                    using XmlReader reader = new XmlTextReader(read);
+                    objectOut = (T)serializer.Deserialize(reader);
                 }
                 WriteOutput("Loaded: " + Path.GetFileName(fileName), Enums.LogsType.Success);
             }
             catch (Exception ex)
             {
-                WriteOutput(ex.Message, Enums.LogsType.Error, "010");
+                WriteOutput(ex.Message, Enums.LogsType.Error, "012");
             }
 
             return objectOut;
@@ -711,7 +711,7 @@ namespace Tools_Injector_Mod_Menu
                 }
                 catch (Exception ex)
                 {
-                    WriteOutput(ex.Message, Enums.LogsType.Error, "011");
+                    WriteOutput(ex.Message, Enums.LogsType.Error, "013");
                 }
             }
         }
@@ -734,7 +734,6 @@ namespace Tools_Injector_Mod_Menu
 
         private void SetFullApk(Enums.ProcessType type)
         {
-
             if (_apkTarget != _apkName)
             {
                 SetApkPath(txtApkTarget.Text, true);
@@ -785,42 +784,58 @@ namespace Tools_Injector_Mod_Menu
 
         private void SetApkPath(string apkTarget, bool re = false)
         {
-            _apkTarget = apkTarget;
-            _apkName = apkTarget;
-            _apkType = Path.GetExtension(_apkName);
-            txtApkTarget.Text = _apkTarget;
-            if (!re)
+            try
             {
-                WriteOutput($"Set Apk Target: {_apkTarget}", Enums.LogsType.Success);
+                _apkTarget = apkTarget;
+                _apkName = apkTarget;
+                _apkType = Path.GetExtension(_apkName);
+                txtApkTarget.Text = _apkTarget;
+                if (!re)
+                {
+                    WriteOutput($"Set Apk Target: {_apkTarget}", Enums.LogsType.Success);
+                }
+                SetDumpApk();
             }
-            SetDumpApk();
+            catch (Exception exception)
+            {
+                WriteOutput(exception.Message, Enums.LogsType.Error, "014");
+            }
         }
 
         private void SetDumpApk()
         {
-            if (string.IsNullOrWhiteSpace(_apkName))
+            try
             {
-                MyMessage.MsgShowWarning("Apk Target is Empty, Please Check it again!!!");
-                WriteOutput("Apk Target is Empty", Enums.LogsType.Warning);
-                return;
-            }
-            File.Copy(_apkName, $"{_tempPathMenu}\\ApkTarget{_apkType}", true);
-
-            _apkTarget = $"{_tempPathMenu}\\ApkTarget{_apkType}";
-
-            FormState(State.Running);
-            SplitApk();
-            ProcessType(Enums.ProcessType.DumpApk);
-            if (_apkType is ".apk")
-            {
-                DumpApk();
-            }
-            else
-            {
-                while (_apkTarget == $"{_tempPathMenu}\\ApkTarget{_apkType}")
+                if (string.IsNullOrWhiteSpace(_apkName))
                 {
+                    MyMessage.MsgShowWarning("Apk Target is Empty, Please Check it again!!!");
+                    WriteOutput("Apk Target is Empty", Enums.LogsType.Warning);
+                    return;
                 }
-                DumpApk();
+
+                File.Copy(_apkName, $"{_tempPathMenu}\\ApkTarget{_apkType}", true);
+
+                _apkTarget = $"{_tempPathMenu}\\ApkTarget{_apkType}";
+
+                FormState(State.Running);
+                SplitApk();
+                ProcessType(Enums.ProcessType.DumpApk);
+                if (_apkType is ".apk")
+                {
+                    DumpApk();
+                }
+                else
+                {
+                    while (_apkTarget == $"{_tempPathMenu}\\ApkTarget{_apkType}")
+                    {
+                    }
+
+                    DumpApk();
+                }
+            }
+            catch (Exception exception)
+            {
+                WriteOutput(exception.Message, Enums.LogsType.Error, "015");
             }
         }
 
@@ -830,32 +845,48 @@ namespace Tools_Injector_Mod_Menu
             {
                 MyMessage.MsgShowError($"{_apkTarget} Not found!!" +
                                        "\nPlease select the Apk again");
-                WriteOutput($"{_tempPathMenu}\\ApkTarget.apk Not found", Enums.LogsType.Error, "000");
+                WriteOutput($"{_tempPathMenu}\\ApkTarget.apk Not found", Enums.LogsType.Error, "016");
                 FormState(State.Idle);
                 return;
             }
-            while (!Worker.CancellationPending)
+
+            try
             {
-                Worker.CancelAsync();
+                while (!Worker.CancellationPending)
+                {
+                    Worker.CancelAsync();
+                }
+
+                Worker.RunWorkerAsync();
             }
-            Worker.RunWorkerAsync();
+            catch (Exception exception)
+            {
+                WriteOutput(exception.Message, Enums.LogsType.Error, "017");
+            }
         }
 
         private async void SplitApk()
         {
-            var type = 0;
-            Invoke(new MethodInvoker(delegate
+            try
             {
-                type = comboType.SelectedIndex;
-            }));
+                var type = 0;
+                Invoke(new MethodInvoker(delegate
+                {
+                    type = comboType.SelectedIndex;
+                }));
 
-            if (_apkType is ".apks")
-            {
-                await APKsDump(type).ConfigureAwait(false);
+                if (_apkType is ".apks")
+                {
+                    await APKsDump(type).ConfigureAwait(false);
+                }
+                if (_apkType is ".xapk")
+                {
+                    await XAPKDump(type).ConfigureAwait(false);
+                }
             }
-            if (_apkType is ".xapk")
+            catch (Exception exception)
             {
-                await XAPKDump(type).ConfigureAwait(false);
+                WriteOutput(exception.Message, Enums.LogsType.Error, "018");
             }
         }
 
@@ -939,7 +970,7 @@ namespace Tools_Injector_Mod_Menu
 
             FormState(State.Running);
             materialTabControl1.SelectedTab = materialTabControl1.TabPages[3];
-            if (!DeleteAll(_tempPathMenu+ "\\jni")) return;
+            if (!DeleteAll(_tempPathMenu + "\\jni")) return;
             if (!DeleteAll(_tempPathMenu + "\\libs")) return;
             if (!DeleteAll(_tempPathMenu + "\\obj")) return;
 
@@ -949,7 +980,7 @@ namespace Tools_Injector_Mod_Menu
             if (!Replacer())
             {
                 MyMessage.MsgShowError("Failed to Replace Something");
-                WriteOutput("Failed to Replace Something", Enums.LogsType.Error, "012");
+                WriteOutput("Failed to Replace Something", Enums.LogsType.Error, "019");
                 FormState(State.Idle);
                 return;
             }
@@ -1049,29 +1080,33 @@ namespace Tools_Injector_Mod_Menu
                 {
                     Directory.Delete(_apkTargetPath, true);
                 }
+                else if (MyMessage.MsgOkCancel(_apkTargetPath + " Found.\n\n" +
+                           "Click \"OK\" to Continue if you want to overwrite!" +
+                           "\n\nClick \"Cancel\" to cancel it if not!"))
+                {
+                    Directory.Delete(_apkTargetPath, true);
+                }
                 else
                 {
-                    if (MyMessage.MsgOkCancel(_apkTargetPath + " Found.\n\n" +
-                                              "Click \"OK\" to Continue if you want to overwrite!" +
-                                              "\n\nClick \"Cancel\" to cancel it if not!"))
-                    {
-                        Directory.Delete(_apkTargetPath, true);
-                    }
-                    else
-                    {
-                        return;
-                    }
+                    return;
                 }
             }
 
-            while (!Worker.CancellationPending)
+            try
             {
-                Worker.CancelAsync();
-            }
+                while (!Worker.CancellationPending)
+                {
+                    Worker.CancelAsync();
+                }
 
-            ProcessType(type);
-            FormState(State.Running);
-            Worker.RunWorkerAsync();
+                ProcessType(type);
+                FormState(State.Running);
+                Worker.RunWorkerAsync();
+            }
+            catch (Exception exception)
+            {
+                WriteOutput(exception.Message, Enums.LogsType.Error, "020");
+            }
         }
 
         private void SetCompileApk()
@@ -1094,7 +1129,7 @@ namespace Tools_Injector_Mod_Menu
                 if (!MoveDirectory(sourceDir, desDir))
                 {
                     FormState(State.Idle);
-                    WriteOutput($"Cannot Move {sourceDir}\nTo => {desDir}",Enums.LogsType.Error,"000");
+                    WriteOutput($"Cannot Move {sourceDir}\nTo => {desDir}", Enums.LogsType.Error, "021");
                     return;
                 }
             }
@@ -1104,7 +1139,7 @@ namespace Tools_Injector_Mod_Menu
 
             //if (_merge) //TODO
             //{
-                //move lib
+            //move lib
             //}
 
             Worker.RunWorkerAsync();
@@ -1142,7 +1177,7 @@ namespace Tools_Injector_Mod_Menu
             catch (Exception ex)
             {
                 MyMessage.MsgShowError("Error " + ex.Message);
-                WriteOutput(ex.Message, Enums.LogsType.Error, "013");
+                WriteOutput(ex.Message, Enums.LogsType.Error, "022");
                 FormState(State.Idle);
                 return false;
             }
@@ -1161,7 +1196,7 @@ namespace Tools_Injector_Mod_Menu
             catch (Exception ex)
             {
                 MyMessage.MsgShowError("Error " + ex.Message);
-                WriteOutput(ex.Message, Enums.LogsType.Error, "014");
+                WriteOutput(ex.Message, Enums.LogsType.Error, "023");
                 FormState(State.Idle);
                 return false;
             }
@@ -1193,7 +1228,7 @@ namespace Tools_Injector_Mod_Menu
             catch (Exception ex)
             {
                 MyMessage.MsgShowError("Error " + ex.Message);
-                WriteOutput(ex.Message, Enums.LogsType.Error, "015");
+                WriteOutput(ex.Message, Enums.LogsType.Error, "024");
                 FormState(State.Idle);
                 return false;
             }
@@ -1218,44 +1253,7 @@ namespace Tools_Injector_Mod_Menu
             catch (Exception ex)
             {
                 MyMessage.MsgShowError("Error " + ex.Message);
-                WriteOutput(ex.Message, Enums.LogsType.Error, "016");
-                FormState(State.Idle);
-                return false;
-            }
-        }
-
-        private bool MainHack()
-        {
-            try
-            {
-                var text = File.ReadAllText(_tempPathMenu + "\\jni\\Main.cpp");
-                var memoryPatch = ModMenuPattern.MemoryPatch();
-                var newVariable = ModMenuPattern.NewVariable();
-                var newMethod = ModMenuPattern.NewMethod();
-                var hackThread64 = ModMenuPattern.HackThread64((Enums.TypeAbi)comboType.SelectedIndex);
-                var hackThread = ModMenuPattern.HackThread((Enums.TypeAbi)comboType.SelectedIndex);
-                var toastHere = ModMenuPattern.ToastHere(listToast);
-                var featuresList = ModMenuPattern.FeaturesList();
-                var newFeatures = ModMenuPattern.NewFeatures();
-
-                text = text.Replace("//VariableHere", memoryPatch)
-                    .Replace("//NewVariableHere", newVariable)
-                    .Replace("//NewMethodHere", newMethod)
-                    .Replace("(yourTargetLibName)", txtTargetLib.Text)
-                    .Replace("//(hackThread64)", hackThread64)
-                    .Replace("//(hackThread)", hackThread)
-                    .Replace("//ToastHere", toastHere.Remove(toastHere.LastIndexOf(Environment.NewLine, StringComparison.Ordinal)))
-                    .Replace("//(yourFeaturesList)", featuresList)
-                    .Replace("(yourEndCredit)", txtEndCredit.Text)
-                    .Replace("//(yourFeatures)", newFeatures);
-                File.WriteAllText(_tempPathMenu + "\\jni\\Main.cpp", text);
-                WriteOutput("Replaced Main.cpp", Enums.LogsType.Success);
-                return true;
-            }
-            catch (Exception ex)
-            {
-                MyMessage.MsgShowError("Error " + ex.Message);
-                WriteOutput(ex.Message, Enums.LogsType.Error, "017");
+                WriteOutput(ex.Message, Enums.LogsType.Error, "025");
                 FormState(State.Idle);
                 return false;
             }
@@ -1284,7 +1282,7 @@ namespace Tools_Injector_Mod_Menu
             catch (Exception ex)
             {
                 MyMessage.MsgShowError("Error " + ex.Message);
-                WriteOutput(ex.Message, Enums.LogsType.Error, "018");
+                WriteOutput(ex.Message, Enums.LogsType.Error, "026");
                 FormState(State.Idle);
                 return false;
             }
@@ -1310,7 +1308,49 @@ namespace Tools_Injector_Mod_Menu
             catch (Exception ex)
             {
                 MyMessage.MsgShowError("Error " + ex.Message);
-                WriteOutput(ex.Message, Enums.LogsType.Error, "019");
+                WriteOutput(ex.Message, Enums.LogsType.Error, "027");
+                FormState(State.Idle);
+                return false;
+            }
+        }
+
+        private bool MainHack()
+        {
+            try
+            {
+                var text = File.ReadAllText(_tempPathMenu + "\\jni\\Main.cpp");
+                var memoryPatch = ModMenuPattern.MemoryPatch();
+                var newVariable = ModMenuPattern.NewVariable();
+                var newMethod = ModMenuPattern.NewMethod();
+                var hackThread64 = ModMenuPattern.HackThread64((Enums.TypeAbi)comboType.SelectedIndex);
+                var hackThread = ModMenuPattern.HackThread((Enums.TypeAbi)comboType.SelectedIndex);
+                var toastHere = ModMenuPattern.ToastHere(listToast);
+                var featuresList = ModMenuPattern.FeaturesList();
+                var newFeatures = ModMenuPattern.NewFeatures();
+
+                if (memoryPatch == "101")
+                {
+                    WriteOutput("MemoryPatch", Enums.LogsType.Error, memoryPatch);
+                }
+
+                text = text.Replace("//VariableHere", memoryPatch)
+                    .Replace("//NewVariableHere", newVariable)
+                    .Replace("//NewMethodHere", newMethod)
+                    .Replace("(yourTargetLibName)", txtTargetLib.Text)
+                    .Replace("//(hackThread64)", hackThread64)
+                    .Replace("//(hackThread)", hackThread)
+                    .Replace("//ToastHere", toastHere.Remove(toastHere.LastIndexOf(Environment.NewLine, StringComparison.Ordinal)))
+                    .Replace("//(yourFeaturesList)", featuresList)
+                    .Replace("(yourEndCredit)", txtEndCredit.Text)
+                    .Replace("//(yourFeatures)", newFeatures);
+                File.WriteAllText(_tempPathMenu + "\\jni\\Main.cpp", text);
+                WriteOutput("Replaced Main.cpp", Enums.LogsType.Success);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                MyMessage.MsgShowError("Error " + ex.Message);
+                WriteOutput(ex.Message, Enums.LogsType.Error, "028");
                 FormState(State.Idle);
                 return false;
             }
@@ -1420,7 +1460,7 @@ namespace Tools_Injector_Mod_Menu
             if (_compile > 0 && !_mySettings.debugMode)
             {
                 MyMessage.MsgShowError("Failed to Compile");
-                WriteOutput("Failed to Compile", Enums.LogsType.Error, "021");
+                WriteOutput("Failed to Compile", Enums.LogsType.Error, "029");
                 SaveLogs();
                 FormState(State.Idle);
                 return;
@@ -1448,7 +1488,7 @@ namespace Tools_Injector_Mod_Menu
             if (_compile > 0 && !_mySettings.debugMode)
             {
                 MyMessage.MsgShowError("Failed to Dump");
-                WriteOutput("Failed to Dump", Enums.LogsType.Error, "025");
+                WriteOutput("Failed to Dump", Enums.LogsType.Error, "030");
                 SaveLogs();
             }
             FormState(State.Idle);
@@ -1491,11 +1531,11 @@ namespace Tools_Injector_Mod_Menu
                 }
                 catch (Exception exception)
                 {
-                    WriteOutput($"Can not Delete {sourcePath + folderName}" + exception.Message, Enums.LogsType.Error, "000");
+                    WriteOutput($"Can not Delete {sourcePath + folderName}" + exception.Message, Enums.LogsType.Error, "031");
                 }
             }
         }
-        
+
         private void CompileApkDone()
         {
             var apkPath = $"{AppPath}\\BuildTools\\ApkTarget\\dist\\ApkTarget.apk";
@@ -1552,7 +1592,6 @@ namespace Tools_Injector_Mod_Menu
         {
             Lib2Config();
             Apk2Apks();
-            
         }
 
         private void Lib2Config()
@@ -1642,7 +1681,7 @@ namespace Tools_Injector_Mod_Menu
             if (Utility.IsEmpty(e.Data, false)) return;
             if (e.Data == "fcntl(): Bad file descriptor") return;
             _compile++;
-            WriteOutput(e.Data, Enums.LogsType.Error, "000");
+            WriteOutput(e.Data, Enums.LogsType.Error, "032");
         }
 
         #endregion Worker
@@ -1850,7 +1889,7 @@ namespace Tools_Injector_Mod_Menu
             }
             catch (Exception exception)
             {
-                WriteOutput(exception.Message, Enums.LogsType.Error, "027");
+                WriteOutput(exception.Message, Enums.LogsType.Error, "033");
             }
         }
 
@@ -1862,7 +1901,7 @@ namespace Tools_Injector_Mod_Menu
                 if (folderBrowser.SelectedPath.IsPathSpecialChar())
                 {
                     MyMessage.MsgShowWarning("Ndk path must without any special character");
-                    WriteOutput("Ndk path must without any special character", Enums.LogsType.Error, "028");
+                    WriteOutput("Ndk path must without any special character", Enums.LogsType.Error, "034");
                     return;
                 }
                 txtNDK.Text = folderBrowser.SelectedPath;
@@ -1907,7 +1946,7 @@ namespace Tools_Injector_Mod_Menu
             }
             catch (Exception ex)
             {
-                WriteOutput($"{ex.Message}", Enums.LogsType.Error, "000");
+                WriteOutput($"{ex.Message}", Enums.LogsType.Error, "035");
             }
             FormState(State.Idle);
         }
@@ -2011,7 +2050,7 @@ namespace Tools_Injector_Mod_Menu
             catch (Exception ex)
             {
                 MyMessage.MsgShowError("Error " + ex.Message);
-                WriteOutput(ex.Message, Enums.LogsType.Error, "029");
+                WriteOutput(ex.Message, Enums.LogsType.Error, "036");
                 FormState(State.Idle);
                 return false;
             }
@@ -2031,7 +2070,7 @@ namespace Tools_Injector_Mod_Menu
             catch (Exception ex)
             {
                 MyMessage.MsgShowError("Error " + ex.Message);
-                WriteOutput(ex.Message, Enums.LogsType.Error, "030");
+                WriteOutput(ex.Message, Enums.LogsType.Error, "037");
                 FormState(State.Idle);
                 return false;
             }
@@ -2078,14 +2117,14 @@ namespace Tools_Injector_Mod_Menu
                     return true;
                 }
 
-                WriteOutput($"Can not Move {sourceDirectory}{Environment.NewLine}To => {destinationPath}", Enums.LogsType.Error, "023");
+                WriteOutput($"Can not Move {sourceDirectory}{Environment.NewLine}To => {destinationPath}", Enums.LogsType.Error, "038");
                 FormState(State.Idle);
                 return false;
             }
             catch (Exception ex)
             {
                 MyMessage.MsgShowError("Error " + ex.Message);
-                WriteOutput(ex.Message, Enums.LogsType.Error, "031");
+                WriteOutput(ex.Message, Enums.LogsType.Error, "039");
                 FormState(State.Idle);
                 return false;
             }
@@ -2123,7 +2162,7 @@ namespace Tools_Injector_Mod_Menu
             catch (Exception ex)
             {
                 MyMessage.MsgShowError("Error " + ex.Message);
-                WriteOutput(ex.Message, Enums.LogsType.Error, "032");
+                WriteOutput(ex.Message, Enums.LogsType.Error, "040");
                 FormState(State.Idle);
                 return false;
             }

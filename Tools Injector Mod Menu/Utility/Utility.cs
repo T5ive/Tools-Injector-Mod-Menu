@@ -97,6 +97,18 @@ namespace Tools_Injector_Mod_Menu
             return false;
         }
 
+        public static bool IsEmpty(string str, string message, bool msg = true)
+        {
+            if (str == null || string.IsNullOrWhiteSpace(str))
+            {
+                if (!msg) return true;
+
+                MyMessage.MsgShowWarning($"{message} is Empty, Please Check it again!!!");
+                return true;
+            }
+            return false;
+        }
+
         public static bool IsEmpty(object str, int line, string name = "", bool msg = true)
         {
             if (str == null || string.IsNullOrWhiteSpace(str.ToString()))

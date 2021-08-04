@@ -131,6 +131,7 @@ namespace Tools_Injector_Mod_Menu
             this.btnSaveSettings2 = new MaterialSkin.Controls.MaterialButton();
             this.materialCard5 = new MaterialSkin.Controls.MaterialCard();
             this.groupBox8 = new System.Windows.Forms.GroupBox();
+            this.chkOverwrite = new MaterialSkin.Controls.MaterialCheckbox();
             this.chkLogsWarning = new MaterialSkin.Controls.MaterialCheckbox();
             this.chkCheckUpdate = new MaterialSkin.Controls.MaterialCheckbox();
             this.chkSound = new MaterialSkin.Controls.MaterialCheckbox();
@@ -156,7 +157,6 @@ namespace Tools_Injector_Mod_Menu
             this.menuIconList = new System.Windows.Forms.ImageList(this.components);
             this.Worker = new System.ComponentModel.BackgroundWorker();
             this.ApkWorker = new System.ComponentModel.BackgroundWorker();
-            this.chkOverwrite = new MaterialSkin.Controls.MaterialCheckbox();
             this.materialTabControl1.SuspendLayout();
             this.tabMain.SuspendLayout();
             this.materialCard4.SuspendLayout();
@@ -583,7 +583,7 @@ namespace Tools_Injector_Mod_Menu
             this.btnRemoveToast.Depth = 0;
             this.btnRemoveToast.HighEmphasis = true;
             this.btnRemoveToast.Icon = null;
-            this.btnRemoveToast.Location = new System.Drawing.Point(9, 153);
+            this.btnRemoveToast.Location = new System.Drawing.Point(9, 186);
             this.btnRemoveToast.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
             this.btnRemoveToast.MouseState = MaterialSkin.MouseState.HOVER;
             this.btnRemoveToast.Name = "btnRemoveToast";
@@ -605,7 +605,7 @@ namespace Tools_Injector_Mod_Menu
             this.btnAddToast.Depth = 0;
             this.btnAddToast.HighEmphasis = true;
             this.btnAddToast.Icon = null;
-            this.btnAddToast.Location = new System.Drawing.Point(9, 108);
+            this.btnAddToast.Location = new System.Drawing.Point(9, 144);
             this.btnAddToast.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
             this.btnAddToast.MouseState = MaterialSkin.MouseState.HOVER;
             this.btnAddToast.Name = "btnAddToast";
@@ -621,9 +621,9 @@ namespace Tools_Injector_Mod_Menu
             // listToast
             // 
             this.listToast.ItemHeight = 18;
-            this.listToast.Location = new System.Drawing.Point(162, 108);
+            this.listToast.Location = new System.Drawing.Point(162, 144);
             this.listToast.Name = "listToast";
-            this.listToast.Size = new System.Drawing.Size(188, 220);
+            this.listToast.Size = new System.Drawing.Size(188, 184);
             this.listToast.TabIndex = 4;
             // 
             // txtToast
@@ -633,12 +633,12 @@ namespace Tools_Injector_Mod_Menu
             this.txtToast.Font = new System.Drawing.Font("Roboto", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
             this.txtToast.Hint = "Modded by TFive";
             this.txtToast.LeadingIcon = null;
-            this.txtToast.Location = new System.Drawing.Point(162, 67);
+            this.txtToast.Location = new System.Drawing.Point(9, 99);
             this.txtToast.MaxLength = 50;
             this.txtToast.MouseState = MaterialSkin.MouseState.OUT;
             this.txtToast.Multiline = false;
             this.txtToast.Name = "txtToast";
-            this.txtToast.Size = new System.Drawing.Size(188, 36);
+            this.txtToast.Size = new System.Drawing.Size(341, 36);
             this.txtToast.TabIndex = 3;
             this.txtToast.Text = "";
             this.txtToast.TrailingIcon = null;
@@ -1844,6 +1844,21 @@ namespace Tools_Injector_Mod_Menu
             this.groupBox8.TabStop = false;
             this.groupBox8.Text = "Tools Settings";
             // 
+            // chkOverwrite
+            // 
+            this.chkOverwrite.AutoSize = true;
+            this.chkOverwrite.Depth = 0;
+            this.chkOverwrite.Location = new System.Drawing.Point(191, 135);
+            this.chkOverwrite.Margin = new System.Windows.Forms.Padding(0);
+            this.chkOverwrite.MouseLocation = new System.Drawing.Point(-1, -1);
+            this.chkOverwrite.MouseState = MaterialSkin.MouseState.HOVER;
+            this.chkOverwrite.Name = "chkOverwrite";
+            this.chkOverwrite.Ripple = true;
+            this.chkOverwrite.Size = new System.Drawing.Size(156, 37);
+            this.chkOverwrite.TabIndex = 20;
+            this.chkOverwrite.Text = "Always Overwrite";
+            this.chkOverwrite.UseVisualStyleBackColor = true;
+            // 
             // chkLogsWarning
             // 
             this.chkLogsWarning.AutoSize = true;
@@ -2220,21 +2235,6 @@ namespace Tools_Injector_Mod_Menu
             this.ApkWorker.WorkerSupportsCancellation = true;
             this.ApkWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.ApkWorker_DoWork);
             this.ApkWorker.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.ApkWorker_RunWorkerCompleted);
-            // 
-            // chkOverwrite
-            // 
-            this.chkOverwrite.AutoSize = true;
-            this.chkOverwrite.Depth = 0;
-            this.chkOverwrite.Location = new System.Drawing.Point(191, 135);
-            this.chkOverwrite.Margin = new System.Windows.Forms.Padding(0);
-            this.chkOverwrite.MouseLocation = new System.Drawing.Point(-1, -1);
-            this.chkOverwrite.MouseState = MaterialSkin.MouseState.HOVER;
-            this.chkOverwrite.Name = "chkOverwrite";
-            this.chkOverwrite.Ripple = true;
-            this.chkOverwrite.Size = new System.Drawing.Size(156, 37);
-            this.chkOverwrite.TabIndex = 20;
-            this.chkOverwrite.Text = "Always Overwrite";
-            this.chkOverwrite.UseVisualStyleBackColor = true;
             // 
             // FrmMain
             // 
