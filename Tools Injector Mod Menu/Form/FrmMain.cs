@@ -22,6 +22,7 @@ namespace Tools_Injector_Mod_Menu
 {
     //Wire Frame & Color Chams
     //Telekill?
+    //String
     public partial class FrmMain : MaterialForm
     {
         public FrmMain()
@@ -182,6 +183,7 @@ namespace Tools_Injector_Mod_Menu
             chkSound.Checked = _mySettings.chkSound;
             chkCheckUpdate.Checked = _mySettings.chkCheckUpdate;
             chkOverwrite.Checked = _mySettings.chkAlwaysOverwrite;
+            chkMergeApk.Checked = _mySettings.chkMergeApk;
 
             txtNDK.Text = _mySettings.txtNDK;
 
@@ -992,7 +994,10 @@ namespace Tools_Injector_Mod_Menu
             }
             if (!MoveSmali(destinationPath)) return;
             //    FormState(State.Idle); // Test Mode
-
+            while (!Worker.CancellationPending)
+            {
+                Worker.CancelAsync();
+            }
             Worker.RunWorkerAsync();
         }
 
@@ -1139,7 +1144,7 @@ namespace Tools_Injector_Mod_Menu
                     return;
                 }
 
-                if (_apkType == ".apk")
+                if (_apkType == ".apk" || _mySettings.chkMergeApk)
                 {
                     var folderName = comboType.SelectedIndex == (int)Enums.TypeAbi.Arm ? "armeabi-v7a" : "arm64-v8a";
                     var libSource = $"{AppPath}\\Output\\{txtNameGame.Text}\\lib\\{folderName}";
@@ -1156,12 +1161,6 @@ namespace Tools_Injector_Mod_Menu
 
             ProcessType(Enums.ProcessType.CompileApk);
             FormState(State.Running);
-
-            //if (_merge) //TODO
-            //{
-            //move lib
-            //}
-
             Worker.RunWorkerAsync();
         }
 
@@ -1342,11 +1341,20 @@ namespace Tools_Injector_Mod_Menu
                 var memoryPatch = ModMenuPattern.MemoryPatch();
                 var newVariable = ModMenuPattern.NewVariable();
                 var newMethod = ModMenuPattern.NewMethod();
-                var hackThread64 = ModMenuPattern.HackThread();
-                var hackThread = ModMenuPattern.HackThread();
+                var hackThread64 = "";
+                var hackThread = "";
                 var toastHere = ModMenuPattern.ToastHere(listToast);
                 var featuresList = ModMenuPattern.FeaturesList();
                 var newFeatures = ModMenuPattern.NewFeatures();
+
+                if (comboType.SelectedIndex == (int) Enums.TypeAbi.Arm)
+                {
+                    hackThread = ModMenuPattern.HackThread();
+                }
+                else
+                {
+                    hackThread64 = ModMenuPattern.HackThread();
+                }
 
                 if (!string.IsNullOrWhiteSpace(toastHere))
                 {
@@ -1491,6 +1499,11 @@ namespace Tools_Injector_Mod_Menu
             var deleteTemp = chkRemoveTemp.Checked;
 
             MoveDirectory(tempOutputDir, desDir, true, deleteTemp);
+            if (_mySettings.chkMergeApk)
+            {
+                var folderName = comboType.SelectedIndex == (int)Enums.TypeAbi.Arm ? "\\armeabi-v7a" : "\\arm64-v8a";
+                MoveDirectory($"{_tempPathMenu}\\lib\\", desDir + folderName, false, false);
+            }
         }
 
         private void DumpApkDone()
@@ -1535,6 +1548,31 @@ namespace Tools_Injector_Mod_Menu
                 ProcessType(Enums.ProcessType.ApkFull2);
             }
 
+            if (_mySettings.chkMergeApk && _apkType != ".apk")
+            {
+                if (!DeleteAll(_tempPathMenu + "\\lib")) return;
+                string fileName;
+                if (comboType.SelectedIndex == (int)Enums.TypeAbi.Arm)
+                {
+                    fileName = _apkType == ".apks" ? "\\split_config.armeabi_v7a.apk" : "\\config.armeabi_v7a.apk";
+                }
+                else
+                {
+                    fileName = _apkType == ".apks" ? "\\split_config.arm64_v8a.apk" : "\\config.arm64_v8a.apk";
+                }
+
+                using var archive = ZipFile.OpenRead(_tempPathMenu+fileName);
+                foreach (var entry in archive.Entries.Where(cur => Path.GetDirectoryName(cur.FullName).StartsWith("lib")))
+                {
+                    var path = Path.Combine(_tempPathMenu, "lib");
+                    if (!Directory.Exists(path))
+                    {
+                        Directory.CreateDirectory(path);
+                    }
+                    entry.ExtractToFile(Path.Combine(path, entry.Name));
+                }
+            }
+
             DeleteDecompiledLib();
             FullCompile();
         }
@@ -1547,11 +1585,14 @@ namespace Tools_Injector_Mod_Menu
             {
                 try
                 {
-                    Directory.Delete(sourcePath + folderName, true);
+                    if (Directory.Exists(sourcePath + folderName))
+                    {
+                        Directory.Delete(sourcePath + folderName, true);
+                    }
                 }
                 catch (Exception exception)
                 {
-                    WriteOutput($"Can not Delete {sourcePath + folderName}" + exception.Message, Enums.LogsType.Error, "032");
+                    WriteOutput($"Can not Delete {sourcePath + folderName} " + exception.Message, Enums.LogsType.Error, "032");
                 }
             }
         }
@@ -1596,9 +1637,8 @@ namespace Tools_Injector_Mod_Menu
 
         private void ApkWorker_RunWorkerCompleted(object sender, System.ComponentModel.RunWorkerCompletedEventArgs e)
         {
-            if (_apkType != ".apk")
+            if (_apkType != ".apk" && !_mySettings.chkMergeApk)
             {
-                //TODO if not merge
                 ArchiveApk();
             }
             var outputDir = $"{AppPath}\\Output\\{txtNameGame.Text}\\";
@@ -1903,6 +1943,7 @@ namespace Tools_Injector_Mod_Menu
                     _mySettings.chkSound = chkSound.Checked;
                     _mySettings.chkCheckUpdate = chkCheckUpdate.Checked;
                     _mySettings.chkAlwaysOverwrite = chkOverwrite.Checked;
+                    _mySettings.chkMergeApk = chkMergeApk.Checked;
                     _mySettings.Save();
                     WriteOutput("Saved Settings", Enums.LogsType.Success);
                 }

@@ -157,6 +157,7 @@ namespace Tools_Injector_Mod_Menu
             this.menuIconList = new System.Windows.Forms.ImageList(this.components);
             this.Worker = new System.ComponentModel.BackgroundWorker();
             this.ApkWorker = new System.ComponentModel.BackgroundWorker();
+            this.chkMergeApk = new MaterialSkin.Controls.MaterialCheckbox();
             this.materialTabControl1.SuspendLayout();
             this.tabMain.SuspendLayout();
             this.materialCard4.SuspendLayout();
@@ -1826,6 +1827,7 @@ namespace Tools_Injector_Mod_Menu
             // 
             // groupBox8
             // 
+            this.groupBox8.Controls.Add(this.chkMergeApk);
             this.groupBox8.Controls.Add(this.chkOverwrite);
             this.groupBox8.Controls.Add(this.chkLogsWarning);
             this.groupBox8.Controls.Add(this.chkCheckUpdate);
@@ -1937,9 +1939,9 @@ namespace Tools_Injector_Mod_Menu
             this.chkTFiveCredit.MouseState = MaterialSkin.MouseState.HOVER;
             this.chkTFiveCredit.Name = "chkTFiveCredit";
             this.chkTFiveCredit.Ripple = true;
-            this.chkTFiveCredit.Size = new System.Drawing.Size(327, 37);
+            this.chkTFiveCredit.Size = new System.Drawing.Size(151, 37);
             this.chkTFiveCredit.TabIndex = 15;
-            this.chkTFiveCredit.Text = "Add TFive credit at the end settings menu";
+            this.chkTFiveCredit.Text = "Add TFive Credit";
             this.chkTFiveCredit.UseVisualStyleBackColor = true;
             // 
             // chkLogsError
@@ -2236,6 +2238,23 @@ namespace Tools_Injector_Mod_Menu
             this.ApkWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.ApkWorker_DoWork);
             this.ApkWorker.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.ApkWorker_RunWorkerCompleted);
             // 
+            // chkMergeApk
+            // 
+            this.chkMergeApk.AutoSize = true;
+            this.chkMergeApk.Checked = true;
+            this.chkMergeApk.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkMergeApk.Depth = 0;
+            this.chkMergeApk.Location = new System.Drawing.Point(191, 172);
+            this.chkMergeApk.Margin = new System.Windows.Forms.Padding(0);
+            this.chkMergeApk.MouseLocation = new System.Drawing.Point(-1, -1);
+            this.chkMergeApk.MouseState = MaterialSkin.MouseState.HOVER;
+            this.chkMergeApk.Name = "chkMergeApk";
+            this.chkMergeApk.Ripple = true;
+            this.chkMergeApk.Size = new System.Drawing.Size(113, 37);
+            this.chkMergeApk.TabIndex = 21;
+            this.chkMergeApk.Text = "Merge APK";
+            this.chkMergeApk.UseVisualStyleBackColor = true;
+            // 
             // FrmMain
             // 
             this.AllowDrop = true;
@@ -2438,5 +2457,6 @@ namespace Tools_Injector_Mod_Menu
         private System.Windows.Forms.Label lbApk;
         private System.ComponentModel.BackgroundWorker ApkWorker;
         private MaterialSkin.Controls.MaterialCheckbox chkOverwrite;
+        private MaterialSkin.Controls.MaterialCheckbox chkMergeApk;
     }
 }
