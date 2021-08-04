@@ -26,8 +26,6 @@ namespace Tools_Injector_Mod_Menu
     //Check crash & some bug & clear memory
     public partial class FrmMain : MaterialForm
     {
-        private const bool Debug = false;
-
         public FrmMain()
         {
             InitializeComponent();
@@ -805,18 +803,13 @@ namespace Tools_Injector_Mod_Menu
 
             if (move)
             {
-                var desDir = AppPath + "\\Output\\" + txtNameGame.Text + "\\lib";
                 var deleteTemp = chkRemoveTemp.Checked;
 
                 var apkTarget = $"{_apkTargetPath}";
                 var outputDir = $"{AppPath}\\Output\\{txtNameGame.Text}\\";
-                if (MoveDirectory(outputDir, $"{apkTarget}", false, deleteTemp))
+                if (!MoveDirectory(outputDir, $"{apkTarget}", false, deleteTemp))
                 {
-                    WriteOutput($"Move {desDir}{Environment.NewLine}To => {apkTarget}", Enums.LogsType.Success);
-                }
-                else
-                {
-                    WriteOutput("Can not Move", Enums.LogsType.Error, "023");
+                    FormState(State.Idle);
                     return;
                 }
             }
@@ -969,54 +962,18 @@ namespace Tools_Injector_Mod_Menu
 
         private void FullCompile()
         {
-            if (Utility.IsEmpty(txtLibName, false))
-            {
-                MyMessage.MsgShowWarning("Library Name is Empty, Please Check it again!!!");
-                WriteOutput("Library Name is Empty", Enums.LogsType.Warning);
-                return;
-            }
-            if (Utility.IsEmpty(txtNDK, false))
-            {
-                MyMessage.MsgShowWarning("NDK Path is Empty, Please Check it again!!!");
-                WriteOutput("NDK Path is Empty", Enums.LogsType.Warning);
-                return;
-            }
+            if (!CheckEmpty()) return;
 
-            if (!chkNoMenu.Checked && Utility.IsEmpty(ImageCode, false))
-            {
-                MyMessage.MsgShowWarning("Image Code is Empty, Please Check it again!!!");
-                WriteOutput("Image Code is Empty", Enums.LogsType.Warning);
-                return;
-            }
-            if (Utility.IsEmpty(txtNameGame, false))
-            {
-                MyMessage.MsgShowWarning("Name Game is Empty, Please Check it again!!!");
-                WriteOutput("Name Game is Empty", Enums.LogsType.Warning);
-                return;
-            }
-            if (Utility.IsEmpty(txtTargetLib, false))
-            {
-                MyMessage.MsgShowWarning("Target Library Name is Empty, Please Check it again!!!");
-                WriteOutput("Target Library Name is Empty", Enums.LogsType.Warning);
-                return;
-            }
-            if (_type is Enums.ProcessType.ApkFull1 or Enums.ProcessType.ApkFull2 && Utility.IsEmpty(txtApkTarget, false))
-            {
-                MyMessage.MsgShowWarning("Apk Target is Empty, Please Check it again!!!");
-                WriteOutput("Image Code is Empty", Enums.LogsType.Warning);
-                return;
-            }
-            if (OffsetPatch.FunctionList.Count == 0)
-            {
-                MyMessage.MsgShowWarning("Function list is Empty, Please Check it again!!!");
-                WriteOutput("Function list is Empty", Enums.LogsType.Warning);
-                return;
-            }
+            var destinationPath = $"{AppPath}\\Output\\{txtNameGame.Text}";
+            if (!CheckOutputGame(destinationPath)) return;
+            if (!MoveSmali(destinationPath)) return;
+
             FormState(State.Running);
             materialTabControl1.SelectedTab = materialTabControl1.TabPages[3];
             if (!DeleteAll(_tempPathMenu)) return;
             if (!ExtractZip(AppPath + $"\\Menu\\{comboMenu.SelectedItem}.zip", _tempPathMenu)) return;
             if (!ExtractZip(AppPath + $"\\Theme\\{comboMenu.SelectedItem}.zip", _tempPathMenu)) return;
+
             if (!Replacer())
             {
                 MyMessage.MsgShowError("Failed to Replace Something");
@@ -1025,33 +982,95 @@ namespace Tools_Injector_Mod_Menu
                 return;
             }
 
-            // ReSharper disable once ConditionIsAlwaysTrueOrFalse
-            if (Debug)
+            //    FormState(State.Idle); // Test Mode
+
+            Worker.RunWorkerAsync();
+        }
+
+        private bool CheckEmpty()
+        {
+            if (Utility.IsEmpty(txtLibName, false))
             {
-#pragma warning disable 162
-                FormState(State.Idle);
-#pragma warning restore 162
-                return;
+                MyMessage.MsgShowWarning("Library Name is Empty, Please Check it again!!!");
+                WriteOutput("Library Name is Empty", Enums.LogsType.Warning);
+                return false;
+            }
+            if (Utility.IsEmpty(txtNDK, false))
+            {
+                MyMessage.MsgShowWarning("NDK Path is Empty, Please Check it again!!!");
+                WriteOutput("NDK Path is Empty", Enums.LogsType.Warning);
+                return false;
             }
 
-            var destinationPath = $"{AppPath}\\Output\\{txtNameGame.Text}";
-            if (Directory.Exists(destinationPath) && MyMessage.MsgOkCancel(destinationPath + " Found.\n\n" +
-                                                                        "Click \"OK\" to Continue if you want to delete!" +
-                                                                        "\n\nClick \"Cancel\" to cancel it if not!"))
+            if (!chkNoMenu.Checked && Utility.IsEmpty(ImageCode, false))
             {
-                Directory.Delete(destinationPath, true);
+                MyMessage.MsgShowWarning("Image Code is Empty, Please Check it again!!!");
+                WriteOutput("Image Code is Empty", Enums.LogsType.Warning);
+                return false;
+            }
+            if (Utility.IsEmpty(txtNameGame, false))
+            {
+                MyMessage.MsgShowWarning("Name Game is Empty, Please Check it again!!!");
+                WriteOutput("Name Game is Empty", Enums.LogsType.Warning);
+                return false;
+            }
+            if (Utility.IsEmpty(txtTargetLib, false))
+            {
+                MyMessage.MsgShowWarning("Target Library Name is Empty, Please Check it again!!!");
+                WriteOutput("Target Library Name is Empty", Enums.LogsType.Warning);
+                return false;
+            }
+            if (_type is Enums.ProcessType.ApkFull1 or Enums.ProcessType.ApkFull2 && Utility.IsEmpty(txtApkTarget, false))
+            {
+                MyMessage.MsgShowWarning("Apk Target is Empty, Please Check it again!!!");
+                WriteOutput("Image Code is Empty", Enums.LogsType.Warning);
+                return false;
+            }
+            if (OffsetPatch.FunctionList.Count == 0)
+            {
+                MyMessage.MsgShowWarning("Function list is Empty, Please Check it again!!!");
+                WriteOutput("Function list is Empty", Enums.LogsType.Warning);
+                return false;
             }
 
+            return true;
+        }
+
+        private static bool CheckOutputGame(string destinationPath)
+        {
+            if (Directory.Exists(destinationPath))
+            {
+                if (MyMessage.MsgOkCancel(destinationPath + " Found.\n\n" +
+                                         "Click \"OK\" to Continue if you want to delete!" +
+                                         "\n\nClick \"Cancel\" to cancel it if not!"))
+                {
+                    Directory.Delete(destinationPath, true);
+                    return true;
+                }
+
+                return false;
+            }
+
+            return true;
+        }
+
+        private bool MoveSmali(string destinationPath)
+        {
             if (_type is Enums.ProcessType.MenuFull)
             {
-                if (!MoveDirectory(_tempPathMenu + "\\com", $"{destinationPath}\\smali\\com")) return;
+                if (!MoveDirectory(_tempPathMenu + "\\com", $"{destinationPath}\\smali\\com"))
+                {
+                    FormState(State.Idle);
+                    return false;
+                }
             }
             else if (!MoveDirectory(_tempPathMenu + "\\com", $"{destinationPath}\\{Utility.SmaliCountToName(_smaliCount, true)}\\com"))
             {
-                return;
+                FormState(State.Idle);
+                return false;
             }
 
-            Worker.RunWorkerAsync();
+            return true;
         }
 
         #region Modify Files
@@ -1377,14 +1396,7 @@ namespace Tools_Injector_Mod_Menu
             var desDir = AppPath + "\\Output\\" + txtNameGame.Text + "\\lib";
             var deleteTemp = chkRemoveTemp.Checked;
 
-            if (MoveDirectory(tempOutputDir, desDir, true, deleteTemp))
-            {
-                WriteOutput($"Move {tempOutputDir}{Environment.NewLine}To => {desDir}", Enums.LogsType.Success);
-            }
-            else
-            {
-                WriteOutput("Can not Move", Enums.LogsType.Error, "022");
-            }
+            MoveDirectory(tempOutputDir, desDir, true, deleteTemp);
         }
 
         private void DumpApkDone()
@@ -1962,16 +1974,19 @@ namespace Tools_Injector_Mod_Menu
         {
             try
             {
-                if (Directory.Exists(destinationPath) && overwrite &&
-                    MyMessage.MsgOkCancel(destinationPath + " Found.\n\n" +
-                                                         "Click \"OK\" to Continue if you want to overwrite!" +
-                                                         "\n\nClick \"Cancel\" to cancel it if not!"))
+                if (Directory.Exists(destinationPath) && overwrite)
                 {
-                    Directory.Delete(destinationPath, true);
-                }
-                else
-                {
-                    return false;
+                    if (MyMessage.MsgOkCancel(destinationPath + " Found.\n\n" +
+                                              "Click \"OK\" to Continue if you want to overwrite!" +
+                                              "\n\nClick \"Cancel\" to cancel it if not!"))
+                    {
+                        Directory.Delete(destinationPath, true);
+                    }
+                    else
+                    {
+                        FormState(State.Idle);
+                        return false;
+                    }
                 }
 
                 Utility.CheckFolder("Output\\" + txtNameGame.Text);
@@ -1989,6 +2004,8 @@ namespace Tools_Injector_Mod_Menu
                     return true;
                 }
 
+                WriteOutput($"Can not Move {sourceDirectory}{Environment.NewLine}To => {destinationPath}", Enums.LogsType.Error, "023");
+                FormState(State.Idle);
                 return false;
             }
             catch (Exception ex)
