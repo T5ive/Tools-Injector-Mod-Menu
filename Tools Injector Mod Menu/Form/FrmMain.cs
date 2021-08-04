@@ -733,6 +733,13 @@ namespace Tools_Injector_Mod_Menu
 
         private void SetFullApk(Enums.ProcessType type)
         {
+            if (Utility.IsEmpty(_apkName, false))
+            {
+                MyMessage.MsgShowWarning("Apk Target is Empty, Please Check it again!!!");
+                WriteOutput("Apk Target is Empty", Enums.LogsType.Warning);
+                return;
+            }
+
             if (_apkTarget != _apkName)
             {
                 SetApkPath(txtApkTarget.Text, true);
