@@ -28,7 +28,7 @@ namespace Tools_Injector_Mod_Menu.Patch_Manager
                     }
                 }
             }
-            if(!string.IsNullOrWhiteSpace(patchValues))
+            if (!string.IsNullOrWhiteSpace(patchValues))
             {
                 return result + patchValues.Remove(patchValues.Length - 2) + ";";
             }
@@ -49,6 +49,7 @@ namespace Tools_Injector_Mod_Menu.Patch_Manager
                     case Enums.FunctionType.PatchToggle:
                         result += $"bool _{cheatName};{newLine}";
                         break;
+
                     case Enums.FunctionType.HookToggle:
                     case Enums.FunctionType.HookButtonOnOf:
                         result += $"bool _{cheatName};{newLine}";
@@ -128,8 +129,6 @@ namespace Tools_Injector_Mod_Menu.Patch_Manager
                     {
                         linkResult += $"&& _{cheatName}{id} ";
                     }
-
-                    
 
                     switch (function.FunctionType)
                     {
@@ -357,7 +356,7 @@ void Update(void *instance) {{
                         case Enums.FunctionType.HookSeekBarToggle:
                         case Enums.FunctionType.HookInputOnOff:
                             {
-                                if(offsetInfo.HookInfo.Type == Enums.Type.Links) break;
+                                if (offsetInfo.HookInfo.Type == Enums.Type.Links) break;
                                 //    result +=
                                 //        $@"{abiType}((void *) getAbsoluteAddress(targetLibName, string2Offset(OBFUSCATE_KEY(""{offsetInfo.Offset}"", {RandomString(12)}))),
                                 //(void *) Update{cheatName}{id}, (void **) &old_{cheatName}{id});{newLine}    "; // Old Hook
@@ -381,7 +380,7 @@ void Update(void *instance) {{
 
         public static string ToastHere(ListBox listBox)
         {
-            return listBox.Items.Cast<object>().Aggregate("", (current, value) => current + ($@"MakeToast(env, context, OBFUSCATE(""{value}""), Toast::LENGTH_LONG);" + Environment.NewLine+ "    "));
+            return listBox.Items.Count == 0 ? Environment.NewLine : listBox.Items.Cast<object>().Aggregate("", (current, value) => current + $@"MakeToast(env, context, OBFUSCATE(""{value}""), Toast::LENGTH_LONG);" + Environment.NewLine + "    ");
         }
 
         public static string FeaturesList()
