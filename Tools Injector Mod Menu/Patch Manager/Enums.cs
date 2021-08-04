@@ -51,7 +51,9 @@
             DecompileApk,
             CompileApk,
             MenuFull,
+            ApkFull1Decompile,
             ApkFull1,
+            ApkFull2Decompile,
             ApkFull2,
             DumpApk,
             None

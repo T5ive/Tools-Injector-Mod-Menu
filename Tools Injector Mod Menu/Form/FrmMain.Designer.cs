@@ -156,6 +156,7 @@ namespace Tools_Injector_Mod_Menu
             this.menuIconList = new System.Windows.Forms.ImageList(this.components);
             this.Worker = new System.ComponentModel.BackgroundWorker();
             this.ApkWorker = new System.ComponentModel.BackgroundWorker();
+            this.chkOverwrite = new MaterialSkin.Controls.MaterialCheckbox();
             this.materialTabControl1.SuspendLayout();
             this.tabMain.SuspendLayout();
             this.materialCard4.SuspendLayout();
@@ -1825,6 +1826,7 @@ namespace Tools_Injector_Mod_Menu
             // 
             // groupBox8
             // 
+            this.groupBox8.Controls.Add(this.chkOverwrite);
             this.groupBox8.Controls.Add(this.chkLogsWarning);
             this.groupBox8.Controls.Add(this.chkCheckUpdate);
             this.groupBox8.Controls.Add(this.chkSound);
@@ -2219,6 +2221,21 @@ namespace Tools_Injector_Mod_Menu
             this.ApkWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.ApkWorker_DoWork);
             this.ApkWorker.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.ApkWorker_RunWorkerCompleted);
             // 
+            // chkOverwrite
+            // 
+            this.chkOverwrite.AutoSize = true;
+            this.chkOverwrite.Depth = 0;
+            this.chkOverwrite.Location = new System.Drawing.Point(191, 135);
+            this.chkOverwrite.Margin = new System.Windows.Forms.Padding(0);
+            this.chkOverwrite.MouseLocation = new System.Drawing.Point(-1, -1);
+            this.chkOverwrite.MouseState = MaterialSkin.MouseState.HOVER;
+            this.chkOverwrite.Name = "chkOverwrite";
+            this.chkOverwrite.Ripple = true;
+            this.chkOverwrite.Size = new System.Drawing.Size(156, 37);
+            this.chkOverwrite.TabIndex = 20;
+            this.chkOverwrite.Text = "Always Overwrite";
+            this.chkOverwrite.UseVisualStyleBackColor = true;
+            // 
             // FrmMain
             // 
             this.AllowDrop = true;
@@ -2234,6 +2251,7 @@ namespace Tools_Injector_Mod_Menu
             this.MinimumSize = new System.Drawing.Size(300, 200);
             this.Name = "FrmMain";
             this.Padding = new System.Windows.Forms.Padding(53, 38, 0, 0);
+            this.Sizable = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Tools Injector Mod Menu";
             this.Load += new System.EventHandler(this.FrmMain_Load);
@@ -2419,5 +2437,6 @@ namespace Tools_Injector_Mod_Menu
         private System.Windows.Forms.GroupBox groupBox17;
         private System.Windows.Forms.Label lbApk;
         private System.ComponentModel.BackgroundWorker ApkWorker;
+        private MaterialSkin.Controls.MaterialCheckbox chkOverwrite;
     }
 }

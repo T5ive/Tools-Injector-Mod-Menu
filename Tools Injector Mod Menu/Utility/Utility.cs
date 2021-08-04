@@ -306,6 +306,16 @@ namespace Tools_Injector_Mod_Menu
             }
         }
 
+        public static string ReplaceFirst(this string text, string oldValue, string newValue)
+        {
+            var pos = text.IndexOf(oldValue, StringComparison.Ordinal);
+            if (pos < 0)
+            {
+                return text;
+            }
+            return text.Substring(0, pos) + newValue + text.Substring(pos + oldValue.Length);
+        }
+
         public static string FunctionTypeToString(Enums.FunctionType type)
         {
             return type switch

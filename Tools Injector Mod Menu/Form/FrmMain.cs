@@ -20,7 +20,6 @@ using Encoder = System.Drawing.Imaging.Encoder;
 
 namespace Tools_Injector_Mod_Menu
 {
-    //TODO Full Compile APK Method 1 2
     //Vector
     //Error Num
     //Check crash & some bug & clear memory
@@ -183,6 +182,7 @@ namespace Tools_Injector_Mod_Menu
             chkLogsWarning.Checked = _mySettings.chkLogsWarning;
             chkSound.Checked = _mySettings.chkSound;
             chkCheckUpdate.Checked = _mySettings.chkCheckUpdate;
+            chkOverwrite.Checked = _mySettings.chkAlwaysOverwrite;
 
             txtNDK.Text = _mySettings.txtNDK;
 
@@ -724,16 +724,28 @@ namespace Tools_Injector_Mod_Menu
 
         private void btnCompileApk1_Click(object sender, EventArgs e)
         {
-            SetDumpApk();
-            ProcessType(Enums.ProcessType.ApkFull1);
-            FullCompile();
+            SetFullApk(Enums.ProcessType.ApkFull1Decompile);
         }
 
         private void btnCompileApk2_Click(object sender, EventArgs e)
         {
-            SetDumpApk();
-            ProcessType(Enums.ProcessType.ApkFull2);
-            FullCompile();
+            SetFullApk(Enums.ProcessType.ApkFull2Decompile);
+        }
+
+        private void SetFullApk(Enums.ProcessType type)
+        {
+
+            if (_apkTarget != _apkName)
+            {
+                SetApkPath(txtApkTarget.Text, true);
+            }
+
+            while (_type == Enums.ProcessType.None)
+            {
+            }
+            var destinationPath = $"{AppPath}\\Output\\{txtNameGame.Text}";
+            if (!CheckOutputGame(destinationPath)) return;
+            SetDecompileApk(type);
         }
 
         private void btnDecompileApk_Click(object sender, EventArgs e)
@@ -745,28 +757,7 @@ namespace Tools_Injector_Mod_Menu
                 return;
             }
 
-            SetDecompileApk();
-        }
-
-        private void SetDecompileApk()
-        {
-            if (Directory.Exists(_apkTargetPath))
-            {
-                if (MyMessage.MsgOkCancel(_apkTargetPath + " Found.\n\n" +
-                                          "Click \"OK\" to Continue if you want to overwrite!" +
-                                          "\n\nClick \"Cancel\" to cancel it if not!"))
-                {
-                    Directory.Delete(_apkTargetPath, true);
-                }
-                else
-                {
-                    return;
-                }
-            }
-
-            ProcessType(Enums.ProcessType.DecompileApk);
-            FormState(State.Running);
-            Worker.RunWorkerAsync();
+            SetDecompileApk(Enums.ProcessType.DecompileApk);
         }
 
         private void btnCompileApk_Click(object sender, EventArgs e)
@@ -788,46 +779,20 @@ namespace Tools_Injector_Mod_Menu
             SetCompileApk(false);
         }
 
-        private void SetCompileApk(bool move = true)
-        {
-            var outputFile = $"{AppPath}\\Output\\{txtNameGame.Text}\\{txtNameGame.Text}.apk";
-            if (File.Exists(outputFile) && !MyMessage.MsgOkCancel(outputFile + " Found.\n\n" +
-                                                                  "Click \"OK\" to Continue if you want to overwrite!" +
-                                                                  "\n\nClick \"Cancel\" to cancel it if not!"))
-            {
-                return;
-            }
-
-            ProcessType(Enums.ProcessType.CompileApk);
-            FormState(State.Running);
-
-            if (move)
-            {
-                var deleteTemp = chkRemoveTemp.Checked;
-
-                var apkTarget = $"{_apkTargetPath}";
-                var outputDir = $"{AppPath}\\Output\\{txtNameGame.Text}\\";
-                if (!MoveDirectory(outputDir, $"{apkTarget}", false, deleteTemp))
-                {
-                    FormState(State.Idle);
-                    return;
-                }
-            }
-
-            Worker.RunWorkerAsync();
-        }
-
         #endregion Events
 
         #region Apk Manager
 
-        private void SetApkPath(string apkTarget)
+        private void SetApkPath(string apkTarget, bool re = false)
         {
             _apkTarget = apkTarget;
             _apkName = apkTarget;
             _apkType = Path.GetExtension(_apkName);
             txtApkTarget.Text = _apkTarget;
-            WriteOutput($"Set Apk Target: {_apkTarget}", Enums.LogsType.Success);
+            if (!re)
+            {
+                WriteOutput($"Set Apk Target: {_apkTarget}", Enums.LogsType.Success);
+            }
             SetDumpApk();
         }
 
@@ -869,7 +834,10 @@ namespace Tools_Injector_Mod_Menu
                 FormState(State.Idle);
                 return;
             }
-
+            while (!Worker.CancellationPending)
+            {
+                Worker.CancelAsync();
+            }
             Worker.RunWorkerAsync();
         }
 
@@ -960,13 +928,14 @@ namespace Tools_Injector_Mod_Menu
 
         #endregion Apk Manager
 
+        #region Set Compile
+
         private void FullCompile()
         {
             if (!CheckEmpty()) return;
 
             var destinationPath = $"{AppPath}\\Output\\{txtNameGame.Text}";
             if (!CheckOutputGame(destinationPath)) return;
-            if (!MoveSmali(destinationPath)) return;
 
             FormState(State.Running);
             materialTabControl1.SelectedTab = materialTabControl1.TabPages[3];
@@ -981,7 +950,7 @@ namespace Tools_Injector_Mod_Menu
                 FormState(State.Idle);
                 return;
             }
-
+            if (!MoveSmali(destinationPath)) return;
             //    FormState(State.Idle); // Test Mode
 
             Worker.RunWorkerAsync();
@@ -1040,9 +1009,15 @@ namespace Tools_Injector_Mod_Menu
         {
             if (Directory.Exists(destinationPath))
             {
+                if (_mySettings.chkAlwaysOverwrite)
+                {
+                    Directory.Delete(_apkTargetPath, true);
+                    return true;
+                }
+
                 if (MyMessage.MsgOkCancel(destinationPath + " Found.\n\n" +
-                                         "Click \"OK\" to Continue if you want to delete!" +
-                                         "\n\nClick \"Cancel\" to cancel it if not!"))
+                                          "Click \"OK\" to Continue if you want to delete!" +
+                                          "\n\nClick \"Cancel\" to cancel it if not!"))
                 {
                     Directory.Delete(destinationPath, true);
                     return true;
@@ -1050,7 +1025,6 @@ namespace Tools_Injector_Mod_Menu
 
                 return false;
             }
-
             return true;
         }
 
@@ -1072,6 +1046,71 @@ namespace Tools_Injector_Mod_Menu
 
             return true;
         }
+
+        private void SetDecompileApk(Enums.ProcessType type)
+        {
+            if (Directory.Exists(_apkTargetPath))
+            {
+                if (_mySettings.chkAlwaysOverwrite)
+                {
+                    Directory.Delete(_apkTargetPath, true);
+                }
+                else
+                {
+                    if (MyMessage.MsgOkCancel(_apkTargetPath + " Found.\n\n" +
+                                              "Click \"OK\" to Continue if you want to overwrite!" +
+                                              "\n\nClick \"Cancel\" to cancel it if not!"))
+                    {
+                        Directory.Delete(_apkTargetPath, true);
+                    }
+                    else
+                    {
+                        return;
+                    }
+                }
+            }
+
+            while (!Worker.CancellationPending)
+            {
+                Worker.CancelAsync();
+            }
+
+            ProcessType(type);
+            FormState(State.Running);
+            Worker.RunWorkerAsync();
+        }
+
+        private void SetCompileApk(bool move = true)
+        {
+            var path = $"{AppPath}\\Output\\{txtNameGame.Text}\\{txtNameGame.Text}";
+            string[] outputFile = { path + _apkType, path + "-Signed" + _apkType };
+
+            foreach (var t in outputFile)
+            {
+                if (File.Exists(t))
+                {
+                    File.Delete(t);
+                }
+            }
+
+            ProcessType(Enums.ProcessType.CompileApk);
+            FormState(State.Running);
+
+            if (move)
+            {
+                var apkTarget = $"{_apkTargetPath}";
+                var outputDir = $"{AppPath}\\Output\\{txtNameGame.Text}\\";
+                if (!MoveDirectory(outputDir, $"{apkTarget}", false))
+                {
+                    FormState(State.Idle);
+                    return;
+                }
+            }
+
+            Worker.RunWorkerAsync();
+        }
+
+        #endregion Set Compile
 
         #region Modify Files
 
@@ -1227,7 +1266,9 @@ namespace Tools_Injector_Mod_Menu
             try
             {
                 var text = File.ReadAllText(AppPath + "\\BuildTools\\ApkTarget\\AndroidManifest.xml");
-                text = text.Replace("<uses-permission", $"{txtPermission.Text}\n    <uses-permission");
+
+                text = text.ReplaceFirst("<uses-permission", $"{txtPermission.Text}\n    <uses-permission");
+
                 if (_type is Enums.ProcessType.ApkFull2)
                 {
                     text = text.Replace(txtFind.Text, "")
@@ -1292,7 +1333,7 @@ namespace Tools_Injector_Mod_Menu
                     $"{AppPath}\\BuildTools\\", "024");
             }
 
-            if (_type is Enums.ProcessType.DecompileApk)
+            if (_type is Enums.ProcessType.DecompileApk or Enums.ProcessType.ApkFull1Decompile or Enums.ProcessType.ApkFull2Decompile)
             {
                 ProcessRun($"/c {_apkTool}.jar d {_apkTarget}", $"{AppPath}\\BuildTools\\", "026");
             }
@@ -1333,7 +1374,7 @@ namespace Tools_Injector_Mod_Menu
                 DumpApkDone();
             }
 
-            if (_type is Enums.ProcessType.DecompileApk)
+            if (_type is Enums.ProcessType.DecompileApk or Enums.ProcessType.ApkFull1Decompile or Enums.ProcessType.ApkFull2Decompile)
             {
                 DecompileApkDone();
             }
@@ -1425,25 +1466,62 @@ namespace Tools_Injector_Mod_Menu
         {
             GetSmailiCount();
             WriteOutput("Decompiled APK file", Enums.LogsType.Success);
-            FormState(State.Idle);
-            ProcessType(Enums.ProcessType.None);
+            if (_type is Enums.ProcessType.DecompileApk)
+            {
+                FormState(State.Idle);
+                ProcessType(Enums.ProcessType.None);
+                return;
+            }
+
+            if (_type is Enums.ProcessType.ApkFull1Decompile)
+            {
+                ProcessType(Enums.ProcessType.ApkFull1);
+            }
+            if (_type is Enums.ProcessType.ApkFull2Decompile)
+            {
+                ProcessType(Enums.ProcessType.ApkFull2);
+            }
+
+            DeleteLib();
+            FullCompile();
         }
+
+        private void DeleteLib()
+        {
+            var sourcePath = $"{AppPath}\\BuildTools\\ApkTarget\\lib\\";
+            var folderName = comboType.SelectedIndex == (int)Enums.TypeAbi.Arm ? "arm64-v8a" : "armeabi-v7a";
+            if (comboType.SelectedIndex == (int)Enums.TypeAbi.Arm)
+            {
+                try
+                {
+                    Directory.Delete(sourcePath + folderName, true);
+                }
+                catch (Exception exception)
+                {
+                    WriteOutput($"Can not Delete {sourcePath + folderName}" + exception.Message, Enums.LogsType.Error, "000");
+                }
+            }
+        }
+
+        private static int _compileApk;
 
         private void CompileApkDone()
         {
             var apkPath = $"{AppPath}\\BuildTools\\ApkTarget\\dist\\ApkTarget.apk";
             var outputFile = $"{AppPath}\\Output\\{txtNameGame.Text}\\{txtNameGame.Text}.apk";
+            Directory.CreateDirectory($"{AppPath}\\Output\\{txtNameGame.Text}");
 
             if (!File.Exists(apkPath))
             {
-                WriteOutput($"Not found {apkPath}", Enums.LogsType.Error, "000");
+                Console.WriteLine(_compileApk);
+                _compileApk++;
                 return;
             }
 
-            Directory.CreateDirectory($"{AppPath}\\Output\\{txtNameGame.Text}");
             File.Copy(apkPath, outputFile, true);
             WriteOutput($"Compiled {outputFile}", Enums.LogsType.Success);
             ApkWorker.RunWorkerAsync();
+            _compileApk = 0;
             ProcessType(Enums.ProcessType.None);
         }
 
@@ -1475,7 +1553,7 @@ namespace Tools_Injector_Mod_Menu
             {
                 if (_type is Enums.ProcessType.ApkFull1 or Enums.ProcessType.ApkFull2)
                 {
-                    MergeApk();
+                    ArchiveApk();
                 }
             }
 
@@ -1483,7 +1561,7 @@ namespace Tools_Injector_Mod_Menu
             ProcessType(Enums.ProcessType.None);
         }
 
-        private void MergeApk()
+        private void ArchiveApk()
         {
             Lib2Config();
             Apk2Apks();
@@ -1777,6 +1855,7 @@ namespace Tools_Injector_Mod_Menu
                     _mySettings.chkLogsWarning = chkLogsWarning.Checked;
                     _mySettings.chkSound = chkSound.Checked;
                     _mySettings.chkCheckUpdate = chkCheckUpdate.Checked;
+                    _mySettings.chkAlwaysOverwrite = chkOverwrite.Checked;
                     _mySettings.Save();
                     WriteOutput("Saved Settings", Enums.LogsType.Success);
                 }
@@ -1976,16 +2055,23 @@ namespace Tools_Injector_Mod_Menu
             {
                 if (Directory.Exists(destinationPath) && overwrite)
                 {
-                    if (MyMessage.MsgOkCancel(destinationPath + " Found.\n\n" +
-                                              "Click \"OK\" to Continue if you want to overwrite!" +
-                                              "\n\nClick \"Cancel\" to cancel it if not!"))
+                    if (_mySettings.chkAlwaysOverwrite)
                     {
                         Directory.Delete(destinationPath, true);
                     }
                     else
                     {
-                        FormState(State.Idle);
-                        return false;
+                        if (MyMessage.MsgOkCancel(destinationPath + " Found.\n\n" +
+                                                  "Click \"OK\" to Continue if you want to overwrite!" +
+                                                  "\n\nClick \"Cancel\" to cancel it if not!"))
+                        {
+                            Directory.Delete(destinationPath, true);
+                        }
+                        else
+                        {
+                            FormState(State.Idle);
+                            return false;
+                        }
                     }
                 }
 
