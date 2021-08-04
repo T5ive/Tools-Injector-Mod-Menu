@@ -1130,13 +1130,27 @@ namespace Tools_Injector_Mod_Menu
 
             if (_type is Enums.ProcessType.ApkFull1 or Enums.ProcessType.ApkFull2)
             {
-                var sourceDir = $"{AppPath}\\Output\\{txtNameGame.Text}\\smali\\com";
-                var desDir = $"{_apkTargetPath}\\{Utility.SmaliCountToName(_smaliCount, true)}\\com";
-                if (!MoveDirectory(sourceDir, desDir))
+                var smaliSource = $"{AppPath}\\Output\\{txtNameGame.Text}\\smali\\com";
+                var smaliDes = $"{_apkTargetPath}\\{Utility.SmaliCountToName(_smaliCount, true)}\\com";
+                if (!MoveDirectory(smaliSource, smaliDes, false))
                 {
                     FormState(State.Idle);
-                    WriteOutput($"Cannot Move {sourceDir}\nTo => {desDir}", Enums.LogsType.Error, "021");
+                    WriteOutput($"Cannot Move {smaliSource}\nTo => {smaliDes}", Enums.LogsType.Error, "021");
                     return;
+                }
+
+                if (_apkType == ".apk")
+                {
+                    var folderName = comboType.SelectedIndex == (int)Enums.TypeAbi.Arm ? "armeabi-v7a" : "arm64-v8a";
+                    var libSource = $"{AppPath}\\Output\\{txtNameGame.Text}\\lib\\{folderName}";
+                    var libDes = $"{_apkTargetPath}\\lib\\{folderName}";
+
+                    if (!MoveDirectory(libSource, libDes, false))
+                    {
+                        FormState(State.Idle);
+                        WriteOutput($"Cannot Move {libSource}\nTo => {libDes}", Enums.LogsType.Error, "022");
+                        return;
+                    }
                 }
             }
 
@@ -1183,7 +1197,7 @@ namespace Tools_Injector_Mod_Menu
             catch (Exception ex)
             {
                 MyMessage.MsgShowError("Error " + ex.Message);
-                WriteOutput(ex.Message, Enums.LogsType.Error, "022");
+                WriteOutput(ex.Message, Enums.LogsType.Error, "023");
                 FormState(State.Idle);
                 return false;
             }
@@ -1202,7 +1216,7 @@ namespace Tools_Injector_Mod_Menu
             catch (Exception ex)
             {
                 MyMessage.MsgShowError("Error " + ex.Message);
-                WriteOutput(ex.Message, Enums.LogsType.Error, "023");
+                WriteOutput(ex.Message, Enums.LogsType.Error, "024");
                 FormState(State.Idle);
                 return false;
             }
@@ -1234,7 +1248,7 @@ namespace Tools_Injector_Mod_Menu
             catch (Exception ex)
             {
                 MyMessage.MsgShowError("Error " + ex.Message);
-                WriteOutput(ex.Message, Enums.LogsType.Error, "024");
+                WriteOutput(ex.Message, Enums.LogsType.Error, "025");
                 FormState(State.Idle);
                 return false;
             }
@@ -1259,7 +1273,7 @@ namespace Tools_Injector_Mod_Menu
             catch (Exception ex)
             {
                 MyMessage.MsgShowError("Error " + ex.Message);
-                WriteOutput(ex.Message, Enums.LogsType.Error, "025");
+                WriteOutput(ex.Message, Enums.LogsType.Error, "026");
                 FormState(State.Idle);
                 return false;
             }
@@ -1288,7 +1302,7 @@ namespace Tools_Injector_Mod_Menu
             catch (Exception ex)
             {
                 MyMessage.MsgShowError("Error " + ex.Message);
-                WriteOutput(ex.Message, Enums.LogsType.Error, "026");
+                WriteOutput(ex.Message, Enums.LogsType.Error, "027");
                 FormState(State.Idle);
                 return false;
             }
@@ -1314,7 +1328,7 @@ namespace Tools_Injector_Mod_Menu
             catch (Exception ex)
             {
                 MyMessage.MsgShowError("Error " + ex.Message);
-                WriteOutput(ex.Message, Enums.LogsType.Error, "027");
+                WriteOutput(ex.Message, Enums.LogsType.Error, "028");
                 FormState(State.Idle);
                 return false;
             }
@@ -1356,7 +1370,7 @@ namespace Tools_Injector_Mod_Menu
             catch (Exception ex)
             {
                 MyMessage.MsgShowError("Error " + ex.Message);
-                WriteOutput(ex.Message, Enums.LogsType.Error, "028");
+                WriteOutput(ex.Message, Enums.LogsType.Error, "029");
                 FormState(State.Idle);
                 return false;
             }
@@ -1466,7 +1480,7 @@ namespace Tools_Injector_Mod_Menu
             if (_compile > 0 && !_mySettings.debugMode)
             {
                 MyMessage.MsgShowError("Failed to Compile");
-                WriteOutput("Failed to Compile", Enums.LogsType.Error, "029");
+                WriteOutput("Failed to Compile", Enums.LogsType.Error, "030");
                 SaveLogs();
                 FormState(State.Idle);
                 return;
@@ -1494,7 +1508,7 @@ namespace Tools_Injector_Mod_Menu
             if (_compile > 0 && !_mySettings.debugMode)
             {
                 MyMessage.MsgShowError("Failed to Dump");
-                WriteOutput("Failed to Dump", Enums.LogsType.Error, "030");
+                WriteOutput("Failed to Dump", Enums.LogsType.Error, "031");
                 SaveLogs();
             }
             FormState(State.Idle);
@@ -1521,11 +1535,11 @@ namespace Tools_Injector_Mod_Menu
                 ProcessType(Enums.ProcessType.ApkFull2);
             }
 
-            DeleteLib();
+            DeleteDecompiledLib();
             FullCompile();
         }
 
-        private void DeleteLib()
+        private void DeleteDecompiledLib()
         {
             var sourcePath = $"{AppPath}\\BuildTools\\ApkTarget\\lib\\";
             var folderName = comboType.SelectedIndex == (int)Enums.TypeAbi.Arm ? "arm64-v8a" : "armeabi-v7a";
@@ -1537,7 +1551,7 @@ namespace Tools_Injector_Mod_Menu
                 }
                 catch (Exception exception)
                 {
-                    WriteOutput($"Can not Delete {sourcePath + folderName}" + exception.Message, Enums.LogsType.Error, "031");
+                    WriteOutput($"Can not Delete {sourcePath + folderName}" + exception.Message, Enums.LogsType.Error, "032");
                 }
             }
         }
@@ -1687,7 +1701,7 @@ namespace Tools_Injector_Mod_Menu
             if (Utility.IsEmpty(e.Data, false)) return;
             if (e.Data == "fcntl(): Bad file descriptor") return;
             _compile++;
-            WriteOutput(e.Data, Enums.LogsType.Error, "032");
+            WriteOutput(e.Data, Enums.LogsType.Error, "033");
         }
 
         #endregion Worker
@@ -1895,7 +1909,7 @@ namespace Tools_Injector_Mod_Menu
             }
             catch (Exception exception)
             {
-                WriteOutput(exception.Message, Enums.LogsType.Error, "033");
+                WriteOutput(exception.Message, Enums.LogsType.Error, "034");
             }
         }
 
@@ -1907,7 +1921,7 @@ namespace Tools_Injector_Mod_Menu
                 if (folderBrowser.SelectedPath.IsPathSpecialChar())
                 {
                     MyMessage.MsgShowWarning("Ndk path must without any special character");
-                    WriteOutput("Ndk path must without any special character", Enums.LogsType.Error, "034");
+                    WriteOutput("Ndk path must without any special character", Enums.LogsType.Error, "035");
                     return;
                 }
                 txtNDK.Text = folderBrowser.SelectedPath;
@@ -1952,7 +1966,7 @@ namespace Tools_Injector_Mod_Menu
             }
             catch (Exception ex)
             {
-                WriteOutput($"{ex.Message}", Enums.LogsType.Error, "035");
+                WriteOutput($"{ex.Message}", Enums.LogsType.Error, "036");
             }
             FormState(State.Idle);
         }
@@ -2056,7 +2070,7 @@ namespace Tools_Injector_Mod_Menu
             catch (Exception ex)
             {
                 MyMessage.MsgShowError("Error " + ex.Message);
-                WriteOutput(ex.Message, Enums.LogsType.Error, "036");
+                WriteOutput(ex.Message, Enums.LogsType.Error, "037");
                 FormState(State.Idle);
                 return false;
             }
@@ -2076,7 +2090,7 @@ namespace Tools_Injector_Mod_Menu
             catch (Exception ex)
             {
                 MyMessage.MsgShowError("Error " + ex.Message);
-                WriteOutput(ex.Message, Enums.LogsType.Error, "037");
+                WriteOutput(ex.Message, Enums.LogsType.Error, "038");
                 FormState(State.Idle);
                 return false;
             }
@@ -2123,14 +2137,14 @@ namespace Tools_Injector_Mod_Menu
                     return true;
                 }
 
-                WriteOutput($"Can not Move {sourceDirectory}{Environment.NewLine}To => {destinationPath}", Enums.LogsType.Error, "038");
+                WriteOutput($"Can not Move {sourceDirectory}{Environment.NewLine}To => {destinationPath}", Enums.LogsType.Error, "039");
                 FormState(State.Idle);
                 return false;
             }
             catch (Exception ex)
             {
                 MyMessage.MsgShowError("Error " + ex.Message);
-                WriteOutput(ex.Message, Enums.LogsType.Error, "039");
+                WriteOutput(ex.Message, Enums.LogsType.Error, "040");
                 FormState(State.Idle);
                 return false;
             }
@@ -2168,7 +2182,7 @@ namespace Tools_Injector_Mod_Menu
             catch (Exception ex)
             {
                 MyMessage.MsgShowError("Error " + ex.Message);
-                WriteOutput(ex.Message, Enums.LogsType.Error, "040");
+                WriteOutput(ex.Message, Enums.LogsType.Error, "041");
                 FormState(State.Idle);
                 return false;
             }
