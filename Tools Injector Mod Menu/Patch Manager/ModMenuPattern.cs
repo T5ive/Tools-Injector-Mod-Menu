@@ -380,7 +380,7 @@ void Update(void *instance) {{
 
         public static string ToastHere(ListBox listBox)
         {
-            return listBox.Items.Count == 0 ? Environment.NewLine : listBox.Items.Cast<object>().Aggregate("", (current, value) => current + $@"MakeToast(env, context, OBFUSCATE(""{value}""), Toast::LENGTH_LONG);" + Environment.NewLine + "    ");
+            return listBox.Items.Cast<object>().Aggregate("", (current, value) => current + ($@"MakeToast(env, context, OBFUSCATE(""{value}""), Toast::LENGTH_LONG);" + Environment.NewLine + "    "));
         }
 
         public static string FeaturesList()

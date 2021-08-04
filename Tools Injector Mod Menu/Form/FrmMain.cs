@@ -1318,19 +1318,20 @@ namespace Tools_Injector_Mod_Menu
         {
             try
             {
+                var type = (Enums.TypeAbi) comboType.SelectedIndex;
                 var text = File.ReadAllText(_tempPathMenu + "\\jni\\Main.cpp");
                 var memoryPatch = ModMenuPattern.MemoryPatch();
                 var newVariable = ModMenuPattern.NewVariable();
                 var newMethod = ModMenuPattern.NewMethod();
-                var hackThread64 = ModMenuPattern.HackThread64((Enums.TypeAbi)comboType.SelectedIndex);
-                var hackThread = ModMenuPattern.HackThread((Enums.TypeAbi)comboType.SelectedIndex);
+                var hackThread64 = ModMenuPattern.HackThread64(type);
+                var hackThread = ModMenuPattern.HackThread(type);
                 var toastHere = ModMenuPattern.ToastHere(listToast);
                 var featuresList = ModMenuPattern.FeaturesList();
                 var newFeatures = ModMenuPattern.NewFeatures();
 
-                if (memoryPatch == "101")
+                if (!string.IsNullOrWhiteSpace(toastHere))
                 {
-                    WriteOutput("MemoryPatch", Enums.LogsType.Error, memoryPatch);
+                    toastHere = toastHere.Remove(toastHere.LastIndexOf(Environment.NewLine, StringComparison.Ordinal));
                 }
 
                 text = text.Replace("//VariableHere", memoryPatch)
@@ -1339,7 +1340,7 @@ namespace Tools_Injector_Mod_Menu
                     .Replace("(yourTargetLibName)", txtTargetLib.Text)
                     .Replace("//(hackThread64)", hackThread64)
                     .Replace("//(hackThread)", hackThread)
-                    .Replace("//ToastHere", toastHere.Remove(toastHere.LastIndexOf(Environment.NewLine, StringComparison.Ordinal)))
+                    .Replace("//ToastHere", toastHere)
                     .Replace("//(yourFeaturesList)", featuresList)
                     .Replace("(yourEndCredit)", txtEndCredit.Text)
                     .Replace("//(yourFeatures)", newFeatures);
