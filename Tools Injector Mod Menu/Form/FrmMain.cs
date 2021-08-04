@@ -776,7 +776,7 @@ namespace Tools_Injector_Mod_Menu
                 return;
             }
 
-            SetCompileApk(false);
+            SetCompileApk();
         }
 
         #endregion Events
@@ -939,7 +939,10 @@ namespace Tools_Injector_Mod_Menu
 
             FormState(State.Running);
             materialTabControl1.SelectedTab = materialTabControl1.TabPages[3];
-            if (!DeleteAll(_tempPathMenu)) return;
+            if (!DeleteAll(_tempPathMenu+ "\\jni")) return;
+            if (!DeleteAll(_tempPathMenu + "\\libs")) return;
+            if (!DeleteAll(_tempPathMenu + "\\obj")) return;
+
             if (!ExtractZip(AppPath + $"\\Menu\\{comboMenu.SelectedItem}.zip", _tempPathMenu)) return;
             if (!ExtractZip(AppPath + $"\\Theme\\{comboMenu.SelectedItem}.zip", _tempPathMenu)) return;
 
@@ -1030,20 +1033,11 @@ namespace Tools_Injector_Mod_Menu
 
         private bool MoveSmali(string destinationPath)
         {
-            if (_type is Enums.ProcessType.MenuFull)
-            {
-                if (!MoveDirectory(_tempPathMenu + "\\com", $"{destinationPath}\\smali\\com"))
-                {
-                    FormState(State.Idle);
-                    return false;
-                }
-            }
-            else if (!MoveDirectory(_tempPathMenu + "\\com", $"{destinationPath}\\{Utility.SmaliCountToName(_smaliCount, true)}\\com"))
+            if (!MoveDirectory(_tempPathMenu + "\\com", $"{destinationPath}\\smali\\com"))
             {
                 FormState(State.Idle);
                 return false;
             }
-
             return true;
         }
 
@@ -1080,7 +1074,7 @@ namespace Tools_Injector_Mod_Menu
             Worker.RunWorkerAsync();
         }
 
-        private void SetCompileApk(bool move = true)
+        private void SetCompileApk()
         {
             var path = $"{AppPath}\\Output\\{txtNameGame.Text}\\{txtNameGame.Text}";
             string[] outputFile = { path + _apkType, path + "-Signed" + _apkType };
@@ -1093,19 +1087,25 @@ namespace Tools_Injector_Mod_Menu
                 }
             }
 
-            ProcessType(Enums.ProcessType.CompileApk);
-            FormState(State.Running);
-
-            if (move)
+            if (_type is Enums.ProcessType.ApkFull1 or Enums.ProcessType.ApkFull2)
             {
-                var apkTarget = $"{_apkTargetPath}";
-                var outputDir = $"{AppPath}\\Output\\{txtNameGame.Text}\\";
-                if (!MoveDirectory(outputDir, $"{apkTarget}", false))
+                var sourceDir = $"{AppPath}\\Output\\{txtNameGame.Text}\\smali\\com";
+                var desDir = $"{_apkTargetPath}\\{Utility.SmaliCountToName(_smaliCount, true)}\\com";
+                if (!MoveDirectory(sourceDir, desDir))
                 {
                     FormState(State.Idle);
+                    WriteOutput($"Cannot Move {sourceDir}\nTo => {desDir}",Enums.LogsType.Error,"000");
                     return;
                 }
             }
+
+            ProcessType(Enums.ProcessType.CompileApk);
+            FormState(State.Running);
+
+            //if (_merge) //TODO
+            //{
+                //move lib
+            //}
 
             Worker.RunWorkerAsync();
         }
@@ -1359,14 +1359,7 @@ namespace Tools_Injector_Mod_Menu
 
             if (_type is Enums.ProcessType.ApkFull1 or Enums.ProcessType.ApkFull2 or Enums.ProcessType.CompileApk)
             {
-                if (_type is Enums.ProcessType.CompileApk)
-                {
-                    SetCompileApk(false);
-                }
-                else
-                {
-                    SetCompileApk();
-                }
+                SetCompileApk();
             }
 
             if (_type is Enums.ProcessType.DumpApk)
@@ -1502,9 +1495,7 @@ namespace Tools_Injector_Mod_Menu
                 }
             }
         }
-
-        private static int _compileApk;
-
+        
         private void CompileApkDone()
         {
             var apkPath = $"{AppPath}\\BuildTools\\ApkTarget\\dist\\ApkTarget.apk";
@@ -1513,16 +1504,12 @@ namespace Tools_Injector_Mod_Menu
 
             if (!File.Exists(apkPath))
             {
-                Console.WriteLine(_compileApk);
-                _compileApk++;
                 return;
             }
 
             File.Copy(apkPath, outputFile, true);
             WriteOutput($"Compiled {outputFile}", Enums.LogsType.Success);
             ApkWorker.RunWorkerAsync();
-            _compileApk = 0;
-            ProcessType(Enums.ProcessType.None);
         }
 
         private void ApkWorker_DoWork(object sender, System.ComponentModel.DoWorkEventArgs e)
@@ -1551,12 +1538,12 @@ namespace Tools_Injector_Mod_Menu
         {
             if (_apkType != ".apk")
             {
-                if (_type is Enums.ProcessType.ApkFull1 or Enums.ProcessType.ApkFull2)
-                {
-                    ArchiveApk();
-                }
+                //TODO if not merge
+                ArchiveApk();
             }
-
+            var outputDir = $"{AppPath}\\Output\\{txtNameGame.Text}\\";
+            Directory.Delete(outputDir + "lib", true);
+            Directory.Delete(outputDir + "smali", true);
             FormState(State.Idle);
             ProcessType(Enums.ProcessType.None);
         }
@@ -1565,6 +1552,7 @@ namespace Tools_Injector_Mod_Menu
         {
             Lib2Config();
             Apk2Apks();
+            
         }
 
         private void Lib2Config()
