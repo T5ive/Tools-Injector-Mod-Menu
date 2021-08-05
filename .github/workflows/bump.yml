@@ -22,5 +22,12 @@ jobs:
       - name: Checkout submodules
         uses: textbook/git-checkout-submodule-action@master
 
-      - name: Bump Git Submodules
-        uses: domdere/git-submodule-action@0.0.1
+      - name: Submodule Sync
+        uses: mheap/submodule-sync-action@v1
+        with:
+          # The path in the repo to update
+          path: MaterialSkin
+          # The branch name to check for updates in the remote repo
+          ref: master
+          # The name of the branch to use when creating a pull request
+          pr_branch: master        
