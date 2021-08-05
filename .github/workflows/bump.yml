@@ -22,3 +22,5 @@ jobs:
       - name: Checkout submodules
         uses: textbook/git-checkout-submodule-action@master
 
+      - name: Bump Git Submodules
+        uses: domdere/git-submodule-action@0.0.1
