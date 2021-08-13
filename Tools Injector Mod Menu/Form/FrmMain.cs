@@ -50,7 +50,7 @@ namespace Tools_Injector_Mod_Menu
         private static string _launch, _apkTarget, _apkTool, _apkName, _apkType, _baseName;
 
         private static string[] _menuFiles;
-        
+
         public enum State
         {
             Idle,
@@ -1348,53 +1348,53 @@ namespace Tools_Injector_Mod_Menu
 
         private bool MainHack()
         {
-            //try
-            //{
-            var text = File.ReadAllText(_tempPathMenu + "\\jni\\Main.cpp");
-            var memoryPatch = ModMenuPattern.MemoryPatch();
-            var newVariable = ModMenuPattern.NewVariable();
-            var newMethod = ModMenuPattern.NewMethod();
-            var hackThread64 = "";
-            var hackThread = "";
-            var toastHere = ModMenuPattern.ToastHere(listToast);
-            var featuresList = ModMenuPattern.FeaturesList();
-            var newFeatures = ModMenuPattern.NewFeatures();
-
-            if (comboType.SelectedIndex == (int)Enums.TypeAbi.Arm)
+            try
             {
-                hackThread = ModMenuPattern.HackThread();
-            }
-            else
-            {
-                hackThread64 = ModMenuPattern.HackThread();
-            }
+                var text = File.ReadAllText(_tempPathMenu + "\\jni\\Main.cpp");
+                var memoryPatch = ModMenuPattern.MemoryPatch();
+                var newVariable = ModMenuPattern.NewVariable();
+                var newMethod = ModMenuPattern.NewMethod();
+                var hackThread64 = "";
+                var hackThread = "";
+                var toastHere = ModMenuPattern.ToastHere(listToast);
+                var featuresList = ModMenuPattern.FeaturesList();
+                var newFeatures = ModMenuPattern.NewFeatures();
 
-            if (!string.IsNullOrWhiteSpace(toastHere))
-            {
-                toastHere = toastHere.Remove(toastHere.LastIndexOf(Environment.NewLine, StringComparison.Ordinal));
-            }
+                if (comboType.SelectedIndex == (int)Enums.TypeAbi.Arm)
+                {
+                    hackThread = ModMenuPattern.HackThread();
+                }
+                else
+                {
+                    hackThread64 = ModMenuPattern.HackThread();
+                }
 
-            text = text.Replace("//VariableHere", memoryPatch)
-                .Replace("//NewVariableHere", newVariable)
-                .Replace("//NewMethodHere", newMethod)
-                .Replace("(yourTargetLibName)", txtTargetLib.Text)
-                .Replace("//(hackThread64)", hackThread64)
-                .Replace("//(hackThread)", hackThread)
-                .Replace("//ToastHere", toastHere)
-                .Replace("//(yourFeaturesList)", featuresList)
-                .Replace("(yourEndCredit)", txtEndCredit.Text)
-                .Replace("//(yourFeatures)", newFeatures);
-            File.WriteAllText(_tempPathMenu + "\\jni\\Main.cpp", text);
-            WriteOutput("Replaced Main.cpp", Enums.LogsType.Success);
-            return true;
-            //}
-            //catch (Exception ex)
-            //{
-            //    MyMessage.MsgShowError("Error " + ex.Message);
-            //    WriteOutput(ex.Message, Enums.LogsType.Error, "029");
-            //    FormState(State.Idle);
-            //    return false;
-            //}
+                if (!string.IsNullOrWhiteSpace(toastHere))
+                {
+                    toastHere = toastHere.Remove(toastHere.LastIndexOf(Environment.NewLine, StringComparison.Ordinal));
+                }
+
+                text = text.Replace("//VariableHere", memoryPatch)
+                    .Replace("//NewVariableHere", newVariable)
+                    .Replace("//NewMethodHere", newMethod)
+                    .Replace("(yourTargetLibName)", txtTargetLib.Text)
+                    .Replace("//(hackThread64)", hackThread64)
+                    .Replace("//(hackThread)", hackThread)
+                    .Replace("//ToastHere", toastHere)
+                    .Replace("//(yourFeaturesList)", featuresList)
+                    .Replace("(yourEndCredit)", txtEndCredit.Text)
+                    .Replace("//(yourFeatures)", newFeatures);
+                File.WriteAllText(_tempPathMenu + "\\jni\\Main.cpp", text);
+                WriteOutput("Replaced Main.cpp", Enums.LogsType.Success);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                MyMessage.MsgShowError("Error " + ex.Message);
+                WriteOutput(ex.Message, Enums.LogsType.Error, "029");
+                FormState(State.Idle);
+                return false;
+            }
         }
 
         #endregion Modify Files
