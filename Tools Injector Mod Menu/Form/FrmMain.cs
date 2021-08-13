@@ -50,8 +50,7 @@ namespace Tools_Injector_Mod_Menu
         private static string _launch, _apkTarget, _apkTool, _apkName, _apkType, _baseName;
 
         private static string[] _menuFiles;
-
-        private static readonly Version VERSION = Assembly.GetEntryAssembly()?.GetName().Version;
+        
         public enum State
         {
             Idle,
@@ -67,7 +66,7 @@ namespace Tools_Injector_Mod_Menu
             CheckFolder();
             LoadFiles();
             LoadSettings();
-            Text = $"Tools Injector Mod Menu - {VERSION}";
+            Text = $"Tools Injector Mod Menu - {Assembly.GetEntryAssembly()?.GetName().Version}";
         }
 
         private void LoadTheme()
