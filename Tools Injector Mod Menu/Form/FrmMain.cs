@@ -1285,7 +1285,9 @@ namespace Tools_Injector_Mod_Menu
             {
                 var text = File.ReadAllText(AppPath + "\\BuildTools\\ApkTarget\\AndroidManifest.xml");
 
-                text = text.ReplaceFirst("<uses-permission", $"{txtPermission.Text}\n    <uses-permission");
+                text = text.Contains("<uses-permission") ?
+                    text.ReplaceFirst("<uses-permission", $"{txtPermission.Text}\n    <uses-permission") :
+                    text.ReplaceFirst("<uses-feature", $"{txtPermission.Text}\n    <uses-feature");
 
                 if (_type is Enums.ProcessType.ApkFull2)
                 {
@@ -1348,7 +1350,7 @@ namespace Tools_Injector_Mod_Menu
                 var featuresList = ModMenuPattern.FeaturesList();
                 var newFeatures = ModMenuPattern.NewFeatures();
 
-                if (comboType.SelectedIndex == (int) Enums.TypeAbi.Arm)
+                if (comboType.SelectedIndex == (int)Enums.TypeAbi.Arm)
                 {
                     hackThread = ModMenuPattern.HackThread();
                 }
@@ -1562,7 +1564,7 @@ namespace Tools_Injector_Mod_Menu
                     fileName = _apkType == ".apks" ? "\\split_config.arm64_v8a.apk" : "\\config.arm64_v8a.apk";
                 }
 
-                using var archive = ZipFile.OpenRead(_tempPathMenu+fileName);
+                using var archive = ZipFile.OpenRead(_tempPathMenu + fileName);
                 foreach (var entry in archive.Entries.Where(cur => Path.GetDirectoryName(cur.FullName).StartsWith("lib")))
                 {
                     var path = Path.Combine(_tempPathMenu, "lib");
@@ -1643,18 +1645,16 @@ namespace Tools_Injector_Mod_Menu
                 ArchiveApk();
             }
             var outputDir = $"{AppPath}\\Output\\{txtNameGame.Text}\\";
-            
+
             try
             {
                 Directory.Delete(outputDir + "lib", true);
                 Directory.Delete(outputDir + "smali", true);
-
             }
             catch
             {
-               
             }
-            
+
             FormState(State.Idle);
             ProcessType(Enums.ProcessType.None);
         }

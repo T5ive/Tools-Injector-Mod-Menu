@@ -135,7 +135,7 @@ namespace Tools_Injector_Mod_Menu
             {
                 if (!msg) return true;
 
-                MyMessage.MsgShowWarning($"{nameof(dataGrid)} is Empty, Please Check it again!!!");
+                MyMessage.MsgShowWarning($"{dataGrid.Name} is Empty, Please Check it again!!!");
                 return true;
             }
             return false;
