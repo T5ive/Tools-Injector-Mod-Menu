@@ -182,7 +182,7 @@ namespace Tools_Injector_Mod_Menu
             chkLogsWarning.Checked = _mySettings.chkLogsWarning;
             chkSound.Checked = _mySettings.chkSound;
             chkCheckUpdate.Checked = _mySettings.chkCheckUpdate;
-            chkOverwrite.Checked = _mySettings.chkAlwaysOverwrite;
+            chkAlwaysOverwrite.Checked = _mySettings.chkAlwaysOverwrite;
             chkMergeApk.Checked = _mySettings.chkMergeApk;
 
             txtNDK.Text = _mySettings.txtNDK;
@@ -840,6 +840,7 @@ namespace Tools_Injector_Mod_Menu
 
                     DumpApk();
                 }
+                WriteOutput($"Dumped Apk", Enums.LogsType.Success);
             }
             catch (Exception exception)
             {
@@ -1392,23 +1393,23 @@ namespace Tools_Injector_Mod_Menu
         {
             if (_type is Enums.ProcessType.MenuFull or Enums.ProcessType.ApkFull1 or Enums.ProcessType.ApkFull2)
             {
-                ProcessRun($"/c {_mySettings.txtNDK}\\build\\ndk-build", $"{_tempPathMenu}\\jni", "020");
+                ProcessRun($"/c {_mySettings.txtNDK}\\build\\ndk-build", $"{_tempPathMenu}\\jni", "201");
             }
 
             if (_type is Enums.ProcessType.DumpApk)
             {
-                ProcessRun($"/c aapt dump badging {_apkTarget} PAUSE > {_tempPathMenu}\\result.txt",
-                    $"{AppPath}\\BuildTools\\", "024");
+                ProcessRun($"/c aapt dump badging \"{_apkTarget}\" PAUSE > \"{_tempPathMenu}\\result.txt\"",
+                    $"{AppPath}\\BuildTools\\", "202");
             }
 
             if (_type is Enums.ProcessType.DecompileApk or Enums.ProcessType.ApkFull1Decompile or Enums.ProcessType.ApkFull2Decompile)
             {
-                ProcessRun($"/c {_apkTool}.jar d {_apkTarget}", $"{AppPath}\\BuildTools\\", "026");
+                ProcessRun($"/c {_apkTool}.jar d {_apkTarget}", $"{AppPath}\\BuildTools\\", "203");
             }
 
             if (_type is Enums.ProcessType.CompileApk)
             {
-                ProcessRun($"/c {_apkTool}.jar b ApkTarget", $"{AppPath}\\BuildTools\\", "026");
+                ProcessRun($"/c {_apkTool}.jar b ApkTarget", $"{AppPath}\\BuildTools\\", "204");
             }
         }
 
@@ -1461,11 +1462,11 @@ namespace Tools_Injector_Mod_Menu
                         UseShellExecute = false,
                         RedirectStandardError = true,
                         RedirectStandardOutput = true,
+                        ErrorDialog = false,
                         CreateNoWindow = true,
                         WorkingDirectory = workDir
                     }
                 };
-
                 process.OutputDataReceived += OutputDataReceived;
                 process.ErrorDataReceived += ErrorDataReceived;
                 process.EnableRaisingEvents = true;
@@ -1631,7 +1632,7 @@ namespace Tools_Injector_Mod_Menu
                 MyMessage.MsgShowWarning($"{outputFile} Not found, Please Check it again!!!");
                 return;
             }
-            ProcessRun($"/c java -jar ApkSigner.jar sign --key tfive.pk8 --cert tfive.pem --v4-signing-enabled false --out \"{outputFile}-Signed.apk\" \"{outputFile}.apk\"", $"{AppPath}\\BuildTools\\", "026");
+            ProcessRun($"/c java -jar ApkSigner.jar sign --key tfive.pk8 --cert tfive.pem --v4-signing-enabled false --out \"{outputFile}-Signed.apk\" \"{outputFile}.apk\"", $"{AppPath}\\BuildTools\\", "205");
             WriteOutput($"Signed {outputFile}-Signed.apk", Enums.LogsType.Success);
         }
 
@@ -1642,8 +1643,18 @@ namespace Tools_Injector_Mod_Menu
                 ArchiveApk();
             }
             var outputDir = $"{AppPath}\\Output\\{txtNameGame.Text}\\";
-            Directory.Delete(outputDir + "lib", true);
-            Directory.Delete(outputDir + "smali", true);
+            
+            try
+            {
+                Directory.Delete(outputDir + "lib", true);
+                Directory.Delete(outputDir + "smali", true);
+
+            }
+            catch
+            {
+               
+            }
+            
             FormState(State.Idle);
             ProcessType(Enums.ProcessType.None);
         }
@@ -1723,7 +1734,7 @@ namespace Tools_Injector_Mod_Menu
             var directory = new DirectoryInfo($"{_apkTargetPath}");
             foreach (var dir in directory.GetDirectories())
             {
-                if (dir.Name.StartsWith("smali"))
+                if (dir.Name.StartsWith("smali") && !dir.Name.StartsWith("smali_assets"))
                 {
                     _smaliCount++;
                 }
@@ -1942,7 +1953,7 @@ namespace Tools_Injector_Mod_Menu
                     _mySettings.chkLogsWarning = chkLogsWarning.Checked;
                     _mySettings.chkSound = chkSound.Checked;
                     _mySettings.chkCheckUpdate = chkCheckUpdate.Checked;
-                    _mySettings.chkAlwaysOverwrite = chkOverwrite.Checked;
+                    _mySettings.chkAlwaysOverwrite = chkAlwaysOverwrite.Checked;
                     _mySettings.chkMergeApk = chkMergeApk.Checked;
                     _mySettings.Save();
                     WriteOutput("Saved Settings", Enums.LogsType.Success);

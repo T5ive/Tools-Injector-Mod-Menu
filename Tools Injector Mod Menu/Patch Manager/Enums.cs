@@ -17,7 +17,8 @@
             Long,
             Void,
             Links,
-            Empty
+            String,
+            Empty = 100
         }
 
         public enum FunctionType
@@ -34,7 +35,7 @@
             PatchButtonOnOff,
             PatchLabel,
             PatchToggle,
-            Empty
+            Empty = 100
         }
 
         public enum LogsType
@@ -56,7 +57,7 @@
             ApkFull2Decompile,
             ApkFull2,
             DumpApk,
-            None
+            None = 100
         }
     }
 }

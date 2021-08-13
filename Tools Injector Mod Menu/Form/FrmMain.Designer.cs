@@ -131,7 +131,8 @@ namespace Tools_Injector_Mod_Menu
             this.btnSaveSettings2 = new MaterialSkin.Controls.MaterialButton();
             this.materialCard5 = new MaterialSkin.Controls.MaterialCard();
             this.groupBox8 = new System.Windows.Forms.GroupBox();
-            this.chkOverwrite = new MaterialSkin.Controls.MaterialCheckbox();
+            this.chkMergeApk = new MaterialSkin.Controls.MaterialCheckbox();
+            this.chkAlwaysOverwrite = new MaterialSkin.Controls.MaterialCheckbox();
             this.chkLogsWarning = new MaterialSkin.Controls.MaterialCheckbox();
             this.chkCheckUpdate = new MaterialSkin.Controls.MaterialCheckbox();
             this.chkSound = new MaterialSkin.Controls.MaterialCheckbox();
@@ -157,7 +158,6 @@ namespace Tools_Injector_Mod_Menu
             this.menuIconList = new System.Windows.Forms.ImageList(this.components);
             this.Worker = new System.ComponentModel.BackgroundWorker();
             this.ApkWorker = new System.ComponentModel.BackgroundWorker();
-            this.chkMergeApk = new MaterialSkin.Controls.MaterialCheckbox();
             this.materialTabControl1.SuspendLayout();
             this.tabMain.SuspendLayout();
             this.materialCard4.SuspendLayout();
@@ -1828,7 +1828,7 @@ namespace Tools_Injector_Mod_Menu
             // groupBox8
             // 
             this.groupBox8.Controls.Add(this.chkMergeApk);
-            this.groupBox8.Controls.Add(this.chkOverwrite);
+            this.groupBox8.Controls.Add(this.chkAlwaysOverwrite);
             this.groupBox8.Controls.Add(this.chkLogsWarning);
             this.groupBox8.Controls.Add(this.chkCheckUpdate);
             this.groupBox8.Controls.Add(this.chkSound);
@@ -1846,20 +1846,37 @@ namespace Tools_Injector_Mod_Menu
             this.groupBox8.TabStop = false;
             this.groupBox8.Text = "Tools Settings";
             // 
-            // chkOverwrite
+            // chkMergeApk
             // 
-            this.chkOverwrite.AutoSize = true;
-            this.chkOverwrite.Depth = 0;
-            this.chkOverwrite.Location = new System.Drawing.Point(191, 135);
-            this.chkOverwrite.Margin = new System.Windows.Forms.Padding(0);
-            this.chkOverwrite.MouseLocation = new System.Drawing.Point(-1, -1);
-            this.chkOverwrite.MouseState = MaterialSkin.MouseState.HOVER;
-            this.chkOverwrite.Name = "chkOverwrite";
-            this.chkOverwrite.Ripple = true;
-            this.chkOverwrite.Size = new System.Drawing.Size(156, 37);
-            this.chkOverwrite.TabIndex = 20;
-            this.chkOverwrite.Text = "Always Overwrite";
-            this.chkOverwrite.UseVisualStyleBackColor = true;
+            this.chkMergeApk.AutoSize = true;
+            this.chkMergeApk.Checked = true;
+            this.chkMergeApk.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkMergeApk.Depth = 0;
+            this.chkMergeApk.Location = new System.Drawing.Point(191, 172);
+            this.chkMergeApk.Margin = new System.Windows.Forms.Padding(0);
+            this.chkMergeApk.MouseLocation = new System.Drawing.Point(-1, -1);
+            this.chkMergeApk.MouseState = MaterialSkin.MouseState.HOVER;
+            this.chkMergeApk.Name = "chkMergeApk";
+            this.chkMergeApk.Ripple = true;
+            this.chkMergeApk.Size = new System.Drawing.Size(113, 37);
+            this.chkMergeApk.TabIndex = 21;
+            this.chkMergeApk.Text = "Merge APK";
+            this.chkMergeApk.UseVisualStyleBackColor = true;
+            // 
+            // chkAlwaysOverwrite
+            // 
+            this.chkAlwaysOverwrite.AutoSize = true;
+            this.chkAlwaysOverwrite.Depth = 0;
+            this.chkAlwaysOverwrite.Location = new System.Drawing.Point(191, 135);
+            this.chkAlwaysOverwrite.Margin = new System.Windows.Forms.Padding(0);
+            this.chkAlwaysOverwrite.MouseLocation = new System.Drawing.Point(-1, -1);
+            this.chkAlwaysOverwrite.MouseState = MaterialSkin.MouseState.HOVER;
+            this.chkAlwaysOverwrite.Name = "chkAlwaysOverwrite";
+            this.chkAlwaysOverwrite.Ripple = true;
+            this.chkAlwaysOverwrite.Size = new System.Drawing.Size(156, 37);
+            this.chkAlwaysOverwrite.TabIndex = 20;
+            this.chkAlwaysOverwrite.Text = "Always Overwrite";
+            this.chkAlwaysOverwrite.UseVisualStyleBackColor = true;
             // 
             // chkLogsWarning
             // 
@@ -2238,23 +2255,6 @@ namespace Tools_Injector_Mod_Menu
             this.ApkWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.ApkWorker_DoWork);
             this.ApkWorker.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.ApkWorker_RunWorkerCompleted);
             // 
-            // chkMergeApk
-            // 
-            this.chkMergeApk.AutoSize = true;
-            this.chkMergeApk.Checked = true;
-            this.chkMergeApk.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkMergeApk.Depth = 0;
-            this.chkMergeApk.Location = new System.Drawing.Point(191, 172);
-            this.chkMergeApk.Margin = new System.Windows.Forms.Padding(0);
-            this.chkMergeApk.MouseLocation = new System.Drawing.Point(-1, -1);
-            this.chkMergeApk.MouseState = MaterialSkin.MouseState.HOVER;
-            this.chkMergeApk.Name = "chkMergeApk";
-            this.chkMergeApk.Ripple = true;
-            this.chkMergeApk.Size = new System.Drawing.Size(113, 37);
-            this.chkMergeApk.TabIndex = 21;
-            this.chkMergeApk.Text = "Merge APK";
-            this.chkMergeApk.UseVisualStyleBackColor = true;
-            // 
             // FrmMain
             // 
             this.AllowDrop = true;
@@ -2456,7 +2456,7 @@ namespace Tools_Injector_Mod_Menu
         private System.Windows.Forms.GroupBox groupBox17;
         private System.Windows.Forms.Label lbApk;
         private System.ComponentModel.BackgroundWorker ApkWorker;
-        private MaterialSkin.Controls.MaterialCheckbox chkOverwrite;
+        private MaterialSkin.Controls.MaterialCheckbox chkAlwaysOverwrite;
         private MaterialSkin.Controls.MaterialCheckbox chkMergeApk;
     }
 }

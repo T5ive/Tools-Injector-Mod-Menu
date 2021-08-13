@@ -233,24 +233,18 @@ namespace Tools_Injector_Mod_Menu
 
         public static bool IsSpecialChar(this string input)
         {
-            var specialChar = @"\|!#$%&/()=?»«@£§€{}.-;'<>_,";
-            foreach (var item in specialChar)
-            {
-                if (input.Contains(item)) return true;
-            }
-            return false;
+            return @"\|!#$%&/()=?»«@£§€{}.-;'<>_,".Any(input.Contains);
         }
 
         public static bool IsPathSpecialChar(this string input)
         {
-            const string specialChar = @"|!#$%&/()=?»«@£§€{};'<>_, ";
-            return specialChar.Any(input.Contains);
+            return "|!#$%&/()=?»«@£§€{};'<>_, ".Any(input.Contains);
         }
 
         public static string RemoveSpecialCharacters(this string str)
         {
             var sb = new StringBuilder();
-            foreach (var c in str.Where(c => c is >= '0' and <= '9' || c is >= 'A' and <= 'Z' || c is >= 'a' and <= 'z' || c == '.' || c == '_'))
+            foreach (var c in str.Where(c => c is >= '0' and <= '9' or >= 'A' and <= 'Z' or >= 'a' and <= 'z' or '.' or '_' or ' '))
             {
                 sb.Append(c);
             }
@@ -260,7 +254,7 @@ namespace Tools_Injector_Mod_Menu
         public static string RemoveMiniSpecialCharacters(this string str)
         {
             var sb = new StringBuilder();
-            foreach (var c in str.Where(c => c is >= '0' and <= '9' || c is >= 'A' and <= 'Z' || c is >= 'a' and <= 'z' || c == '.' || c == ',' || c == '_'))
+            foreach (var c in str.Where(c => c is >= '0' and <= '9' or >= 'A' and <= 'Z' or >= 'a' and <= 'z' or '.' or ',' or '_'))
             {
                 sb.Append(c);
             }
@@ -270,7 +264,7 @@ namespace Tools_Injector_Mod_Menu
         public static string RemoveSuperSpecialCharacters(this string str)
         {
             var sb = new StringBuilder();
-            foreach (var c in str.Where(c => c is >= '0' and <= '9' || c is >= 'A' and <= 'Z' || c is >= 'a' and <= 'z'))
+            foreach (var c in str.Where(c => c is >= '0' and <= '9' or >= 'A' and <= 'Z' or >= 'a' and <= 'z'))
             {
                 sb.Append(c);
             }
@@ -399,6 +393,7 @@ namespace Tools_Injector_Mod_Menu
                 "long" => Enums.Type.Long,
                 "void" => Enums.Type.Void,
                 "links" => Enums.Type.Links,
+                "string" => Enums.Type.String,
                 _ => Enums.Type.Empty
             };
         }
@@ -414,6 +409,7 @@ namespace Tools_Injector_Mod_Menu
                 Enums.Type.Long => "long",
                 Enums.Type.Void => "void",
                 Enums.Type.Links => "links",
+                Enums.Type.String => "string",
                 _ => null
             };
         }
@@ -429,6 +425,7 @@ namespace Tools_Injector_Mod_Menu
                 Enums.Type.Long => "= 1;",
                 Enums.Type.Void => ";",
                 Enums.Type.Links => "",
+                Enums.Type.String => ";",
                 _ => null
             };
         }
