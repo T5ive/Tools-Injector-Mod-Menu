@@ -284,7 +284,7 @@ void Update(void *instance) {{
 
             return result.Length == 0 ? result : result.Remove(result.LastIndexOf(newLine, StringComparison.Ordinal));
         }
-        
+
         public static string HackThread()
         {
             var result = "";
@@ -311,7 +311,7 @@ void Update(void *instance) {{
                             {
                                 if (function.FunctionType == Enums.FunctionType.PatchLabel)
                                 {
-                                    instantValue = $"{newLine}hexPatches.{cheatName}_{offsetInfo.OffsetId}.Modify();{newLine}";
+                                    instantValue = $"{newLine}    hexPatches.{cheatName}_{offsetInfo.OffsetId}.Modify();{newLine}";
                                 }
                                 result += $@"hexPatches.{cheatName}_{offsetInfo.OffsetId} = MemoryPatch::createWithHex(targetLibName,
                                             string2Offset(OBFUSCATE(""{offsetInfo.Offset}"")),
@@ -509,6 +509,7 @@ void Update(void *instance) {{
         private static string GetArgs(IReadOnlyList<(string, string)> method)
         {
             var result = "";
+            if (method[0].Item1?.Length == 0 && method[0].Item2?.Length == 0) return "";
             for (var i = 0; i < method.Count; i++)
             {
                 result += $", {method[i].Item1} _{method[i].Item1}{i}";
@@ -519,6 +520,7 @@ void Update(void *instance) {{
         private static string GetTypeArgs(IReadOnlyList<(string, string)> method)
         {
             var result = "";
+            if (method[0].Item1?.Length == 0 && method[0].Item2?.Length == 0) return "";
             for (var i = 0; i < method.Count; i++)
             {
                 result += $", {method[i].Item1}";
@@ -529,6 +531,7 @@ void Update(void *instance) {{
         private static string GetValuesArgs(IReadOnlyList<(string, string)> method)
         {
             var result = "";
+            if (method[0].Item1?.Length == 0 && method[0].Item2?.Length == 0) return "";
             for (var i = 0; i < method.Count; i++)
             {
                 result += $", {method[i].Item2}";
