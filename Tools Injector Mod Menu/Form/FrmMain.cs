@@ -993,8 +993,9 @@ namespace Tools_Injector_Mod_Menu
                 FormState(State.Idle);
                 return;
             }
+            //FormState(State.Idle); // Test Mode
+            //return;
             if (!MoveSmali(destinationPath)) return;
-            //    FormState(State.Idle); // Test Mode
             while (!Worker.CancellationPending)
             {
                 Worker.CancelAsync();
@@ -1180,6 +1181,8 @@ namespace Tools_Injector_Mod_Menu
             return MainHack();
         }
 
+        #region Menu
+
         private bool MainActivity()
         {
             try
@@ -1279,6 +1282,10 @@ namespace Tools_Injector_Mod_Menu
             }
         }
 
+        #endregion Menu
+
+        #region Apk
+
         private bool ApkMainActivity()
         {
             try
@@ -1336,55 +1343,57 @@ namespace Tools_Injector_Mod_Menu
             }
         }
 
+        #endregion Apk
+
         private bool MainHack()
         {
-            try
+            //try
+            //{
+            var text = File.ReadAllText(_tempPathMenu + "\\jni\\Main.cpp");
+            var memoryPatch = ModMenuPattern.MemoryPatch();
+            var newVariable = ModMenuPattern.NewVariable();
+            var newMethod = ModMenuPattern.NewMethod();
+            var hackThread64 = "";
+            var hackThread = "";
+            var toastHere = ModMenuPattern.ToastHere(listToast);
+            var featuresList = ModMenuPattern.FeaturesList();
+            var newFeatures = ModMenuPattern.NewFeatures();
+
+            if (comboType.SelectedIndex == (int)Enums.TypeAbi.Arm)
             {
-                var text = File.ReadAllText(_tempPathMenu + "\\jni\\Main.cpp");
-                var memoryPatch = ModMenuPattern.MemoryPatch();
-                var newVariable = ModMenuPattern.NewVariable();
-                var newMethod = ModMenuPattern.NewMethod();
-                var hackThread64 = "";
-                var hackThread = "";
-                var toastHere = ModMenuPattern.ToastHere(listToast);
-                var featuresList = ModMenuPattern.FeaturesList();
-                var newFeatures = ModMenuPattern.NewFeatures();
-
-                if (comboType.SelectedIndex == (int)Enums.TypeAbi.Arm)
-                {
-                    hackThread = ModMenuPattern.HackThread();
-                }
-                else
-                {
-                    hackThread64 = ModMenuPattern.HackThread();
-                }
-
-                if (!string.IsNullOrWhiteSpace(toastHere))
-                {
-                    toastHere = toastHere.Remove(toastHere.LastIndexOf(Environment.NewLine, StringComparison.Ordinal));
-                }
-
-                text = text.Replace("//VariableHere", memoryPatch)
-                    .Replace("//NewVariableHere", newVariable)
-                    .Replace("//NewMethodHere", newMethod)
-                    .Replace("(yourTargetLibName)", txtTargetLib.Text)
-                    .Replace("//(hackThread64)", hackThread64)
-                    .Replace("//(hackThread)", hackThread)
-                    .Replace("//ToastHere", toastHere)
-                    .Replace("//(yourFeaturesList)", featuresList)
-                    .Replace("(yourEndCredit)", txtEndCredit.Text)
-                    .Replace("//(yourFeatures)", newFeatures);
-                File.WriteAllText(_tempPathMenu + "\\jni\\Main.cpp", text);
-                WriteOutput("Replaced Main.cpp", Enums.LogsType.Success);
-                return true;
+                hackThread = ModMenuPattern.HackThread();
             }
-            catch (Exception ex)
+            else
             {
-                MyMessage.MsgShowError("Error " + ex.Message);
-                WriteOutput(ex.Message, Enums.LogsType.Error, "029");
-                FormState(State.Idle);
-                return false;
+                hackThread64 = ModMenuPattern.HackThread();
             }
+
+            if (!string.IsNullOrWhiteSpace(toastHere))
+            {
+                toastHere = toastHere.Remove(toastHere.LastIndexOf(Environment.NewLine, StringComparison.Ordinal));
+            }
+
+            text = text.Replace("//VariableHere", memoryPatch)
+                .Replace("//NewVariableHere", newVariable)
+                .Replace("//NewMethodHere", newMethod)
+                .Replace("(yourTargetLibName)", txtTargetLib.Text)
+                .Replace("//(hackThread64)", hackThread64)
+                .Replace("//(hackThread)", hackThread)
+                .Replace("//ToastHere", toastHere)
+                .Replace("//(yourFeaturesList)", featuresList)
+                .Replace("(yourEndCredit)", txtEndCredit.Text)
+                .Replace("//(yourFeatures)", newFeatures);
+            File.WriteAllText(_tempPathMenu + "\\jni\\Main.cpp", text);
+            WriteOutput("Replaced Main.cpp", Enums.LogsType.Success);
+            return true;
+            //}
+            //catch (Exception ex)
+            //{
+            //    MyMessage.MsgShowError("Error " + ex.Message);
+            //    WriteOutput(ex.Message, Enums.LogsType.Error, "029");
+            //    FormState(State.Idle);
+            //    return false;
+            //}
         }
 
         #endregion Modify Files

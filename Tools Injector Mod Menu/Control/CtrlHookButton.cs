@@ -58,7 +58,7 @@ namespace Tools_Injector_Mod_Menu
                 }
                 type = type.Remove(type.Length - 2);
                 values = values.Remove(values.Length - 2);
-                dataList.Rows.Add(offset.Name, offset.Offset, type, values);
+                dataList.Rows.Add(offset.Name, offset.Offset, offset.HookInfo.FieldInfo.Offset,type, values);
             }
         }
 
@@ -74,11 +74,12 @@ namespace Tools_Injector_Mod_Menu
                 for (var i = 0; i < dataList.Rows.Count; i++)
                 {
                     var name = Utility.IsEmpty(dataList.Rows[i].Cells[0].Value)? "" : dataList.Rows[i].Cells[0].Value.ToString();
-                    var offset = Utility.IsEmpty(dataList.Rows[i].Cells[1].Value) ? "" : dataList.Rows[i].Cells[1].Value.ToString();
-                    var type = Utility.IsEmpty(dataList.Rows[i].Cells[2].Value)? "" : dataList.Rows[i].Cells[2].Value.ToString();
-                    var values = Utility.IsEmpty(dataList.Rows[i].Cells[3].Value) ? "" : dataList.Rows[i].Cells[3].Value.ToString();
+                    var updateOffset = Utility.IsEmpty(dataList.Rows[i].Cells[1].Value) ? "" : dataList.Rows[i].Cells[1].Value.ToString();
+                    var offset = Utility.IsEmpty(dataList.Rows[i].Cells[2].Value) ? "" : dataList.Rows[i].Cells[2].Value.ToString();
+                    var type = Utility.IsEmpty(dataList.Rows[i].Cells[3].Value)? "" : dataList.Rows[i].Cells[3].Value.ToString();
+                    var values = Utility.IsEmpty(dataList.Rows[i].Cells[4].Value) ? "" : dataList.Rows[i].Cells[4].Value.ToString();
 
-                    if (!offset.StartsWith("0x"))
+                    if (!offset.StartsWith("0x") || !updateOffset.StartsWith("0x"))
                     {
                         MyMessage.MsgShowWarning(@$"Offset At {i + 1}, does not start with ""0x"" Please check it again!!!");
                         return;
@@ -100,18 +101,31 @@ namespace Tools_Injector_Mod_Menu
                     var valueList = values.RemoveMiniSpecialCharacters().Split(',');
                     if (typeList.Length != valueList.Length)
                     {
-                        MyMessage.MsgShowWarning(@$"Type At {i + 1}, does not equal Values At {i + 1}. Please check it again!!!");
+                        MyMessage.MsgShowWarning($"Type At {i + 1}, does not equal Values At {i + 1}. Please check it again!!!");
                         return;
                     }
 
                     var method = typeList.Select((t, j) => (t, valueList[j])).ToList();
 
+                    var fieldInfo = new FieldInfo
+                    {
+                        Type = Enums.Type.Empty,
+                        Offset = offset
+                    };
+                    var hookInfo = new HookInfo
+                    {
+                        Type = Enums.Type.Empty,
+                        Value = null,
+                        Links = null,
+                        FieldInfo = fieldInfo
+                    };
+
                     var offsetInfo = new OffsetInfo
                     {
                         OffsetId = i,
-                        Offset = offset,
+                        Offset = updateOffset,
                         Hex = null,
-                        HookInfo = OffsetPatch.HookValue(),
+                        HookInfo = hookInfo,
                         Name = name,
                         Method = method
                     };

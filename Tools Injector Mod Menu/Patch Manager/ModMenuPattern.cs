@@ -329,7 +329,8 @@ void Update(void *instance) {{
         {
             var result = "";
             var newLine = Environment.NewLine;
-
+            var btnCount = 0;
+            var hookBtn = "";
             foreach (var function in FUNCTION_LIST)
             {
                 var cheatName = function.CheatName.RemoveSuperSpecialCharacters().ReplaceNumCharacters();
@@ -353,11 +354,22 @@ void Update(void *instance) {{
                         case Enums.FunctionType.HookInputButton:
                             {
                                 var args = GetTypeArgs(offsetInfo.Method);
-                                result += $"{cheatName}Method{id} = (void(*)(void *{args}))getAbsoluteAddress(targetLibName, {offsetInfo.Offset});{newLine}    ";
+                                result += $"{cheatName}Method{id} = (void(*)(void *{args}))getAbsoluteAddress(targetLibName, {offsetInfo.HookInfo.FieldInfo.Offset});{newLine}    ";
+                                if (!hookBtn.Contains(offsetInfo.Offset))
+                                {
+                                    hookBtn +=
+                                        $@"HOOK(""{offsetInfo.Offset}"", {RandomString(12)}, Update, old_Update);{newLine}    ";
+                                    btnCount++;
+                                }
                                 break;
                             }
                     }
                 }
+            }
+
+            if (btnCount > 0)
+            {
+                result += hookBtn;
             }
             return result;
         }
