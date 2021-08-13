@@ -22,7 +22,7 @@ namespace Tools_Injector_Mod_Menu
 {
     //Wire Frame & Color Chams
     //Telekill?
-    //String
+    //String, Decimal
     public partial class FrmMain : MaterialForm
     {
         public FrmMain()
