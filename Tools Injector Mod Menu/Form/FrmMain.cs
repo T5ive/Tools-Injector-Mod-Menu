@@ -1502,7 +1502,7 @@ namespace Tools_Injector_Mod_Menu
             var deleteTemp = chkRemoveTemp.Checked;
 
             MoveDirectory(tempOutputDir, desDir, true, deleteTemp);
-            if (_mySettings.chkMergeApk)
+            if (_mySettings.chkMergeApk && _apkType is ".apks" or ".xapk")
             {
                 var folderName = comboType.SelectedIndex == (int)Enums.TypeAbi.Arm ? "\\armeabi-v7a" : "\\arm64-v8a";
                 MoveDirectory($"{_tempPathMenu}\\lib\\", desDir + folderName, false, false);
