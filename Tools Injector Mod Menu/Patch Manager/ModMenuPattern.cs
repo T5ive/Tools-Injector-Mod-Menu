@@ -90,7 +90,7 @@ namespace Tools_Injector_Mod_Menu.Patch_Manager
                 }
             }
 
-            return result.Remove(result.LastIndexOf(newLine, StringComparison.Ordinal));
+            return result.Length == 0 ? result : result.Remove(result.LastIndexOf(newLine, StringComparison.Ordinal));
         }
 
         public static string NewMethod()
@@ -282,7 +282,7 @@ void Update(void *instance) {{
 ";
             }
 
-            return result.Remove(result.LastIndexOf(newLine, StringComparison.Ordinal));
+            return result.Length == 0 ? result : result.Remove(result.LastIndexOf(newLine, StringComparison.Ordinal));
         }
         
         public static string HackThread()
