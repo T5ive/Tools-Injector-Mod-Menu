@@ -14,9 +14,7 @@ A clear and concise description of what the bug is.
 
 **Failed compilation issues**, upload both settings.json and logs.
 
-**Tools Injector Mod Menu issues**
-**To Reproduce**
-Steps to reproduce the behavior:
+**Tools Injector Mod Menu issues**, explain how it went wrong.
 
 **Theme issues**, upload your theme.
 
