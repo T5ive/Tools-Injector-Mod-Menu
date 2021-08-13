@@ -51,6 +51,7 @@ namespace Tools_Injector_Mod_Menu
 
         private static string[] _menuFiles;
 
+        private static readonly Version VERSION = Assembly.GetEntryAssembly()?.GetName().Version;
         public enum State
         {
             Idle,
@@ -66,6 +67,7 @@ namespace Tools_Injector_Mod_Menu
             CheckFolder();
             LoadFiles();
             LoadSettings();
+            Text = $"Tools Injector Mod Menu - {VERSION}";
         }
 
         private void LoadTheme()
