@@ -1614,6 +1614,7 @@ namespace Tools_Injector_Mod_Menu
         {
             var apkPath = $"{AppPath}\\BuildTools\\ApkTarget\\dist\\ApkTarget.apk";
             var outputFile = $"{AppPath}\\Output\\{txtNameGame.Text}\\{txtNameGame.Text}.apk";
+            var apkTempPath = $"{AppPath}\\BuildTools\\ApkTarget\\dist\\ApkTarget.apk.apktool_temp";
             Directory.CreateDirectory($"{AppPath}\\Output\\{txtNameGame.Text}");
 
             if (!File.Exists(apkPath))
@@ -1621,9 +1622,29 @@ namespace Tools_Injector_Mod_Menu
                 return;
             }
 
+            while (!CheckApk(apkPath)) { }
+                
             File.Copy(apkPath, outputFile, true);
             WriteOutput($"Compiled {outputFile}", Enums.LogsType.Success);
             ApkWorker.RunWorkerAsync();
+        }
+
+        private static bool CheckApk(string path)
+        {
+            try
+            {
+                using var archive = ZipFile.OpenRead(path);
+                if (archive.Entries.Any(entryApks => entryApks.FullName == Utility.SmaliCountToClass(_smaliCount)))
+                {
+                    return true;
+                }
+                archive.Dispose();
+            }
+            catch
+            {
+                return false;
+            }
+            return false;
         }
 
         private void ApkWorker_DoWork(object sender, System.ComponentModel.DoWorkEventArgs e)

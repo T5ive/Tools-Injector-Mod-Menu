@@ -299,6 +299,11 @@ namespace Tools_Injector_Mod_Menu
             return count == 1 ? "smali" : $"smali_classes{count}";
         }
 
+        public static string SmaliCountToClass(int count)
+        {
+            return $"classes{count}.dex";
+        }
+
         public static string GetApkName(string apk)
         {
             try
