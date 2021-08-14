@@ -994,8 +994,8 @@ namespace Tools_Injector_Mod_Menu
                 FormState(State.Idle);
                 return;
             }
-            //FormState(State.Idle); // Test Mode
-            //return;
+            FormState(State.Idle); // Test Mode
+            return;
             if (!MoveSmali(destinationPath)) return;
             while (!Worker.CancellationPending)
             {
@@ -1624,7 +1624,6 @@ namespace Tools_Injector_Mod_Menu
 
             while (File.Exists(apkPath) && File.Exists(apkTempPath))
             {
-                
             }
             File.Copy(apkPath, outputFile, true);
             WriteOutput($"Compiled {outputFile}", Enums.LogsType.Success);

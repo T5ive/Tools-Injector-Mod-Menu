@@ -21,7 +21,6 @@ namespace Tools_Injector_Mod_Menu.Patch_Manager
                     switch (function.FunctionType)
                     {
                         case Enums.FunctionType.PatchButtonOnOff:
-                        case Enums.FunctionType.PatchLabel:
                         case Enums.FunctionType.PatchToggle:
                             patchValues += $"{cheatName}_{offsetInfo.OffsetId}, ";
                             break;
@@ -302,20 +301,19 @@ void Update(void *instance) {{
                 var cheatName = function.CheatName.RemoveSuperSpecialCharacters().ReplaceNumCharacters();
                 foreach (var offsetInfo in function.OffsetList)
                 {
-                    var instantValue = "";
                     switch (function.FunctionType)
                     {
                         case Enums.FunctionType.PatchButtonOnOff:
                         case Enums.FunctionType.PatchToggle:
-                        case Enums.FunctionType.PatchLabel:
                             {
-                                if (function.FunctionType == Enums.FunctionType.PatchLabel)
-                                {
-                                    instantValue = $"{newLine}    hexPatches.{cheatName}_{offsetInfo.OffsetId}.Modify();{newLine}";
-                                }
                                 result += $@"hexPatches.{cheatName}_{offsetInfo.OffsetId} = MemoryPatch::createWithHex(targetLibName,
                                             string2Offset(OBFUSCATE(""{offsetInfo.Offset}"")),
-                                            OBFUSCATE(""{offsetInfo.Hex}""));{instantValue}{newLine}    ";
+                                            OBFUSCATE(""{offsetInfo.Hex}""));{newLine}    ";
+                                break;
+                            }
+                        case Enums.FunctionType.PatchLabel:
+                            {
+                                result += $@"PATCHOFFSET(""{offsetInfo.Offset}"", ""{offsetInfo.Hex}"");{newLine}    ";
                                 break;
                             }
                     }
@@ -347,7 +345,7 @@ void Update(void *instance) {{
                         case Enums.FunctionType.HookInputOnOff:
                             {
                                 if (offsetInfo.HookInfo.Type == Enums.Type.Links) break;
-                                result += $@"HOOK(""{offsetInfo.Offset}"", {RandomString(12)}, Update{cheatName}{id}, old_{cheatName}{id});{newLine}    ";
+                                result += $@"HOOK(""{offsetInfo.Offset}"", Update{cheatName}{id}, old_{cheatName}{id});{newLine}    ";
                                 break;
                             }
                         case Enums.FunctionType.HookButton:
@@ -358,7 +356,7 @@ void Update(void *instance) {{
                                 if (!hookBtn.Contains(offsetInfo.Offset))
                                 {
                                     hookBtn +=
-                                        $@"HOOK(""{offsetInfo.Offset}"", {RandomString(12)}, Update, old_Update);{newLine}    ";
+                                        $@"HOOK(""{offsetInfo.Offset}"", Update, old_Update);{newLine}    ";
                                     btnCount++;
                                 }
                                 break;
@@ -494,7 +492,7 @@ void Update(void *instance) {{
                     case Enums.FunctionType.HookInputButton:
                         {
                             var args = function.OffsetList.Aggregate("", (current, info) => current + GetValuesArgs(info.Method));
-                            var buttonValue = function.OffsetList.Aggregate("", (current, offsetInfo) => current + $"{cheatName}Method{offsetInfo.OffsetId + 1}(btn{cheatName}{args});{newLine}");
+                            var buttonValue = function.OffsetList.Aggregate("", (current, offsetInfo) => current + $"{cheatName}Method{offsetInfo.OffsetId + 1}(btn{cheatName}{args});{newLine}                               ");
                             var inputValue = "";
                             if (type == Enums.FunctionType.HookInputButton)
                             {
@@ -562,15 +560,6 @@ void Update(void *instance) {{
                 }
             }
             return 0;
-        }
-
-        private static readonly Random RANDOM = new();
-
-        private static string RandomString(int length)
-        {
-            const string chars = "123456789";
-            return new string(Enumerable.Repeat(chars, length)
-                .Select(s => s[RANDOM.Next(s.Length)]).ToArray());
         }
     }
 }
