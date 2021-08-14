@@ -1622,29 +1622,13 @@ namespace Tools_Injector_Mod_Menu
                 return;
             }
 
-            while (!CheckApk(apkPath)) { }
+            while (File.Exists(apkPath) && File.Exists(apkTempPath))
+            {
                 
+            }
             File.Copy(apkPath, outputFile, true);
             WriteOutput($"Compiled {outputFile}", Enums.LogsType.Success);
             ApkWorker.RunWorkerAsync();
-        }
-
-        private static bool CheckApk(string path)
-        {
-            try
-            {
-                using var archive = ZipFile.OpenRead(path);
-                if (archive.Entries.Any(entryApks => entryApks.FullName == Utility.SmaliCountToClass(_smaliCount)))
-                {
-                    return true;
-                }
-                archive.Dispose();
-            }
-            catch
-            {
-                return false;
-            }
-            return false;
         }
 
         private void ApkWorker_DoWork(object sender, System.ComponentModel.DoWorkEventArgs e)
