@@ -230,44 +230,34 @@ namespace Tools_Injector_Mod_Menu
                 var value = dataList.Rows[i].Cells[5];
                 var links = dataList.Rows[i].Cells[6];
 
-                if (typeValue == "bool")
+                if (typeValue == "void")
                 {
-                    value.Style.BackColor = Color.Silver;
-                    value.ReadOnly = true;
+                    fieldType.ReadOnly = false;
+                    fieldOffset.ReadOnly = false;
+                    fieldOffset.Style.BackColor = Color.White;
                 }
                 else
                 {
-                    value.Style.BackColor = Color.White;
-                    value.ReadOnly = false;
+                    fieldType.ReadOnly = true;
+                    fieldOffset.Style.BackColor = Color.Silver;
+                    fieldOffset.ReadOnly = true;
 
-                    if (typeValue == "void")
+                    if (typeValue == "links")
                     {
                         fieldType.ReadOnly = false;
-                        fieldOffset.ReadOnly = false;
-                        fieldOffset.Style.BackColor = Color.White;
+                        links.Style.BackColor = Color.White;
+                        links.ReadOnly = false;
                     }
                     else
                     {
                         fieldType.ReadOnly = true;
-                        fieldOffset.Style.BackColor = Color.Silver;
-                        fieldOffset.ReadOnly = true;
-
-                        if (typeValue == "links")
-                        {
-                            fieldType.ReadOnly = false;
-                            links.Style.BackColor = Color.White;
-                            links.ReadOnly = false;
-                        }
-                        else
-                        {
-                            fieldType.ReadOnly = true;
-                            links.Style.BackColor = Color.Silver;
-                            links.ReadOnly = true;
-                        }
+                        links.Style.BackColor = Color.Silver;
+                        links.ReadOnly = true;
                     }
                 }
 
-                if (fieldTypeValue == "bool")
+
+                if (typeValue == "bool" || fieldTypeValue == "bool")
                 {
                     value.Value = "";
                     value.Style.BackColor = Color.Silver;
