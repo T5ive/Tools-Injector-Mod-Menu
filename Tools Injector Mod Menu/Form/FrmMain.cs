@@ -47,9 +47,11 @@ namespace Tools_Injector_Mod_Menu
 
         private static readonly string _tempPathMenu = Path.GetTempPath() + "TFiveMenu";
 
-        private static string _launch, _apkTarget, _apkTool, _apkName, _apkType, _baseName;
+        private static string _launch, _apkTarget, _apkTool, _apkName, _apkType, _baseName, _compileOutput;
 
         private static string[] _menuFiles;
+
+        private static bool _compiled, _decompiled;
 
         public enum State
         {
@@ -377,7 +379,7 @@ namespace Tools_Injector_Mod_Menu
             OffsetPatch.OffsetList.Clear();
         }
 
-        private void AddAllDataList(bool reValues = false)
+        private void AddAllDataList(bool reValues = false, int selected = 0)
         {
             dataList.DataSource = null;
             dataList.Rows.Clear();
@@ -391,6 +393,16 @@ namespace Tools_Injector_Mod_Menu
                 var functionType = OffsetPatch.FunctionList[i].FunctionType;
                 AddListValues(cheatName[i], Utility.FunctionTypeToString(functionType));
                 OffsetPatch.OffsetList.Clear();
+            }
+
+            try
+            {
+                dataList.Rows[0].Selected = false;
+                dataList.Rows[selected].Selected = true;
+                dataList.FirstDisplayedScrollingRowIndex = dataList.SelectedRows[0].Index;
+            }
+            catch
+            {
             }
         }
 
@@ -412,7 +424,7 @@ namespace Tools_Injector_Mod_Menu
                 Show();
                 if (Values.Save)
                 {
-                    AddAllDataList(true);
+                    AddAllDataList(true, index);
                 }
             }
         }
@@ -463,6 +475,8 @@ namespace Tools_Injector_Mod_Menu
 
         private void dataList_MouseDown(object sender, MouseEventArgs e)
         {
+            int selectedRows = 0;
+            int itemCount = 1;
             if (e.Button == MouseButtons.Right)
             {
                 try
@@ -470,6 +484,8 @@ namespace Tools_Injector_Mod_Menu
                     var hti = dataList.HitTest(e.X, e.Y);
                     dataList.ClearSelection();
                     dataList.Rows[hti.RowIndex].Selected = true;
+                    selectedRows = dataList.SelectedRows[0].Index;
+                    itemCount = dataList.RowCount - 1;
                 }
                 catch
                 {
@@ -481,6 +497,8 @@ namespace Tools_Injector_Mod_Menu
             {
                 addToolStripMenuItem.Enabled = false;
                 removeToolStripMenuItem.Enabled = true;
+                moveUpToolStripMenuItem.Enabled = selectedRows != 0;
+                moveDownToolStripMenuItem.Enabled = selectedRows != itemCount;
             }
             else
             {
@@ -531,6 +549,27 @@ namespace Tools_Injector_Mod_Menu
             }
         }
 
+        private void MoveUpDown(int type)
+        {
+            try
+            {
+                var selectedRowCount = dataList.Rows.GetRowCount(DataGridViewElementStates.Selected);
+                if (selectedRowCount != 0)
+                {
+                    var selectedRows = dataList.SelectedRows[0].Index;
+                    var newIndex = type == 0 ? selectedRows - 1 : selectedRows + 1;
+                    var item = OffsetPatch.FunctionList[selectedRows];
+                    OffsetPatch.FunctionList.RemoveAt(selectedRows);
+                    OffsetPatch.FunctionList.Insert(newIndex, item);
+                    AddAllDataList(true, newIndex);
+                }
+            }
+            catch (Exception ex)
+            {
+                WriteOutput(ex.Message, Enums.LogsType.Error, "042");
+            }
+        }
+
         #endregion Add Function & Data List
 
         #region ToolStripMenuItem
@@ -543,6 +582,16 @@ namespace Tools_Injector_Mod_Menu
         private void addToolStripMenuItem_Click(object sender, EventArgs e)
         {
             AddFunction();
+        }
+
+        private void moveUpToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            MoveUpDown(0);
+        }
+
+        private void moveDownToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            MoveUpDown(1);
         }
 
         #endregion ToolStripMenuItem
@@ -736,6 +785,8 @@ namespace Tools_Injector_Mod_Menu
 
         private void SetFullApk(Enums.ProcessType type)
         {
+            if (!CheckEmpty()) return;
+
             if (Utility.IsEmpty(_apkName, false))
             {
                 MyMessage.MsgShowWarning("Apk Target is Empty, Please Check it again!!!");
@@ -994,8 +1045,8 @@ namespace Tools_Injector_Mod_Menu
                 FormState(State.Idle);
                 return;
             }
-            FormState(State.Idle); // Test Mode
-            return;
+            //FormState(State.Idle); // Test Mode
+            //return;
             if (!MoveSmali(destinationPath)) return;
             while (!Worker.CancellationPending)
             {
@@ -1416,12 +1467,12 @@ namespace Tools_Injector_Mod_Menu
 
             if (_type is Enums.ProcessType.DecompileApk or Enums.ProcessType.ApkFull1Decompile or Enums.ProcessType.ApkFull2Decompile)
             {
-                ProcessRun($"/c {_apkTool}.jar d {_apkTarget}", $"{AppPath}\\BuildTools\\", "203");
+                ProcessRun($"/c java -jar {_apkTool}.jar d {_apkTarget}", $"{AppPath}\\BuildTools\\", "203");
             }
 
             if (_type is Enums.ProcessType.CompileApk)
             {
-                ProcessRun($"/c {_apkTool}.jar b ApkTarget", $"{AppPath}\\BuildTools\\", "204");
+                ProcessRun($"/c java -jar {_apkTool}.jar b ApkTarget", $"{AppPath}\\BuildTools\\", "204");
             }
         }
 
@@ -1477,11 +1528,11 @@ namespace Tools_Injector_Mod_Menu
                         ErrorDialog = false,
                         CreateNoWindow = true,
                         WorkingDirectory = workDir
-                    }
+                    },
+                    EnableRaisingEvents = true
                 };
                 process.OutputDataReceived += OutputDataReceived;
                 process.ErrorDataReceived += ErrorDataReceived;
-                process.EnableRaisingEvents = true;
                 process.Start();
                 process.BeginOutputReadLine();
                 process.BeginErrorReadLine();
@@ -1543,6 +1594,9 @@ namespace Tools_Injector_Mod_Menu
 
         private void DecompileApkDone()
         {
+            while (!_decompiled)
+            {
+            }
             GetSmailiCount();
             WriteOutput("Decompiled APK file", Enums.LogsType.Success);
             if (_type is Enums.ProcessType.DecompileApk)
@@ -1586,6 +1640,7 @@ namespace Tools_Injector_Mod_Menu
                 }
             }
 
+            _decompiled = false;
             DeleteDecompiledLib();
             FullCompile();
         }
@@ -1622,20 +1677,22 @@ namespace Tools_Injector_Mod_Menu
                 return;
             }
 
-            while (File.Exists(apkPath) && File.Exists(apkTempPath))
+            while (File.Exists(apkPath) && File.Exists(apkTempPath) && !_compiled)
             {
             }
-            File.Copy(apkPath, outputFile, true);
-            WriteOutput($"Compiled {outputFile}", Enums.LogsType.Success);
-            ApkWorker.RunWorkerAsync();
+            try
+            {
+                File.Copy(apkPath, outputFile, true);
+                WriteOutput($"Compiled {outputFile}", Enums.LogsType.Success);
+                _compiled = false;
+                ApkWorker.RunWorkerAsync();
+            }
+            catch
+            {
+            }
         }
 
         private void ApkWorker_DoWork(object sender, System.ComponentModel.DoWorkEventArgs e)
-        {
-            SignApk();
-        }
-
-        private void SignApk()
         {
             var outputFile = "";
             Invoke(new MethodInvoker(delegate
@@ -1649,11 +1706,17 @@ namespace Tools_Injector_Mod_Menu
                 return;
             }
             ProcessRun($"/c java -jar ApkSigner.jar sign --key tfive.pk8 --cert tfive.pem --v4-signing-enabled false --out \"{outputFile}-Signed.apk\" \"{outputFile}.apk\"", $"{AppPath}\\BuildTools\\", "205");
-            WriteOutput($"Signed {outputFile}-Signed.apk", Enums.LogsType.Success);
         }
 
         private void ApkWorker_RunWorkerCompleted(object sender, System.ComponentModel.RunWorkerCompletedEventArgs e)
         {
+            var outputFile = "";
+            Invoke(new MethodInvoker(delegate
+            {
+                outputFile = $"{AppPath}\\Output\\{txtNameGame.Text}\\{txtNameGame.Text}";
+            }));
+            WriteOutput($"Signed {outputFile}-Signed.apk", Enums.LogsType.Success);
+
             if (_apkType != ".apk" && !_mySettings.chkMergeApk)
             {
                 ArchiveApk();
@@ -1758,6 +1821,15 @@ namespace Tools_Injector_Mod_Menu
         private void OutputDataReceived(object sender, DataReceivedEventArgs e)
         {
             if (Utility.IsEmpty(e.Data, false)) return;
+            if (e.Data == "I: Copying original files...")
+            {
+                _decompiled = true;
+            }
+
+            if (e.Data == "I: Built apk...")
+            {
+                _compiled = true;
+            }
             WriteOutput(e.Data, Enums.LogsType.Compile);
         }
 

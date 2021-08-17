@@ -158,6 +158,9 @@ namespace Tools_Injector_Mod_Menu
             this.menuIconList = new System.Windows.Forms.ImageList(this.components);
             this.Worker = new System.ComponentModel.BackgroundWorker();
             this.ApkWorker = new System.ComponentModel.BackgroundWorker();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.moveUpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.moveDownToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.materialTabControl1.SuspendLayout();
             this.tabMain.SuspendLayout();
             this.materialCard4.SuspendLayout();
@@ -765,9 +768,12 @@ namespace Tools_Injector_Mod_Menu
             // 
             this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.addToolStripMenuItem,
-            this.removeToolStripMenuItem});
+            this.removeToolStripMenuItem,
+            this.toolStripSeparator1,
+            this.moveUpToolStripMenuItem,
+            this.moveDownToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(118, 48);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(181, 120);
             // 
             // addToolStripMenuItem
             // 
@@ -2255,6 +2261,25 @@ namespace Tools_Injector_Mod_Menu
             this.ApkWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.ApkWorker_DoWork);
             this.ApkWorker.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.ApkWorker_RunWorkerCompleted);
             // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(177, 6);
+            // 
+            // moveUpToolStripMenuItem
+            // 
+            this.moveUpToolStripMenuItem.Name = "moveUpToolStripMenuItem";
+            this.moveUpToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.moveUpToolStripMenuItem.Text = "Move Up";
+            this.moveUpToolStripMenuItem.Click += new System.EventHandler(this.moveUpToolStripMenuItem_Click);
+            // 
+            // moveDownToolStripMenuItem
+            // 
+            this.moveDownToolStripMenuItem.Name = "moveDownToolStripMenuItem";
+            this.moveDownToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.moveDownToolStripMenuItem.Text = "Move Down";
+            this.moveDownToolStripMenuItem.Click += new System.EventHandler(this.moveDownToolStripMenuItem_Click);
+            // 
             // FrmMain
             // 
             this.AllowDrop = true;
@@ -2458,5 +2483,8 @@ namespace Tools_Injector_Mod_Menu
         private System.ComponentModel.BackgroundWorker ApkWorker;
         private MaterialSkin.Controls.MaterialCheckbox chkAlwaysOverwrite;
         private MaterialSkin.Controls.MaterialCheckbox chkMergeApk;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
+        private System.Windows.Forms.ToolStripMenuItem moveUpToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem moveDownToolStripMenuItem;
     }
 }
