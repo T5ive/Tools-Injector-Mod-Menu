@@ -1377,27 +1377,23 @@ namespace Tools_Injector_Mod_Menu
                 var launch = $"{AppPath}\\BuildTools\\ApkTarget\\{Utility.SmaliCountToName(_smaliCount)}\\" + _launch.Replace(".", "\\") + ".smali";
 
                 var text = File.ReadAllText(launch);
-
-                if (text.Contains(@".method protected onCreate(Landroid/os/Bundle;)V
-    .locals 2"))
+                var changed = false;
+                for (var i = 0; i < 9; i++)
                 {
-                    text = text.Replace(@".method protected onCreate(Landroid/os/Bundle;)V
-    .locals 2",
-                        ".method protected onCreate(Landroid/os/Bundle;)V" +
-                        "\n    .locals 2" +
-                        $"\n\n    {_mySettings.txtOnCreate}");
+                    if (text.Contains($@".method protected onCreate(Landroid/os/Bundle;)V
+    .locals {i}"))
+                    {
+                        text = text.Replace($@".method protected onCreate(Landroid/os/Bundle;)V
+    .locals {i}",
+                            ".method protected onCreate(Landroid/os/Bundle;)V" +
+                            $"\n    .locals {i}" +
+                            $"\n\n    {_mySettings.txtOnCreate}");
+                        changed = true;
+                        break;
+                    }
                 }
-
-                else if (text.Contains(@".method protected onCreate(Landroid/os/Bundle;)V
-    .locals 4"))
-                {
-                    text = text.Replace(@".method protected onCreate(Landroid/os/Bundle;)V
-    .locals 4",
-                        ".method protected onCreate(Landroid/os/Bundle;)V" +
-                        "\n    .locals 4" +
-                        $"\n\n    {_mySettings.txtOnCreate}");
-                }
-                else
+                
+                if(!changed)
                 {
                     MyMessage.MsgShowError("Error Not Found onCreate Pattern");
                     WriteOutput("Error Not Found onCreate Pattern", Enums.LogsType.Error, "043");
