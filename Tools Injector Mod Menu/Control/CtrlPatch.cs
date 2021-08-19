@@ -65,7 +65,7 @@ namespace Tools_Injector_Mod_Menu
                 for (var i = 0; i < dataList.Rows.Count; i++)
                 {
                     var name = Utility.IsEmpty(dataList.Rows[i].Cells[0].Value) ? "" : dataList.Rows[i].Cells[0].Value.ToString();
-                    var offset = Utility.IsEmpty(dataList.Rows[i].Cells[1].Value)? "" : dataList.Rows[i].Cells[1].Value.ToString();
+                    var offset = Utility.IsEmpty(dataList.Rows[i].Cells[1].Value) ? "" : dataList.Rows[i].Cells[1].Value.ToString();
                     var hex = Utility.IsEmpty(dataList.Rows[i].Cells[2].Value) ? "" : dataList.Rows[i].Cells[2].Value.ToString();
 
                     if (Utility.IsEmpty(offset, i + 1, "Offset"))

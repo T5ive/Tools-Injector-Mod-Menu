@@ -39,12 +39,6 @@ namespace Tools_Injector_Mod_Menu
             this.removeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.materialCard1 = new MaterialSkin.Controls.MaterialCard();
             this.dataList = new System.Windows.Forms.DataGridView();
-            this.colName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colOffset = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colType = new System.Windows.Forms.DataGridViewComboBoxColumn();
-            this.colFieldType = new System.Windows.Forms.DataGridViewComboBoxColumn();
-            this.colField = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colLinks = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
@@ -59,6 +53,12 @@ namespace Tools_Injector_Mod_Menu
             this.txtNameCheat = new MaterialSkin.Controls.MaterialTextBox();
             this.label16 = new System.Windows.Forms.Label();
             this.btnSave = new MaterialSkin.Controls.MaterialButton();
+            this.colName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colOffset = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colType = new System.Windows.Forms.DataGridViewComboBoxColumn();
+            this.colFieldType = new System.Windows.Forms.DataGridViewComboBoxColumn();
+            this.colField = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colLinks = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.contextMenuStrip1.SuspendLayout();
             this.materialCard1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataList)).BeginInit();
@@ -148,65 +148,6 @@ namespace Tools_Injector_Mod_Menu
             this.dataList.EditingControlShowing += new System.Windows.Forms.DataGridViewEditingControlShowingEventHandler(this.dataList_EditingControlShowing);
             this.dataList.KeyDown += new System.Windows.Forms.KeyEventHandler(this.dataList_KeyDown);
             this.dataList.MouseDown += new System.Windows.Forms.MouseEventHandler(this.dataList_MouseDown);
-            // 
-            // colName
-            // 
-            this.colName.HeaderText = "Name (notice)";
-            this.colName.Name = "colName";
-            this.colName.Width = 120;
-            // 
-            // colOffset
-            // 
-            this.colOffset.HeaderText = "Offset";
-            this.colOffset.Name = "colOffset";
-            this.colOffset.Width = 120;
-            // 
-            // colType
-            // 
-            this.colType.HeaderText = "Type";
-            this.colType.Items.AddRange(new object[] {
-            "double",
-            "float",
-            "int",
-            "long",
-            "void",
-            "links"});
-            this.colType.Name = "colType";
-            this.colType.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.colType.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            // 
-            // colFieldType
-            // 
-            this.colFieldType.HeaderText = "Field Type";
-            this.colFieldType.Items.AddRange(new object[] {
-            "bool",
-            "double",
-            "float",
-            "int",
-            "long"});
-            this.colFieldType.Name = "colFieldType";
-            this.colFieldType.ReadOnly = true;
-            this.colFieldType.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.colFieldType.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            // 
-            // colField
-            // 
-            this.colField.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            dataGridViewCellStyle2.BackColor = System.Drawing.Color.Silver;
-            this.colField.DefaultCellStyle = dataGridViewCellStyle2;
-            this.colField.HeaderText = "Field Offset";
-            this.colField.Name = "colField";
-            this.colField.ReadOnly = true;
-            // 
-            // colLinks
-            // 
-            dataGridViewCellStyle3.BackColor = System.Drawing.Color.Silver;
-            this.colLinks.DefaultCellStyle = dataGridViewCellStyle3;
-            this.colLinks.HeaderText = "Links";
-            this.colLinks.Name = "colLinks";
-            this.colLinks.ReadOnly = true;
-            this.colLinks.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.colLinks.Width = 60;
             // 
             // groupBox1
             // 
@@ -420,6 +361,7 @@ namespace Tools_Injector_Mod_Menu
             // 
             // btnSave
             // 
+            this.btnSave.AccentTextColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(64)))), ((int)(((byte)(129)))));
             this.btnSave.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.btnSave.Density = MaterialSkin.Controls.MaterialButton.MaterialButtonDensity.Default;
             this.btnSave.Depth = 0;
@@ -430,6 +372,7 @@ namespace Tools_Injector_Mod_Menu
             this.btnSave.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
             this.btnSave.MouseState = MaterialSkin.MouseState.HOVER;
             this.btnSave.Name = "btnSave";
+            this.btnSave.NoAccentTextColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(81)))), ((int)(((byte)(181)))));
             this.btnSave.Size = new System.Drawing.Size(771, 36);
             this.btnSave.TabIndex = 0;
             this.btnSave.Text = "Save";
@@ -437,6 +380,65 @@ namespace Tools_Injector_Mod_Menu
             this.btnSave.UseAccentColor = false;
             this.btnSave.UseVisualStyleBackColor = true;
             this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
+            // 
+            // colName
+            // 
+            this.colName.HeaderText = "Name (notice)";
+            this.colName.Name = "colName";
+            this.colName.Width = 120;
+            // 
+            // colOffset
+            // 
+            this.colOffset.HeaderText = "Offset";
+            this.colOffset.Name = "colOffset";
+            this.colOffset.Width = 120;
+            // 
+            // colType
+            // 
+            this.colType.HeaderText = "Type";
+            this.colType.Items.AddRange(new object[] {
+            "double",
+            "float",
+            "int",
+            "long",
+            "void",
+            "links"});
+            this.colType.Name = "colType";
+            this.colType.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.colType.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            // 
+            // colFieldType
+            // 
+            this.colFieldType.HeaderText = "Field Type";
+            this.colFieldType.Items.AddRange(new object[] {
+            "bool",
+            "double",
+            "float",
+            "int",
+            "long"});
+            this.colFieldType.Name = "colFieldType";
+            this.colFieldType.ReadOnly = true;
+            this.colFieldType.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.colFieldType.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            // 
+            // colField
+            // 
+            this.colField.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            dataGridViewCellStyle2.BackColor = System.Drawing.Color.Silver;
+            this.colField.DefaultCellStyle = dataGridViewCellStyle2;
+            this.colField.HeaderText = "Field Offset";
+            this.colField.Name = "colField";
+            this.colField.ReadOnly = true;
+            // 
+            // colLinks
+            // 
+            dataGridViewCellStyle3.BackColor = System.Drawing.Color.Silver;
+            this.colLinks.DefaultCellStyle = dataGridViewCellStyle3;
+            this.colLinks.HeaderText = "Links";
+            this.colLinks.Name = "colLinks";
+            this.colLinks.ReadOnly = true;
+            this.colLinks.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.colLinks.Width = 60;
             // 
             // CtrlHookInput
             // 
@@ -474,15 +476,15 @@ namespace Tools_Injector_Mod_Menu
         private MaterialSkin.Controls.MaterialRadioButton radInputOnOff;
         private MaterialSkin.Controls.MaterialRadioButton radSeekBarToggle;
         private MaterialSkin.Controls.MaterialCheckbox chkMultiple;
+        private System.Windows.Forms.NumericUpDown numMax;
+        private System.Windows.Forms.NumericUpDown numMin;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label label2;
         private System.Windows.Forms.DataGridViewTextBoxColumn colName;
         private System.Windows.Forms.DataGridViewTextBoxColumn colOffset;
         private System.Windows.Forms.DataGridViewComboBoxColumn colType;
         private System.Windows.Forms.DataGridViewComboBoxColumn colFieldType;
         private System.Windows.Forms.DataGridViewTextBoxColumn colField;
         private System.Windows.Forms.DataGridViewTextBoxColumn colLinks;
-        private System.Windows.Forms.NumericUpDown numMax;
-        private System.Windows.Forms.NumericUpDown numMin;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label label2;
     }
 }

@@ -79,67 +79,47 @@ namespace Tools_Injector_Mod_Menu
                         return;
                     }
 
-                    if (type == "void")
+                    switch (type)
                     {
-                        if (Utility.IsEmpty(fieldType, i + 1, "Field Type"))
-                        {
+                        case "void" when Utility.IsEmpty(fieldType, i + 1, "Field Type"):
+                        case "void" when Utility.IsEmpty(fieldOffset, i + 1, "Field Offset"):
                             return;
-                        }
 
-                        if (Utility.IsEmpty(fieldOffset, i + 1, "Field Offset"))
-                        {
-                            return;
-                        }
-
-                        if (!fieldOffset.StartsWith("0x"))
-                        {
+                        case "void" when !fieldOffset.StartsWith("0x"):
                             MyMessage.MsgShowWarning(@$"Field Offset At {i + 1}, does not start with ""0x"" Please check it again!!!");
                             return;
-                        }
 
-                        if (fieldType != "bool" && Utility.IsEmpty(value, i + 1, "Value"))
-                        {
+                        case "void" when fieldType != "bool" && Utility.IsEmpty(value, i + 1, "Value"):
                             return;
-                        }
 
-                        fieldInfo = new FieldInfo
-                        {
-                            Type = Utility.StringToType(fieldType),
-                            Offset = fieldOffset
-                        };
-                    }
-                    else if (type == "links")
-                    {
-                        if (Utility.IsEmpty(fieldType, i + 1, "Field Type"))
-                        {
+                        case "void":
+                            fieldInfo = new FieldInfo
+                            {
+                                Type = Utility.StringToType(fieldType),
+                                Offset = fieldOffset
+                            };
+                            break;
+
+                        case "links" when Utility.IsEmpty(fieldType, i + 1, "Field Type"):
+                        case "links" when fieldType != "bool" && Utility.IsEmpty(value, i + 1, "Value"):
+                        case "links" when Utility.IsEmpty(links, i + 1, "Links"):
                             return;
-                        }
 
-                        if (fieldType != "bool" && Utility.IsEmpty(value, i + 1, "Value"))
-                        {
-                            return;
-                        }
-
-                        if (Utility.IsEmpty(links, i + 1, "Links"))
-                        {
-                            return;
-                        }
-
-                        if (int.Parse(links) > dataList.RowCount || int.Parse(links) == i + 1)
-                        {
+                        case "links" when int.Parse(links) > dataList.RowCount || int.Parse(links) == i + 1:
                             MyMessage.MsgShowWarning($"Links At {i + 1}, is invalid. Please check it again!!!");
                             return;
-                        }
 
-                        fieldInfo = new FieldInfo
-                        {
-                            Type = Utility.StringToType(fieldType),
-                            Offset = fieldOffset
-                        };
-                    }
-                    else
-                    {
-                        fieldInfo = OffsetPatch.FieldValue();
+                        case "links":
+                            fieldInfo = new FieldInfo
+                            {
+                                Type = Utility.StringToType(fieldType),
+                                Offset = fieldOffset
+                            };
+                            break;
+
+                        default:
+                            fieldInfo = OffsetPatch.FieldValue();
+                            break;
                     }
 
                     if (type != "bool" && type != "void" && type != "links" && Utility.IsEmpty(value, i + 1, "Value"))
@@ -256,7 +236,6 @@ namespace Tools_Injector_Mod_Menu
                     }
                 }
 
-
                 if (typeValue == "bool" || fieldTypeValue == "bool")
                 {
                     value.Value = "";
@@ -313,9 +292,7 @@ namespace Tools_Injector_Mod_Menu
                         }
                         else
                         {
-                            //fieldType.Value = "";
                             fieldType.ReadOnly = true;
-                            //fieldOffset.Value = "";
                             fieldOffset.Style.BackColor = Color.Silver;
                             fieldOffset.ReadOnly = true;
 
@@ -327,9 +304,7 @@ namespace Tools_Injector_Mod_Menu
                             }
                             else
                             {
-                                //fieldType.Value = "";
                                 fieldType.ReadOnly = true;
-                                //links.Value = "";
                                 links.Style.BackColor = Color.Silver;
                                 links.ReadOnly = true;
                             }
@@ -337,7 +312,8 @@ namespace Tools_Injector_Mod_Menu
                     }
                 }
 
-                if (dataList.CurrentCell == fieldType && type.Value.ToString() == "links" || type.Value.ToString() == "void")
+                if (dataList.CurrentCell == fieldType && type.Value.ToString() == "links" ||
+                    type.Value.ToString() == "void")
                 {
                     if (cb.Text == "bool")
                     {
@@ -352,7 +328,10 @@ namespace Tools_Injector_Mod_Menu
                     }
                 }
             }
-            catch { }
+            catch
+            {
+                //
+            }
         }
 
         private void dataList_KeyDown(object sender, KeyEventArgs e)

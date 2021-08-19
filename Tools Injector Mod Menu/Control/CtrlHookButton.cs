@@ -58,7 +58,7 @@ namespace Tools_Injector_Mod_Menu
                 }
                 type = type.Remove(type.Length - 2);
                 values = values.Remove(values.Length - 2);
-                dataList.Rows.Add(offset.Name, offset.Offset, offset.HookInfo.FieldInfo.Offset,type, values);
+                dataList.Rows.Add(offset.Name, offset.Offset, offset.HookInfo.FieldInfo.Offset, type, values);
             }
         }
 
@@ -73,10 +73,10 @@ namespace Tools_Injector_Mod_Menu
 
                 for (var i = 0; i < dataList.Rows.Count; i++)
                 {
-                    var name = Utility.IsEmpty(dataList.Rows[i].Cells[0].Value)? "" : dataList.Rows[i].Cells[0].Value.ToString();
+                    var name = Utility.IsEmpty(dataList.Rows[i].Cells[0].Value) ? "" : dataList.Rows[i].Cells[0].Value.ToString();
                     var updateOffset = Utility.IsEmpty(dataList.Rows[i].Cells[1].Value) ? "" : dataList.Rows[i].Cells[1].Value.ToString();
                     var offset = Utility.IsEmpty(dataList.Rows[i].Cells[2].Value) ? "" : dataList.Rows[i].Cells[2].Value.ToString();
-                    var type = Utility.IsEmpty(dataList.Rows[i].Cells[3].Value)? "" : dataList.Rows[i].Cells[3].Value.ToString();
+                    var type = Utility.IsEmpty(dataList.Rows[i].Cells[3].Value) ? "" : dataList.Rows[i].Cells[3].Value.ToString();
                     var values = Utility.IsEmpty(dataList.Rows[i].Cells[4].Value) ? "" : dataList.Rows[i].Cells[4].Value.ToString();
 
                     if (!offset.StartsWith("0x") || !updateOffset.StartsWith("0x"))
@@ -89,7 +89,6 @@ namespace Tools_Injector_Mod_Menu
                     {
                         return;
                     }
-
 
                     if (radInput.Checked && !values.Contains("value"))
                     {

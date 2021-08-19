@@ -95,7 +95,7 @@ namespace Tools_Injector_Mod_Menu
                 {
                     var name = Utility.IsEmpty(dataList.Rows[i].Cells[0].Value) ? "" : dataList.Rows[i].Cells[0].Value.ToString();
                     var offset = Utility.IsEmpty(dataList.Rows[i].Cells[1].Value) ? "" : dataList.Rows[i].Cells[1].Value.ToString();
-                    var type = Utility.IsEmpty(dataList.Rows[i].Cells[2].Value)? "" : dataList.Rows[i].Cells[2].Value.ToString();
+                    var type = Utility.IsEmpty(dataList.Rows[i].Cells[2].Value) ? "" : dataList.Rows[i].Cells[2].Value.ToString();
                     var fieldType = Utility.IsEmpty(dataList.Rows[i].Cells[3].Value) ? "" : dataList.Rows[i].Cells[3].Value.ToString();
                     var fieldOffset = Utility.IsEmpty(dataList.Rows[i].Cells[4].Value) ? "" : dataList.Rows[i].Cells[4].Value.ToString();
                     var links = Utility.IsEmpty(dataList.Rows[i].Cells[5].Value) ? "" : dataList.Rows[i].Cells[5].Value.ToString();
@@ -108,56 +108,43 @@ namespace Tools_Injector_Mod_Menu
                         return;
                     }
 
-                    if (type == "void")
+                    switch (type)
                     {
-                        if (Utility.IsEmpty(fieldType, i + 1, "Field Type"))
-                        {
+                        case "void" when Utility.IsEmpty(fieldType, i + 1, "Field Type"):
+                        case "void" when Utility.IsEmpty(fieldOffset, i + 1, "Field Offset"):
                             return;
-                        }
 
-                        if (Utility.IsEmpty(fieldOffset, i + 1, "Field Offset"))
-                        {
-                            return;
-                        }
-
-                        if (!fieldOffset.StartsWith("0x"))
-                        {
+                        case "void" when !fieldOffset.StartsWith("0x"):
                             MyMessage.MsgShowWarning(@$"Field Offset At {i + 1}, does not start with ""0x"" Please check it again!!!");
                             return;
-                        }
 
-                        fieldInfo = new FieldInfo
-                        {
-                            Type = Utility.StringToType(fieldType),
-                            Offset = fieldOffset
-                        };
-                    }
-                    else if (type == "links")
-                    {
-                        if (Utility.IsEmpty(fieldType, i + 1, "Field Type"))
-                        {
+                        case "void":
+                            fieldInfo = new FieldInfo
+                            {
+                                Type = Utility.StringToType(fieldType),
+                                Offset = fieldOffset
+                            };
+                            break;
+
+                        case "links" when Utility.IsEmpty(fieldType, i + 1, "Field Type"):
+                        case "links" when Utility.IsEmpty(links, i + 1, "Links"):
                             return;
-                        }
 
-                        if (Utility.IsEmpty(links, i + 1, "Links"))
-                        {
-                            return;
-                        }
-
-                        if (int.Parse(links) > dataList.RowCount || int.Parse(links) == i + 1)
-                        {
+                        case "links" when int.Parse(links) > dataList.RowCount || int.Parse(links) == i + 1:
                             MyMessage.MsgShowWarning($"At {i + 1}, Links is invalid. Please check it again!!!");
                             return;
-                        }
-                        fieldInfo = new FieldInfo
-                        {
-                            Type = Utility.StringToType(fieldType),
-                            Offset = fieldOffset
-                        };
-                    }
-                    else
-                    {
-                        fieldInfo = OffsetPatch.FieldValue();
+
+                        case "links":
+                            fieldInfo = new FieldInfo
+                            {
+                                Type = Utility.StringToType(fieldType),
+                                Offset = fieldOffset
+                            };
+                            break;
+
+                        default:
+                            fieldInfo = OffsetPatch.FieldValue();
+                            break;
                     }
 
                     var hookInfo = new HookInfo
