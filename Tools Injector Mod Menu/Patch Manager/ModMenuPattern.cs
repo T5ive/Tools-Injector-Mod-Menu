@@ -243,7 +243,7 @@ void Update{cheatName}{id}(void *instance) {{
                                     case Enums.Type.Long:
                                         {
                                             resultMultiple += function.MultipleValue
-                                                ? $"return ({typeString}) _{cheatName}Value*old_{cheatName}(instance);"
+                                                ? $"return ({typeString}) _{cheatName}Value*old_{cheatName}{id}(instance);"
                                                 : $"return ({typeString}) _{cheatName}Value;";
 
                                             result += $@"{typeString} (*old_{cheatName}{id})(void *instance);
