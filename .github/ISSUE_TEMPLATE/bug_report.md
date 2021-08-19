@@ -8,7 +8,7 @@ assignees: ''
 ---
 
 **Only bug reports from Canary builds will be accepted.**
-**Failed compilation issues**, upload both settings.json and logs.
+**Failed compilation issues**, upload both `settings.json` and `logs`
 **Tools Injector Mod Menu issues**, explain how it went wrong.
 **Theme issues**, upload your theme.
 
