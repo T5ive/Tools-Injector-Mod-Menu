@@ -20,6 +20,7 @@ using Encoder = System.Drawing.Imaging.Encoder;
 
 namespace Tools_Injector_Mod_Menu
 {
+    //Fix button hook
     //Wire Frame & Color Chams
     //Telekill?
     //String, Decimal
@@ -47,7 +48,7 @@ namespace Tools_Injector_Mod_Menu
 
         private static readonly string _tempPathMenu = Path.GetTempPath() + "TFiveMenu";
 
-        private static string _launch, _apkTarget, _apkTool, _apkName, _apkType, _baseName, _compileOutput;
+        private static string _launch, _apkTarget, _apkTool, _apkName, _apkType, _baseName;
 
         private static string[] _menuFiles;
 
@@ -1376,11 +1377,34 @@ namespace Tools_Injector_Mod_Menu
                 var launch = $"{AppPath}\\BuildTools\\ApkTarget\\{Utility.SmaliCountToName(_smaliCount)}\\" + _launch.Replace(".", "\\") + ".smali";
 
                 var text = File.ReadAllText(launch);
-                text = text.Replace(@".method protected onCreate(Landroid/os/Bundle;)V
+
+                if (text.Contains(@".method protected onCreate(Landroid/os/Bundle;)V
+    .locals 2"))
+                {
+                    text = text.Replace(@".method protected onCreate(Landroid/os/Bundle;)V
     .locals 2",
-                    ".method protected onCreate(Landroid/os/Bundle;)V" +
-                    "\n    .locals 2" +
-                    $"\n\n    {_mySettings.txtOnCreate}");
+                        ".method protected onCreate(Landroid/os/Bundle;)V" +
+                        "\n    .locals 2" +
+                        $"\n\n    {_mySettings.txtOnCreate}");
+                }
+
+                else if (text.Contains(@".method protected onCreate(Landroid/os/Bundle;)V
+    .locals 4"))
+                {
+                    text = text.Replace(@".method protected onCreate(Landroid/os/Bundle;)V
+    .locals 4",
+                        ".method protected onCreate(Landroid/os/Bundle;)V" +
+                        "\n    .locals 4" +
+                        $"\n\n    {_mySettings.txtOnCreate}");
+                }
+                else
+                {
+                    MyMessage.MsgShowError("Error Not Found onCreate Pattern");
+                    WriteOutput("Error Not Found onCreate Pattern", Enums.LogsType.Error, "043");
+                    FormState(State.Idle);
+                    return false;
+                }
+                
 
                 File.WriteAllText(launch, text);
                 WriteOutput("Replaced OnCreate", Enums.LogsType.Success);
@@ -1554,6 +1578,7 @@ namespace Tools_Injector_Mod_Menu
                 MyMessage.MsgShowError("Failed to Compile");
                 WriteOutput("Failed to Compile", Enums.LogsType.Error, "030");
                 SaveLogs();
+                ProcessType(Enums.ProcessType.None);
                 FormState(State.Idle);
                 return;
             }
@@ -1594,8 +1619,14 @@ namespace Tools_Injector_Mod_Menu
 
         private void DecompileApkDone()
         {
+            if (!_decompiled)
+            {
+                return;
+            }
+
             while (!_decompiled)
             {
+                
             }
             GetSmailiCount();
             WriteOutput("Decompiled APK file", Enums.LogsType.Success);
