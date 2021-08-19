@@ -52,7 +52,7 @@ namespace Tools_Injector_Mod_Menu
 
         private static string[] _menuFiles;
 
-        private static bool _compiled, _decompiled;
+        private static bool _compiled;
 
         public enum State
         {
@@ -1619,15 +1619,6 @@ namespace Tools_Injector_Mod_Menu
 
         private void DecompileApkDone()
         {
-            if (!_decompiled)
-            {
-                return;
-            }
-
-            while (!_decompiled)
-            {
-                
-            }
             GetSmailiCount();
             WriteOutput("Decompiled APK file", Enums.LogsType.Success);
             if (_type is Enums.ProcessType.DecompileApk)
@@ -1670,8 +1661,7 @@ namespace Tools_Injector_Mod_Menu
                     entry.ExtractToFile(Path.Combine(path, entry.Name));
                 }
             }
-
-            _decompiled = false;
+            
             DeleteDecompiledLib();
             FullCompile();
         }
@@ -1852,10 +1842,6 @@ namespace Tools_Injector_Mod_Menu
         private void OutputDataReceived(object sender, DataReceivedEventArgs e)
         {
             if (Utility.IsEmpty(e.Data, false)) return;
-            if (e.Data == "I: Copying original files...")
-            {
-                _decompiled = true;
-            }
 
             if (e.Data == "I: Built apk...")
             {
