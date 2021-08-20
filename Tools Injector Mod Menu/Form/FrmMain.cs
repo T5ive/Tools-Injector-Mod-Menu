@@ -1685,7 +1685,11 @@ namespace Tools_Injector_Mod_Menu
             }
             catch (Exception exception)
             {
+                DumpWorker.CancelAsync();
+                DecompileWorker.CancelAsync();
                 MenuWorker.CancelAsync();
+                CompileWorker.CancelAsync();
+                SignWorker.CancelAsync();
                 WriteOutput(exception.Message, Enums.LogsType.Error, error);
             }
         }
