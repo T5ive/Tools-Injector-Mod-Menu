@@ -43,7 +43,7 @@ namespace Tools_Injector_Mod_Menu
         private static int _errorCount, _smaliCount;
 
         private static MySettings _mySettings = new();
-        
+
         private static readonly string TEMP_PATH_T_FIVE = Path.GetTempPath() + "TFiveMenu";
 
         private static readonly string APK_DECOMPILED_PATH = $"{TEMP_PATH_T_FIVE}\\Decompile";
@@ -1538,7 +1538,6 @@ namespace Tools_Injector_Mod_Menu
         {
             while (!_compiled)
             {
-
             }
 
             _compiled = false;
@@ -1873,7 +1872,7 @@ namespace Tools_Injector_Mod_Menu
                     case Enums.LogsType.CompileApk:
                         TextToLogs(time + str + Environment.NewLine, "[Compile Apk] ", Color.DeepPink);
                         break;
-                        
+
                     case Enums.LogsType.Logs:
                         TextToLogs(time + str + Environment.NewLine, "[Logs] ", Color.Gold);
                         break;
