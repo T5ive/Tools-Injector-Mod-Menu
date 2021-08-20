@@ -52,21 +52,21 @@ namespace Tools_Injector_Mod_Menu.Patch_Manager
                     case Enums.FunctionType.HookToggle:
                     case Enums.FunctionType.HookButtonOnOf:
                         result += $"bool _{cheatName};{newLine}";
-                        result = function.OffsetList.Where(offsetInfo => offsetInfo.HookInfo.Type == Enums.Type.Links).Aggregate(result, (current, offsetInfo) => current + $"{Utility.TypeToString(offsetInfo.HookInfo.FieldInfo.Type)} _{cheatName}{offsetInfo.OffsetId}{Utility.TypeToStringEnd(offsetInfo.HookInfo.FieldInfo.Type)}{newLine}");
+                        result = function.OffsetList.Where(offsetInfo => offsetInfo.HookInfo.Type == Enums.Type.Links).Aggregate(result, (current, offsetInfo) => current + $"{offsetInfo.HookInfo.FieldInfo.Type.TypeToString()} _{cheatName}{offsetInfo.OffsetId}{offsetInfo.HookInfo.FieldInfo.Type.TypeToStringEnd()}{newLine}");
 
                         break;
 
                     case Enums.FunctionType.HookSeekBar:
                     case Enums.FunctionType.HookInputValue:
                         result += $"int _{cheatName}Value = 1;{newLine}";
-                        result = function.OffsetList.Where(offsetInfo => offsetInfo.HookInfo.Type == Enums.Type.Links).Aggregate(result, (current, info) => current + $"{Utility.TypeToString(info.HookInfo.FieldInfo.Type)} _{cheatName}{info.OffsetId}{Utility.TypeToStringEnd(info.HookInfo.FieldInfo.Type)}{newLine}");
+                        result = function.OffsetList.Where(offsetInfo => offsetInfo.HookInfo.Type == Enums.Type.Links).Aggregate(result, (current, info) => current + $"{info.HookInfo.FieldInfo.Type.TypeToString()} _{cheatName}{info.OffsetId}{info.HookInfo.FieldInfo.Type.TypeToStringEnd()}{newLine}");
                         break;
 
                     case Enums.FunctionType.HookSeekBarToggle:
                     case Enums.FunctionType.HookInputOnOff:
                         result += $"bool _{cheatName};{newLine}";
                         result += $"int _{cheatName}Value = 1;{newLine}";
-                        result = function.OffsetList.Where(offsetInfo => offsetInfo.HookInfo.Type == Enums.Type.Links).Aggregate(result, (current, info) => current + $"{Utility.TypeToString(info.HookInfo.FieldInfo.Type)} _{cheatName}{info.OffsetId}{Utility.TypeToStringEnd(info.HookInfo.FieldInfo.Type)}{newLine}");
+                        result = function.OffsetList.Where(offsetInfo => offsetInfo.HookInfo.Type == Enums.Type.Links).Aggregate(result, (current, info) => current + $"{info.HookInfo.FieldInfo.Type.TypeToString()} _{cheatName}{info.OffsetId}{info.HookInfo.FieldInfo.Type.TypeToStringEnd()}{newLine}");
                         break;
 
                     case Enums.FunctionType.HookButton:
@@ -109,10 +109,10 @@ namespace Tools_Injector_Mod_Menu.Patch_Manager
                 foreach (var offsetInfo in function.OffsetList)
                 {
                     var type = offsetInfo.HookInfo.Type;
-                    var typeString = Utility.TypeToString(type);
+                    var typeString = type.TypeToString();
 
                     var typeField = offsetInfo.HookInfo.FieldInfo.Type;
-                    var typeFieldString = Utility.TypeToString(typeField);
+                    var typeFieldString = typeField.TypeToString();
 
                     var hookValue = offsetInfo.HookInfo.Value;
 
@@ -391,7 +391,7 @@ void Update(void *instance) {{
                     functionExtra = "";
                 else
                     functionExtra = $"_{functionExtra}";
-                var featureType = Utility.FunctionTypeToStringFeatures(type);
+                var featureType = type.FunctionTypeToStringFeatures();
                 switch (type)
                 {
                     case Enums.FunctionType.Category:

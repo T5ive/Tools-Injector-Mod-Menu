@@ -46,7 +46,7 @@ namespace Tools_Injector_Mod_Menu
 
             foreach (var offset in OffsetPatch.FunctionList[_index].OffsetList)
             {
-                dataList.Rows.Add(offset.Name, offset.Offset, Utility.TypeToString(offset.HookInfo.Type), Utility.TypeToString(offset.HookInfo.FieldInfo.Type), offset.HookInfo.FieldInfo.Offset, offset.HookInfo.Value, offset.HookInfo.Links);
+                dataList.Rows.Add(offset.Name, offset.Offset, offset.HookInfo.Type.TypeToString(), offset.HookInfo.FieldInfo.Type.TypeToString(), offset.HookInfo.FieldInfo.Offset, offset.HookInfo.Value, offset.HookInfo.Links);
             }
 
             LoadDataList();
@@ -58,18 +58,18 @@ namespace Tools_Injector_Mod_Menu
             {
                 var offsetList = new List<OffsetInfo>();
 
-                if (Utility.IsEmpty(dataList)) return;
-                if (Utility.IsEmpty(txtNameCheat)) return;
+                if (dataList.IsEmpty()) return;
+                if (txtNameCheat.IsEmpty("Name Cheat")) return;
 
                 for (var i = 0; i < dataList.Rows.Count; i++)
                 {
-                    var name = Utility.IsEmpty(dataList.Rows[i].Cells[0].Value) ? "" : dataList.Rows[i].Cells[0].Value.ToString();
-                    var offset = Utility.IsEmpty(dataList.Rows[i].Cells[1].Value) ? "" : dataList.Rows[i].Cells[1].Value.ToString();
-                    var type = Utility.IsEmpty(dataList.Rows[i].Cells[2].Value) ? "" : dataList.Rows[i].Cells[2].Value.ToString();
-                    var fieldType = Utility.IsEmpty(dataList.Rows[i].Cells[3].Value) ? "" : dataList.Rows[i].Cells[3].Value.ToString();
-                    var fieldOffset = Utility.IsEmpty(dataList.Rows[i].Cells[4].Value) ? "" : dataList.Rows[i].Cells[4].Value.ToString();
-                    var value = Utility.IsEmpty(dataList.Rows[i].Cells[5].Value) ? "" : dataList.Rows[i].Cells[5].Value.ToString();
-                    var links = Utility.IsEmpty(dataList.Rows[i].Cells[6].Value) ? "" : dataList.Rows[i].Cells[6].Value.ToString();
+                    var name = dataList.Rows[i].Cells[0].Value.IsEmpty() ? "" : dataList.Rows[i].Cells[0].Value.ToString();
+                    var offset = dataList.Rows[i].Cells[1].Value.IsEmpty() ? "" : dataList.Rows[i].Cells[1].Value.ToString();
+                    var type = dataList.Rows[i].Cells[2].Value.IsEmpty() ? "" : dataList.Rows[i].Cells[2].Value.ToString();
+                    var fieldType = dataList.Rows[i].Cells[3].Value.IsEmpty() ? "" : dataList.Rows[i].Cells[3].Value.ToString();
+                    var fieldOffset = dataList.Rows[i].Cells[4].Value.IsEmpty() ? "" : dataList.Rows[i].Cells[4].Value.ToString();
+                    var value = dataList.Rows[i].Cells[5].Value.IsEmpty() ? "" : dataList.Rows[i].Cells[5].Value.ToString();
+                    var links = dataList.Rows[i].Cells[6].Value.IsEmpty() ? "" : dataList.Rows[i].Cells[6].Value.ToString();
 
                     FieldInfo fieldInfo;
 
@@ -81,28 +81,28 @@ namespace Tools_Injector_Mod_Menu
 
                     switch (type)
                     {
-                        case "void" when Utility.IsEmpty(fieldType, i + 1, "Field Type"):
-                        case "void" when Utility.IsEmpty(fieldOffset, i + 1, "Field Offset"):
+                        case "void" when fieldType.IsEmpty(i + 1, "Field Type"):
+                        case "void" when fieldOffset.IsEmpty(i + 1, "Field Offset"):
                             return;
 
                         case "void" when !fieldOffset.StartsWith("0x"):
                             MyMessage.MsgShowWarning(@$"Field Offset At {i + 1}, does not start with ""0x"" Please check it again!!!");
                             return;
 
-                        case "void" when fieldType != "bool" && Utility.IsEmpty(value, i + 1, "Value"):
+                        case "void" when fieldType != "bool" && value.IsEmpty(i + 1, "Value"):
                             return;
 
                         case "void":
                             fieldInfo = new FieldInfo
                             {
-                                Type = Utility.StringToType(fieldType),
+                                Type = fieldType.StringToType(),
                                 Offset = fieldOffset
                             };
                             break;
 
-                        case "links" when Utility.IsEmpty(fieldType, i + 1, "Field Type"):
-                        case "links" when fieldType != "bool" && Utility.IsEmpty(value, i + 1, "Value"):
-                        case "links" when Utility.IsEmpty(links, i + 1, "Links"):
+                        case "links" when fieldType.IsEmpty(i + 1, "Field Type"):
+                        case "links" when fieldType != "bool" && value.IsEmpty(i + 1, "Value"):
+                        case "links" when links.IsEmpty(i + 1, "Links"):
                             return;
 
                         case "links" when int.Parse(links) > dataList.RowCount || int.Parse(links) == i + 1:
@@ -112,7 +112,7 @@ namespace Tools_Injector_Mod_Menu
                         case "links":
                             fieldInfo = new FieldInfo
                             {
-                                Type = Utility.StringToType(fieldType),
+                                Type = fieldType.StringToType(),
                                 Offset = fieldOffset
                             };
                             break;
@@ -122,14 +122,14 @@ namespace Tools_Injector_Mod_Menu
                             break;
                     }
 
-                    if (type != "bool" && type != "void" && type != "links" && Utility.IsEmpty(value, i + 1, "Value"))
+                    if (type != "bool" && type != "void" && type != "links" && value.IsEmpty(i + 1, "Value"))
                     {
                         return;
                     }
 
                     var hookInfo = new HookInfo
                     {
-                        Type = Utility.StringToType(type),
+                        Type = type.StringToType(),
                         Value = value,
                         Links = links,
                         FieldInfo = fieldInfo
@@ -151,7 +151,7 @@ namespace Tools_Injector_Mod_Menu
 
                 if (_index == 1150)
                 {
-                    if (Utility.IsDuplicateName(txtNameCheat.Text, OffsetPatch.FunctionList))
+                    if (txtNameCheat.Text.IsDuplicateName(OffsetPatch.FunctionList))
                     {
                         return;
                     }
@@ -202,8 +202,8 @@ namespace Tools_Injector_Mod_Menu
         {
             for (var i = 0; i < dataList.RowCount; i++)
             {
-                var typeValue = Utility.IsEmpty(dataList.Rows[i].Cells[2].Value) ? "" : dataList.Rows[i].Cells[2].Value.ToString();
-                var fieldTypeValue = Utility.IsEmpty(dataList.Rows[i].Cells[3].Value) ? "" : dataList.Rows[i].Cells[3].Value.ToString();
+                var typeValue = dataList.Rows[i].Cells[2].Value.IsEmpty() ? "" : dataList.Rows[i].Cells[2].Value.ToString();
+                var fieldTypeValue = dataList.Rows[i].Cells[3].Value.IsEmpty() ? "" : dataList.Rows[i].Cells[3].Value.ToString();
 
                 var fieldType = dataList.Rows[i].Cells[3];
                 var fieldOffset = dataList.Rows[i].Cells[4];

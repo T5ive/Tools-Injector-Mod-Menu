@@ -16,7 +16,6 @@ using System.Xml;
 using System.Xml.Serialization;
 using Tools_Injector_Mod_Menu.Patch_Manager;
 using Application = System.Windows.Forms.Application;
-using Encoder = System.Drawing.Imaging.Encoder;
 
 namespace Tools_Injector_Mod_Menu
 {
@@ -52,8 +51,6 @@ namespace Tools_Injector_Mod_Menu
 
         private static string[] _menuFiles;
 
-        private static bool _compiled;
-
         public enum State
         {
             Idle,
@@ -82,17 +79,13 @@ namespace Tools_Injector_Mod_Menu
 
         private static void CheckFolder()
         {
-            if (!Directory.Exists(_tempPathMenu))
-            {
-                Directory.CreateDirectory(_tempPathMenu);
-            }
-
-            Utility.CheckFolder("Theme");
-            Utility.CheckFolder("Menu");
-            Utility.CheckFolder("Output");
-            Utility.CheckFolder("Save");
-            Utility.CheckFolder("Logs");
-            Utility.CheckFolder("BuildTools");
+            Checker.CheckFolder(_tempPathMenu, false);
+            Checker.CheckFolder("Theme");
+            Checker.CheckFolder("Menu");
+            Checker.CheckFolder("Output");
+            Checker.CheckFolder("Save");
+            Checker.CheckFolder("Logs");
+            Checker.CheckFolder("BuildTools");
         }
 
         private void LoadFiles()
@@ -119,13 +112,13 @@ namespace Tools_Injector_Mod_Menu
                 Application.Exit();
             }
 
-            if (!Utility.CheckFiles("Theme", "Default.zip"))
+            if (!Checker.CheckFiles("Theme", "Default.zip"))
             {
                 MyMessage.MsgShowError("Theme file Default.zip is missing!!");
                 Application.Exit();
             }
 
-            if (!Utility.CheckFiles("Menu", "Default.zip"))
+            if (!Checker.CheckFiles("Menu", "Default.zip"))
             {
                 MyMessage.MsgShowError("Menu file Default.zip is missing!!");
                 Application.Exit();
@@ -135,7 +128,7 @@ namespace Tools_Injector_Mod_Menu
             var menuFile = _menuFiles.Select(Path.GetFileName).ToList();
             var apktoolFile = apktoolFiles.Select(Path.GetFileName).ToList();
 
-            if (!Utility.IsEqual(themeFile, menuFile))
+            if (!themeFile.IsEqual(menuFile))
             {
                 MyMessage.MsgShowError("Theme files not equal Menu files");
                 Application.Exit();
@@ -158,7 +151,7 @@ namespace Tools_Injector_Mod_Menu
         {
             _mySettings = MySettings.Load();
             txtLibName.Text = _mySettings.txtLibName;
-            if (!Utility.IsEmpty(_mySettings.txtToast, false) && _mySettings.txtToast.Contains('|'))
+            if (!_mySettings.txtToast.IsEmpty() && _mySettings.txtToast.Contains('|'))
             {
                 foreach (var t in _mySettings.txtToast.Split('|'))
                 {
@@ -166,7 +159,7 @@ namespace Tools_Injector_Mod_Menu
                 }
             }
 
-            if (!Utility.IsEmpty(_mySettings.txtToast, false) && !_mySettings.txtToast.Contains('|'))
+            if (!_mySettings.txtToast.IsEmpty() && !_mySettings.txtToast.Contains('|'))
             {
                 listToast.Items.Add(_mySettings.txtToast);
             }
@@ -237,9 +230,9 @@ namespace Tools_Injector_Mod_Menu
         {
             try
             {
-                if (!Utility.IsEmpty(ImageCode, false))
+                if (!ImageCode.IsEmpty())
                 {
-                    picImg.Image = Base64ToImage(ImageCode);
+                    picImg.Image = ImageCode.Base64ToImage();
                 }
             }
             catch (Exception exception)
@@ -258,7 +251,7 @@ namespace Tools_Injector_Mod_Menu
         {
             try
             {
-                if (Utility.IsEmpty(txtToast.Text, "Toast")) return;
+                if (txtToast.Text.IsEmpty("Toast")) return;
                 listToast.Items.Add(txtToast.Text);
                 WriteOutput("Add Toast " + txtToast.Text, Enums.LogsType.Success);
             }
@@ -297,7 +290,7 @@ namespace Tools_Injector_Mod_Menu
                 try
                 {
                     var imgFormat = Path.GetExtension(openFile.FileName) == ".png" ? ImageFormat.Png : ImageFormat.Jpeg;
-                    ImageCode = ImageToBase64(CompressImage(openFile.FileName, 1), imgFormat);
+                    ImageCode = openFile.FileName.CompressImage(1).ImageToBase64(imgFormat);
                     LoadImg();
                 }
                 catch (Exception exception)
@@ -326,7 +319,7 @@ namespace Tools_Injector_Mod_Menu
                                           "Click \"Cancel\" to cancel."))
                 {
                     _mySettings.txtLibName = txtLibName.Text;
-                    var toast = listToast.Items.Cast<object>().Aggregate("", (current, t) => current + (t + "|"));
+                    var toast = listToast.Items.Cast<object>().Aggregate("", (current, t) => current + t + "|");
                     if (listToast.Items.Count > 0)
                         toast = toast.Substring(0, toast.Length - 1);
                     _mySettings.txtToast = toast;
@@ -376,7 +369,7 @@ namespace Tools_Injector_Mod_Menu
         {
             var cheatName = OffsetPatch.ConvertNameList();
             var functionType = OffsetPatch.FunctionList[OffsetPatch.FunctionList.Count - 1].FunctionType;
-            AddListValues(cheatName[cheatName.Count - 1], Utility.FunctionTypeToString(functionType));
+            AddListValues(cheatName[cheatName.Count - 1], functionType.FunctionTypeToString());
             OffsetPatch.OffsetList.Clear();
         }
 
@@ -392,7 +385,7 @@ namespace Tools_Injector_Mod_Menu
             {
                 var cheatName = OffsetPatch.ConvertNameList();
                 var functionType = OffsetPatch.FunctionList[i].FunctionType;
-                AddListValues(cheatName[i], Utility.FunctionTypeToString(functionType));
+                AddListValues(cheatName[i], functionType.FunctionTypeToString());
                 OffsetPatch.OffsetList.Clear();
             }
 
@@ -404,6 +397,7 @@ namespace Tools_Injector_Mod_Menu
             }
             catch
             {
+                //
             }
         }
 
@@ -418,7 +412,7 @@ namespace Tools_Injector_Mod_Menu
             if (dataList.Rows.GetRowCount(DataGridViewElementStates.Selected) > 0)
             {
                 var index = dataList.SelectedRows[0].Index;
-                var frmFunction = new FrmAddFunction(Utility.StringToFunctionType(dataList.SelectedRows[0].Cells[1].Value.ToString()), index);
+                var frmFunction = new FrmAddFunction(dataList.SelectedRows[0].Cells[1].Value.ToString().StringToFunctionType(), index);
                 Hide();
                 frmFunction.ShowDialog();
                 frmFunction.Dispose();
@@ -696,7 +690,7 @@ namespace Tools_Injector_Mod_Menu
 
         private T LoadXml<T>(string fileName)
         {
-            if (Utility.IsEmpty(fileName, false)) { return default; }
+            if (fileName.IsEmpty()) { return default; }
 
             var objectOut = default(T);
 
@@ -788,7 +782,7 @@ namespace Tools_Injector_Mod_Menu
         {
             if (!CheckEmpty()) return;
 
-            if (Utility.IsEmpty(_apkName, false))
+            if (_apkName.IsEmpty())
             {
                 MyMessage.MsgShowWarning("Apk Target is Empty, Please Check it again!!!");
                 WriteOutput("Apk Target is Empty", Enums.LogsType.Warning);
@@ -810,7 +804,7 @@ namespace Tools_Injector_Mod_Menu
 
         private void btnDecompileApk_Click(object sender, EventArgs e)
         {
-            if (Utility.IsEmpty(_apkName, false))
+            if (_apkName.IsEmpty())
             {
                 MyMessage.MsgShowWarning("Apk Target is Empty, Please Check it again!!!");
                 WriteOutput("Apk Target is Empty", Enums.LogsType.Warning);
@@ -822,7 +816,7 @@ namespace Tools_Injector_Mod_Menu
 
         private void btnCompileApk_Click(object sender, EventArgs e)
         {
-            if (Utility.IsEmpty(txtNameGame, false))
+            if (txtNameGame.IsEmpty())
             {
                 MyMessage.MsgShowWarning("Name Game is Empty, Please Check it again!!!");
                 WriteOutput("Name Game is Empty", Enums.LogsType.Warning);
@@ -914,12 +908,12 @@ namespace Tools_Injector_Mod_Menu
 
             try
             {
-                while (!Worker.CancellationPending)
+                while (!MenuWorker.CancellationPending)
                 {
-                    Worker.CancelAsync();
+                    MenuWorker.CancelAsync();
                 }
 
-                Worker.RunWorkerAsync();
+                MenuWorker.RunWorkerAsync();
             }
             catch (Exception exception)
             {
@@ -1049,47 +1043,47 @@ namespace Tools_Injector_Mod_Menu
             //FormState(State.Idle); // Test Mode
             //return;
             if (!MoveSmali(destinationPath)) return;
-            while (!Worker.CancellationPending)
+            while (!MenuWorker.CancellationPending)
             {
-                Worker.CancelAsync();
+                MenuWorker.CancelAsync();
             }
-            Worker.RunWorkerAsync();
+            MenuWorker.RunWorkerAsync();
         }
 
         private bool CheckEmpty()
         {
-            if (Utility.IsEmpty(txtLibName, false))
+            if (txtLibName.IsEmpty())
             {
                 MyMessage.MsgShowWarning("Library Name is Empty, Please Check it again!!!");
                 WriteOutput("Library Name is Empty", Enums.LogsType.Warning);
                 return false;
             }
-            if (Utility.IsEmpty(txtNDK, false))
+            if (txtNDK.IsEmpty())
             {
                 MyMessage.MsgShowWarning("NDK Path is Empty, Please Check it again!!!");
                 WriteOutput("NDK Path is Empty", Enums.LogsType.Warning);
                 return false;
             }
 
-            if (!chkNoMenu.Checked && Utility.IsEmpty(ImageCode, false))
+            if (!chkNoMenu.Checked && ImageCode.IsEmpty())
             {
                 MyMessage.MsgShowWarning("Image Code is Empty, Please Check it again!!!");
                 WriteOutput("Image Code is Empty", Enums.LogsType.Warning);
                 return false;
             }
-            if (Utility.IsEmpty(txtNameGame, false))
+            if (txtNameGame.IsEmpty())
             {
                 MyMessage.MsgShowWarning("Name Game is Empty, Please Check it again!!!");
                 WriteOutput("Name Game is Empty", Enums.LogsType.Warning);
                 return false;
             }
-            if (Utility.IsEmpty(txtTargetLib, false))
+            if (txtTargetLib.IsEmpty())
             {
                 MyMessage.MsgShowWarning("Target Library Name is Empty, Please Check it again!!!");
                 WriteOutput("Target Library Name is Empty", Enums.LogsType.Warning);
                 return false;
             }
-            if (_type is Enums.ProcessType.ApkFull1 or Enums.ProcessType.ApkFull2 && Utility.IsEmpty(txtApkTarget, false))
+            if (_type is Enums.ProcessType.ApkFull1 or Enums.ProcessType.ApkFull2 && txtApkTarget.IsEmpty())
             {
                 MyMessage.MsgShowWarning("Apk Target is Empty, Please Check it again!!!");
                 WriteOutput("Image Code is Empty", Enums.LogsType.Warning);
@@ -1160,14 +1154,14 @@ namespace Tools_Injector_Mod_Menu
 
             try
             {
-                while (!Worker.CancellationPending)
+                while (!MenuWorker.CancellationPending)
                 {
-                    Worker.CancelAsync();
+                    MenuWorker.CancelAsync();
                 }
 
                 ProcessType(type);
                 FormState(State.Running);
-                Worker.RunWorkerAsync();
+                MenuWorker.RunWorkerAsync();
             }
             catch (Exception exception)
             {
@@ -1216,7 +1210,7 @@ namespace Tools_Injector_Mod_Menu
 
             ProcessType(Enums.ProcessType.CompileApk);
             FormState(State.Running);
-            Worker.RunWorkerAsync();
+            MenuWorker.RunWorkerAsync();
         }
 
         #endregion Set Compile
@@ -1392,15 +1386,14 @@ namespace Tools_Injector_Mod_Menu
                         break;
                     }
                 }
-                
-                if(!changed)
+
+                if (!changed)
                 {
                     MyMessage.MsgShowError("Error Not Found onCreate Pattern");
                     WriteOutput("Error Not Found onCreate Pattern", Enums.LogsType.Error, "043");
                     FormState(State.Idle);
                     return false;
                 }
-                
 
                 File.WriteAllText(launch, text);
                 WriteOutput("Replaced OnCreate", Enums.LogsType.Success);
@@ -1561,7 +1554,7 @@ namespace Tools_Injector_Mod_Menu
             }
             catch (Exception exception)
             {
-                Worker.CancelAsync();
+                MenuWorker.CancelAsync();
                 WriteOutput(exception.Message, Enums.LogsType.Error, error);
                 FormState(State.Idle);
             }
@@ -1595,9 +1588,9 @@ namespace Tools_Injector_Mod_Menu
         {
             var activity = File.ReadAllText($"{_tempPathMenu}\\result.txt");
 
-            _launch = Utility.GetBetween(activity, "launchable-activity: name='", "'");
-            var appName = Utility.GetBetween(activity, "application-label:'", "'");
-            var appVersion = Utility.GetBetween(activity, "versionName='", "'");
+            _launch = activity.GetBetween("launchable-activity: name='", "'");
+            var appName = activity.GetBetween("application-label:'", "'");
+            var appVersion = activity.GetBetween("versionName='", "'");
 
             lbApk.Text = $"App Name: {appName}\n\n" +
                          $"Version: {appVersion}\n\n" +
@@ -1657,7 +1650,7 @@ namespace Tools_Injector_Mod_Menu
                     entry.ExtractToFile(Path.Combine(path, entry.Name));
                 }
             }
-            
+
             DeleteDecompiledLib();
             FullCompile();
         }
@@ -1694,18 +1687,23 @@ namespace Tools_Injector_Mod_Menu
                 return;
             }
 
-            while (File.Exists(apkPath) && File.Exists(apkTempPath) && !_compiled)
+            while (File.Exists(apkPath) && File.Exists(apkTempPath))
             {
             }
+
             try
             {
                 File.Copy(apkPath, outputFile, true);
-                WriteOutput($"Compiled {outputFile}", Enums.LogsType.Success);
-                _compiled = false;
-                ApkWorker.RunWorkerAsync();
+                if (ZipFile.OpenRead(outputFile).Entries.Count > 1)
+                {
+                    WriteOutput($"Compiled {outputFile}", Enums.LogsType.Success);
+                    SignWorker.RunWorkerAsync();
+                }
             }
             catch
             {
+                FormState(State.Idle);
+                WriteOutput("Error can not compile the apk", Enums.LogsType.Error, "044");
             }
         }
 
@@ -1730,14 +1728,15 @@ namespace Tools_Injector_Mod_Menu
             var outputFile = "";
             Invoke(new MethodInvoker(delegate
             {
-                outputFile = $"{AppPath}\\Output\\{txtNameGame.Text}\\{txtNameGame.Text}";
+                outputFile = $"{AppPath}\\Output\\{txtNameGame.Text}\\{txtNameGame.Text}-Signed.apk";
             }));
-            WriteOutput($"Signed {outputFile}-Signed.apk", Enums.LogsType.Success);
+            WriteOutput($"Signed {outputFile}", Enums.LogsType.Success);
 
             if (_apkType != ".apk" && !_mySettings.chkMergeApk)
             {
                 ArchiveApk();
             }
+
             var outputDir = $"{AppPath}\\Output\\{txtNameGame.Text}\\";
 
             try
@@ -1747,6 +1746,7 @@ namespace Tools_Injector_Mod_Menu
             }
             catch
             {
+                //
             }
 
             FormState(State.Idle);
@@ -1776,8 +1776,8 @@ namespace Tools_Injector_Mod_Menu
                 _ => ""
             };
 
-            File.Copy(_apkName, $"{outputFile}", true);
-            File.Copy(_apkName, $"{outputSignedFile}", true);
+            File.Copy(_apkName, outputFile, true);
+            File.Copy(_apkName, outputSignedFile, true);
             File.Copy(sourceDir + fileName, outputDir + fileName, true);
 
             var folderName = comboType.SelectedIndex == (int)Enums.TypeAbi.Arm ? "armeabi-v7a\\" : "arm64-v8a\\";
@@ -1837,18 +1837,13 @@ namespace Tools_Injector_Mod_Menu
 
         private void OutputDataReceived(object sender, DataReceivedEventArgs e)
         {
-            if (Utility.IsEmpty(e.Data, false)) return;
-
-            if (e.Data == "I: Built apk...")
-            {
-                _compiled = true;
-            }
+            if (e.Data.IsEmpty()) return;
             WriteOutput(e.Data, Enums.LogsType.Compile);
         }
 
         private void ErrorDataReceived(object sender, DataReceivedEventArgs e)
         {
-            if (Utility.IsEmpty(e.Data, false)) return;
+            if (e.Data.IsEmpty()) return;
             if (e.Data == "fcntl(): Bad file descriptor") return;
             _compile++;
             WriteOutput(e.Data, Enums.LogsType.Error, "033");
@@ -2143,64 +2138,6 @@ namespace Tools_Injector_Mod_Menu
 
         #region Utility
 
-        #region Image Encoder
-
-        //https://stackoverflow.com/a/45673201/8902883
-        private static string ImageToBase64(Image image, ImageFormat imageFormat)
-        {
-            using var ms = new MemoryStream();
-            image.Save(ms, imageFormat);
-            var imageBytes = ms.ToArray();
-            return Convert.ToBase64String(imageBytes);
-        }
-
-        private static Image Base64ToImage(string base64String)
-        {
-            var imageBytes = Convert.FromBase64String(base64String);
-            using var ms = new MemoryStream(imageBytes, 0, imageBytes.Length);
-            ms.Write(imageBytes, 0, imageBytes.Length);
-            return Image.FromStream(ms, true);
-        }
-
-        private static string GetMimeType(string fileName)
-        {
-            var mimeType = "application/unknown";
-            var ext = Path.GetExtension(fileName).ToLower();
-            var regKey = Microsoft.Win32.Registry.ClassesRoot.OpenSubKey(ext);
-            if (regKey?.GetValue("Content Type") != null)
-                mimeType = regKey.GetValue("Content Type").ToString();
-            return mimeType;
-        }
-
-        //https://stackoverflow.com/a/24651073/8902883
-        private static Image CompressImage(string fileName, int newQuality)
-        {
-            using var image = new Bitmap(fileName);
-            using var memImage = new Bitmap(image);
-
-            var myEncoderParameters = new EncoderParameters(1)
-            {
-                Param = { [0] = new EncoderParameter(Encoder.Quality, newQuality) }
-            };
-
-            var memStream = new MemoryStream();
-            memImage.Save(memStream, GetEncoderInfo(GetMimeType(fileName)), myEncoderParameters);
-            var newImage = Image.FromStream(memStream);
-            var imageAttributes = new ImageAttributes();
-            using var g = Graphics.FromImage(newImage);
-            g.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.HighQualityBicubic;
-            g.DrawImage(newImage, new Rectangle(Point.Empty, newImage.Size), 0, 0, newImage.Width, newImage.Height, GraphicsUnit.Pixel, imageAttributes);
-            return newImage;
-        }
-
-        private static ImageCodecInfo GetEncoderInfo(string mimeType)
-        {
-            var encoders = ImageCodecInfo.GetImageEncoders();
-            return Array.Find(encoders, ici => ici.MimeType == mimeType);
-        }
-
-        #endregion Image Encoder
-
         private bool DeleteAll(string path)
         {
             try
@@ -2273,7 +2210,7 @@ namespace Tools_Injector_Mod_Menu
                     }
                 }
 
-                Utility.CheckFolder("Output\\" + txtNameGame.Text);
+                Checker.CheckFolder("Output\\" + txtNameGame.Text);
 
                 if (!DirectoryCopy(sourceDirectory, destinationPath, true)) return false;
 

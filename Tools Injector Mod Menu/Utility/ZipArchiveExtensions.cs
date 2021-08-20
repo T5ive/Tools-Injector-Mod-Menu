@@ -28,6 +28,7 @@ namespace Tools_Injector_Mod_Menu
                 }
             }
         }
+
         public static void AddFiles(this string filePath, List<(string, string)> list, bool overwrite = true)
         {
             using var file = new FileStream(filePath, FileMode.Open);

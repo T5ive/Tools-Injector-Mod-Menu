@@ -68,16 +68,16 @@ namespace Tools_Injector_Mod_Menu
             {
                 var offsetList = new List<OffsetInfo>();
 
-                if (Utility.IsEmpty(dataList)) return;
-                if (Utility.IsEmpty(txtNameCheat)) return;
+                if (dataList.IsEmpty()) return;
+                if (txtNameCheat.IsEmpty("Name Cheat")) return;
 
                 for (var i = 0; i < dataList.Rows.Count; i++)
                 {
-                    var name = Utility.IsEmpty(dataList.Rows[i].Cells[0].Value) ? "" : dataList.Rows[i].Cells[0].Value.ToString();
-                    var updateOffset = Utility.IsEmpty(dataList.Rows[i].Cells[1].Value) ? "" : dataList.Rows[i].Cells[1].Value.ToString();
-                    var offset = Utility.IsEmpty(dataList.Rows[i].Cells[2].Value) ? "" : dataList.Rows[i].Cells[2].Value.ToString();
-                    var type = Utility.IsEmpty(dataList.Rows[i].Cells[3].Value) ? "" : dataList.Rows[i].Cells[3].Value.ToString();
-                    var values = Utility.IsEmpty(dataList.Rows[i].Cells[4].Value) ? "" : dataList.Rows[i].Cells[4].Value.ToString();
+                    var name = dataList.Rows[i].Cells[0].Value.IsEmpty() ? "" : dataList.Rows[i].Cells[0].Value.ToString();
+                    var updateOffset = dataList.Rows[i].Cells[1].Value.IsEmpty() ? "" : dataList.Rows[i].Cells[1].Value.ToString();
+                    var offset = dataList.Rows[i].Cells[2].Value.IsEmpty() ? "" : dataList.Rows[i].Cells[2].Value.ToString();
+                    var type = dataList.Rows[i].Cells[3].Value.IsEmpty() ? "" : dataList.Rows[i].Cells[3].Value.ToString();
+                    var values = dataList.Rows[i].Cells[4].Value.IsEmpty() ? "" : dataList.Rows[i].Cells[4].Value.ToString();
 
                     if (!offset.StartsWith("0x") || !updateOffset.StartsWith("0x"))
                     {
@@ -85,7 +85,7 @@ namespace Tools_Injector_Mod_Menu
                         return;
                     }
 
-                    if (!Utility.IsEmpty(type, i + 1, "Type", false) && Utility.IsEmpty(values, i + 1, "Values"))
+                    if (!type.IsEmpty(i + 1, "Type", false) && values.IsEmpty(i + 1, "Values"))
                     {
                         return;
                     }
@@ -135,7 +135,7 @@ namespace Tools_Injector_Mod_Menu
                 var functionExtra = numMax.Value.ToString(CultureInfo.InvariantCulture);
                 if (_index == 1150)
                 {
-                    if (Utility.IsDuplicateName(txtNameCheat.Text, OffsetPatch.FunctionList))
+                    if (txtNameCheat.Text.IsDuplicateName(OffsetPatch.FunctionList))
                     {
                         return;
                     }

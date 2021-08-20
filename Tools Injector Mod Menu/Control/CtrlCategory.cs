@@ -28,7 +28,7 @@ namespace Tools_Injector_Mod_Menu
 
         private void AddListValues()
         {
-            txtCagtegory.Text = OffsetPatch.FunctionList[_index].CheatName;
+            txtCategory.Text = OffsetPatch.FunctionList[_index].CheatName;
         }
 
         private void btnSave_Click(object sender, EventArgs e)
@@ -36,12 +36,12 @@ namespace Tools_Injector_Mod_Menu
             const Enums.FunctionType functionType = Enums.FunctionType.Category;
             try
             {
-                if (Utility.IsEmpty(txtNameCheat)) return;
-                if (Utility.IsEmpty(txtCagtegory)) return;
+                if (txtNameCheat.IsEmpty("Name Cheat")) return;
+                if (txtCategory.IsEmpty("Category")) return;
 
                 if (_index == 1150)
                 {
-                    OffsetPatch.AddFunction(txtNameCheat.Text, functionType, txtCagtegory.Text);
+                    OffsetPatch.AddFunction(txtNameCheat.Text, functionType, txtCategory.Text);
                 }
                 else
                 {
@@ -65,7 +65,7 @@ namespace Tools_Injector_Mod_Menu
                         CheatName = txtNameCheat.Text,
                         FunctionType = functionType,
                         OffsetList = new List<OffsetInfo>(),
-                        FunctionExtra = txtCagtegory.Text,
+                        FunctionExtra = txtCategory.Text,
                         MultipleValue = false
                     };
                 }

@@ -59,21 +59,21 @@ namespace Tools_Injector_Mod_Menu
             {
                 var offsetList = new List<OffsetInfo>();
 
-                if (Utility.IsEmpty(dataList)) return;
-                if (Utility.IsEmpty(txtNameCheat)) return;
+                if (dataList.IsEmpty()) return;
+                if (txtNameCheat.IsEmpty("Name Cheat")) return;
 
                 for (var i = 0; i < dataList.Rows.Count; i++)
                 {
-                    var name = Utility.IsEmpty(dataList.Rows[i].Cells[0].Value) ? "" : dataList.Rows[i].Cells[0].Value.ToString();
-                    var offset = Utility.IsEmpty(dataList.Rows[i].Cells[1].Value) ? "" : dataList.Rows[i].Cells[1].Value.ToString();
-                    var hex = Utility.IsEmpty(dataList.Rows[i].Cells[2].Value) ? "" : dataList.Rows[i].Cells[2].Value.ToString();
+                    var name = dataList.Rows[i].Cells[0].Value.IsEmpty() ? "" : dataList.Rows[i].Cells[0].Value.ToString();
+                    var offset = dataList.Rows[i].Cells[1].Value.IsEmpty() ? "" : dataList.Rows[i].Cells[1].Value.ToString();
+                    var hex = dataList.Rows[i].Cells[2].Value.IsEmpty() ? "" : dataList.Rows[i].Cells[2].Value.ToString();
 
-                    if (Utility.IsEmpty(offset, i + 1, "Offset"))
+                    if (offset.IsEmpty(i + 1, "Offset"))
                     {
                         return;
                     }
 
-                    if (Utility.IsEmpty(hex, i + 1, "Hex"))
+                    if (hex.IsEmpty(i + 1, "Hex"))
                     {
                         return;
                     }
@@ -84,7 +84,7 @@ namespace Tools_Injector_Mod_Menu
                         return;
                     }
 
-                    hex = Utility.InsertSpaces(dataList.Rows[i].Cells[2].Value.ToString());
+                    hex = dataList.Rows[i].Cells[2].Value.ToString().InsertSpaces();
 
                     var offsetInfo = new OffsetInfo
                     {
@@ -100,7 +100,7 @@ namespace Tools_Injector_Mod_Menu
                 var functionType = GetFunctionType();
                 if (_index == 1150)
                 {
-                    if (Utility.IsDuplicateName(txtNameCheat.Text, OffsetPatch.FunctionList))
+                    if (txtNameCheat.Text.IsDuplicateName(OffsetPatch.FunctionList))
                     {
                         return;
                     }
