@@ -71,6 +71,9 @@ namespace Tools_Injector_Mod_Menu
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.addToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.removeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.moveUpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.moveDownToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.groupBox14 = new System.Windows.Forms.GroupBox();
             this.btnAddFunction = new MaterialSkin.Controls.MaterialButton();
             this.btnSaveCheat = new MaterialSkin.Controls.MaterialButton();
@@ -94,8 +97,6 @@ namespace Tools_Injector_Mod_Menu
             this.materialCard12 = new MaterialSkin.Controls.MaterialCard();
             this.groupBox12 = new System.Windows.Forms.GroupBox();
             this.lbApk = new System.Windows.Forms.Label();
-            this.btnCompileApk = new MaterialSkin.Controls.MaterialButton();
-            this.btnDecompileApk = new MaterialSkin.Controls.MaterialButton();
             this.btnCompileApk2 = new MaterialSkin.Controls.MaterialButton();
             this.label14 = new System.Windows.Forms.Label();
             this.btnBrowseApk = new MaterialSkin.Controls.MaterialButton();
@@ -133,14 +134,10 @@ namespace Tools_Injector_Mod_Menu
             this.groupBox8 = new System.Windows.Forms.GroupBox();
             this.chkMergeApk = new MaterialSkin.Controls.MaterialCheckbox();
             this.chkAlwaysOverwrite = new MaterialSkin.Controls.MaterialCheckbox();
-            this.chkLogsWarning = new MaterialSkin.Controls.MaterialCheckbox();
             this.chkCheckUpdate = new MaterialSkin.Controls.MaterialCheckbox();
             this.chkSound = new MaterialSkin.Controls.MaterialCheckbox();
             this.chkRemoveTemp = new MaterialSkin.Controls.MaterialCheckbox();
             this.chkTFiveCredit = new MaterialSkin.Controls.MaterialCheckbox();
-            this.chkLogsError = new MaterialSkin.Controls.MaterialCheckbox();
-            this.chkLogsComplie = new MaterialSkin.Controls.MaterialCheckbox();
-            this.chkLogsSuccess = new MaterialSkin.Controls.MaterialCheckbox();
             this.btnUpdate = new MaterialSkin.Controls.MaterialButton();
             this.materialCard7 = new MaterialSkin.Controls.MaterialCard();
             this.groupBox7 = new System.Windows.Forms.GroupBox();
@@ -156,11 +153,11 @@ namespace Tools_Injector_Mod_Menu
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.label1 = new System.Windows.Forms.Label();
             this.menuIconList = new System.Windows.Forms.ImageList(this.components);
-            this.Worker = new System.ComponentModel.BackgroundWorker();
-            this.ApkWorker = new System.ComponentModel.BackgroundWorker();
-            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-            this.moveUpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.moveDownToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.MenuWorker = new System.ComponentModel.BackgroundWorker();
+            this.SignWorker = new System.ComponentModel.BackgroundWorker();
+            this.DumpWorker = new System.ComponentModel.BackgroundWorker();
+            this.DecompileWorker = new System.ComponentModel.BackgroundWorker();
+            this.CompileWorker = new System.ComponentModel.BackgroundWorker();
             this.materialTabControl1.SuspendLayout();
             this.tabMain.SuspendLayout();
             this.materialCard4.SuspendLayout();
@@ -773,21 +770,40 @@ namespace Tools_Injector_Mod_Menu
             this.moveUpToolStripMenuItem,
             this.moveDownToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(181, 120);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(139, 98);
             // 
             // addToolStripMenuItem
             // 
             this.addToolStripMenuItem.Name = "addToolStripMenuItem";
-            this.addToolStripMenuItem.Size = new System.Drawing.Size(117, 22);
+            this.addToolStripMenuItem.Size = new System.Drawing.Size(138, 22);
             this.addToolStripMenuItem.Text = "Add";
             this.addToolStripMenuItem.Click += new System.EventHandler(this.addToolStripMenuItem_Click);
             // 
             // removeToolStripMenuItem
             // 
             this.removeToolStripMenuItem.Name = "removeToolStripMenuItem";
-            this.removeToolStripMenuItem.Size = new System.Drawing.Size(117, 22);
+            this.removeToolStripMenuItem.Size = new System.Drawing.Size(138, 22);
             this.removeToolStripMenuItem.Text = "Remove";
             this.removeToolStripMenuItem.Click += new System.EventHandler(this.removeToolStripMenuItem_Click);
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(135, 6);
+            // 
+            // moveUpToolStripMenuItem
+            // 
+            this.moveUpToolStripMenuItem.Name = "moveUpToolStripMenuItem";
+            this.moveUpToolStripMenuItem.Size = new System.Drawing.Size(138, 22);
+            this.moveUpToolStripMenuItem.Text = "Move Up";
+            this.moveUpToolStripMenuItem.Click += new System.EventHandler(this.moveUpToolStripMenuItem_Click);
+            // 
+            // moveDownToolStripMenuItem
+            // 
+            this.moveDownToolStripMenuItem.Name = "moveDownToolStripMenuItem";
+            this.moveDownToolStripMenuItem.Size = new System.Drawing.Size(138, 22);
+            this.moveDownToolStripMenuItem.Text = "Move Down";
+            this.moveDownToolStripMenuItem.Click += new System.EventHandler(this.moveDownToolStripMenuItem_Click);
             // 
             // groupBox14
             // 
@@ -1159,8 +1175,6 @@ namespace Tools_Injector_Mod_Menu
             // groupBox12
             // 
             this.groupBox12.Controls.Add(this.lbApk);
-            this.groupBox12.Controls.Add(this.btnCompileApk);
-            this.groupBox12.Controls.Add(this.btnDecompileApk);
             this.groupBox12.Controls.Add(this.btnCompileApk2);
             this.groupBox12.Controls.Add(this.label14);
             this.groupBox12.Controls.Add(this.btnBrowseApk);
@@ -1184,50 +1198,6 @@ namespace Tools_Injector_Mod_Menu
             this.lbApk.TabIndex = 7;
             this.lbApk.Text = "App Name: \r\n\r\nVersion: \r\n\r\nLaunch: ";
             // 
-            // btnCompileApk
-            // 
-            this.btnCompileApk.AccentTextColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(64)))), ((int)(((byte)(129)))));
-            this.btnCompileApk.AutoSize = false;
-            this.btnCompileApk.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.btnCompileApk.Density = MaterialSkin.Controls.MaterialButton.MaterialButtonDensity.Default;
-            this.btnCompileApk.Depth = 0;
-            this.btnCompileApk.HighEmphasis = true;
-            this.btnCompileApk.Icon = null;
-            this.btnCompileApk.Location = new System.Drawing.Point(9, 233);
-            this.btnCompileApk.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
-            this.btnCompileApk.MouseState = MaterialSkin.MouseState.HOVER;
-            this.btnCompileApk.Name = "btnCompileApk";
-            this.btnCompileApk.NoAccentTextColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(81)))), ((int)(((byte)(181)))));
-            this.btnCompileApk.Size = new System.Drawing.Size(235, 42);
-            this.btnCompileApk.TabIndex = 21;
-            this.btnCompileApk.Text = "Compile Apk";
-            this.btnCompileApk.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
-            this.btnCompileApk.UseAccentColor = false;
-            this.btnCompileApk.UseVisualStyleBackColor = true;
-            this.btnCompileApk.Click += new System.EventHandler(this.btnCompileApk_Click);
-            // 
-            // btnDecompileApk
-            // 
-            this.btnDecompileApk.AccentTextColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(64)))), ((int)(((byte)(129)))));
-            this.btnDecompileApk.AutoSize = false;
-            this.btnDecompileApk.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.btnDecompileApk.Density = MaterialSkin.Controls.MaterialButton.MaterialButtonDensity.Default;
-            this.btnDecompileApk.Depth = 0;
-            this.btnDecompileApk.HighEmphasis = true;
-            this.btnDecompileApk.Icon = null;
-            this.btnDecompileApk.Location = new System.Drawing.Point(9, 179);
-            this.btnDecompileApk.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
-            this.btnDecompileApk.MouseState = MaterialSkin.MouseState.HOVER;
-            this.btnDecompileApk.Name = "btnDecompileApk";
-            this.btnDecompileApk.NoAccentTextColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(81)))), ((int)(((byte)(181)))));
-            this.btnDecompileApk.Size = new System.Drawing.Size(235, 42);
-            this.btnDecompileApk.TabIndex = 20;
-            this.btnDecompileApk.Text = "Decompile";
-            this.btnDecompileApk.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
-            this.btnDecompileApk.UseAccentColor = false;
-            this.btnDecompileApk.UseVisualStyleBackColor = true;
-            this.btnDecompileApk.Click += new System.EventHandler(this.btnDecompileApk_Click);
-            // 
             // btnCompileApk2
             // 
             this.btnCompileApk2.AccentTextColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(64)))), ((int)(((byte)(129)))));
@@ -1237,12 +1207,12 @@ namespace Tools_Injector_Mod_Menu
             this.btnCompileApk2.Depth = 0;
             this.btnCompileApk2.HighEmphasis = true;
             this.btnCompileApk2.Icon = null;
-            this.btnCompileApk2.Location = new System.Drawing.Point(252, 233);
+            this.btnCompileApk2.Location = new System.Drawing.Point(7, 233);
             this.btnCompileApk2.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
             this.btnCompileApk2.MouseState = MaterialSkin.MouseState.HOVER;
             this.btnCompileApk2.Name = "btnCompileApk2";
             this.btnCompileApk2.NoAccentTextColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(81)))), ((int)(((byte)(181)))));
-            this.btnCompileApk2.Size = new System.Drawing.Size(486, 42);
+            this.btnCompileApk2.Size = new System.Drawing.Size(731, 42);
             this.btnCompileApk2.TabIndex = 17;
             this.btnCompileApk2.Text = "Full Compile Apk - Method 2";
             this.btnCompileApk2.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
@@ -1309,12 +1279,12 @@ namespace Tools_Injector_Mod_Menu
             this.btnCompileApk1.Depth = 0;
             this.btnCompileApk1.HighEmphasis = true;
             this.btnCompileApk1.Icon = null;
-            this.btnCompileApk1.Location = new System.Drawing.Point(252, 179);
+            this.btnCompileApk1.Location = new System.Drawing.Point(7, 179);
             this.btnCompileApk1.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
             this.btnCompileApk1.MouseState = MaterialSkin.MouseState.HOVER;
             this.btnCompileApk1.Name = "btnCompileApk1";
             this.btnCompileApk1.NoAccentTextColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(81)))), ((int)(((byte)(181)))));
-            this.btnCompileApk1.Size = new System.Drawing.Size(486, 42);
+            this.btnCompileApk1.Size = new System.Drawing.Size(731, 42);
             this.btnCompileApk1.TabIndex = 15;
             this.btnCompileApk1.Text = "Full Compile Apk - Method 1";
             this.btnCompileApk1.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
@@ -1835,14 +1805,10 @@ namespace Tools_Injector_Mod_Menu
             // 
             this.groupBox8.Controls.Add(this.chkMergeApk);
             this.groupBox8.Controls.Add(this.chkAlwaysOverwrite);
-            this.groupBox8.Controls.Add(this.chkLogsWarning);
             this.groupBox8.Controls.Add(this.chkCheckUpdate);
             this.groupBox8.Controls.Add(this.chkSound);
             this.groupBox8.Controls.Add(this.chkRemoveTemp);
             this.groupBox8.Controls.Add(this.chkTFiveCredit);
-            this.groupBox8.Controls.Add(this.chkLogsError);
-            this.groupBox8.Controls.Add(this.chkLogsComplie);
-            this.groupBox8.Controls.Add(this.chkLogsSuccess);
             this.groupBox8.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox8.Font = new System.Drawing.Font("Roboto", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
             this.groupBox8.Location = new System.Drawing.Point(14, 14);
@@ -1858,22 +1824,22 @@ namespace Tools_Injector_Mod_Menu
             this.chkMergeApk.Checked = true;
             this.chkMergeApk.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkMergeApk.Depth = 0;
-            this.chkMergeApk.Location = new System.Drawing.Point(191, 172);
+            this.chkMergeApk.Location = new System.Drawing.Point(3, 133);
             this.chkMergeApk.Margin = new System.Windows.Forms.Padding(0);
             this.chkMergeApk.MouseLocation = new System.Drawing.Point(-1, -1);
             this.chkMergeApk.MouseState = MaterialSkin.MouseState.HOVER;
             this.chkMergeApk.Name = "chkMergeApk";
             this.chkMergeApk.Ripple = true;
-            this.chkMergeApk.Size = new System.Drawing.Size(113, 37);
+            this.chkMergeApk.Size = new System.Drawing.Size(223, 37);
             this.chkMergeApk.TabIndex = 21;
-            this.chkMergeApk.Text = "Merge APK";
+            this.chkMergeApk.Text = "Merge xApk & Apks to APK";
             this.chkMergeApk.UseVisualStyleBackColor = true;
             // 
             // chkAlwaysOverwrite
             // 
             this.chkAlwaysOverwrite.AutoSize = true;
             this.chkAlwaysOverwrite.Depth = 0;
-            this.chkAlwaysOverwrite.Location = new System.Drawing.Point(191, 135);
+            this.chkAlwaysOverwrite.Location = new System.Drawing.Point(3, 96);
             this.chkAlwaysOverwrite.Margin = new System.Windows.Forms.Padding(0);
             this.chkAlwaysOverwrite.MouseLocation = new System.Drawing.Point(-1, -1);
             this.chkAlwaysOverwrite.MouseState = MaterialSkin.MouseState.HOVER;
@@ -1884,36 +1850,19 @@ namespace Tools_Injector_Mod_Menu
             this.chkAlwaysOverwrite.Text = "Always Overwrite";
             this.chkAlwaysOverwrite.UseVisualStyleBackColor = true;
             // 
-            // chkLogsWarning
-            // 
-            this.chkLogsWarning.AutoSize = true;
-            this.chkLogsWarning.Checked = true;
-            this.chkLogsWarning.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkLogsWarning.Depth = 0;
-            this.chkLogsWarning.Location = new System.Drawing.Point(3, 61);
-            this.chkLogsWarning.Margin = new System.Windows.Forms.Padding(0);
-            this.chkLogsWarning.MouseLocation = new System.Drawing.Point(-1, -1);
-            this.chkLogsWarning.MouseState = MaterialSkin.MouseState.HOVER;
-            this.chkLogsWarning.Name = "chkLogsWarning";
-            this.chkLogsWarning.Ripple = true;
-            this.chkLogsWarning.Size = new System.Drawing.Size(133, 37);
-            this.chkLogsWarning.TabIndex = 19;
-            this.chkLogsWarning.Text = "Warning Logs";
-            this.chkLogsWarning.UseVisualStyleBackColor = true;
-            // 
             // chkCheckUpdate
             // 
             this.chkCheckUpdate.AutoSize = true;
             this.chkCheckUpdate.Depth = 0;
-            this.chkCheckUpdate.Location = new System.Drawing.Point(3, 135);
+            this.chkCheckUpdate.Location = new System.Drawing.Point(3, 170);
             this.chkCheckUpdate.Margin = new System.Windows.Forms.Padding(0);
             this.chkCheckUpdate.MouseLocation = new System.Drawing.Point(-1, -1);
             this.chkCheckUpdate.MouseState = MaterialSkin.MouseState.HOVER;
             this.chkCheckUpdate.Name = "chkCheckUpdate";
             this.chkCheckUpdate.Ripple = true;
-            this.chkCheckUpdate.Size = new System.Drawing.Size(166, 37);
+            this.chkCheckUpdate.Size = new System.Drawing.Size(232, 37);
             this.chkCheckUpdate.TabIndex = 18;
-            this.chkCheckUpdate.Text = "Check new version";
+            this.chkCheckUpdate.Text = "Check New Version On Start";
             this.chkCheckUpdate.UseVisualStyleBackColor = true;
             // 
             // chkSound
@@ -1922,7 +1871,7 @@ namespace Tools_Injector_Mod_Menu
             this.chkSound.Checked = true;
             this.chkSound.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkSound.Depth = 0;
-            this.chkSound.Location = new System.Drawing.Point(191, 98);
+            this.chkSound.Location = new System.Drawing.Point(3, 22);
             this.chkSound.Margin = new System.Windows.Forms.Padding(0);
             this.chkSound.MouseLocation = new System.Drawing.Point(-1, -1);
             this.chkSound.MouseState = MaterialSkin.MouseState.HOVER;
@@ -1939,7 +1888,7 @@ namespace Tools_Injector_Mod_Menu
             this.chkRemoveTemp.Checked = true;
             this.chkRemoveTemp.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkRemoveTemp.Depth = 0;
-            this.chkRemoveTemp.Location = new System.Drawing.Point(3, 98);
+            this.chkRemoveTemp.Location = new System.Drawing.Point(3, 59);
             this.chkRemoveTemp.Margin = new System.Windows.Forms.Padding(0);
             this.chkRemoveTemp.MouseLocation = new System.Drawing.Point(-1, -1);
             this.chkRemoveTemp.MouseState = MaterialSkin.MouseState.HOVER;
@@ -1956,7 +1905,7 @@ namespace Tools_Injector_Mod_Menu
             this.chkTFiveCredit.Checked = true;
             this.chkTFiveCredit.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkTFiveCredit.Depth = 0;
-            this.chkTFiveCredit.Location = new System.Drawing.Point(3, 172);
+            this.chkTFiveCredit.Location = new System.Drawing.Point(185, 22);
             this.chkTFiveCredit.Margin = new System.Windows.Forms.Padding(0);
             this.chkTFiveCredit.MouseLocation = new System.Drawing.Point(-1, -1);
             this.chkTFiveCredit.MouseState = MaterialSkin.MouseState.HOVER;
@@ -1966,57 +1915,6 @@ namespace Tools_Injector_Mod_Menu
             this.chkTFiveCredit.TabIndex = 15;
             this.chkTFiveCredit.Text = "Add TFive Credit";
             this.chkTFiveCredit.UseVisualStyleBackColor = true;
-            // 
-            // chkLogsError
-            // 
-            this.chkLogsError.AutoSize = true;
-            this.chkLogsError.Checked = true;
-            this.chkLogsError.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkLogsError.Depth = 0;
-            this.chkLogsError.Location = new System.Drawing.Point(191, 61);
-            this.chkLogsError.Margin = new System.Windows.Forms.Padding(0);
-            this.chkLogsError.MouseLocation = new System.Drawing.Point(-1, -1);
-            this.chkLogsError.MouseState = MaterialSkin.MouseState.HOVER;
-            this.chkLogsError.Name = "chkLogsError";
-            this.chkLogsError.Ripple = true;
-            this.chkLogsError.Size = new System.Drawing.Size(107, 37);
-            this.chkLogsError.TabIndex = 14;
-            this.chkLogsError.Text = "Error Logs";
-            this.chkLogsError.UseVisualStyleBackColor = true;
-            // 
-            // chkLogsComplie
-            // 
-            this.chkLogsComplie.AutoSize = true;
-            this.chkLogsComplie.Checked = true;
-            this.chkLogsComplie.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkLogsComplie.Depth = 0;
-            this.chkLogsComplie.Location = new System.Drawing.Point(3, 24);
-            this.chkLogsComplie.Margin = new System.Windows.Forms.Padding(0);
-            this.chkLogsComplie.MouseLocation = new System.Drawing.Point(-1, -1);
-            this.chkLogsComplie.MouseState = MaterialSkin.MouseState.HOVER;
-            this.chkLogsComplie.Name = "chkLogsComplie";
-            this.chkLogsComplie.Ripple = true;
-            this.chkLogsComplie.Size = new System.Drawing.Size(132, 37);
-            this.chkLogsComplie.TabIndex = 13;
-            this.chkLogsComplie.Text = "Compile Logs";
-            this.chkLogsComplie.UseVisualStyleBackColor = true;
-            // 
-            // chkLogsSuccess
-            // 
-            this.chkLogsSuccess.AutoSize = true;
-            this.chkLogsSuccess.Checked = true;
-            this.chkLogsSuccess.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkLogsSuccess.Depth = 0;
-            this.chkLogsSuccess.Location = new System.Drawing.Point(191, 24);
-            this.chkLogsSuccess.Margin = new System.Windows.Forms.Padding(0);
-            this.chkLogsSuccess.MouseLocation = new System.Drawing.Point(-1, -1);
-            this.chkLogsSuccess.MouseState = MaterialSkin.MouseState.HOVER;
-            this.chkLogsSuccess.Name = "chkLogsSuccess";
-            this.chkLogsSuccess.Ripple = true;
-            this.chkLogsSuccess.Size = new System.Drawing.Size(133, 37);
-            this.chkLogsSuccess.TabIndex = 12;
-            this.chkLogsSuccess.Text = "Success Logs";
-            this.chkLogsSuccess.UseVisualStyleBackColor = true;
             // 
             // btnUpdate
             // 
@@ -2247,38 +2145,40 @@ namespace Tools_Injector_Mod_Menu
             this.menuIconList.Images.SetKeyName(5, "syringe-24.png");
             this.menuIconList.Images.SetKeyName(6, "tool-box-24.png");
             // 
-            // Worker
+            // MenuWorker
             // 
-            this.Worker.WorkerReportsProgress = true;
-            this.Worker.WorkerSupportsCancellation = true;
-            this.Worker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.compilerWorker_DoWork);
-            this.Worker.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.compilerWorker_RunWorkerCompleted);
+            this.MenuWorker.WorkerReportsProgress = true;
+            this.MenuWorker.WorkerSupportsCancellation = true;
+            this.MenuWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.MenuWorker_DoWork);
+            this.MenuWorker.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.MenuWorker_RunWorkerCompleted);
             // 
-            // ApkWorker
+            // SignWorker
             // 
-            this.ApkWorker.WorkerReportsProgress = true;
-            this.ApkWorker.WorkerSupportsCancellation = true;
-            this.ApkWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.ApkWorker_DoWork);
-            this.ApkWorker.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.ApkWorker_RunWorkerCompleted);
+            this.SignWorker.WorkerReportsProgress = true;
+            this.SignWorker.WorkerSupportsCancellation = true;
+            this.SignWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.SignWorker_DoWork);
+            this.SignWorker.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.SignWorker_RunWorkerCompleted);
             // 
-            // toolStripSeparator1
+            // DumpWorker
             // 
-            this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(177, 6);
+            this.DumpWorker.WorkerReportsProgress = true;
+            this.DumpWorker.WorkerSupportsCancellation = true;
+            this.DumpWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.DumpWorker_DoWork);
+            this.DumpWorker.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.DumpWorker_RunWorkerCompleted);
             // 
-            // moveUpToolStripMenuItem
+            // DecompileWorker
             // 
-            this.moveUpToolStripMenuItem.Name = "moveUpToolStripMenuItem";
-            this.moveUpToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.moveUpToolStripMenuItem.Text = "Move Up";
-            this.moveUpToolStripMenuItem.Click += new System.EventHandler(this.moveUpToolStripMenuItem_Click);
+            this.DecompileWorker.WorkerReportsProgress = true;
+            this.DecompileWorker.WorkerSupportsCancellation = true;
+            this.DecompileWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.DecompileWorker_DoWork);
+            this.DecompileWorker.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.DecompileWorker_RunWorkerCompleted);
             // 
-            // moveDownToolStripMenuItem
+            // CompileWorker
             // 
-            this.moveDownToolStripMenuItem.Name = "moveDownToolStripMenuItem";
-            this.moveDownToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.moveDownToolStripMenuItem.Text = "Move Down";
-            this.moveDownToolStripMenuItem.Click += new System.EventHandler(this.moveDownToolStripMenuItem_Click);
+            this.CompileWorker.WorkerReportsProgress = true;
+            this.CompileWorker.WorkerSupportsCancellation = true;
+            this.CompileWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.CompileWorker_DoWork);
+            this.CompileWorker.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.CompileWorker_RunWorkerCompleted);
             // 
             // FrmMain
             // 
@@ -2413,7 +2313,7 @@ namespace Tools_Injector_Mod_Menu
         private MaterialSkin.Controls.MaterialButton btnClearLog;
         private MaterialSkin.Controls.MaterialButton btnSaveLog;
         private System.Windows.Forms.RichTextBox rbLog;
-        private System.ComponentModel.BackgroundWorker Worker;
+        private System.ComponentModel.BackgroundWorker MenuWorker;
         private MaterialSkin.Controls.MaterialButton btnOutput;
         private MaterialSkin.Controls.MaterialComboBox comboType;
         private System.Windows.Forms.Label label11;
@@ -2421,10 +2321,7 @@ namespace Tools_Injector_Mod_Menu
         private System.Windows.Forms.Label label13;
         private MaterialSkin.Controls.MaterialCard materialCard5;
         private System.Windows.Forms.GroupBox groupBox8;
-        private MaterialSkin.Controls.MaterialCheckbox chkLogsComplie;
-        private MaterialSkin.Controls.MaterialCheckbox chkLogsSuccess;
         private MaterialSkin.Controls.MaterialButton btnTempDir;
-        private MaterialSkin.Controls.MaterialCheckbox chkLogsError;
         private MaterialSkin.Controls.MaterialCheckbox chkRemoveTemp;
         private MaterialSkin.Controls.MaterialCheckbox chkTFiveCredit;
         private MaterialSkin.Controls.MaterialCard materialCard8;
@@ -2474,17 +2371,17 @@ namespace Tools_Injector_Mod_Menu
         private MaterialSkin.Controls.MaterialButton btnCompileMenu;
         private MaterialSkin.Controls.MaterialComboBox comboApktool;
         private System.Windows.Forms.TabPage tabLog;
-        private MaterialSkin.Controls.MaterialCheckbox chkLogsWarning;
-        private MaterialSkin.Controls.MaterialButton btnCompileApk;
-        private MaterialSkin.Controls.MaterialButton btnDecompileApk;
         private MaterialSkin.Controls.MaterialCard materialCard16;
         private System.Windows.Forms.GroupBox groupBox17;
         private System.Windows.Forms.Label lbApk;
-        private System.ComponentModel.BackgroundWorker ApkWorker;
+        private System.ComponentModel.BackgroundWorker SignWorker;
         private MaterialSkin.Controls.MaterialCheckbox chkAlwaysOverwrite;
         private MaterialSkin.Controls.MaterialCheckbox chkMergeApk;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripMenuItem moveUpToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem moveDownToolStripMenuItem;
+        private System.ComponentModel.BackgroundWorker DumpWorker;
+        private System.ComponentModel.BackgroundWorker DecompileWorker;
+        private System.ComponentModel.BackgroundWorker CompileWorker;
     }
 }

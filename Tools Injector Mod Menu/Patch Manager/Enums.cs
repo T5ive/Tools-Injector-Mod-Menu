@@ -10,15 +10,14 @@
 
         public enum Type
         {
-            Bool,
-            Double,
-            Float,
-            Int,
-            Long,
-            Void,
-            Links,
-            String,
-            Empty = 100
+            Bool = 0,
+            Double = 100,
+            Float = 101,
+            Int = 102,
+            Long = 103,
+            Void = 300,
+            Links = 301,
+            Empty = 1000
         }
 
         public enum FunctionType
@@ -40,23 +39,24 @@
 
         public enum LogsType
         {
-            Compile,
+            CompileMenu,
             Success,
             Warning,
             Error,
-            Logs
+            Logs,
+            Dump,
+            Decompile,
+            CompileApk,
         }
 
         public enum ProcessType
         {
-            DecompileApk,
             CompileApk,
             MenuFull,
             ApkFull1Decompile,
             ApkFull1,
             ApkFull2Decompile,
             ApkFull2,
-            DumpApk,
             None = 100
         }
     }

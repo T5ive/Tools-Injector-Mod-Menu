@@ -108,5 +108,19 @@ namespace Tools_Injector_Mod_Menu
                 _ => null
             };
         }
+
+        public static Enums.LogsType ProcessTypeToLogsType(this Enums.ProcessType type)
+        {
+            return type switch
+            {
+                Enums.ProcessType.ApkFull1Decompile => Enums.LogsType.Decompile,
+                Enums.ProcessType.ApkFull2Decompile => Enums.LogsType.Decompile,
+                Enums.ProcessType.MenuFull => Enums.LogsType.CompileMenu,
+                Enums.ProcessType.ApkFull1 => Enums.LogsType.CompileMenu,
+                Enums.ProcessType.ApkFull2 => Enums.LogsType.CompileMenu,
+                Enums.ProcessType.CompileApk => Enums.LogsType.CompileApk,
+                _ => Enums.LogsType.Logs
+            };
+        }
     }
 }

@@ -19,6 +19,7 @@ using Application = System.Windows.Forms.Application;
 
 namespace Tools_Injector_Mod_Menu
 {
+    //Fix Dump Compile Decompile Sign
     //Fix button hook
     //Wire Frame & Color Chams
     //Telekill?
@@ -39,17 +40,21 @@ namespace Tools_Injector_Mod_Menu
 
         private static Enums.ProcessType _type = Enums.ProcessType.None;
 
-        private static int _compile, _smaliCount;
+        private static int _errorCount, _smaliCount;
 
         private static MySettings _mySettings = new();
+        
+        private static readonly string TEMP_PATH_T_FIVE = Path.GetTempPath() + "TFiveMenu";
 
-        private static readonly string _apkTargetPath = $"{AppPath}\\BuildTools\\ApkTarget";
+        private static readonly string APK_DECOMPILED_PATH = $"{TEMP_PATH_T_FIVE}\\Decompile";
 
-        private static readonly string _tempPathMenu = Path.GetTempPath() + "TFiveMenu";
+        private static readonly string BUILD_TOOL_PATH = $"{AppPath}\\BuildTools\\";
 
-        private static string _launch, _apkTarget, _apkTool, _apkName, _apkType, _baseName;
+        private static string _launch, _apkTarget, _apkTool, _apkName, _apkType, _baseName, _outputDir;
 
         private static string[] _menuFiles;
+
+        private static bool _compiled;
 
         public enum State
         {
@@ -79,7 +84,7 @@ namespace Tools_Injector_Mod_Menu
 
         private static void CheckFolder()
         {
-            Checker.CheckFolder(_tempPathMenu, false);
+            Checker.CheckFolder(TEMP_PATH_T_FIVE, false);
             Checker.CheckFolder("Theme");
             Checker.CheckFolder("Menu");
             Checker.CheckFolder("Output");
@@ -92,7 +97,7 @@ namespace Tools_Injector_Mod_Menu
         {
             var themeFiles = Directory.GetFiles(AppPath + "\\Theme", "*.zip");
             _menuFiles = Directory.GetFiles(AppPath + "\\Menu", "*.zip");
-            var apktoolFiles = Directory.GetFiles(AppPath + "\\BuildTools", "Apktool_*.jar");
+            var apktoolFiles = Directory.GetFiles(BUILD_TOOL_PATH, "Apktool_*.jar");
 
             if (themeFiles.Length == 0)
             {
@@ -173,10 +178,6 @@ namespace Tools_Injector_Mod_Menu
 
             chkRemoveTemp.Checked = _mySettings.chkRemoveTemp;
             chkTFiveCredit.Checked = _mySettings.chkTFiveCredit;
-            chkLogsComplie.Checked = _mySettings.chkLogsComplie;
-            chkLogsSuccess.Checked = _mySettings.chkLogsSuccess;
-            chkLogsError.Checked = _mySettings.chkLogsError;
-            chkLogsWarning.Checked = _mySettings.chkLogsWarning;
             chkSound.Checked = _mySettings.chkSound;
             chkCheckUpdate.Checked = _mySettings.chkCheckUpdate;
             chkAlwaysOverwrite.Checked = _mySettings.chkAlwaysOverwrite;
@@ -653,7 +654,6 @@ namespace Tools_Injector_Mod_Menu
             }
             catch (Exception ex)
             {
-                FormState(State.Idle);
                 WriteOutput(ex.Message, Enums.LogsType.Error, "010");
             }
             finally
@@ -738,34 +738,13 @@ namespace Tools_Injector_Mod_Menu
 
         private void btnTempDir_Click(object sender, EventArgs e)
         {
-            Process.Start(_tempPathMenu);
-        }
-
-        private void btnBrowseApk_Click(object sender, EventArgs e)
-        {
-            var openFile = new OpenFileDialog()
-            {
-                Filter = "APK File(*.apk;*apks;*xapk)|*.apk;*apks;*xapk|All files(*.*)|*.*",
-                Title = Text
-            };
-
-            if (openFile.ShowDialog() == DialogResult.OK)
-            {
-                try
-                {
-                    SetApkPath(openFile.FileName);
-                }
-                catch (Exception ex)
-                {
-                    WriteOutput(ex.Message, Enums.LogsType.Error, "013");
-                }
-            }
+            Process.Start(TEMP_PATH_T_FIVE);
         }
 
         private void btnCompileMenu_Click(object sender, EventArgs e)
         {
             ProcessType(Enums.ProcessType.MenuFull);
-            FullCompile();
+            SetCompileMenu();
         }
 
         private void btnCompileApk1_Click(object sender, EventArgs e)
@@ -794,48 +773,35 @@ namespace Tools_Injector_Mod_Menu
                 SetApkPath(txtApkTarget.Text, true);
             }
 
-            while (_type == Enums.ProcessType.None)
-            {
-            }
-            var destinationPath = $"{AppPath}\\Output\\{txtNameGame.Text}";
-            if (!CheckOutputGame(destinationPath)) return;
+            UpdatePath();
+            if (!CheckOutputGame(_outputDir)) return;
             SetDecompileApk(type);
-        }
-
-        private void btnDecompileApk_Click(object sender, EventArgs e)
-        {
-            if (_apkName.IsEmpty())
-            {
-                MyMessage.MsgShowWarning("Apk Target is Empty, Please Check it again!!!");
-                WriteOutput("Apk Target is Empty", Enums.LogsType.Warning);
-                return;
-            }
-
-            SetDecompileApk(Enums.ProcessType.DecompileApk);
-        }
-
-        private void btnCompileApk_Click(object sender, EventArgs e)
-        {
-            if (txtNameGame.IsEmpty())
-            {
-                MyMessage.MsgShowWarning("Name Game is Empty, Please Check it again!!!");
-                WriteOutput("Name Game is Empty", Enums.LogsType.Warning);
-                return;
-            }
-
-            if (!Directory.Exists(_apkTargetPath))
-            {
-                MyMessage.MsgShowWarning($"Not Found {_apkTargetPath}, Please Check it again!!!");
-                WriteOutput($"Not Found {_apkTargetPath}", Enums.LogsType.Warning);
-                return;
-            }
-
-            SetCompileApk();
         }
 
         #endregion Events
 
-        #region Apk Manager
+        #region Get Apk
+
+        private void btnBrowseApk_Click(object sender, EventArgs e)
+        {
+            var openFile = new OpenFileDialog()
+            {
+                Filter = "APK File(*.apk;*apks;*xapk)|*.apk;*apks;*xapk|All files(*.*)|*.*",
+                Title = Text
+            };
+
+            if (openFile.ShowDialog() == DialogResult.OK)
+            {
+                try
+                {
+                    SetApkPath(openFile.FileName);
+                }
+                catch (Exception ex)
+                {
+                    WriteOutput(ex.Message, Enums.LogsType.Error, "013");
+                }
+            }
+        }
 
         private void SetApkPath(string apkTarget, bool re = false)
         {
@@ -857,6 +823,10 @@ namespace Tools_Injector_Mod_Menu
             }
         }
 
+        #endregion Get Apk
+
+        #region Dump Apk
+
         private void SetDumpApk()
         {
             try
@@ -868,56 +838,28 @@ namespace Tools_Injector_Mod_Menu
                     return;
                 }
 
-                File.Copy(_apkName, $"{_tempPathMenu}\\ApkTarget{_apkType}", true);
+                File.Copy(_apkName, $"{TEMP_PATH_T_FIVE}\\ApkTarget{_apkType}", true);
 
-                _apkTarget = $"{_tempPathMenu}\\ApkTarget{_apkType}";
+                _apkTarget = $"{TEMP_PATH_T_FIVE}\\ApkTarget{_apkType}";
 
                 FormState(State.Running);
                 SplitApk();
-                ProcessType(Enums.ProcessType.DumpApk);
                 if (_apkType is ".apk")
                 {
                     DumpApk();
                 }
                 else
                 {
-                    while (_apkTarget == $"{_tempPathMenu}\\ApkTarget{_apkType}")
+                    while (_apkTarget == $"{TEMP_PATH_T_FIVE}\\ApkTarget{_apkType}")
                     {
                     }
 
                     DumpApk();
                 }
-                WriteOutput($"Dumped Apk", Enums.LogsType.Success);
             }
             catch (Exception exception)
             {
                 WriteOutput(exception.Message, Enums.LogsType.Error, "015");
-            }
-        }
-
-        private void DumpApk()
-        {
-            if (!File.Exists($"{_apkTarget}"))
-            {
-                MyMessage.MsgShowError($"{_apkTarget} Not found!!" +
-                                       "\nPlease select the Apk again");
-                WriteOutput($"{_tempPathMenu}\\ApkTarget.apk Not found", Enums.LogsType.Error, "016");
-                FormState(State.Idle);
-                return;
-            }
-
-            try
-            {
-                while (!MenuWorker.CancellationPending)
-                {
-                    MenuWorker.CancelAsync();
-                }
-
-                MenuWorker.RunWorkerAsync();
-            }
-            catch (Exception exception)
-            {
-                WriteOutput(exception.Message, Enums.LogsType.Error, "017");
             }
         }
 
@@ -955,22 +897,22 @@ namespace Tools_Injector_Mod_Menu
                 {
                     if (entryApks.FullName == "base.apk")
                     {
-                        entryApks.ExtractToFile($"{_tempPathMenu}\\ApkTarget.apk", true);
-                        _apkTarget = $"{_tempPathMenu}\\ApkTarget.apk";
+                        entryApks.ExtractToFile($"{TEMP_PATH_T_FIVE}\\ApkTarget.apk", true);
+                        _apkTarget = $"{TEMP_PATH_T_FIVE}\\ApkTarget.apk";
                     }
 
                     if (type == (int)Enums.TypeAbi.Arm)
                     {
                         if (entryApks.FullName == "split_config.armeabi_v7a.apk")
                         {
-                            entryApks.ExtractToFile(Path.Combine(_tempPathMenu, entryApks.FullName), true);
+                            entryApks.ExtractToFile(Path.Combine(TEMP_PATH_T_FIVE, entryApks.FullName), true);
                         }
                     }
                     else
                     {
                         if (entryApks.FullName == "split_config.arm64_v8a.apk")
                         {
-                            entryApks.ExtractToFile(Path.Combine(_tempPathMenu, entryApks.FullName), true);
+                            entryApks.ExtractToFile(Path.Combine(TEMP_PATH_T_FIVE, entryApks.FullName), true);
                         }
                     }
                 }
@@ -988,14 +930,14 @@ namespace Tools_Injector_Mod_Menu
                     {
                         if (entryApks.FullName == "config.armeabi_v7a.apk")
                         {
-                            entryApks.ExtractToFile(Path.Combine(_tempPathMenu, entryApks.FullName), true);
+                            entryApks.ExtractToFile(Path.Combine(TEMP_PATH_T_FIVE, entryApks.FullName), true);
                         }
                     }
                     else
                     {
                         if (entryApks.FullName == "config.arm64_v8a.apk")
                         {
-                            entryApks.ExtractToFile(Path.Combine(_tempPathMenu, entryApks.FullName), true);
+                            entryApks.ExtractToFile(Path.Combine(TEMP_PATH_T_FIVE, entryApks.FullName), true);
                         }
                     }
 
@@ -1004,8 +946,8 @@ namespace Tools_Injector_Mod_Menu
                     var classes = entryBase.Entries.FirstOrDefault(f => f.Name.Contains("classes.dex"));
                     if (classes != null)
                     {
-                        entryApks.ExtractToFile($"{_tempPathMenu}\\ApkTarget.apk", true);
-                        _apkTarget = $"{_tempPathMenu}\\ApkTarget.apk";
+                        entryApks.ExtractToFile($"{TEMP_PATH_T_FIVE}\\ApkTarget.apk", true);
+                        _apkTarget = $"{TEMP_PATH_T_FIVE}\\ApkTarget.apk";
                         _baseName = entryApks.FullName;
                     }
                 }
@@ -1013,41 +955,767 @@ namespace Tools_Injector_Mod_Menu
             }).ConfigureAwait(false);
         }
 
-        #endregion Apk Manager
+        private void DumpApk()
+        {
+            if (!File.Exists($"{_apkTarget}"))
+            {
+                MyMessage.MsgShowError($"{_apkTarget} Not found!!" +
+                                       "\nPlease select the Apk again");
+                WriteOutput($"{TEMP_PATH_T_FIVE}\\ApkTarget.apk Not found", Enums.LogsType.Error, "016");
+                return;
+            }
 
-        #region Set Compile
+            try
+            {
+                DumpWorker.RunWorkerAsync();
+            }
+            catch (Exception exception)
+            {
+                WriteOutput(exception.Message, Enums.LogsType.Error, "017");
+            }
+        }
 
-        private void FullCompile()
+        private void DumpWorker_DoWork(object sender, System.ComponentModel.DoWorkEventArgs e)
+        {
+            ProcessRun($"/c aapt dump badging \"{_apkTarget}\" PAUSE > \"{TEMP_PATH_T_FIVE}\\result.txt\"",
+                BUILD_TOOL_PATH, "202");
+        }
+
+        private void DumpWorker_RunWorkerCompleted(object sender, System.ComponentModel.RunWorkerCompletedEventArgs e)
+        {
+            DumpApkDone();
+        }
+
+        private void DumpApkDone()
+        {
+            var activity = File.ReadAllText($"{TEMP_PATH_T_FIVE}\\result.txt");
+
+            _launch = activity.GetBetween("launchable-activity: name='", "'");
+            var appName = activity.GetBetween("application-label:'", "'");
+            var appVersion = activity.GetBetween("versionName='", "'");
+
+            lbApk.Text = $"App Name: {appName}\n\n" +
+                         $"Version: {appVersion}\n\n" +
+                         $"Launch: {_launch}";
+
+            WriteOutput($"Dump successful", Enums.LogsType.Success);
+
+            if (_errorCount > 0 && !_mySettings.debugMode)
+            {
+                MyMessage.MsgShowError("Failed to Dump");
+                WriteOutput("Failed to Dump", Enums.LogsType.Error, "031");
+                SaveLogs();
+            }
+            FormState(State.Idle);
+        }
+
+        #endregion Dump Apk
+
+        #region Decompile Apk
+
+        private void SetDecompileApk(Enums.ProcessType type)
+        {
+            if (Directory.Exists(APK_DECOMPILED_PATH))
+            {
+                if (_mySettings.chkAlwaysOverwrite)
+                {
+                    Directory.Delete(APK_DECOMPILED_PATH, true);
+                }
+                else if (MyMessage.MsgOkCancel(APK_DECOMPILED_PATH + " Found.\n\n" +
+                                               "Click \"OK\" to Continue if you want to overwrite!" +
+                                               "\n\nClick \"Cancel\" to cancel it if not!"))
+                {
+                    Directory.Delete(APK_DECOMPILED_PATH, true);
+                }
+                else
+                {
+                    return;
+                }
+            }
+
+            try
+            {
+                ProcessType(type);
+                FormState(State.Running);
+                materialTabControl1.SelectedTab = materialTabControl1.TabPages[3];
+                DecompileWorker.RunWorkerAsync();
+            }
+            catch (Exception exception)
+            {
+                WriteOutput(exception.Message, Enums.LogsType.Error, "020");
+            }
+        }
+
+        private void DecompileWorker_DoWork(object sender, System.ComponentModel.DoWorkEventArgs e)
+        {
+            ProcessRun($"/c java -jar {_apkTool}.jar d -f --only-main-classes -o \"{APK_DECOMPILED_PATH}\" \"{_apkTarget}\"", BUILD_TOOL_PATH, "203");
+        }
+
+        private void DecompileWorker_RunWorkerCompleted(object sender, System.ComponentModel.RunWorkerCompletedEventArgs e)
+        {
+            DecompileApkDone();
+        }
+
+        private void DecompileApkDone()
+        {
+            GetSmailiCount();
+            WriteOutput("Decompile successful", Enums.LogsType.Success);
+
+            if (_type is Enums.ProcessType.ApkFull1Decompile)
+            {
+                ProcessType(Enums.ProcessType.ApkFull1);
+            }
+            if (_type is Enums.ProcessType.ApkFull2Decompile)
+            {
+                ProcessType(Enums.ProcessType.ApkFull2);
+            }
+
+            if (_mySettings.chkMergeApk && _apkType != ".apk")
+            {
+                if (!DeleteAll(TEMP_PATH_T_FIVE + "\\lib")) return;
+                string fileName;
+                if (comboType.SelectedIndex == (int)Enums.TypeAbi.Arm)
+                {
+                    fileName = _apkType == ".apks" ? "\\split_config.armeabi_v7a.apk" : "\\config.armeabi_v7a.apk";
+                }
+                else
+                {
+                    fileName = _apkType == ".apks" ? "\\split_config.arm64_v8a.apk" : "\\config.arm64_v8a.apk";
+                }
+
+                using var archive = ZipFile.OpenRead(TEMP_PATH_T_FIVE + fileName);
+                foreach (var entry in archive.Entries.Where(cur => Path.GetDirectoryName(cur.FullName).StartsWith("lib")))
+                {
+                    var path = Path.Combine(TEMP_PATH_T_FIVE, "lib");
+                    if (!Directory.Exists(path))
+                    {
+                        Directory.CreateDirectory(path);
+                    }
+                    entry.ExtractToFile(Path.Combine(path, entry.Name));
+                }
+            }
+
+            DeleteDecompiledLib();
+            SetCompileMenu();
+        }
+
+        private void GetSmailiCount()
+        {
+            _smaliCount = 0;
+            var directory = new DirectoryInfo($"{APK_DECOMPILED_PATH}");
+            foreach (var dir in directory.GetDirectories())
+            {
+                if (dir.Name.StartsWith("smali") && !dir.Name.StartsWith("smali_assets"))
+                {
+                    _smaliCount++;
+                }
+            }
+        }
+
+        private void DeleteDecompiledLib()
+        {
+            var sourcePath = $"{APK_DECOMPILED_PATH}\\lib\\";
+            var folderName = comboType.SelectedIndex == (int)Enums.TypeAbi.Arm ? "arm64-v8a" : "armeabi-v7a";
+            if (comboType.SelectedIndex == (int)Enums.TypeAbi.Arm)
+            {
+                try
+                {
+                    if (Directory.Exists(sourcePath + folderName))
+                    {
+                        Directory.Delete(sourcePath + folderName, true);
+                    }
+                }
+                catch (Exception exception)
+                {
+                    WriteOutput($"Can not Delete {sourcePath + folderName} " + exception.Message, Enums.LogsType.Error, "032");
+                }
+            }
+        }
+
+        #endregion Decompile Apk
+
+        #region Compile Menu
+
+        private void SetCompileMenu()
         {
             if (!CheckEmpty()) return;
 
-            var destinationPath = $"{AppPath}\\Output\\{txtNameGame.Text}";
-            if (!CheckOutputGame(destinationPath)) return;
+            UpdatePath();
+            if (!CheckOutputGame(_outputDir)) return;
 
             FormState(State.Running);
             materialTabControl1.SelectedTab = materialTabControl1.TabPages[3];
-            if (!DeleteAll(_tempPathMenu + "\\jni")) return;
-            if (!DeleteAll(_tempPathMenu + "\\libs")) return;
-            if (!DeleteAll(_tempPathMenu + "\\obj")) return;
+            if (!DeleteAll(TEMP_PATH_T_FIVE + "\\jni")) return;
+            if (!DeleteAll(TEMP_PATH_T_FIVE + "\\libs")) return;
+            if (!DeleteAll(TEMP_PATH_T_FIVE + "\\obj")) return;
 
-            if (!ExtractZip(AppPath + $"\\Menu\\{comboMenu.SelectedItem}.zip", _tempPathMenu)) return;
-            if (!ExtractZip(AppPath + $"\\Theme\\{comboMenu.SelectedItem}.zip", _tempPathMenu)) return;
+            if (!ExtractZip(AppPath + $"\\Menu\\{comboMenu.SelectedItem}.zip", TEMP_PATH_T_FIVE)) return;
+            if (!ExtractZip(AppPath + $"\\Theme\\{comboMenu.SelectedItem}.zip", TEMP_PATH_T_FIVE)) return;
 
             if (!Replacer())
             {
                 MyMessage.MsgShowError("Failed to Replace Something");
                 WriteOutput("Failed to Replace Something", Enums.LogsType.Error, "019");
-                FormState(State.Idle);
                 return;
             }
             //FormState(State.Idle); // Test Mode
             //return;
-            if (!MoveSmali(destinationPath)) return;
-            while (!MenuWorker.CancellationPending)
+            if (!MoveSmali(_outputDir)) return;
+            MenuWorker.RunWorkerAsync();
+        }
+
+        private bool MoveSmali(string destinationPath)
+        {
+            if (!MoveDirectory(TEMP_PATH_T_FIVE + "\\com", $"{destinationPath}\\smali\\com"))
+            {
+                FormState(State.Idle);
+                return false;
+            }
+            return true;
+        }
+
+        private void MenuWorker_DoWork(object sender, System.ComponentModel.DoWorkEventArgs e)
+        {
+            ProcessRun($"/c {_mySettings.txtNDK}\\build\\ndk-build", $"{TEMP_PATH_T_FIVE}\\jni", "201");
+        }
+
+        private void MenuWorker_RunWorkerCompleted(object sender, System.ComponentModel.RunWorkerCompletedEventArgs e)
+        {
+            CompileMenuDone();
+
+            if (_type is Enums.ProcessType.MenuFull)
+            {
+                FormState(State.Idle);
+                ProcessType(Enums.ProcessType.None);
+            }
+
+            if (_type is Enums.ProcessType.ApkFull1 or Enums.ProcessType.ApkFull2)
+            {
+                SetCompileApk();
+            }
+        }
+
+        private void CompileMenuDone()
+        {
+            if (_errorCount > 0 && !_mySettings.debugMode)
+            {
+                MyMessage.MsgShowError("Failed to Compile");
+                WriteOutput("Failed to Compile", Enums.LogsType.Error, "030");
+                SaveLogs();
+                ProcessType(Enums.ProcessType.None);
+                FormState(State.Idle);
+                return;
+            }
+
+            var tempOutputDir = $"{TEMP_PATH_T_FIVE}\\libs";
+            var desDir = _outputDir + "\\lib";
+            var deleteTemp = chkRemoveTemp.Checked;
+
+            MoveDirectory(tempOutputDir, desDir, true, deleteTemp);
+            if (_mySettings.chkMergeApk && _apkType is ".apks" or ".xapk")
+            {
+                var folderName = comboType.SelectedIndex == (int)Enums.TypeAbi.Arm ? "\\armeabi-v7a" : "\\arm64-v8a";
+                MoveDirectory($"{TEMP_PATH_T_FIVE}\\lib\\", desDir + folderName, false, false);
+            }
+        }
+
+        #endregion Compile Menu
+
+        #region Modify Files
+
+        private bool Replacer()
+        {
+            if (!MainActivity()) return false;
+            if (!AndroidMk()) return false;
+            if (!ApplicationMk()) return false;
+            if (!MenuString()) return false;
+            if (_type is not Enums.ProcessType.MenuFull && !ApkMainActivity()) return false;
+            if (_type is Enums.ProcessType.ApkFull1 && !OnCreate()) return false;
+            return MainHack();
+        }
+
+        #region Menu
+
+        private bool MainActivity()
+        {
+            try
+            {
+                var text = File.ReadAllText(TEMP_PATH_T_FIVE + "\\com\\tfive\\MainActivity.smali");
+                text = text.Replace("MyLibName", txtLibName.Text);
+                if (_type is Enums.ProcessType.ApkFull2)
+                {
+                    text = text.Replace("com.unity3d.player.UnityPlayerActivity", _launch);
+                }
+                File.WriteAllText(TEMP_PATH_T_FIVE + "\\com\\tfive\\MainActivity.smali", text);
+                WriteOutput("Replaced MainActivity.smali", Enums.LogsType.Success);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                MyMessage.MsgShowError("Error " + ex.Message);
+                WriteOutput(ex.Message, Enums.LogsType.Error, "023");
+                return false;
+            }
+        }
+
+        private bool AndroidMk()
+        {
+            try
+            {
+                var text = File.ReadAllText(TEMP_PATH_T_FIVE + "\\jni\\Android.mk");
+                text = text.Replace("MyLibName", txtLibName.Text);
+                File.WriteAllText(TEMP_PATH_T_FIVE + "\\jni\\Android.mk", text);
+                WriteOutput("Replaced Android.mk", Enums.LogsType.Success);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                MyMessage.MsgShowError("Error " + ex.Message);
+                WriteOutput(ex.Message, Enums.LogsType.Error, "024");
+                return false;
+            }
+        }
+
+        private bool ApplicationMk()
+        {
+            try
+            {
+                var text = File.ReadAllText(TEMP_PATH_T_FIVE + "\\jni\\Application.mk");
+
+                var type = "";
+                switch (comboType.SelectedIndex)
+                {
+                    case (int)Enums.TypeAbi.Arm:
+                        type = "armeabi-v7a";
+                        break;
+
+                    case (int)Enums.TypeAbi.Arm64:
+                        type = "arm64-v8a";
+                        break;
+                }
+
+                text = text.Replace("(ChangeABIHere)", type);
+                File.WriteAllText(TEMP_PATH_T_FIVE + "\\jni\\Application.mk", text);
+                WriteOutput("Replaced Application.mk", Enums.LogsType.Success);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                MyMessage.MsgShowError("Error " + ex.Message);
+                WriteOutput(ex.Message, Enums.LogsType.Error, "025");
+                return false;
+            }
+        }
+
+        private bool MenuString()
+        {
+            try
+            {
+                var text = File.ReadAllText(TEMP_PATH_T_FIVE + "\\jni\\Menu.h");
+                text = text.Replace("(yourName)", txtLibName.Text)
+                    .Replace("(yourSite)", txtSite.Text)
+                    .Replace("(yourText)", txtText.Text);
+                text = chkNoMenu.Checked ?
+                    text.Replace(@"return env->NewStringUTF(OBFUSCATE(""(yourImage)""));", "return NULL;")
+                    : text.Replace("(yourImage)", ImageCode);
+                text = chkTFiveCredit.Checked ? text.Replace("//(TFiveEndCredit)", @"OBFUSCATE(""0_RichWebView_<html><body><marquee style=\""color: white; font-weight:bold;\"" direction=\""left\"" scrollamount=\""5\"" behavior=\""scroll\"">TFive Tools</marquee></body></html>"")") : text;
+                File.WriteAllText(TEMP_PATH_T_FIVE + "\\jni\\Menu.h", text);
+                WriteOutput("Replaced Menu.h (Credit)", Enums.LogsType.Success);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                MyMessage.MsgShowError("Error " + ex.Message);
+                WriteOutput(ex.Message, Enums.LogsType.Error, "026");
+                return false;
+            }
+        }
+
+        #endregion Menu
+
+        #region Apk
+
+        private bool ApkMainActivity()
+        {
+            try
+            {
+                var text = File.ReadAllText($"{APK_DECOMPILED_PATH}\\AndroidManifest.xml");
+
+                text = text.Contains("<uses-permission") ?
+                    text.ReplaceFirst("<uses-permission", $"{txtPermission.Text}\n    <uses-permission") :
+                    text.ReplaceFirst("<uses-feature", $"{txtPermission.Text}\n    <uses-feature");
+
+                if (_type is Enums.ProcessType.ApkFull2)
+                {
+                    text = text.Replace(txtFind.Text, "")
+                        .Replace("<action android:name=\"android.intent.action.MAIN\" />", "")
+
+                        .Replace("</application>", $"    {_mySettings.txtActionMain}\n    </application>");
+                }
+                text = text.Replace("</application>", $"    {_mySettings.txtService}\n    </application>");
+                File.WriteAllText($"{APK_DECOMPILED_PATH}\\AndroidManifest.xml", text);
+                WriteOutput("Replaced AndroidManifest.xml", Enums.LogsType.Success);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                MyMessage.MsgShowError("Error " + ex.Message);
+                WriteOutput(ex.Message, Enums.LogsType.Error, "027");
+                return false;
+            }
+        }
+
+        private bool OnCreate()
+        {
+            try
+            {
+                var launch = $"{APK_DECOMPILED_PATH}\\{Utility.SmaliCountToName(_smaliCount)}\\" + _launch.Replace(".", "\\") + ".smali";
+
+                var text = File.ReadAllText(launch);
+                var changed = false;
+                for (var i = 0; i < 9; i++)
+                {
+                    if (text.Contains($@".method protected onCreate(Landroid/os/Bundle;)V
+    .locals {i}"))
+                    {
+                        text = text.Replace($@".method protected onCreate(Landroid/os/Bundle;)V
+    .locals {i}",
+                            ".method protected onCreate(Landroid/os/Bundle;)V" +
+                            $"\n    .locals {i}" +
+                            $"\n\n    {_mySettings.txtOnCreate}");
+                        changed = true;
+                        break;
+                    }
+                }
+
+                if (!changed)
+                {
+                    MyMessage.MsgShowError("Error Not Found onCreate Pattern");
+                    WriteOutput("Error Not Found onCreate Pattern", Enums.LogsType.Error, "043");
+                    return false;
+                }
+
+                File.WriteAllText(launch, text);
+                WriteOutput("Replaced OnCreate", Enums.LogsType.Success);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                MyMessage.MsgShowError("Error " + ex.Message);
+                WriteOutput(ex.Message, Enums.LogsType.Error, "028");
+                return false;
+            }
+        }
+
+        #endregion Apk
+
+        private bool MainHack()
+        {
+            try
+            {
+                var text = File.ReadAllText(TEMP_PATH_T_FIVE + "\\jni\\Main.cpp");
+                var memoryPatch = ModMenuPattern.MemoryPatch();
+                var newVariable = ModMenuPattern.NewVariable();
+                var newMethod = ModMenuPattern.NewMethod();
+                var hackThread64 = "";
+                var hackThread = "";
+                var toastHere = ModMenuPattern.ToastHere(listToast);
+                var featuresList = ModMenuPattern.FeaturesList();
+                var newFeatures = ModMenuPattern.NewFeatures();
+
+                if (comboType.SelectedIndex == (int)Enums.TypeAbi.Arm)
+                {
+                    hackThread = ModMenuPattern.HackThread();
+                }
+                else
+                {
+                    hackThread64 = ModMenuPattern.HackThread();
+                }
+
+                if (!string.IsNullOrWhiteSpace(toastHere))
+                {
+                    toastHere = toastHere.Remove(toastHere.LastIndexOf(Environment.NewLine, StringComparison.Ordinal));
+                }
+
+                text = text.Replace("//VariableHere", memoryPatch)
+                    .Replace("//NewVariableHere", newVariable)
+                    .Replace("//NewMethodHere", newMethod)
+                    .Replace("(yourTargetLibName)", txtTargetLib.Text)
+                    .Replace("//(hackThread64)", hackThread64)
+                    .Replace("//(hackThread)", hackThread)
+                    .Replace("//ToastHere", toastHere)
+                    .Replace("//(yourFeaturesList)", featuresList)
+                    .Replace("(yourEndCredit)", txtEndCredit.Text)
+                    .Replace("//(yourFeatures)", newFeatures);
+                File.WriteAllText(TEMP_PATH_T_FIVE + "\\jni\\Main.cpp", text);
+                WriteOutput("Replaced Main.cpp", Enums.LogsType.Success);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                MyMessage.MsgShowError("Error " + ex.Message);
+                WriteOutput(ex.Message, Enums.LogsType.Error, "029");
+                return false;
+            }
+        }
+
+        #endregion Modify Files
+
+        #region Compile Apk
+
+        private void SetCompileApk()
+        {
+            var path = $"{_outputDir}\\{txtNameGame.Text}";
+            string[] outputFile = { path + _apkType, path + "-Signed" + _apkType };
+
+            foreach (var t in outputFile)
+            {
+                if (File.Exists(t))
+                {
+                    File.Delete(t);
+                }
+            }
+
+            if (_type is Enums.ProcessType.ApkFull1 or Enums.ProcessType.ApkFull2)
+            {
+                var smaliSource = $"{_outputDir}\\smali\\com";
+                var smaliDes = $"{APK_DECOMPILED_PATH}\\{Utility.SmaliCountToName(_smaliCount, true)}\\com";
+                if (!MoveDirectory(smaliSource, smaliDes, false))
+                {
+                    WriteOutput($"Cannot Move {smaliSource}\nTo => {smaliDes}", Enums.LogsType.Error, "021");
+                    return;
+                }
+
+                if (_apkType == ".apk" || _mySettings.chkMergeApk)
+                {
+                    var folderName = comboType.SelectedIndex == (int)Enums.TypeAbi.Arm ? "armeabi-v7a" : "arm64-v8a";
+                    var libSource = $"{_outputDir}\\lib\\{folderName}";
+                    var libDes = $"{APK_DECOMPILED_PATH}\\lib\\{folderName}";
+
+                    if (!MoveDirectory(libSource, libDes, false))
+                    {
+                        WriteOutput($"Cannot Move {libSource}\nTo => {libDes}", Enums.LogsType.Error, "022");
+                        return;
+                    }
+                }
+            }
+
+            ProcessType(Enums.ProcessType.CompileApk);
+            FormState(State.Running);
+            CompileWorker.RunWorkerAsync();
+        }
+
+        private void CompileWorker_DoWork(object sender, System.ComponentModel.DoWorkEventArgs e)
+        {
+            var outputFile = "";
+            Invoke(new MethodInvoker(delegate
+            {
+                outputFile = $"{_outputDir}\\{txtNameGame.Text}.apk";
+            }));
+            ProcessRun($"/c java -jar {_apkTool}.jar b -f -o \"{outputFile}\" \"{APK_DECOMPILED_PATH}\"", BUILD_TOOL_PATH, "204");
+        }
+
+        private void CompileWorker_RunWorkerCompleted(object sender, System.ComponentModel.RunWorkerCompletedEventArgs e)
+        {
+            CompileApkDone();
+        }
+
+        private void CompileApkDone()
+        {
+            SetSignApk();
+        }
+
+        #endregion Compile Apk
+
+        #region Sign Apk
+
+        private void SetSignApk()
+        {
+            SignWorker.RunWorkerAsync();
+        }
+
+        private void SignWorker_DoWork(object sender, System.ComponentModel.DoWorkEventArgs e)
+        {
+            while (!_compiled)
+            {
+
+            }
+
+            _compiled = false;
+            var outputFile = "";
+            Invoke(new MethodInvoker(delegate
+            {
+                outputFile = $"{_outputDir}\\{txtNameGame.Text}";
+            }));
+            WriteOutput($"Compiled {outputFile}.apk", Enums.LogsType.Success);
+
+            ProcessRun($"/c java -jar ApkSigner.jar sign --key \"{BUILD_TOOL_PATH}tfive.pk8\" --cert \"{BUILD_TOOL_PATH}tfive.pem\" --v4-signing-enabled false --out \"{outputFile}-Signed.apk\" \"{outputFile}.apk\"", BUILD_TOOL_PATH, "205");
+        }
+
+        private void SignWorker_RunWorkerCompleted(object sender, System.ComponentModel.RunWorkerCompletedEventArgs e)
+        {
+            var outputFile = "";
+            Invoke(new MethodInvoker(delegate
+            {
+                outputFile = $"{_outputDir}\\{txtNameGame.Text}-Signed.apk";
+            }));
+            WriteOutput($"Signed {outputFile}", Enums.LogsType.Success);
+
+            if (_apkType != ".apk" && !_mySettings.chkMergeApk)
+            {
+                ArchiveApk();
+            }
+
+            var outputDir = $"{_outputDir}\\";
+
+            try
+            {
+                Directory.Delete(outputDir + "lib", true);
+                Directory.Delete(outputDir + "smali", true);
+            }
+            catch
+            {
+                //
+            }
+
+            FormState(State.Idle);
+            ProcessType(Enums.ProcessType.None);
+        }
+
+        private void ArchiveApk()
+        {
+            Lib2Config();
+            Apk2Apks();
+        }
+
+        private void Lib2Config()
+        {
+            var outputDir = $"{_outputDir}\\";
+            var sourceDir = $"{TEMP_PATH_T_FIVE}\\";
+            var outputFile = $"{_outputDir}\\{txtNameGame.Text}{_apkType}";
+            var outputSignedFile = $"{_outputDir}\\{txtNameGame.Text}-signed{_apkType}";
+            var fileName = _apkType switch
+            {
+                ".apks" => comboType.SelectedIndex == (int)Enums.TypeAbi.Arm
+                    ? "split_config.armeabi_v7a.apk"
+                    : "split_config.arm64_v8a.apk",
+                ".xapk" => comboType.SelectedIndex == (int)Enums.TypeAbi.Arm
+                    ? "config.armeabi_v7a.apk"
+                    : "config.arm64_v8a.apk",
+                _ => ""
+            };
+
+            File.Copy(_apkName, outputFile, true);
+            File.Copy(_apkName, outputSignedFile, true);
+            File.Copy(sourceDir + fileName, outputDir + fileName, true);
+
+            var folderName = comboType.SelectedIndex == (int)Enums.TypeAbi.Arm ? "armeabi-v7a\\" : "arm64-v8a\\";
+
+            DirectoryInfo dir = new(outputDir + "lib\\" + folderName);
+
+            using var zipToOpen = new FileStream(outputDir + fileName, FileMode.Open);
+            using var archive = new ZipArchive(zipToOpen, ZipArchiveMode.Update);
+            foreach (var file in dir.GetFiles("*"))
+            {
+                archive.CreateEntryFromFile(file.FullName, "lib\\" + folderName + file.Name);
+            }
+            archive.Dispose();
+            zipToOpen.Dispose();
+        }
+
+        private void Apk2Apks()
+        {
+            var mainFile = $"{_outputDir}\\{txtNameGame.Text}{_apkType}";
+            var mainSignedFile = $"{_outputDir}\\{txtNameGame.Text}-signed{_apkType}";
+            var apkFile = $"{_outputDir}\\{txtNameGame.Text}.apk";
+            var apkSignedFile = $"{_outputDir}\\{txtNameGame.Text}-signed.apk";
+            var outputDir = $"{_outputDir}\\";
+
+            var baseName = _apkType is ".apks" ? "base.apk" : _baseName;
+            var configName = _apkType switch
+            {
+                ".apks" => comboType.SelectedIndex == (int)Enums.TypeAbi.Arm
+                    ? "split_config.armeabi_v7a.apk"
+                    : "split_config.arm64_v8a.apk",
+                ".xapk" => comboType.SelectedIndex == (int)Enums.TypeAbi.Arm
+                    ? "config.armeabi_v7a.apk"
+                    : "config.arm64_v8a.apk",
+                _ => ""
+            };
+            var unsignList = new List<(string, string)> { (apkFile, baseName), (outputDir + configName, configName) };
+            var signedList = new List<(string, string)> { (apkSignedFile, baseName), (outputDir + configName, configName) };
+            mainFile.AddFiles(unsignList);
+            mainSignedFile.AddFiles(signedList);
+            File.Delete(outputDir + configName);
+            File.Delete(apkFile);
+            File.Delete(apkSignedFile);
+        }
+
+        #endregion Sign Apk
+
+        #region Process
+
+        private void ProcessRun(string args, string workDir, string error)
+        {
+            try
+            {
+                _errorCount = 0;
+                var process = new Process
+                {
+                    StartInfo =
+                    {
+                        FileName = "cmd.exe",
+                        Arguments = args,
+                        WindowStyle = ProcessWindowStyle.Hidden,
+                        UseShellExecute = false,
+                        RedirectStandardError = true,
+                        RedirectStandardOutput = true,
+                        ErrorDialog = false,
+                        CreateNoWindow = true,
+                        WorkingDirectory = workDir
+                    },
+                    EnableRaisingEvents = true
+                };
+                process.OutputDataReceived += OutputDataReceived;
+                process.ErrorDataReceived += ErrorDataReceived;
+                process.Start();
+                process.BeginOutputReadLine();
+                process.BeginErrorReadLine();
+                process.WaitForExit(50000);
+                process.Close();
+            }
+            catch (Exception exception)
             {
                 MenuWorker.CancelAsync();
+                WriteOutput(exception.Message, Enums.LogsType.Error, error);
             }
-            MenuWorker.RunWorkerAsync();
+        }
+
+        private void OutputDataReceived(object sender, DataReceivedEventArgs e)
+        {
+            if (e.Data.IsEmpty()) return;
+            WriteOutput(e.Data, _type.ProcessTypeToLogsType());
+            if (e.Data == "I: Built apk...")
+            {
+                _compiled = true;
+            }
+        }
+
+        private void ErrorDataReceived(object sender, DataReceivedEventArgs e)
+        {
+            if (e.Data.IsEmpty()) return;
+            if (e.Data == "fcntl(): Bad file descriptor") return;
+            _errorCount++;
+            WriteOutput(e.Data, Enums.LogsType.Error, "033");
+        }
+
+        #endregion Process
+
+        #region Utility
+
+        private void UpdatePath()
+        {
+            _outputDir = $"{AppPath}\\Output\\{txtNameGame.Text}";
         }
 
         private bool CheckEmpty()
@@ -1105,7 +1773,7 @@ namespace Tools_Injector_Mod_Menu
             {
                 if (_mySettings.chkAlwaysOverwrite)
                 {
-                    Directory.Delete(_apkTargetPath, true);
+                    Directory.Delete(APK_DECOMPILED_PATH, true);
                     return true;
                 }
 
@@ -1122,739 +1790,12 @@ namespace Tools_Injector_Mod_Menu
             return true;
         }
 
-        private bool MoveSmali(string destinationPath)
-        {
-            if (!MoveDirectory(_tempPathMenu + "\\com", $"{destinationPath}\\smali\\com"))
-            {
-                FormState(State.Idle);
-                return false;
-            }
-            return true;
-        }
-
-        private void SetDecompileApk(Enums.ProcessType type)
-        {
-            if (Directory.Exists(_apkTargetPath))
-            {
-                if (_mySettings.chkAlwaysOverwrite)
-                {
-                    Directory.Delete(_apkTargetPath, true);
-                }
-                else if (MyMessage.MsgOkCancel(_apkTargetPath + " Found.\n\n" +
-                           "Click \"OK\" to Continue if you want to overwrite!" +
-                           "\n\nClick \"Cancel\" to cancel it if not!"))
-                {
-                    Directory.Delete(_apkTargetPath, true);
-                }
-                else
-                {
-                    return;
-                }
-            }
-
-            try
-            {
-                while (!MenuWorker.CancellationPending)
-                {
-                    MenuWorker.CancelAsync();
-                }
-
-                ProcessType(type);
-                FormState(State.Running);
-                MenuWorker.RunWorkerAsync();
-            }
-            catch (Exception exception)
-            {
-                WriteOutput(exception.Message, Enums.LogsType.Error, "020");
-            }
-        }
-
-        private void SetCompileApk()
-        {
-            var path = $"{AppPath}\\Output\\{txtNameGame.Text}\\{txtNameGame.Text}";
-            string[] outputFile = { path + _apkType, path + "-Signed" + _apkType };
-
-            foreach (var t in outputFile)
-            {
-                if (File.Exists(t))
-                {
-                    File.Delete(t);
-                }
-            }
-
-            if (_type is Enums.ProcessType.ApkFull1 or Enums.ProcessType.ApkFull2)
-            {
-                var smaliSource = $"{AppPath}\\Output\\{txtNameGame.Text}\\smali\\com";
-                var smaliDes = $"{_apkTargetPath}\\{Utility.SmaliCountToName(_smaliCount, true)}\\com";
-                if (!MoveDirectory(smaliSource, smaliDes, false))
-                {
-                    FormState(State.Idle);
-                    WriteOutput($"Cannot Move {smaliSource}\nTo => {smaliDes}", Enums.LogsType.Error, "021");
-                    return;
-                }
-
-                if (_apkType == ".apk" || _mySettings.chkMergeApk)
-                {
-                    var folderName = comboType.SelectedIndex == (int)Enums.TypeAbi.Arm ? "armeabi-v7a" : "arm64-v8a";
-                    var libSource = $"{AppPath}\\Output\\{txtNameGame.Text}\\lib\\{folderName}";
-                    var libDes = $"{_apkTargetPath}\\lib\\{folderName}";
-
-                    if (!MoveDirectory(libSource, libDes, false))
-                    {
-                        FormState(State.Idle);
-                        WriteOutput($"Cannot Move {libSource}\nTo => {libDes}", Enums.LogsType.Error, "022");
-                        return;
-                    }
-                }
-            }
-
-            ProcessType(Enums.ProcessType.CompileApk);
-            FormState(State.Running);
-            MenuWorker.RunWorkerAsync();
-        }
-
-        #endregion Set Compile
-
-        #region Modify Files
-
-        private bool Replacer()
-        {
-            if (!MainActivity()) return false;
-            if (!AndroidMk()) return false;
-            if (!ApplicationMk()) return false;
-            if (!MenuString()) return false;
-            if (_type is not Enums.ProcessType.MenuFull && !ApkMainActivity()) return false;
-            if (_type is Enums.ProcessType.ApkFull1 && !OnCreate()) return false;
-            return MainHack();
-        }
-
-        #region Menu
-
-        private bool MainActivity()
-        {
-            try
-            {
-                var text = File.ReadAllText(_tempPathMenu + "\\com\\tfive\\MainActivity.smali");
-                text = text.Replace("MyLibName", txtLibName.Text);
-                if (_type is Enums.ProcessType.ApkFull2)
-                {
-                    text = text.Replace("com.unity3d.player.UnityPlayerActivity", _launch);
-                }
-                File.WriteAllText(_tempPathMenu + "\\com\\tfive\\MainActivity.smali", text);
-                WriteOutput("Replaced MainActivity.smali", Enums.LogsType.Success);
-                return true;
-            }
-            catch (Exception ex)
-            {
-                MyMessage.MsgShowError("Error " + ex.Message);
-                WriteOutput(ex.Message, Enums.LogsType.Error, "023");
-                FormState(State.Idle);
-                return false;
-            }
-        }
-
-        private bool AndroidMk()
-        {
-            try
-            {
-                var text = File.ReadAllText(_tempPathMenu + "\\jni\\Android.mk");
-                text = text.Replace("MyLibName", txtLibName.Text);
-                File.WriteAllText(_tempPathMenu + "\\jni\\Android.mk", text);
-                WriteOutput("Replaced Android.mk", Enums.LogsType.Success);
-                return true;
-            }
-            catch (Exception ex)
-            {
-                MyMessage.MsgShowError("Error " + ex.Message);
-                WriteOutput(ex.Message, Enums.LogsType.Error, "024");
-                FormState(State.Idle);
-                return false;
-            }
-        }
-
-        private bool ApplicationMk()
-        {
-            try
-            {
-                var text = File.ReadAllText(_tempPathMenu + "\\jni\\Application.mk");
-
-                var type = "";
-                switch (comboType.SelectedIndex)
-                {
-                    case (int)Enums.TypeAbi.Arm:
-                        type = "armeabi-v7a";
-                        break;
-
-                    case (int)Enums.TypeAbi.Arm64:
-                        type = "arm64-v8a";
-                        break;
-                }
-
-                text = text.Replace("(ChangeABIHere)", type);
-                File.WriteAllText(_tempPathMenu + "\\jni\\Application.mk", text);
-                WriteOutput("Replaced Application.mk", Enums.LogsType.Success);
-                return true;
-            }
-            catch (Exception ex)
-            {
-                MyMessage.MsgShowError("Error " + ex.Message);
-                WriteOutput(ex.Message, Enums.LogsType.Error, "025");
-                FormState(State.Idle);
-                return false;
-            }
-        }
-
-        private bool MenuString()
-        {
-            try
-            {
-                var text = File.ReadAllText(_tempPathMenu + "\\jni\\Menu.h");
-                text = text.Replace("(yourName)", txtLibName.Text)
-                    .Replace("(yourSite)", txtSite.Text)
-                    .Replace("(yourText)", txtText.Text);
-                text = chkNoMenu.Checked ?
-                    text.Replace(@"return env->NewStringUTF(OBFUSCATE(""(yourImage)""));", "return NULL;")
-                    : text.Replace("(yourImage)", ImageCode);
-                text = chkTFiveCredit.Checked ? text.Replace("//(TFiveEndCredit)", @"OBFUSCATE(""0_RichWebView_<html><body><marquee style=\""color: white; font-weight:bold;\"" direction=\""left\"" scrollamount=\""5\"" behavior=\""scroll\"">TFive Tools</marquee></body></html>"")") : text;
-                File.WriteAllText(_tempPathMenu + "\\jni\\Menu.h", text);
-                WriteOutput("Replaced Menu.h (Credit)", Enums.LogsType.Success);
-                return true;
-            }
-            catch (Exception ex)
-            {
-                MyMessage.MsgShowError("Error " + ex.Message);
-                WriteOutput(ex.Message, Enums.LogsType.Error, "026");
-                FormState(State.Idle);
-                return false;
-            }
-        }
-
-        #endregion Menu
-
-        #region Apk
-
-        private bool ApkMainActivity()
-        {
-            try
-            {
-                var text = File.ReadAllText(AppPath + "\\BuildTools\\ApkTarget\\AndroidManifest.xml");
-
-                text = text.Contains("<uses-permission") ?
-                    text.ReplaceFirst("<uses-permission", $"{txtPermission.Text}\n    <uses-permission") :
-                    text.ReplaceFirst("<uses-feature", $"{txtPermission.Text}\n    <uses-feature");
-
-                if (_type is Enums.ProcessType.ApkFull2)
-                {
-                    text = text.Replace(txtFind.Text, "")
-                        .Replace("<action android:name=\"android.intent.action.MAIN\" />", "")
-
-                        .Replace("</application>", $"    {_mySettings.txtActionMain}\n    </application>");
-                }
-                text = text.Replace("</application>", $"    {_mySettings.txtService}\n    </application>");
-                File.WriteAllText(AppPath + "\\BuildTools\\ApkTarget\\AndroidManifest.xml", text);
-                WriteOutput("Replaced AndroidManifest.xml", Enums.LogsType.Success);
-                return true;
-            }
-            catch (Exception ex)
-            {
-                MyMessage.MsgShowError("Error " + ex.Message);
-                WriteOutput(ex.Message, Enums.LogsType.Error, "027");
-                FormState(State.Idle);
-                return false;
-            }
-        }
-
-        private bool OnCreate()
-        {
-            try
-            {
-                var launch = $"{AppPath}\\BuildTools\\ApkTarget\\{Utility.SmaliCountToName(_smaliCount)}\\" + _launch.Replace(".", "\\") + ".smali";
-
-                var text = File.ReadAllText(launch);
-                var changed = false;
-                for (var i = 0; i < 9; i++)
-                {
-                    if (text.Contains($@".method protected onCreate(Landroid/os/Bundle;)V
-    .locals {i}"))
-                    {
-                        text = text.Replace($@".method protected onCreate(Landroid/os/Bundle;)V
-    .locals {i}",
-                            ".method protected onCreate(Landroid/os/Bundle;)V" +
-                            $"\n    .locals {i}" +
-                            $"\n\n    {_mySettings.txtOnCreate}");
-                        changed = true;
-                        break;
-                    }
-                }
-
-                if (!changed)
-                {
-                    MyMessage.MsgShowError("Error Not Found onCreate Pattern");
-                    WriteOutput("Error Not Found onCreate Pattern", Enums.LogsType.Error, "043");
-                    FormState(State.Idle);
-                    return false;
-                }
-
-                File.WriteAllText(launch, text);
-                WriteOutput("Replaced OnCreate", Enums.LogsType.Success);
-                return true;
-            }
-            catch (Exception ex)
-            {
-                MyMessage.MsgShowError("Error " + ex.Message);
-                WriteOutput(ex.Message, Enums.LogsType.Error, "028");
-                FormState(State.Idle);
-                return false;
-            }
-        }
-
-        #endregion Apk
-
-        private bool MainHack()
-        {
-            try
-            {
-                var text = File.ReadAllText(_tempPathMenu + "\\jni\\Main.cpp");
-                var memoryPatch = ModMenuPattern.MemoryPatch();
-                var newVariable = ModMenuPattern.NewVariable();
-                var newMethod = ModMenuPattern.NewMethod();
-                var hackThread64 = "";
-                var hackThread = "";
-                var toastHere = ModMenuPattern.ToastHere(listToast);
-                var featuresList = ModMenuPattern.FeaturesList();
-                var newFeatures = ModMenuPattern.NewFeatures();
-
-                if (comboType.SelectedIndex == (int)Enums.TypeAbi.Arm)
-                {
-                    hackThread = ModMenuPattern.HackThread();
-                }
-                else
-                {
-                    hackThread64 = ModMenuPattern.HackThread();
-                }
-
-                if (!string.IsNullOrWhiteSpace(toastHere))
-                {
-                    toastHere = toastHere.Remove(toastHere.LastIndexOf(Environment.NewLine, StringComparison.Ordinal));
-                }
-
-                text = text.Replace("//VariableHere", memoryPatch)
-                    .Replace("//NewVariableHere", newVariable)
-                    .Replace("//NewMethodHere", newMethod)
-                    .Replace("(yourTargetLibName)", txtTargetLib.Text)
-                    .Replace("//(hackThread64)", hackThread64)
-                    .Replace("//(hackThread)", hackThread)
-                    .Replace("//ToastHere", toastHere)
-                    .Replace("//(yourFeaturesList)", featuresList)
-                    .Replace("(yourEndCredit)", txtEndCredit.Text)
-                    .Replace("//(yourFeatures)", newFeatures);
-                File.WriteAllText(_tempPathMenu + "\\jni\\Main.cpp", text);
-                WriteOutput("Replaced Main.cpp", Enums.LogsType.Success);
-                return true;
-            }
-            catch (Exception ex)
-            {
-                MyMessage.MsgShowError("Error " + ex.Message);
-                WriteOutput(ex.Message, Enums.LogsType.Error, "029");
-                FormState(State.Idle);
-                return false;
-            }
-        }
-
-        #endregion Modify Files
-
-        #region Worker
-
-        private void compilerWorker_DoWork(object sender, System.ComponentModel.DoWorkEventArgs e)
-        {
-            if (_type is Enums.ProcessType.MenuFull or Enums.ProcessType.ApkFull1 or Enums.ProcessType.ApkFull2)
-            {
-                ProcessRun($"/c {_mySettings.txtNDK}\\build\\ndk-build", $"{_tempPathMenu}\\jni", "201");
-            }
-
-            if (_type is Enums.ProcessType.DumpApk)
-            {
-                ProcessRun($"/c aapt dump badging \"{_apkTarget}\" PAUSE > \"{_tempPathMenu}\\result.txt\"",
-                    $"{AppPath}\\BuildTools\\", "202");
-            }
-
-            if (_type is Enums.ProcessType.DecompileApk or Enums.ProcessType.ApkFull1Decompile or Enums.ProcessType.ApkFull2Decompile)
-            {
-                ProcessRun($"/c java -jar {_apkTool}.jar d {_apkTarget}", $"{AppPath}\\BuildTools\\", "203");
-            }
-
-            if (_type is Enums.ProcessType.CompileApk)
-            {
-                ProcessRun($"/c java -jar {_apkTool}.jar b ApkTarget", $"{AppPath}\\BuildTools\\", "204");
-            }
-        }
-
-        private void compilerWorker_RunWorkerCompleted(object sender, System.ComponentModel.RunWorkerCompletedEventArgs e)
-        {
-            if (_type is Enums.ProcessType.MenuFull or Enums.ProcessType.ApkFull1 or Enums.ProcessType.ApkFull2)
-            {
-                CompileMenuDone();
-
-                if (_type is Enums.ProcessType.MenuFull)
-                {
-                    FormState(State.Idle);
-                    ProcessType(Enums.ProcessType.None);
-                }
-            }
-
-            if (_type is Enums.ProcessType.ApkFull1 or Enums.ProcessType.ApkFull2 or Enums.ProcessType.CompileApk)
-            {
-                SetCompileApk();
-            }
-
-            if (_type is Enums.ProcessType.DumpApk)
-            {
-                DumpApkDone();
-            }
-
-            if (_type is Enums.ProcessType.DecompileApk or Enums.ProcessType.ApkFull1Decompile or Enums.ProcessType.ApkFull2Decompile)
-            {
-                DecompileApkDone();
-            }
-
-            if (_type is Enums.ProcessType.CompileApk)
-            {
-                CompileApkDone();
-            }
-        }
-
-        private void ProcessRun(string args, string workDir, string error)
-        {
-            try
-            {
-                _compile = 0;
-                var process = new Process
-                {
-                    StartInfo =
-                    {
-                        FileName = "cmd.exe",
-                        Arguments = args,
-                        WindowStyle = ProcessWindowStyle.Hidden,
-                        UseShellExecute = false,
-                        RedirectStandardError = true,
-                        RedirectStandardOutput = true,
-                        ErrorDialog = false,
-                        CreateNoWindow = true,
-                        WorkingDirectory = workDir
-                    },
-                    EnableRaisingEvents = true
-                };
-                process.OutputDataReceived += OutputDataReceived;
-                process.ErrorDataReceived += ErrorDataReceived;
-                process.Start();
-                process.BeginOutputReadLine();
-                process.BeginErrorReadLine();
-                process.WaitForExit(50000);
-                process.Close();
-            }
-            catch (Exception exception)
-            {
-                MenuWorker.CancelAsync();
-                WriteOutput(exception.Message, Enums.LogsType.Error, error);
-                FormState(State.Idle);
-            }
-        }
-
-        private void CompileMenuDone()
-        {
-            if (_compile > 0 && !_mySettings.debugMode)
-            {
-                MyMessage.MsgShowError("Failed to Compile");
-                WriteOutput("Failed to Compile", Enums.LogsType.Error, "030");
-                SaveLogs();
-                ProcessType(Enums.ProcessType.None);
-                FormState(State.Idle);
-                return;
-            }
-
-            var tempOutputDir = $"{_tempPathMenu}\\libs";
-            var desDir = AppPath + "\\Output\\" + txtNameGame.Text + "\\lib";
-            var deleteTemp = chkRemoveTemp.Checked;
-
-            MoveDirectory(tempOutputDir, desDir, true, deleteTemp);
-            if (_mySettings.chkMergeApk && _apkType is ".apks" or ".xapk")
-            {
-                var folderName = comboType.SelectedIndex == (int)Enums.TypeAbi.Arm ? "\\armeabi-v7a" : "\\arm64-v8a";
-                MoveDirectory($"{_tempPathMenu}\\lib\\", desDir + folderName, false, false);
-            }
-        }
-
-        private void DumpApkDone()
-        {
-            var activity = File.ReadAllText($"{_tempPathMenu}\\result.txt");
-
-            _launch = activity.GetBetween("launchable-activity: name='", "'");
-            var appName = activity.GetBetween("application-label:'", "'");
-            var appVersion = activity.GetBetween("versionName='", "'");
-
-            lbApk.Text = $"App Name: {appName}\n\n" +
-                         $"Version: {appVersion}\n\n" +
-                         $"Launch: {_launch}";
-
-            if (_compile > 0 && !_mySettings.debugMode)
-            {
-                MyMessage.MsgShowError("Failed to Dump");
-                WriteOutput("Failed to Dump", Enums.LogsType.Error, "031");
-                SaveLogs();
-            }
-            FormState(State.Idle);
-            ProcessType(Enums.ProcessType.None);
-        }
-
-        private void DecompileApkDone()
-        {
-            GetSmailiCount();
-            WriteOutput("Decompiled APK file", Enums.LogsType.Success);
-            if (_type is Enums.ProcessType.DecompileApk)
-            {
-                FormState(State.Idle);
-                ProcessType(Enums.ProcessType.None);
-                return;
-            }
-
-            if (_type is Enums.ProcessType.ApkFull1Decompile)
-            {
-                ProcessType(Enums.ProcessType.ApkFull1);
-            }
-            if (_type is Enums.ProcessType.ApkFull2Decompile)
-            {
-                ProcessType(Enums.ProcessType.ApkFull2);
-            }
-
-            if (_mySettings.chkMergeApk && _apkType != ".apk")
-            {
-                if (!DeleteAll(_tempPathMenu + "\\lib")) return;
-                string fileName;
-                if (comboType.SelectedIndex == (int)Enums.TypeAbi.Arm)
-                {
-                    fileName = _apkType == ".apks" ? "\\split_config.armeabi_v7a.apk" : "\\config.armeabi_v7a.apk";
-                }
-                else
-                {
-                    fileName = _apkType == ".apks" ? "\\split_config.arm64_v8a.apk" : "\\config.arm64_v8a.apk";
-                }
-
-                using var archive = ZipFile.OpenRead(_tempPathMenu + fileName);
-                foreach (var entry in archive.Entries.Where(cur => Path.GetDirectoryName(cur.FullName).StartsWith("lib")))
-                {
-                    var path = Path.Combine(_tempPathMenu, "lib");
-                    if (!Directory.Exists(path))
-                    {
-                        Directory.CreateDirectory(path);
-                    }
-                    entry.ExtractToFile(Path.Combine(path, entry.Name));
-                }
-            }
-
-            DeleteDecompiledLib();
-            FullCompile();
-        }
-
-        private void DeleteDecompiledLib()
-        {
-            var sourcePath = $"{AppPath}\\BuildTools\\ApkTarget\\lib\\";
-            var folderName = comboType.SelectedIndex == (int)Enums.TypeAbi.Arm ? "arm64-v8a" : "armeabi-v7a";
-            if (comboType.SelectedIndex == (int)Enums.TypeAbi.Arm)
-            {
-                try
-                {
-                    if (Directory.Exists(sourcePath + folderName))
-                    {
-                        Directory.Delete(sourcePath + folderName, true);
-                    }
-                }
-                catch (Exception exception)
-                {
-                    WriteOutput($"Can not Delete {sourcePath + folderName} " + exception.Message, Enums.LogsType.Error, "032");
-                }
-            }
-        }
-
-        private void CompileApkDone()
-        {
-            var apkPath = $"{AppPath}\\BuildTools\\ApkTarget\\dist\\ApkTarget.apk";
-            var outputFile = $"{AppPath}\\Output\\{txtNameGame.Text}\\{txtNameGame.Text}.apk";
-            var apkTempPath = $"{AppPath}\\BuildTools\\ApkTarget\\dist\\ApkTarget.apk.apktool_temp";
-            Directory.CreateDirectory($"{AppPath}\\Output\\{txtNameGame.Text}");
-
-            if (!File.Exists(apkPath))
-            {
-                return;
-            }
-
-            while (File.Exists(apkPath) && File.Exists(apkTempPath))
-            {
-            }
-
-            try
-            {
-                File.Copy(apkPath, outputFile, true);
-                if (ZipFile.OpenRead(outputFile).Entries.Count > 1)
-                {
-                    WriteOutput($"Compiled {outputFile}", Enums.LogsType.Success);
-                    SignWorker.RunWorkerAsync();
-                }
-            }
-            catch
-            {
-                FormState(State.Idle);
-                WriteOutput("Error can not compile the apk", Enums.LogsType.Error, "044");
-            }
-        }
-
-        private void ApkWorker_DoWork(object sender, System.ComponentModel.DoWorkEventArgs e)
-        {
-            var outputFile = "";
-            Invoke(new MethodInvoker(delegate
-            {
-                outputFile = $"{AppPath}\\Output\\{txtNameGame.Text}\\{txtNameGame.Text}";
-            }));
-
-            if (!File.Exists(outputFile + ".apk"))
-            {
-                MyMessage.MsgShowWarning($"{outputFile} Not found, Please Check it again!!!");
-                return;
-            }
-            ProcessRun($"/c java -jar ApkSigner.jar sign --key tfive.pk8 --cert tfive.pem --v4-signing-enabled false --out \"{outputFile}-Signed.apk\" \"{outputFile}.apk\"", $"{AppPath}\\BuildTools\\", "205");
-        }
-
-        private void ApkWorker_RunWorkerCompleted(object sender, System.ComponentModel.RunWorkerCompletedEventArgs e)
-        {
-            var outputFile = "";
-            Invoke(new MethodInvoker(delegate
-            {
-                outputFile = $"{AppPath}\\Output\\{txtNameGame.Text}\\{txtNameGame.Text}-Signed.apk";
-            }));
-            WriteOutput($"Signed {outputFile}", Enums.LogsType.Success);
-
-            if (_apkType != ".apk" && !_mySettings.chkMergeApk)
-            {
-                ArchiveApk();
-            }
-
-            var outputDir = $"{AppPath}\\Output\\{txtNameGame.Text}\\";
-
-            try
-            {
-                Directory.Delete(outputDir + "lib", true);
-                Directory.Delete(outputDir + "smali", true);
-            }
-            catch
-            {
-                //
-            }
-
-            FormState(State.Idle);
-            ProcessType(Enums.ProcessType.None);
-        }
-
-        private void ArchiveApk()
-        {
-            Lib2Config();
-            Apk2Apks();
-        }
-
-        private void Lib2Config()
-        {
-            var outputDir = $"{AppPath}\\Output\\{txtNameGame.Text}\\";
-            var sourceDir = $"{_tempPathMenu}\\";
-            var outputFile = $"{AppPath}\\Output\\{txtNameGame.Text}\\{txtNameGame.Text}{_apkType}";
-            var outputSignedFile = $"{AppPath}\\Output\\{txtNameGame.Text}\\{txtNameGame.Text}-signed{_apkType}";
-            var fileName = _apkType switch
-            {
-                ".apks" => comboType.SelectedIndex == (int)Enums.TypeAbi.Arm
-                    ? "split_config.armeabi_v7a.apk"
-                    : "split_config.arm64_v8a.apk",
-                ".xapk" => comboType.SelectedIndex == (int)Enums.TypeAbi.Arm
-                    ? "config.armeabi_v7a.apk"
-                    : "config.arm64_v8a.apk",
-                _ => ""
-            };
-
-            File.Copy(_apkName, outputFile, true);
-            File.Copy(_apkName, outputSignedFile, true);
-            File.Copy(sourceDir + fileName, outputDir + fileName, true);
-
-            var folderName = comboType.SelectedIndex == (int)Enums.TypeAbi.Arm ? "armeabi-v7a\\" : "arm64-v8a\\";
-
-            DirectoryInfo dir = new(outputDir + "lib\\" + folderName);
-
-            using var zipToOpen = new FileStream(outputDir + fileName, FileMode.Open);
-            using var archive = new ZipArchive(zipToOpen, ZipArchiveMode.Update);
-            foreach (var file in dir.GetFiles("*"))
-            {
-                archive.CreateEntryFromFile(file.FullName, "lib\\" + folderName + file.Name);
-            }
-            archive.Dispose();
-            zipToOpen.Dispose();
-        }
-
-        private void Apk2Apks()
-        {
-            var mainFile = $"{AppPath}\\Output\\{txtNameGame.Text}\\{txtNameGame.Text}{_apkType}";
-            var mainSignedFile = $"{AppPath}\\Output\\{txtNameGame.Text}\\{txtNameGame.Text}-signed{_apkType}";
-            var apkFile = $"{AppPath}\\Output\\{txtNameGame.Text}\\{txtNameGame.Text}.apk";
-            var apkSignedFile = $"{AppPath}\\Output\\{txtNameGame.Text}\\{txtNameGame.Text}-signed.apk";
-            var outputDir = $"{AppPath}\\Output\\{txtNameGame.Text}\\";
-
-            var baseName = _apkType is ".apks" ? "base.apk" : _baseName;
-            var configName = _apkType switch
-            {
-                ".apks" => comboType.SelectedIndex == (int)Enums.TypeAbi.Arm
-                    ? "split_config.armeabi_v7a.apk"
-                    : "split_config.arm64_v8a.apk",
-                ".xapk" => comboType.SelectedIndex == (int)Enums.TypeAbi.Arm
-                    ? "config.armeabi_v7a.apk"
-                    : "config.arm64_v8a.apk",
-                _ => ""
-            };
-            var unsignList = new List<(string, string)> { (apkFile, baseName), (outputDir + configName, configName) };
-            var signedList = new List<(string, string)> { (apkSignedFile, baseName), (outputDir + configName, configName) };
-            mainFile.AddFiles(unsignList);
-            mainSignedFile.AddFiles(signedList);
-            File.Delete(outputDir + configName);
-            File.Delete(apkFile);
-            File.Delete(apkSignedFile);
-        }
-
-        private void GetSmailiCount()
-        {
-            _smaliCount = 0;
-            var directory = new DirectoryInfo($"{_apkTargetPath}");
-            foreach (var dir in directory.GetDirectories())
-            {
-                if (dir.Name.StartsWith("smali") && !dir.Name.StartsWith("smali_assets"))
-                {
-                    _smaliCount++;
-                }
-            }
-        }
-
-        private void OutputDataReceived(object sender, DataReceivedEventArgs e)
-        {
-            if (e.Data.IsEmpty()) return;
-            WriteOutput(e.Data, Enums.LogsType.Compile);
-        }
-
-        private void ErrorDataReceived(object sender, DataReceivedEventArgs e)
-        {
-            if (e.Data.IsEmpty()) return;
-            if (e.Data == "fcntl(): Bad file descriptor") return;
-            _compile++;
-            WriteOutput(e.Data, Enums.LogsType.Error, "033");
-        }
-
-        #endregion Worker
-
         private static void ProcessType(Enums.ProcessType type)
         {
             _type = type;
         }
+
+        #endregion Utility
 
         #endregion Compile Page
 
@@ -1899,30 +1840,13 @@ namespace Tools_Injector_Mod_Menu
 
         private void WriteOutput(string str, Enums.LogsType type, string errorNum = null)
         {
-            if (!chkLogsComplie.Checked && type == Enums.LogsType.Compile)
-            {
-                return;
-            }
-            if (!chkLogsSuccess.Checked && type == Enums.LogsType.Success)
-            {
-                return;
-            }
-            if (!chkLogsWarning.Checked && type == Enums.LogsType.Warning)
-            {
-                return;
-            }
-            if (!chkLogsError.Checked && type == Enums.LogsType.Error)
-            {
-                return;
-            }
-
             var time = "{" + DateTime.Now.ToString("HH:mm:ss tt") + "} ";
             Invoke(new MethodInvoker(delegate
             {
                 switch (type)
                 {
-                    case Enums.LogsType.Compile:
-                        TextToLogs(time + str + Environment.NewLine, "[Compile] ", Color.DodgerBlue);
+                    case Enums.LogsType.CompileMenu:
+                        TextToLogs(time + str + Environment.NewLine, "[Compile Menu] ", Color.DodgerBlue);
                         break;
 
                     case Enums.LogsType.Success:
@@ -1934,11 +1858,24 @@ namespace Tools_Injector_Mod_Menu
                         break;
 
                     case Enums.LogsType.Error:
+                        FormState(State.Idle);
                         TextToLogs(time + str + Environment.NewLine, $"[Error:{errorNum}] ", Color.Red);
                         break;
 
+                    case Enums.LogsType.Dump:
+                        TextToLogs(time + str + Environment.NewLine, "[Dump Apk] ", Color.SlateBlue);
+                        break;
+
+                    case Enums.LogsType.Decompile:
+                        TextToLogs(time + str + Environment.NewLine, "[Decompile Apk] ", Color.DarkSalmon);
+                        break;
+
+                    case Enums.LogsType.CompileApk:
+                        TextToLogs(time + str + Environment.NewLine, "[Compile Apk] ", Color.DeepPink);
+                        break;
+                        
                     case Enums.LogsType.Logs:
-                        TextToLogs(time + str + Environment.NewLine, "[Logs] ", Color.MediumPurple);
+                        TextToLogs(time + str + Environment.NewLine, "[Logs] ", Color.Gold);
                         break;
 
                     default:
@@ -2041,10 +1978,6 @@ namespace Tools_Injector_Mod_Menu
 
                     _mySettings.chkRemoveTemp = chkRemoveTemp.Checked;
                     _mySettings.chkTFiveCredit = chkTFiveCredit.Checked;
-                    _mySettings.chkLogsComplie = chkLogsComplie.Checked;
-                    _mySettings.chkLogsSuccess = chkLogsSuccess.Checked;
-                    _mySettings.chkLogsError = chkLogsError.Checked;
-                    _mySettings.chkLogsWarning = chkLogsWarning.Checked;
                     _mySettings.chkSound = chkSound.Checked;
                     _mySettings.chkCheckUpdate = chkCheckUpdate.Checked;
                     _mySettings.chkAlwaysOverwrite = chkAlwaysOverwrite.Checked;
@@ -2114,7 +2047,6 @@ namespace Tools_Injector_Mod_Menu
             {
                 WriteOutput($"{ex.Message}", Enums.LogsType.Error, "036");
             }
-            FormState(State.Idle);
         }
 
         private void FrmMain_DragEnter(object sender, DragEventArgs e)
@@ -2159,7 +2091,6 @@ namespace Tools_Injector_Mod_Menu
             {
                 MyMessage.MsgShowError("Error " + ex.Message);
                 WriteOutput(ex.Message, Enums.LogsType.Error, "037");
-                FormState(State.Idle);
                 return false;
             }
         }
@@ -2179,7 +2110,6 @@ namespace Tools_Injector_Mod_Menu
             {
                 MyMessage.MsgShowError("Error " + ex.Message);
                 WriteOutput(ex.Message, Enums.LogsType.Error, "038");
-                FormState(State.Idle);
                 return false;
             }
         }
@@ -2226,14 +2156,12 @@ namespace Tools_Injector_Mod_Menu
                 }
 
                 WriteOutput($"Can not Move {sourceDirectory}{Environment.NewLine}To => {destinationPath}", Enums.LogsType.Error, "039");
-                FormState(State.Idle);
                 return false;
             }
             catch (Exception ex)
             {
                 MyMessage.MsgShowError("Error " + ex.Message);
                 WriteOutput(ex.Message, Enums.LogsType.Error, "040");
-                FormState(State.Idle);
                 return false;
             }
         }
@@ -2271,7 +2199,6 @@ namespace Tools_Injector_Mod_Menu
             {
                 MyMessage.MsgShowError("Error " + ex.Message);
                 WriteOutput(ex.Message, Enums.LogsType.Error, "041");
-                FormState(State.Idle);
                 return false;
             }
         }
