@@ -1503,7 +1503,7 @@ namespace Tools_Injector_Mod_Menu
                 {
                     var folderName = comboType.SelectedIndex == (int)Enums.TypeAbi.Arm ? "armeabi-v7a" : "arm64-v8a";
                     var libSource = _outputLibDir + folderName;
-                    var libDes = $"{APK_DECOMPILED_PATH}lib\\{folderName}";
+                    var libDes = $"{APK_DECOMPILED_PATH}\\lib\\{folderName}";
 
                     if (!MoveDirectory(libSource, libDes, false))
                     {
