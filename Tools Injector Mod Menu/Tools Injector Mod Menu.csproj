@@ -186,6 +186,7 @@
     <None Include="Resources\folder-7-24.png" />
     <None Include="Resources\tool-box-24.png" />
     <None Include="Resources\note-2-24.png" />
+    <None Include="Resources\github.png" />
     <Content Include="T5 - 32.ico" />
   </ItemGroup>
   <ItemGroup>

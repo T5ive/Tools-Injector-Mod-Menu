@@ -19,11 +19,10 @@ using Application = System.Windows.Forms.Application;
 
 namespace Tools_Injector_Mod_Menu
 {
-    //Fix Dump Compile Decompile Sign
-    //Fix button hook
-    //Wire Frame & Color Chams
-    //Telekill?
-    //String, Decimal
+    //Fix button hook - unsolvable
+    //Add Wire Frame & Color Chams - 7Hackers
+    //Add Telekill - 7Hackers
+    //Add String https://github.com/geokar2006/il2cpp_mono_string/
     public partial class FrmMain : MaterialForm
     {
         public FrmMain()
@@ -182,6 +181,7 @@ namespace Tools_Injector_Mod_Menu
             chkCheckUpdate.Checked = _mySettings.chkCheckUpdate;
             chkAlwaysOverwrite.Checked = _mySettings.chkAlwaysOverwrite;
             chkMergeApk.Checked = _mySettings.chkMergeApk;
+            chkOpenOutput.Checked = _mySettings.chkOpenOutput;
 
             txtNDK.Text = _mySettings.txtNDK;
 
@@ -216,7 +216,7 @@ namespace Tools_Injector_Mod_Menu
         {
             try
             {
-                if (chkCheckUpdate.Checked)
+                if (_mySettings.chkCheckUpdate)
                 {
                     await UpdateService.CheckGitHubNewerVersion(true).ConfigureAwait(false);
                 }
@@ -1187,6 +1187,10 @@ namespace Tools_Injector_Mod_Menu
             {
                 FormState(State.Idle);
                 ProcessType(Enums.ProcessType.None);
+                if (_mySettings.chkOpenOutput)
+                {
+                    Process.Start(_outputDir);
+                }
             }
 
             if (_type is Enums.ProcessType.ApkFull1 or Enums.ProcessType.ApkFull2)
@@ -1209,7 +1213,7 @@ namespace Tools_Injector_Mod_Menu
 
             var tempOutputDir = $"{TEMP_PATH_T_FIVE}\\libs";
             var desDir = _outputDir + "\\lib";
-            var deleteTemp = chkRemoveTemp.Checked;
+            var deleteTemp = _mySettings.chkRemoveTemp;
 
             MoveDirectory(tempOutputDir, desDir, true, deleteTemp);
             if (_mySettings.chkMergeApk && _apkType is ".apks" or ".xapk")
@@ -1315,10 +1319,10 @@ namespace Tools_Injector_Mod_Menu
                 text = text.Replace("(yourName)", txtLibName.Text)
                     .Replace("(yourSite)", txtSite.Text)
                     .Replace("(yourText)", txtText.Text);
-                text = chkNoMenu.Checked ?
+                text = _mySettings.chkNoMenu ?
                     text.Replace(@"return env->NewStringUTF(OBFUSCATE(""(yourImage)""));", "return NULL;")
                     : text.Replace("(yourImage)", ImageCode);
-                text = chkTFiveCredit.Checked ? text.Replace("//(TFiveEndCredit)", @"OBFUSCATE(""0_RichWebView_<html><body><marquee style=\""color: white; font-weight:bold;\"" direction=\""left\"" scrollamount=\""5\"" behavior=\""scroll\"">TFive Tools</marquee></body></html>"")") : text;
+                text = _mySettings.chkTFiveCredit ? text.Replace("//(TFiveEndCredit)", @"OBFUSCATE(""0_RichWebView_<html><body><marquee style=\""color: white; font-weight:bold;\"" direction=\""left\"" scrollamount=\""5\"" behavior=\""scroll\"">TFive Tools</marquee></body></html>"")") : text;
                 File.WriteAllText(TEMP_PATH_T_FIVE + "\\jni\\Menu.h", text);
                 WriteOutput("Replaced Menu.h (Credit)", Enums.LogsType.Success);
                 return true;
@@ -1579,6 +1583,10 @@ namespace Tools_Injector_Mod_Menu
 
             FormState(State.Idle);
             ProcessType(Enums.ProcessType.None);
+            if (_mySettings.chkOpenOutput)
+            {
+                Process.Start(_outputDir);
+            }
         }
 
         private void ArchiveApk()
@@ -1736,7 +1744,7 @@ namespace Tools_Injector_Mod_Menu
                 return false;
             }
 
-            if (!chkNoMenu.Checked && ImageCode.IsEmpty())
+            if (!_mySettings.chkNoMenu && ImageCode.IsEmpty())
             {
                 MyMessage.MsgShowWarning("Image Code is Empty, Please Check it again!!!");
                 WriteOutput("Image Code is Empty", Enums.LogsType.Warning);
@@ -1985,6 +1993,7 @@ namespace Tools_Injector_Mod_Menu
                     _mySettings.chkCheckUpdate = chkCheckUpdate.Checked;
                     _mySettings.chkAlwaysOverwrite = chkAlwaysOverwrite.Checked;
                     _mySettings.chkMergeApk = chkMergeApk.Checked;
+                    _mySettings.chkOpenOutput = chkOpenOutput.Checked;
                     _mySettings.Save();
                     WriteOutput("Saved Settings", Enums.LogsType.Success);
                 }

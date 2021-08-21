@@ -38,7 +38,6 @@ namespace Tools_Injector_Mod_Menu
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.chkNoMenu = new MaterialSkin.Controls.MaterialCheckbox();
             this.label12 = new System.Windows.Forms.Label();
-            this.picImg = new System.Windows.Forms.PictureBox();
             this.btnImageCode = new MaterialSkin.Controls.MaterialButton();
             this.btnImage = new MaterialSkin.Controls.MaterialButton();
             this.label8 = new System.Windows.Forms.Label();
@@ -132,6 +131,7 @@ namespace Tools_Injector_Mod_Menu
             this.btnSaveSettings2 = new MaterialSkin.Controls.MaterialButton();
             this.materialCard5 = new MaterialSkin.Controls.MaterialCard();
             this.groupBox8 = new System.Windows.Forms.GroupBox();
+            this.chkOpenOutput = new MaterialSkin.Controls.MaterialCheckbox();
             this.chkMergeApk = new MaterialSkin.Controls.MaterialCheckbox();
             this.chkAlwaysOverwrite = new MaterialSkin.Controls.MaterialCheckbox();
             this.chkCheckUpdate = new MaterialSkin.Controls.MaterialCheckbox();
@@ -158,11 +158,11 @@ namespace Tools_Injector_Mod_Menu
             this.DumpWorker = new System.ComponentModel.BackgroundWorker();
             this.DecompileWorker = new System.ComponentModel.BackgroundWorker();
             this.CompileWorker = new System.ComponentModel.BackgroundWorker();
+            this.picImg = new System.Windows.Forms.PictureBox();
             this.materialTabControl1.SuspendLayout();
             this.tabMain.SuspendLayout();
             this.materialCard4.SuspendLayout();
             this.groupBox4.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.picImg)).BeginInit();
             this.materialCard6.SuspendLayout();
             this.groupBox6.SuspendLayout();
             this.materialCard3.SuspendLayout();
@@ -201,6 +201,7 @@ namespace Tools_Injector_Mod_Menu
             this.groupBox2.SuspendLayout();
             this.materialCard1.SuspendLayout();
             this.groupBox1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.picImg)).BeginInit();
             this.SuspendLayout();
             // 
             // materialTabControl1
@@ -322,16 +323,6 @@ namespace Tools_Injector_Mod_Menu
             this.label12.Size = new System.Drawing.Size(23, 18);
             this.label12.TabIndex = 22;
             this.label12.Text = "Or";
-            // 
-            // picImg
-            // 
-            this.picImg.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.picImg.Location = new System.Drawing.Point(15, 243);
-            this.picImg.Name = "picImg";
-            this.picImg.Size = new System.Drawing.Size(75, 75);
-            this.picImg.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.picImg.TabIndex = 20;
-            this.picImg.TabStop = false;
             // 
             // btnImageCode
             // 
@@ -965,7 +956,7 @@ namespace Tools_Injector_Mod_Menu
             // 
             this.txtTargetLib.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.txtTargetLib.Depth = 0;
-            this.txtTargetLib.Font = new System.Drawing.Font("Roboto", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.txtTargetLib.Font = new System.Drawing.Font("Roboto", 12F);
             this.txtTargetLib.Hint = "libil2cpp.so";
             this.txtTargetLib.LeadingIcon = null;
             this.txtTargetLib.Location = new System.Drawing.Point(615, 25);
@@ -1458,7 +1449,7 @@ namespace Tools_Injector_Mod_Menu
             // 
             this.txtPermission.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.txtPermission.Depth = 0;
-            this.txtPermission.Font = new System.Drawing.Font("Roboto", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.txtPermission.Font = new System.Drawing.Font("Roboto", 12F);
             this.txtPermission.LeadingIcon = null;
             this.txtPermission.Location = new System.Drawing.Point(6, 33);
             this.txtPermission.MaxLength = 3000;
@@ -1520,7 +1511,7 @@ namespace Tools_Injector_Mod_Menu
             // 
             this.txtService.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.txtService.Depth = 0;
-            this.txtService.Font = new System.Drawing.Font("Roboto", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.txtService.Font = new System.Drawing.Font("Roboto", 12F);
             this.txtService.LeadingIcon = null;
             this.txtService.Location = new System.Drawing.Point(6, 81);
             this.txtService.MaxLength = 3000;
@@ -1623,7 +1614,7 @@ namespace Tools_Injector_Mod_Menu
             // 
             this.txtFind.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.txtFind.Depth = 0;
-            this.txtFind.Font = new System.Drawing.Font("Roboto", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.txtFind.Font = new System.Drawing.Font("Roboto", 12F);
             this.txtFind.LeadingIcon = null;
             this.txtFind.Location = new System.Drawing.Point(6, 22);
             this.txtFind.MaxLength = 3000;
@@ -1713,7 +1704,7 @@ namespace Tools_Injector_Mod_Menu
             // 
             this.txtOnCreate.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.txtOnCreate.Depth = 0;
-            this.txtOnCreate.Font = new System.Drawing.Font("Roboto", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.txtOnCreate.Font = new System.Drawing.Font("Roboto", 12F);
             this.txtOnCreate.LeadingIcon = null;
             this.txtOnCreate.Location = new System.Drawing.Point(6, 25);
             this.txtOnCreate.MaxLength = 3000;
@@ -1774,12 +1765,12 @@ namespace Tools_Injector_Mod_Menu
             this.btnSaveSettings2.Depth = 0;
             this.btnSaveSettings2.HighEmphasis = true;
             this.btnSaveSettings2.Icon = null;
-            this.btnSaveSettings2.Location = new System.Drawing.Point(397, 378);
+            this.btnSaveSettings2.Location = new System.Drawing.Point(397, 380);
             this.btnSaveSettings2.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
             this.btnSaveSettings2.MouseState = MaterialSkin.MouseState.HOVER;
             this.btnSaveSettings2.Name = "btnSaveSettings2";
             this.btnSaveSettings2.NoAccentTextColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(81)))), ((int)(((byte)(181)))));
-            this.btnSaveSettings2.Size = new System.Drawing.Size(386, 102);
+            this.btnSaveSettings2.Size = new System.Drawing.Size(386, 100);
             this.btnSaveSettings2.TabIndex = 22;
             this.btnSaveSettings2.Text = "Save Settings";
             this.btnSaveSettings2.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
@@ -1803,6 +1794,7 @@ namespace Tools_Injector_Mod_Menu
             // 
             // groupBox8
             // 
+            this.groupBox8.Controls.Add(this.chkOpenOutput);
             this.groupBox8.Controls.Add(this.chkMergeApk);
             this.groupBox8.Controls.Add(this.chkAlwaysOverwrite);
             this.groupBox8.Controls.Add(this.chkCheckUpdate);
@@ -1817,6 +1809,23 @@ namespace Tools_Injector_Mod_Menu
             this.groupBox8.TabIndex = 4;
             this.groupBox8.TabStop = false;
             this.groupBox8.Text = "Tools Settings";
+            // 
+            // chkOpenOutput
+            // 
+            this.chkOpenOutput.AutoSize = true;
+            this.chkOpenOutput.Checked = true;
+            this.chkOpenOutput.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkOpenOutput.Depth = 0;
+            this.chkOpenOutput.Location = new System.Drawing.Point(128, 22);
+            this.chkOpenOutput.Margin = new System.Windows.Forms.Padding(0);
+            this.chkOpenOutput.MouseLocation = new System.Drawing.Point(-1, -1);
+            this.chkOpenOutput.MouseState = MaterialSkin.MouseState.HOVER;
+            this.chkOpenOutput.Name = "chkOpenOutput";
+            this.chkOpenOutput.Ripple = true;
+            this.chkOpenOutput.Size = new System.Drawing.Size(221, 37);
+            this.chkOpenOutput.TabIndex = 22;
+            this.chkOpenOutput.Text = "Open Output after compile";
+            this.chkOpenOutput.UseVisualStyleBackColor = true;
             // 
             // chkMergeApk
             // 
@@ -1905,7 +1914,7 @@ namespace Tools_Injector_Mod_Menu
             this.chkTFiveCredit.Checked = true;
             this.chkTFiveCredit.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkTFiveCredit.Depth = 0;
-            this.chkTFiveCredit.Location = new System.Drawing.Point(185, 22);
+            this.chkTFiveCredit.Location = new System.Drawing.Point(198, 59);
             this.chkTFiveCredit.Margin = new System.Windows.Forms.Padding(0);
             this.chkTFiveCredit.MouseLocation = new System.Drawing.Point(-1, -1);
             this.chkTFiveCredit.MouseState = MaterialSkin.MouseState.HOVER;
@@ -1925,7 +1934,7 @@ namespace Tools_Injector_Mod_Menu
             this.btnUpdate.Depth = 0;
             this.btnUpdate.HighEmphasis = true;
             this.btnUpdate.Icon = null;
-            this.btnUpdate.Location = new System.Drawing.Point(397, 324);
+            this.btnUpdate.Location = new System.Drawing.Point(397, 326);
             this.btnUpdate.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
             this.btnUpdate.MouseState = MaterialSkin.MouseState.HOVER;
             this.btnUpdate.Name = "btnUpdate";
@@ -2069,7 +2078,7 @@ namespace Tools_Injector_Mod_Menu
             this.materialCard2.MouseState = MaterialSkin.MouseState.HOVER;
             this.materialCard2.Name = "materialCard2";
             this.materialCard2.Padding = new System.Windows.Forms.Padding(14);
-            this.materialCard2.Size = new System.Drawing.Size(386, 159);
+            this.materialCard2.Size = new System.Drawing.Size(386, 155);
             this.materialCard2.TabIndex = 1;
             // 
             // groupBox2
@@ -2079,7 +2088,7 @@ namespace Tools_Injector_Mod_Menu
             this.groupBox2.Font = new System.Drawing.Font("Roboto", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
             this.groupBox2.Location = new System.Drawing.Point(14, 14);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(358, 131);
+            this.groupBox2.Size = new System.Drawing.Size(358, 127);
             this.groupBox2.TabIndex = 3;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "CREDIT";
@@ -2088,12 +2097,15 @@ namespace Tools_Injector_Mod_Menu
             // 
             this.label2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label2.Font = new System.Drawing.Font("Roboto", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.label2.Image = global::Tools_Injector_Mod_Menu.Properties.Resources.github;
+            this.label2.ImageAlign = System.Drawing.ContentAlignment.TopRight;
             this.label2.Location = new System.Drawing.Point(3, 22);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(352, 106);
+            this.label2.Size = new System.Drawing.Size(352, 102);
             this.label2.TabIndex = 1;
-            this.label2.Text = "TFive (Coding)\r\nMJx0 A.K.A Ruit (KittyMemory)\r\nLGLTeam (Android Mod Menu)\r\n7Hacke" +
-    "rs (Big Idea ♥)";
+            this.label2.Text = "TFive\r\nMJx0 A.K.A Ruit (KittyMemory)\r\nLGLTeam (Android Mod Menu)\r\n7Hackers (Big I" +
+    "dea)";
+            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // materialCard1
             // 
@@ -2120,18 +2132,20 @@ namespace Tools_Injector_Mod_Menu
             this.groupBox1.Size = new System.Drawing.Size(358, 110);
             this.groupBox1.TabIndex = 2;
             this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "INFO";
+            this.groupBox1.Text = "INFOMATION";
             // 
             // label1
             // 
             this.label1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label1.Font = new System.Drawing.Font("Roboto", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.label1.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.label1.Location = new System.Drawing.Point(3, 22);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(352, 85);
             this.label1.TabIndex = 1;
-            this.label1.Text = "Injection Mod-Menu by hex offset patch.\r\nArchitectures Support:\r\n- armeabi-v7a\r\n-" +
-    " arm64-v8a";
+            this.label1.Text = "Tools Injector Mod Menu is licensed under the\r\nGNU General Public License v3.0\r\n\r" +
+    "\nhttps://github.com/T5ive/Tools-Injector-Mod-Menu";
+            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // menuIconList
             // 
@@ -2180,6 +2194,16 @@ namespace Tools_Injector_Mod_Menu
             this.CompileWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.CompileWorker_DoWork);
             this.CompileWorker.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.CompileWorker_RunWorkerCompleted);
             // 
+            // picImg
+            // 
+            this.picImg.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.picImg.Location = new System.Drawing.Point(15, 243);
+            this.picImg.Name = "picImg";
+            this.picImg.Size = new System.Drawing.Size(75, 75);
+            this.picImg.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.picImg.TabIndex = 20;
+            this.picImg.TabStop = false;
+            // 
             // FrmMain
             // 
             this.AllowDrop = true;
@@ -2206,7 +2230,6 @@ namespace Tools_Injector_Mod_Menu
             this.materialCard4.ResumeLayout(false);
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.picImg)).EndInit();
             this.materialCard6.ResumeLayout(false);
             this.groupBox6.ResumeLayout(false);
             this.materialCard3.ResumeLayout(false);
@@ -2250,6 +2273,7 @@ namespace Tools_Injector_Mod_Menu
             this.groupBox2.ResumeLayout(false);
             this.materialCard1.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.picImg)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -2383,5 +2407,6 @@ namespace Tools_Injector_Mod_Menu
         private System.ComponentModel.BackgroundWorker DumpWorker;
         private System.ComponentModel.BackgroundWorker DecompileWorker;
         private System.ComponentModel.BackgroundWorker CompileWorker;
+        private MaterialSkin.Controls.MaterialCheckbox chkOpenOutput;
     }
 }
