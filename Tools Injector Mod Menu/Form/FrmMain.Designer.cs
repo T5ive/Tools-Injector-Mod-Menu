@@ -148,7 +148,6 @@ namespace Tools_Injector_Mod_Menu
             this.comboApktool = new MaterialSkin.Controls.MaterialComboBox();
             this.materialCard2 = new MaterialSkin.Controls.MaterialCard();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.label2 = new System.Windows.Forms.Label();
             this.materialCard1 = new MaterialSkin.Controls.MaterialCard();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.label1 = new System.Windows.Forms.Label();
@@ -159,6 +158,7 @@ namespace Tools_Injector_Mod_Menu
             this.DecompileWorker = new System.ComponentModel.BackgroundWorker();
             this.CompileWorker = new System.ComponentModel.BackgroundWorker();
             this.picImg = new System.Windows.Forms.PictureBox();
+            this.label2 = new System.Windows.Forms.Label();
             this.materialTabControl1.SuspendLayout();
             this.tabMain.SuspendLayout();
             this.materialCard4.SuspendLayout();
@@ -1114,12 +1114,12 @@ namespace Tools_Injector_Mod_Menu
             this.btnCompileMenu.Depth = 0;
             this.btnCompileMenu.HighEmphasis = true;
             this.btnCompileMenu.Icon = null;
-            this.btnCompileMenu.Location = new System.Drawing.Point(9, 28);
+            this.btnCompileMenu.Location = new System.Drawing.Point(7, 28);
             this.btnCompileMenu.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
             this.btnCompileMenu.MouseState = MaterialSkin.MouseState.HOVER;
             this.btnCompileMenu.Name = "btnCompileMenu";
             this.btnCompileMenu.NoAccentTextColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(81)))), ((int)(((byte)(181)))));
-            this.btnCompileMenu.Size = new System.Drawing.Size(427, 88);
+            this.btnCompileMenu.Size = new System.Drawing.Size(429, 90);
             this.btnCompileMenu.TabIndex = 19;
             this.btnCompileMenu.Text = "Compile Menu";
             this.btnCompileMenu.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
@@ -2093,20 +2093,6 @@ namespace Tools_Injector_Mod_Menu
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "CREDIT";
             // 
-            // label2
-            // 
-            this.label2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label2.Font = new System.Drawing.Font("Roboto", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            this.label2.Image = global::Tools_Injector_Mod_Menu.Properties.Resources.github;
-            this.label2.ImageAlign = System.Drawing.ContentAlignment.TopRight;
-            this.label2.Location = new System.Drawing.Point(3, 22);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(352, 102);
-            this.label2.TabIndex = 1;
-            this.label2.Text = "TFive\r\nMJx0 A.K.A Ruit (KittyMemory)\r\nLGLTeam (Android Mod Menu)\r\n7Hackers (Big I" +
-    "dea)";
-            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
             // materialCard1
             // 
             this.materialCard1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
@@ -2203,6 +2189,19 @@ namespace Tools_Injector_Mod_Menu
             this.picImg.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.picImg.TabIndex = 20;
             this.picImg.TabStop = false;
+            // 
+            // label2
+            // 
+            this.label2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label2.Font = new System.Drawing.Font("Roboto", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.label2.Image = global::Tools_Injector_Mod_Menu.Properties.Resources.github;
+            this.label2.ImageAlign = System.Drawing.ContentAlignment.TopRight;
+            this.label2.Location = new System.Drawing.Point(3, 22);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(352, 102);
+            this.label2.TabIndex = 1;
+            this.label2.Text = "TFive\r\nMJx0 A.K.A Ruit (KittyMemory)\r\nLGLTeam (Android Mod Menu)";
+            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // FrmMain
             // 

@@ -20,8 +20,6 @@ using Application = System.Windows.Forms.Application;
 namespace Tools_Injector_Mod_Menu
 {
     //Fix button hook - unsolvable
-    //Add Wire Frame & Color Chams - 7Hackers
-    //Add Telekill - 7Hackers
     //Add String https://github.com/geokar2006/il2cpp_mono_string/
     public partial class FrmMain : MaterialForm
     {
@@ -605,7 +603,7 @@ namespace Tools_Injector_Mod_Menu
 
             var saveFile = new SaveFileDialog
             {
-                Filter = @"XML|*.xml|All files|*.*",
+                Filter = "XML|*.xml|All files|*.*",
                 Title = Text,
                 DefaultExt = ".xml",
                 FileName = txtNameGame.Text
