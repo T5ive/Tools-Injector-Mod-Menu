@@ -25,6 +25,7 @@ namespace Tools_Injector_Mod_Menu
         public bool chkAlwaysOverwrite;
         public bool chkMergeApk;
         public bool chkOpenOutput;
+        public bool chkRemoveOther;
 
         public string txtNDK;
         public int menuStyle;

@@ -117,6 +117,23 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <metadata name="colNameCheat.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="colType.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="contextMenuStrip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>280, 17</value>
+  </metadata>
+  <data name="txtActionMain.Text" xml:space="preserve">
+    <value>&lt;activity android:configChanges="keyboardHidden|orientation|screenSize" android:name="com.tfivel.MainActivity"&gt;
+            &lt;intent-filter&gt;
+                &lt;action android:name="android.intent.action.MAIN"/&gt;
+                &lt;category android:name="android.intent.category.LAUNCHER"/&gt;
+            &lt;/intent-filter&gt;
+        &lt;/activity&gt;</value>
+  </data>
   <metadata name="menuIconList.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
   </metadata>
@@ -125,14 +142,14 @@
         AAEAAAD/////AQAAAAAAAAAMAgAAAFdTeXN0ZW0uV2luZG93cy5Gb3JtcywgVmVyc2lvbj00LjAuMC4w
         LCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWI3N2E1YzU2MTkzNGUwODkFAQAAACZTeXN0
         ZW0uV2luZG93cy5Gb3Jtcy5JbWFnZUxpc3RTdHJlYW1lcgEAAAAERGF0YQcCAgAAAAkDAAAADwMAAABU
-        IQAAAk1TRnQBSQFMAgEBBwEAATABAwEwAQMBGAEAARgBAAT/ASEBAAj/AUIBTQE2BwABNgMAASgDAAFg
+        IQAAAk1TRnQBSQFMAgEBBwEAATgBAwE4AQMBGAEAARgBAAT/ASEBAAj/AUIBTQE2BwABNgMAASgDAAFg
         AwABMAMAAQEBAAEgBgABSDIAAwEBAgMmATgDUgGjA0YBfgM6AWIDVgGxAywBRAMDAQQgAAMsAUQDLgFI
         /wAxAAMGAQgDLQFGA1UBtQNtAfcE/wNKAYsDPgFqBP8DagH5A1sBwwM0AVQDCQEMGAADNgFYA10B7QMv
         AUpYAAMEAQYDEwEaAxQBHAMUARwDFAEcAxQBHAMUARwDFAEcAxQBHAMUARwDFAEcAxQBHAMUARwDFAEc
         AxQBHAMUARwDFAEcAxQBHAMUARwDFAEcAxMBGgMEAQZ0AAMEAQYDNgFYA1kBxwOoAf0D/gH/A/4F/wNK
         AYsDPgFqBP8D/gH/A/4B/wOoAf0DXQHTAzwBZgMHAQoQAAMrAUIDagH5A2QB8QMrAUIQAAMQARYDIwE0
-        AwMBBDQAAxMBGgNXAbcDXwHzA3oB9wN6AfcDegH3A3oB9wN6AfcDegH3A3oB9wN6AfcDegH3A3oB9wN6
-        AfcDegH3A3oB9wN6AfcDegH3A3oB9wN6AfcDegH3A18B8wNXAbcDFAEcaAADDwEUA0ABcANcAd8Y/wNK
+        AwMBBDQAAxMBGgNXAbcDXwHzA3cB9wN3AfcDdwH3A3cB9wN3AfcDdwH3A3cB9wN3AfcDdwH3A3cB9wN3
+        AfcDdwH3A3cB9wN3AfcDdwH3A3cB9wN3AfcDdwH3A18B8wNXAbcDFAEcaAADDwEUA0ABcANcAd8Y/wNK
         AYsDPgFqCP8D/gn/A/4B/wNiAekDRwGBAxQBHAwAAzsBZANtAfcDZAHxAzYBWAMzAVIDTgGVA14B1QOo
         Af0E/wNWAbMDDAEQMAADVQGtCP8D/iH/A/4J/wP+Cf8D/gn/A/4F/wNVAa1gAAMWAR4DSAGFA18B4yD/
         A0oBiwM+AWog/wNgAesDTgGVAxwBKAQAAwEBAgM7AWQDagH5A18B+xj/A1gBuwMKAQ4sAANiAelY/wNg
@@ -152,8 +169,8 @@
         A1IBqQMJAQwDKgFAA18B4wNBAXIDAwEEA04BmSD/A1wB0QMXASAMAANfAfMM/wNZAb8DHAEoAxwBKANV
         AbUg/wNXAbcDHAEoAxwBKANZAb8M/wNfAfNgAANZAccE/wNqAfkDEwEaDAADSgGNA/4B/wP+Bf8DSgGL
         Az4BagT/A/4B/wP+Bf8D/gH/A/4F/wP+Af8D/gX/A18B2wgAAw8BFANcAc0E/wNVAa0DBAEGAxQBHAMB
-        AQIDNQFWA18B8wP+Af8D/gX/A/4B/wP+Bf8D/gH/A10B1wMaASQQAANgAesDegH3A3oB9wN6AfcDUAGd
-        CAADTAGPA3oB9wN6AfcDegH3A3oB9wN6AfcDegH3A3oB9wN6AfcDTQGRCAADUAGbA3oB9wN6AfcDegH3
+        AQIDNQFWA18B8wP+Af8D/gX/A/4B/wP+Bf8D/gH/A10B1wMaASQQAANgAesDdwH3A3cB9wN3AfcDUAGd
+        CAADTAGPA3cB9wN3AfcDdwH3A3cB9wN3AfcDdwH3A3cB9wN3AfcDTQGRCAADUAGbA3cB9wN3AfcDdwH3
         A2AB62AAA1kBxwT/A20B9xAAA0oBjQT/A/4F/wNKAYsDPQFoCP8D/gn/A/4J/wP+Bf8DXwHbDAADEAEW
         A1kBxwT/A1UBrQMJAQwDCgEOA2QB5wT/A1cBtwM7AWQDWQH1BP8D/gX/A14B2QMWAR4UAAMaASQDGwEm
         AxsBJgMbASYDEgEYCAADEAEWAxsBJgMbASYDGwEmAxsBJgMbASYDGwEmAxsBJgMbASYDEAEWCAADEgEY
@@ -167,7 +184,7 @@
         Bf8D/gH/A/4B/wP+Af8D/gH/A/4B/wP+Af8D/gH/A/4B/wP+Af8D/gH/A/4B/wP+Af8DXQHXYAADWQHH
         BP8DbQH3FAADJAE2A1sBywj/A/4F/wNfAeMDQAFwAxQBHAMzAVIDWwHDA18B+wT/A/4F/wNfAdsYAAMS
         ARgDXAHJBP8DVQGtAyIBMgNdAdcD/gX/A18B2wMXASAEAAMYASIDXgHdBP8DXwH7A/4F/wMzAVIDNgFY
-        A2YB9RD/A/4J/wP+Cf8D/gn/A/4J/wP+Cf8D/gH/A3oB9wM2AVhgAANZAccE/wNiAe8UAAMKAQ4DPQFo
+        A2QB9RD/A/4J/wP+Cf8D/gn/A/4J/wP+Cf8D/gH/A3cB9wM2AVhgAANZAccE/wNiAe8UAAMKAQ4DPQFo
         A14B1QOoAf0Q/wNlAeUDSgGLAxwBKAMrAUIDVgGxA1kB9QT/A18B2xwAAxQBHANcAckD/gH/A2QB8Qj/
         A10B1wMcASgMAAM2AVgDXwH7CP8DWAG5AwwBEAMBAQIDKAE8A0gBgwNKAY0DTAGPA00BkQNMAZMDTgGV
         A04BlQNOAZUDTwGXA08BlwNPAZcDTwGXA08BlwNOAZUDTgGVA0wBkwNNAZEDTQGRA0oBjQNIAYUDKAE8
@@ -178,11 +195,11 @@
         A10B1wj/A14B2QMWAR4DHQEqA1QBrwMSARgDJAE2A2UB5QP+Bf8DWwHDAwoBDiAAA0YBfgT/AzgBXBgA
         AzcBWgT/A0cBgXwAAycBOgNWAbMDWQH1BP8DqAH9A1wBzQM4AVwDCgEOFAADBAEGAy4BSANYAbsDbQH3
         CP8DagH5A1kBvwMvAUocAAMJAQwDWQHHCP8DXAHRAxoBJAQAA0wBjwT/A10B0wNlAeUI/wNZAb8DEAEW
-        JAADNAFUA7EB/QNVAbUDCgEOAwEBAggAAwEBAgMKAQ4DVgGzA7EB/QM1AVaEAAMiATIDTgGZA18B8wP+
+        JAADNAFUA7AB/QNVAbUDCgEOAwEBAggAAwEBAgMKAQ4DVgGzA7AB/QM1AVaEAAMiATIDTgGZA18B8wP+
         Af8D/gH/A10B1wM9AWgDBwEKFAADAwEEAykBPgNWAbEDUwGlAykBPgMBAQIgAAMUARwDXQHtA/4B/wNc
         AdEDFwEgCAADCQEMA1UBtQP+Bf8D/gH/A1sBwwMQARYoAAMJAQwDXAHJA/4B/wNeAdkDWAHBA1kBvwNZ
         Ab8DWAHBA14B2QP+Af8DXAHJAwkBDIwAAw8BFANFAXwDXwHbA/4B/wP+Af8DZQHlA0MBeAMQARZIAAM1
-        AVYDTAGPAw8BFAwAAx8BLANlAeUI/wNbAcMDCgEOMAADEgEYA1MBpQNdAe0DegH3A3oB9wNmAfUDZgH1
+        AVYDTAGPAw8BFAwAAx8BLANlAeUI/wNbAcMDCgEOMAADEgEYA1MBpQNdAe0DdwH3A3cB9wNkAfUDZAH1
         A2AB6wNSAacDEgEYmAADDAEQAzgBXANbAcsDXwH7BP8DZQHlA0cBgQMGAQhYAANJAYcI/wNYAbsDEAEW
         OAADAQECAxABFgMUARwDFAEcAxQBHAMTARoDEAEWAwEBAqQAAwQBBgMtAUYDVgGxA1kBvwMzAVIDBAEG
         WAADKAE8A1wB3wNVAa0DDwEU/wBZAAMXASADPAFmA1YBqwNdAdcDYgHvA2IB7wNfAdsDVgGzA0ABbgMa
@@ -269,23 +286,6 @@
         AQABBwH8AQABPwEfAf8B+AH/AcMB/wHwAQABDwH8AQABPwMAAf8B5wH/AfgBAAEfAfwBQgE/AwAD/wH+
         AQABfwH9AeMBvwGAAQABAQs=
 </value>
-  </data>
-  <metadata name="colNameCheat.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="colType.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="contextMenuStrip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>280, 17</value>
-  </metadata>
-  <data name="txtActionMain.Text" xml:space="preserve">
-    <value>&lt;activity android:configChanges="keyboardHidden|orientation|screenSize" android:name="com.tfivel.MainActivity"&gt;
-            &lt;intent-filter&gt;
-                &lt;action android:name="android.intent.action.MAIN"/&gt;
-                &lt;category android:name="android.intent.category.LAUNCHER"/&gt;
-            &lt;/intent-filter&gt;
-        &lt;/activity&gt;</value>
   </data>
   <metadata name="MenuWorker.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>141, 17</value>
