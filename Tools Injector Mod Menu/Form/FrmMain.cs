@@ -1779,7 +1779,7 @@ namespace Tools_Injector_Mod_Menu
             {
                 if (_mySettings.chkAlwaysOverwrite)
                 {
-                    Directory.Delete(APK_DECOMPILED_PATH, true);
+                    Directory.Delete(destinationPath, true);
                     return true;
                 }
 
