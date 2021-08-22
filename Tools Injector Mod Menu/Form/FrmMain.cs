@@ -3,8 +3,6 @@ using MaterialSkin.Controls;
 using ModernFolderBrowserDialog;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
@@ -34,31 +32,13 @@ namespace Tools_Injector_Mod_Menu
 
         public static readonly string AppPath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
 
+        private static readonly string BUILD_TOOL_PATH = $"{AppPath}\\BuildTools\\";
+
         public static string ImageCode;
-
-        private static Enums.ProcessType _type = Enums.ProcessType.None;
-
-        private static int _errorCount, _smaliCount;
 
         private static MySettings _mySettings = new();
 
-        private static readonly string TEMP_PATH_T_FIVE = Path.GetTempPath() + "TFiveMenu";
-
-        private static readonly string APK_DECOMPILED_PATH = $"{TEMP_PATH_T_FIVE}\\Decompile";
-
-        private static readonly string BUILD_TOOL_PATH = $"{AppPath}\\BuildTools\\";
-
-        private static readonly string TEMP_APK_TARGET = $"{TEMP_PATH_T_FIVE}\\ApkTarget.apk";
-
-        private static string _apkTool,
-            _launch, _apkName,
-            _apkTarget, _apkType, _baseName,
-            _outputDir, _outputLibDir, _outputSmaliDir,
-            _outputApk, _outputApkSign, _outputApkName, _outputApkNameSign;
-
         private static string[] _menuFiles;
-
-        private static bool _compiled;
 
         public enum State
         {
@@ -732,7 +712,7 @@ namespace Tools_Injector_Mod_Menu
         }
 
         #endregion Menu Page
-        
+
         #region Log Page
 
         private void btnClearLog_Click(object sender, EventArgs e)
@@ -1148,6 +1128,7 @@ namespace Tools_Injector_Mod_Menu
             SaveLogs();
             FormState(State.Idle);
         }
+
         private void ChangeTab(int page)
         {
             materialTabControl1.SelectedTab = materialTabControl1.TabPages[page];

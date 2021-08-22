@@ -13,6 +13,32 @@ namespace Tools_Injector_Mod_Menu
 {
     public partial class FrmMain
     {
+        //check fully compile menu
+        //[armeabi-v7a] Install
+        //[arm64-v8a] Install
+
+        #region Variable
+
+        private static Enums.ProcessType _type = Enums.ProcessType.None;
+
+        private static int _errorCount, _smaliCount;
+
+        private static readonly string TEMP_PATH_T_FIVE = Path.GetTempPath() + "TFiveMenu";
+
+        private static readonly string APK_DECOMPILED_PATH = $"{TEMP_PATH_T_FIVE}\\Decompile";
+
+        private static readonly string TEMP_APK_TARGET = $"{TEMP_PATH_T_FIVE}\\ApkTarget.apk";
+
+        private static string _apkTool,
+            _launch, _apkName,
+            _apkTarget, _apkType, _baseName,
+            _outputDir, _outputLibDir, _outputSmaliDir,
+            _outputApk, _outputApkSign, _outputApkName, _outputApkNameSign;
+
+        private static bool _compiled, _menu;
+
+        #endregion Variable
+
         #region Events
 
         private void btnOutput_Click(object sender, EventArgs e)
@@ -290,7 +316,6 @@ namespace Tools_Injector_Mod_Menu
             {
                 FormState(State.Idle);
             }
-            
         }
 
         #endregion Dump Apk
@@ -926,7 +951,7 @@ namespace Tools_Injector_Mod_Menu
             File.Delete(_outputApkSign);
         }
 
-        #endregion
+        #endregion Merge Apk
 
         #region Process
 
