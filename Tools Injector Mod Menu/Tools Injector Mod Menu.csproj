@@ -137,6 +137,9 @@
     <Compile Include="Control\CtrlPatch.Designer.cs">
       <DependentUpon>CtrlPatch.cs</DependentUpon>
     </Compile>
+    <Compile Include="Form\Pages\PageCompile.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Patch Manager\ModMenuPattern.cs" />
     <Compile Include="Utility\AppSettings.cs" />
     <Compile Include="Utility\Checker.cs" />

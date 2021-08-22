@@ -132,6 +132,7 @@ namespace Tools_Injector_Mod_Menu
             this.btnSaveSettings2 = new MaterialSkin.Controls.MaterialButton();
             this.materialCard5 = new MaterialSkin.Controls.MaterialCard();
             this.groupBox8 = new System.Windows.Forms.GroupBox();
+            this.chkRemoveOther = new MaterialSkin.Controls.MaterialCheckbox();
             this.chkOpenOutput = new MaterialSkin.Controls.MaterialCheckbox();
             this.chkMergeApk = new MaterialSkin.Controls.MaterialCheckbox();
             this.chkAlwaysOverwrite = new MaterialSkin.Controls.MaterialCheckbox();
@@ -159,7 +160,6 @@ namespace Tools_Injector_Mod_Menu
             this.DumpWorker = new System.ComponentModel.BackgroundWorker();
             this.DecompileWorker = new System.ComponentModel.BackgroundWorker();
             this.CompileWorker = new System.ComponentModel.BackgroundWorker();
-            this.chkRemoveOther = new MaterialSkin.Controls.MaterialCheckbox();
             this.materialTabControl1.SuspendLayout();
             this.tabMain.SuspendLayout();
             this.materialCard4.SuspendLayout();
@@ -1822,6 +1822,23 @@ namespace Tools_Injector_Mod_Menu
             this.groupBox8.TabStop = false;
             this.groupBox8.Text = "Tools Settings";
             // 
+            // chkRemoveOther
+            // 
+            this.chkRemoveOther.AutoSize = true;
+            this.chkRemoveOther.Checked = true;
+            this.chkRemoveOther.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkRemoveOther.Depth = 0;
+            this.chkRemoveOther.Location = new System.Drawing.Point(181, 96);
+            this.chkRemoveOther.Margin = new System.Windows.Forms.Padding(0);
+            this.chkRemoveOther.MouseLocation = new System.Drawing.Point(-1, -1);
+            this.chkRemoveOther.MouseState = MaterialSkin.MouseState.HOVER;
+            this.chkRemoveOther.Name = "chkRemoveOther";
+            this.chkRemoveOther.Ripple = true;
+            this.chkRemoveOther.Size = new System.Drawing.Size(162, 37);
+            this.chkRemoveOther.TabIndex = 23;
+            this.chkRemoveOther.Text = "Remove Other ABI";
+            this.chkRemoveOther.UseVisualStyleBackColor = true;
+            // 
             // chkOpenOutput
             // 
             this.chkOpenOutput.AutoSize = true;
@@ -1842,8 +1859,6 @@ namespace Tools_Injector_Mod_Menu
             // chkMergeApk
             // 
             this.chkMergeApk.AutoSize = true;
-            this.chkMergeApk.Checked = true;
-            this.chkMergeApk.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkMergeApk.Depth = 0;
             this.chkMergeApk.Location = new System.Drawing.Point(3, 59);
             this.chkMergeApk.Margin = new System.Windows.Forms.Padding(0);
@@ -1859,6 +1874,8 @@ namespace Tools_Injector_Mod_Menu
             // chkAlwaysOverwrite
             // 
             this.chkAlwaysOverwrite.AutoSize = true;
+            this.chkAlwaysOverwrite.Checked = true;
+            this.chkAlwaysOverwrite.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkAlwaysOverwrite.Depth = 0;
             this.chkAlwaysOverwrite.Location = new System.Drawing.Point(3, 133);
             this.chkAlwaysOverwrite.Margin = new System.Windows.Forms.Padding(0);
@@ -1874,6 +1891,8 @@ namespace Tools_Injector_Mod_Menu
             // chkCheckUpdate
             // 
             this.chkCheckUpdate.AutoSize = true;
+            this.chkCheckUpdate.Checked = true;
+            this.chkCheckUpdate.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkCheckUpdate.Depth = 0;
             this.chkCheckUpdate.Location = new System.Drawing.Point(3, 170);
             this.chkCheckUpdate.Margin = new System.Windows.Forms.Padding(0);
@@ -1906,8 +1925,6 @@ namespace Tools_Injector_Mod_Menu
             // chkRemoveTemp
             // 
             this.chkRemoveTemp.AutoSize = true;
-            this.chkRemoveTemp.Checked = true;
-            this.chkRemoveTemp.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkRemoveTemp.Depth = 0;
             this.chkRemoveTemp.Location = new System.Drawing.Point(3, 96);
             this.chkRemoveTemp.Margin = new System.Windows.Forms.Padding(0);
@@ -2204,23 +2221,6 @@ namespace Tools_Injector_Mod_Menu
             this.CompileWorker.WorkerSupportsCancellation = true;
             this.CompileWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.CompileWorker_DoWork);
             this.CompileWorker.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.CompileWorker_RunWorkerCompleted);
-            // 
-            // chkRemoveOther
-            // 
-            this.chkRemoveOther.AutoSize = true;
-            this.chkRemoveOther.Checked = true;
-            this.chkRemoveOther.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkRemoveOther.Depth = 0;
-            this.chkRemoveOther.Location = new System.Drawing.Point(181, 96);
-            this.chkRemoveOther.Margin = new System.Windows.Forms.Padding(0);
-            this.chkRemoveOther.MouseLocation = new System.Drawing.Point(-1, -1);
-            this.chkRemoveOther.MouseState = MaterialSkin.MouseState.HOVER;
-            this.chkRemoveOther.Name = "chkRemoveOther";
-            this.chkRemoveOther.Ripple = true;
-            this.chkRemoveOther.Size = new System.Drawing.Size(162, 37);
-            this.chkRemoveOther.TabIndex = 23;
-            this.chkRemoveOther.Text = "Remove Other ABI";
-            this.chkRemoveOther.UseVisualStyleBackColor = true;
             // 
             // FrmMain
             // 

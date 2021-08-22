@@ -18,14 +18,14 @@ namespace Tools_Injector_Mod_Menu
         public string ImageCode;
         public bool chkNoMenu;
 
-        public bool chkRemoveTemp = true;
+        public bool chkRemoveTemp;
         public bool chkTFiveCredit = true;
         public bool chkSound = true;
         public bool chkCheckUpdate = true;
-        public bool chkAlwaysOverwrite;
+        public bool chkAlwaysOverwrite = true;
         public bool chkMergeApk;
-        public bool chkOpenOutput;
-        public bool chkRemoveOther;
+        public bool chkOpenOutput = true;
+        public bool chkRemoveOther = true;
 
         public string txtNDK;
         public int menuStyle;
