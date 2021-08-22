@@ -340,6 +340,14 @@ namespace Tools_Injector_Mod_Menu
             {
                 RemoveRows();
             }
+
+            if (e.KeyCode == Keys.V && e.Control)
+            {
+                if (dataList.GetCellCount(DataGridViewElementStates.Selected) > 0 && !dataList.CurrentCell.ReadOnly)
+                {
+                    dataList.CurrentCell.Value = Clipboard.GetText();
+                }
+            }
         }
 
         private void dataList_MouseDown(object sender, MouseEventArgs e)
