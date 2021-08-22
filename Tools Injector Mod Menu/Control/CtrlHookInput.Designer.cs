@@ -383,15 +383,15 @@ namespace Tools_Injector_Mod_Menu
             // 
             // colName
             // 
+            this.colName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.colName.HeaderText = "Name (notice)";
             this.colName.Name = "colName";
-            this.colName.Width = 120;
             // 
             // colOffset
             // 
             this.colOffset.HeaderText = "Offset";
             this.colOffset.Name = "colOffset";
-            this.colOffset.Width = 120;
+            this.colOffset.Width = 90;
             // 
             // colType
             // 
@@ -423,12 +423,12 @@ namespace Tools_Injector_Mod_Menu
             // 
             // colField
             // 
-            this.colField.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             dataGridViewCellStyle2.BackColor = System.Drawing.Color.Silver;
             this.colField.DefaultCellStyle = dataGridViewCellStyle2;
             this.colField.HeaderText = "Field Offset";
             this.colField.Name = "colField";
             this.colField.ReadOnly = true;
+            this.colField.Width = 105;
             // 
             // colLinks
             // 

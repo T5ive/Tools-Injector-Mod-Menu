@@ -167,7 +167,8 @@ void Update{cheatName}{id}(void *instance) {{
                                         }
 
                                     case Enums.Type.Bool:
-                                        result += $@"{typeString} (*old_{cheatName}{id})(void *instance);
+                                        {
+                                            result += $@"{typeString} (*old_{cheatName}{id})(void *instance);
 {typeString} Update{cheatName}{id}(void *instance) {{
     if (instance != NULL && _{cheatName} {linkResult}) {{
         return _{cheatName};
@@ -175,13 +176,28 @@ void Update{cheatName}{id}(void *instance) {{
     return old_{cheatName}{id}(instance);
 }}{newLine}
 ";
-                                        break;
+                                            break;
+                                        }
+
+                                    case Enums.Type.BoolBack:
+                                        {
+                                            result += $@"{typeString} (*old_{cheatName}{id})(void *instance);
+{typeString} Update{cheatName}{id}(void *instance) {{
+    if (instance != NULL && _{cheatName} {linkResult}) {{
+        return !_{cheatName};
+    }}
+    return old_{cheatName}{id}(instance);
+}}{newLine}
+";
+                                            break;
+                                        }
 
                                     case Enums.Type.Double:
                                     case Enums.Type.Float:
                                     case Enums.Type.Int:
                                     case Enums.Type.Long:
-                                        result += $@"{typeString} (*old_{cheatName}{id})(void *instance);
+                                        {
+                                            result += $@"{typeString} (*old_{cheatName}{id})(void *instance);
 {typeString} Update{cheatName}{id}(void *instance) {{
     if (instance != NULL && _{cheatName} {linkResult}) {{
         return ({typeString}) {hookValue};
@@ -189,7 +205,8 @@ void Update{cheatName}{id}(void *instance) {{
     return old_{cheatName}{id}(instance);
 }}{newLine}
 ";
-                                        break;
+                                            break;
+                                        }
                                 }
 
                                 break;

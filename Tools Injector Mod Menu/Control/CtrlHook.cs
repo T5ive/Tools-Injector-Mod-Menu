@@ -46,7 +46,7 @@ namespace Tools_Injector_Mod_Menu
 
             foreach (var offset in OffsetPatch.FunctionList[_index].OffsetList)
             {
-                dataList.Rows.Add(offset.Name, offset.Offset, offset.HookInfo.Type.TypeToString(), offset.HookInfo.FieldInfo.Type.TypeToString(), offset.HookInfo.FieldInfo.Offset, offset.HookInfo.Value, offset.HookInfo.Links);
+                dataList.Rows.Add(offset.Name, offset.Offset, offset.HookInfo.Type.TypeToString(true), offset.HookInfo.FieldInfo.Type.TypeToString(true), offset.HookInfo.FieldInfo.Offset, offset.HookInfo.Value, offset.HookInfo.Links);
             }
 
             LoadDataList();
@@ -89,7 +89,7 @@ namespace Tools_Injector_Mod_Menu
                             MyMessage.MsgShowWarning(@$"Field Offset At {i + 1}, does not start with ""0x"" Please check it again!!!");
                             return;
 
-                        case "void" when fieldType != "bool" && value.IsEmpty(i + 1, "Value"):
+                        case "void" when fieldType is not ("bool" or "boolback") && value.IsEmpty(i + 1, "Value"):
                             return;
 
                         case "void":
@@ -101,7 +101,7 @@ namespace Tools_Injector_Mod_Menu
                             break;
 
                         case "links" when fieldType.IsEmpty(i + 1, "Field Type"):
-                        case "links" when fieldType != "bool" && value.IsEmpty(i + 1, "Value"):
+                        case "links" when fieldType is not ("bool" or "boolback") && value.IsEmpty(i + 1, "Value"):
                         case "links" when links.IsEmpty(i + 1, "Links"):
                             return;
 
@@ -122,7 +122,7 @@ namespace Tools_Injector_Mod_Menu
                             break;
                     }
 
-                    if (type != "bool" && type != "void" && type != "links" && value.IsEmpty(i + 1, "Value"))
+                    if (type is not ("bool" or "boolback") && type != "void" && type != "links" && value.IsEmpty(i + 1, "Value"))
                     {
                         return;
                     }
@@ -236,7 +236,8 @@ namespace Tools_Injector_Mod_Menu
                     }
                 }
 
-                if (typeValue == "bool" || fieldTypeValue == "bool")
+                if (typeValue == "bool" || fieldTypeValue == "bool" ||
+                    typeValue == "boolback" || fieldTypeValue == "boolback")
                 {
                     value.Value = "";
                     value.Style.BackColor = Color.Silver;
@@ -273,9 +274,8 @@ namespace Tools_Injector_Mod_Menu
 
                 if (dataList.CurrentCell == type)
                 {
-                    if (cb.Text == "bool")
+                    if (cb.Text is "bool" or "boolback")
                     {
-                        //value.Value = "";
                         value.Style.BackColor = Color.Silver;
                         value.ReadOnly = true;
                     }
@@ -315,7 +315,7 @@ namespace Tools_Injector_Mod_Menu
                 if (dataList.CurrentCell == fieldType && type.Value.ToString() == "links" ||
                     type.Value.ToString() == "void")
                 {
-                    if (cb.Text == "bool")
+                    if (cb.Text is "bool" or "boolback")
                     {
                         value.Value = "";
                         value.Style.BackColor = Color.Silver;

@@ -11,6 +11,7 @@
         public enum Type
         {
             Bool = 0,
+            BoolBack = 1,
             Double = 100,
             Float = 101,
             Int = 102,

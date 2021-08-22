@@ -30,13 +30,10 @@ namespace Tools_Injector_Mod_Menu
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.materialCard1 = new MaterialSkin.Controls.MaterialCard();
             this.dataList = new System.Windows.Forms.DataGridView();
-            this.colName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colOffset = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colHex = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.addToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.removeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -48,6 +45,9 @@ namespace Tools_Injector_Mod_Menu
             this.txtNameCheat = new MaterialSkin.Controls.MaterialTextBox();
             this.label16 = new System.Windows.Forms.Label();
             this.btnSave = new MaterialSkin.Controls.MaterialButton();
+            this.colName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colOffset = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colHex = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.materialCard1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataList)).BeginInit();
             this.contextMenuStrip1.SuspendLayout();
@@ -78,28 +78,28 @@ namespace Tools_Injector_Mod_Menu
             this.dataList.AllowUserToResizeRows = false;
             this.dataList.BackgroundColor = System.Drawing.Color.White;
             this.dataList.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataList.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataList.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.dataList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataList.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.colName,
             this.colOffset,
             this.colHex});
             this.dataList.ContextMenuStrip = this.contextMenuStrip1;
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            dataGridViewCellStyle4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dataList.DefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataList.DefaultCellStyle = dataGridViewCellStyle2;
             this.dataList.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataList.Location = new System.Drawing.Point(0, 0);
             this.dataList.MultiSelect = false;
@@ -109,23 +109,6 @@ namespace Tools_Injector_Mod_Menu
             this.dataList.TabIndex = 1;
             this.dataList.KeyDown += new System.Windows.Forms.KeyEventHandler(this.dataList_KeyDown);
             this.dataList.MouseDown += new System.Windows.Forms.MouseEventHandler(this.dataList_MouseDown);
-            // 
-            // colName
-            // 
-            this.colName.HeaderText = "Name (notice)";
-            this.colName.Name = "colName";
-            this.colName.Width = 120;
-            // 
-            // colOffset
-            // 
-            this.colOffset.HeaderText = "Offset";
-            this.colOffset.Name = "colOffset";
-            // 
-            // colHex
-            // 
-            this.colHex.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.colHex.HeaderText = "Hex";
-            this.colHex.Name = "colHex";
             // 
             // contextMenuStrip1
             // 
@@ -255,6 +238,7 @@ namespace Tools_Injector_Mod_Menu
             // 
             // btnSave
             // 
+            this.btnSave.AccentTextColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(64)))), ((int)(((byte)(129)))));
             this.btnSave.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.btnSave.Density = MaterialSkin.Controls.MaterialButton.MaterialButtonDensity.Default;
             this.btnSave.Depth = 0;
@@ -265,6 +249,7 @@ namespace Tools_Injector_Mod_Menu
             this.btnSave.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
             this.btnSave.MouseState = MaterialSkin.MouseState.HOVER;
             this.btnSave.Name = "btnSave";
+            this.btnSave.NoAccentTextColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(81)))), ((int)(((byte)(181)))));
             this.btnSave.Size = new System.Drawing.Size(771, 36);
             this.btnSave.TabIndex = 0;
             this.btnSave.Text = "Save";
@@ -272,6 +257,25 @@ namespace Tools_Injector_Mod_Menu
             this.btnSave.UseAccentColor = false;
             this.btnSave.UseVisualStyleBackColor = true;
             this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
+            // 
+            // colName
+            // 
+            this.colName.HeaderText = "Name (notice)";
+            this.colName.Name = "colName";
+            this.colName.Width = 260;
+            // 
+            // colOffset
+            // 
+            this.colOffset.HeaderText = "Offset";
+            this.colOffset.Name = "colOffset";
+            this.colOffset.Width = 90;
+            // 
+            // colHex
+            // 
+            this.colHex.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.colHex.FillWeight = 9.345795F;
+            this.colHex.HeaderText = "Hex";
+            this.colHex.Name = "colHex";
             // 
             // CtrlPatch
             // 

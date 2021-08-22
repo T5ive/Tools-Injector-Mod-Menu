@@ -76,7 +76,7 @@ namespace Tools_Injector_Mod_Menu
 
             foreach (var offset in OffsetPatch.FunctionList[_index].OffsetList)
             {
-                dataList.Rows.Add(offset.Name, offset.Offset, offset.HookInfo.Type.TypeToString(), offset.HookInfo.FieldInfo.Type.TypeToString(), offset.HookInfo.FieldInfo.Offset, offset.HookInfo.Links);
+                dataList.Rows.Add(offset.Name, offset.Offset, offset.HookInfo.Type.TypeToString(true), offset.HookInfo.FieldInfo.Type.TypeToString(true), offset.HookInfo.FieldInfo.Offset, offset.HookInfo.Links);
             }
 
             LoadDataList();

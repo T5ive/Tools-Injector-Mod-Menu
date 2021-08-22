@@ -69,6 +69,7 @@ namespace Tools_Injector_Mod_Menu
             return str switch
             {
                 "bool" => Enums.Type.Bool,
+                "boolback" => Enums.Type.BoolBack,
                 "double" => Enums.Type.Double,
                 "float" => Enums.Type.Float,
                 "int" => Enums.Type.Int,
@@ -79,26 +80,24 @@ namespace Tools_Injector_Mod_Menu
             };
         }
 
-        public static string TypeToString(this Enums.Type type)
+        public static string TypeToString(this Enums.Type type, bool data = false)
         {
-            return type switch
-            {
-                Enums.Type.Bool => "bool",
-                Enums.Type.Double => "double",
-                Enums.Type.Float => "float",
-                Enums.Type.Int => "int",
-                Enums.Type.Long => "long",
-                Enums.Type.Void => "void",
-                Enums.Type.Links => "links",
-                _ => null
-            };
+              return type is Enums.Type.Bool ? "bool" :
+                    type is Enums.Type.BoolBack && data ? "boolback" :
+                    type is Enums.Type.BoolBack && !data ? "bool" :
+                    type is Enums.Type.Double ? "double" :
+                    type is Enums.Type.Float ? "float" :
+                    type is Enums.Type.Int ? "int" :
+                    type is Enums.Type.Long ? "long" :
+                    type is Enums.Type.Void ? "void" :
+                    type is Enums.Type.Links ? "links" : null;
         }
-
         public static string TypeToStringEnd(this Enums.Type type)
         {
             return type switch
             {
                 Enums.Type.Bool => ";",
+                Enums.Type.BoolBack => ";",
                 Enums.Type.Double => "= 1;",
                 Enums.Type.Float => "= 1;",
                 Enums.Type.Int => "= 1;",

@@ -276,25 +276,26 @@ namespace Tools_Injector_Mod_Menu
             // 
             this.colName.HeaderText = "Name (notice)";
             this.colName.Name = "colName";
-            this.colName.Width = 120;
+            this.colName.Width = 170;
             // 
             // UpdateOffset
             // 
-            this.UpdateOffset.HeaderText = "UpdateOffset";
+            this.UpdateOffset.HeaderText = "Update Offset";
             this.UpdateOffset.Name = "UpdateOffset";
+            this.UpdateOffset.Width = 120;
             // 
             // colOffset
             // 
             this.colOffset.HeaderText = "Offset";
             this.colOffset.Name = "colOffset";
-            this.colOffset.Width = 120;
+            this.colOffset.Width = 90;
             // 
             // colType
             // 
             this.colType.HeaderText = "Type (Args)";
             this.colType.Name = "colType";
             this.colType.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.colType.Width = 265;
+            this.colType.Width = 220;
             // 
             // colValue
             // 
