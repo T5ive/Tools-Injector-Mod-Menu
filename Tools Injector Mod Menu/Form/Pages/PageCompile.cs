@@ -488,7 +488,10 @@ namespace Tools_Injector_Mod_Menu
 
         private void MenuWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
-            CompileMenuDone();
+            if (!CompileMenuDone())
+            {
+                WriteOutput("Can not move lib", Enums.LogsType.Error, "046");
+            }
 
             if (_type is Enums.ProcessType.MenuFull)
             {
@@ -504,7 +507,7 @@ namespace Tools_Injector_Mod_Menu
             SetCompileApk();
         }
 
-        private void CompileMenuDone()
+        private bool CompileMenuDone()
         {
             if (_errorCount > 0 && !_mySettings.debugMode)
             {
@@ -513,7 +516,8 @@ namespace Tools_Injector_Mod_Menu
                 return;
             }
 
-            if (!_compiled) return;
+            if (!_compiled) return false;
+            
             var tempOutputDir = $"{TEMP_PATH_T_FIVE}\\libs";
 
             MoveDirectory(tempOutputDir, _outputLibDir);
@@ -529,6 +533,7 @@ namespace Tools_Injector_Mod_Menu
             }
 
             _compiled = false;
+            return true;
         }
 
         #endregion Compile Menu
@@ -893,56 +898,70 @@ namespace Tools_Injector_Mod_Menu
 
         private void Lib2Config()
         {
-            var configName = _apkType switch
+            try
             {
-                ".apks" => comboType.SelectedIndex == (int)Enums.TypeAbi.Arm
-                    ? "split_config.armeabi_v7a.apk"
-                    : "split_config.arm64_v8a.apk",
-                ".xapk" => comboType.SelectedIndex == (int)Enums.TypeAbi.Arm
-                    ? "config.armeabi_v7a.apk"
-                    : "config.arm64_v8a.apk",
-                _ => ""
-            };
-            var outputConfig = _outputDir + configName;
+                var configName = _apkType switch
+                {
+                    ".apks" => comboType.SelectedIndex == (int)Enums.TypeAbi.Arm
+                        ? "split_config.armeabi_v7a.apk"
+                        : "split_config.arm64_v8a.apk",
+                    ".xapk" => comboType.SelectedIndex == (int)Enums.TypeAbi.Arm
+                        ? "config.armeabi_v7a.apk"
+                        : "config.arm64_v8a.apk",
+                    _ => ""
+                };
+                var outputConfig = _outputDir + configName;
 
-            File.Copy(_apkName, _outputApkName, true);
-            File.Copy(_apkName, _outputApkNameSign, true);
-            File.Copy(TEMP_PATH_T_FIVE + "\\" + configName, outputConfig, true);
+                File.Copy(_apkName, _outputApkName, true);
+                File.Copy(_apkName, _outputApkNameSign, true);
+                File.Copy(TEMP_PATH_T_FIVE + "\\" + configName, outputConfig, true);
 
-            var folderName = comboType.SelectedIndex == (int)Enums.TypeAbi.Arm ? "armeabi-v7a\\" : "arm64-v8a\\";
+                var folderName = comboType.SelectedIndex == (int)Enums.TypeAbi.Arm ? "armeabi-v7a\\" : "arm64-v8a\\";
 
-            DirectoryInfo dir = new(_outputLibDir + folderName);
+                DirectoryInfo dir = new(_outputLibDir + folderName);
 
-            using var zipToOpen = new FileStream(outputConfig, FileMode.Open);
-            using var archive = new ZipArchive(zipToOpen, ZipArchiveMode.Update);
-            foreach (var file in dir.GetFiles("*"))
-            {
-                archive.CreateEntryFromFile(file.FullName, "lib\\" + folderName + file.Name);
+                using var zipToOpen = new FileStream(outputConfig, FileMode.Open);
+                using var archive = new ZipArchive(zipToOpen, ZipArchiveMode.Update);
+                foreach (var file in dir.GetFiles("*"))
+                {
+                    archive.CreateEntryFromFile(file.FullName, "lib\\" + folderName + file.Name);
+                }
+                archive.Dispose();
+                zipToOpen.Dispose();
             }
-            archive.Dispose();
-            zipToOpen.Dispose();
+            catch (Exception exception)
+            {
+                WriteOutput(exception.Message, Enums.LogsType.Error, "044");
+            }
         }
 
         private void Apk2Apks()
         {
-            var baseName = _apkType is ".apks" ? "base.apk" : _baseName;
-            var configName = _apkType switch
+            try
             {
-                ".apks" => comboType.SelectedIndex == (int)Enums.TypeAbi.Arm
-                    ? "split_config.armeabi_v7a.apk"
-                    : "split_config.arm64_v8a.apk",
-                ".xapk" => comboType.SelectedIndex == (int)Enums.TypeAbi.Arm
-                    ? "config.armeabi_v7a.apk"
-                    : "config.arm64_v8a.apk",
-                _ => ""
-            };
-            var unsignList = new List<(string, string)> { (_outputApk, baseName), (_outputDir + configName, configName) };
-            var signedList = new List<(string, string)> { (_outputApkSign, baseName), (_outputDir + configName, configName) };
-            _outputApkName.AddFiles(unsignList);
-            _outputApkNameSign.AddFiles(signedList);
-            File.Delete(_outputDir + configName);
-            File.Delete(_outputApk);
-            File.Delete(_outputApkSign);
+                var baseName = _apkType is ".apks" ? "base.apk" : _baseName;
+                var configName = _apkType switch
+                {
+                    ".apks" => comboType.SelectedIndex == (int)Enums.TypeAbi.Arm
+                        ? "split_config.armeabi_v7a.apk"
+                        : "split_config.arm64_v8a.apk",
+                    ".xapk" => comboType.SelectedIndex == (int)Enums.TypeAbi.Arm
+                        ? "config.armeabi_v7a.apk"
+                        : "config.arm64_v8a.apk",
+                    _ => ""
+                };
+                var unsignList = new List<(string, string)> { (_outputApk, baseName), (_outputDir + configName, configName) };
+                var signedList = new List<(string, string)> { (_outputApkSign, baseName), (_outputDir + configName, configName) };
+                _outputApkName.AddFiles(unsignList);
+                _outputApkNameSign.AddFiles(signedList);
+                File.Delete(_outputDir + configName);
+                File.Delete(_outputApk);
+                File.Delete(_outputApkSign);
+            }
+            catch (Exception exception)
+            {
+                WriteOutput(exception.Message, Enums.LogsType.Error, "045");
+            }
         }
 
         #endregion Merge Apk
@@ -988,7 +1007,12 @@ namespace Tools_Injector_Mod_Menu
         {
             if (e.Data.IsEmpty()) return;
             WriteOutput(e.Data, _type.ProcessTypeToLogsType());
-            if (e.Data is "I: Built apk..." or "[armeabi-v7a] Install" or "[arm64-v8a] Install")
+            if (e.Data is "I: Built apk...")
+            {
+                _compiled = true;
+            }
+
+            if (e.Data.StartsWith("[armeabi-v7a] Install") || e.Data.StartsWith("[arm64-v8a] Install"))
             {
                 _compiled = true;
             }
