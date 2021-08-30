@@ -13,10 +13,6 @@ namespace Tools_Injector_Mod_Menu
 {
     public partial class FrmMain
     {
-        //check fully compile menu
-        //[armeabi-v7a] Install
-        //[arm64-v8a] Install
-
         #region Variable
 
         private static Enums.ProcessType _type = Enums.ProcessType.None;
@@ -502,23 +498,22 @@ namespace Tools_Injector_Mod_Menu
                 {
                     Process.Start(_outputDir);
                 }
+                return;
             }
 
-            if (_type is Enums.ProcessType.ApkFull1 or Enums.ProcessType.ApkFull2)
-            {
-                SetCompileApk();
-            }
+            SetCompileApk();
         }
 
         private void CompileMenuDone()
         {
             if (_errorCount > 0 && !_mySettings.debugMode)
             {
-                MyMessage.MsgShowError("Failed to Compile");
-                WriteOutput("Failed to Compile", Enums.LogsType.Error, "030");
+                MyMessage.MsgShowError("Failed to Compile Menu");
+                WriteOutput("Failed to Compile Menu", Enums.LogsType.Error, "030");
                 return;
             }
 
+            if (!_compiled) return;
             var tempOutputDir = $"{TEMP_PATH_T_FIVE}\\libs";
 
             MoveDirectory(tempOutputDir, _outputLibDir);
@@ -532,6 +527,8 @@ namespace Tools_Injector_Mod_Menu
             {
                 DeleteTemp();
             }
+
+            _compiled = false;
         }
 
         #endregion Compile Menu
@@ -794,27 +791,24 @@ namespace Tools_Injector_Mod_Menu
                 }
             }
 
-            if (_type is Enums.ProcessType.ApkFull1 or Enums.ProcessType.ApkFull2)
+            var smaliSource = $"{_outputSmaliDir}com";
+            var smaliDes = $"{APK_DECOMPILED_PATH}\\{Utility.SmaliCountToName(_smaliCount, true)}\\com";
+            if (!MoveDirectory(smaliSource, smaliDes, false))
             {
-                var smaliSource = $"{_outputSmaliDir}com";
-                var smaliDes = $"{APK_DECOMPILED_PATH}\\{Utility.SmaliCountToName(_smaliCount, true)}\\com";
-                if (!MoveDirectory(smaliSource, smaliDes, false))
+                WriteOutput($"Cannot Move {smaliSource}\nTo => {smaliDes}", Enums.LogsType.Error, "021");
+                return;
+            }
+
+            if (_apkType == ".apk" || _mySettings.chkMergeApk)
+            {
+                var folderName = comboType.SelectedIndex == (int)Enums.TypeAbi.Arm ? "armeabi-v7a" : "arm64-v8a";
+                var libSource = _outputLibDir + folderName;
+                var libDes = $"{APK_DECOMPILED_PATH}\\lib\\{folderName}";
+
+                if (!MoveDirectory(libSource, libDes, false))
                 {
-                    WriteOutput($"Cannot Move {smaliSource}\nTo => {smaliDes}", Enums.LogsType.Error, "021");
+                    WriteOutput($"Cannot Move {libSource}\nTo => {libDes}", Enums.LogsType.Error, "022");
                     return;
-                }
-
-                if (_apkType == ".apk" || _mySettings.chkMergeApk)
-                {
-                    var folderName = comboType.SelectedIndex == (int)Enums.TypeAbi.Arm ? "armeabi-v7a" : "arm64-v8a";
-                    var libSource = _outputLibDir + folderName;
-                    var libDes = $"{APK_DECOMPILED_PATH}\\lib\\{folderName}";
-
-                    if (!MoveDirectory(libSource, libDes, false))
-                    {
-                        WriteOutput($"Cannot Move {libSource}\nTo => {libDes}", Enums.LogsType.Error, "022");
-                        return;
-                    }
                 }
             }
 
@@ -994,7 +988,7 @@ namespace Tools_Injector_Mod_Menu
         {
             if (e.Data.IsEmpty()) return;
             WriteOutput(e.Data, _type.ProcessTypeToLogsType());
-            if (e.Data == "I: Built apk...")
+            if (e.Data is "I: Built apk..." or "[armeabi-v7a] Install" or "[arm64-v8a] Install")
             {
                 _compiled = true;
             }

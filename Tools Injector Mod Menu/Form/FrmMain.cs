@@ -20,6 +20,7 @@ namespace Tools_Injector_Mod_Menu
 {
     //Fix button hook - unsolvable
     //Add String https://github.com/geokar2006/il2cpp_mono_string/
+    //Support other versions
     public partial class FrmMain : MaterialForm
     {
         public FrmMain()
