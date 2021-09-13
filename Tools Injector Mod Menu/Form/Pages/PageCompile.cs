@@ -513,7 +513,7 @@ namespace Tools_Injector_Mod_Menu
             {
                 MyMessage.MsgShowError("Failed to Compile Menu");
                 WriteOutput("Failed to Compile Menu", Enums.LogsType.Error, "030");
-                return;
+                return false;
             }
 
             if (!_compiled) return false;

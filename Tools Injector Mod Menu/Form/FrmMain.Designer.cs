@@ -739,7 +739,6 @@ namespace Tools_Injector_Mod_Menu
             this.dataList.Location = new System.Drawing.Point(3, 22);
             this.dataList.Name = "dataList";
             this.dataList.RowHeadersVisible = false;
-            this.dataList.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataList.Size = new System.Drawing.Size(739, 203);
             this.dataList.TabIndex = 47;
             this.dataList.SelectionChanged += new System.EventHandler(this.dataList_SelectionChanged);
